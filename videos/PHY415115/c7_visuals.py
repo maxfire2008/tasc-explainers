@@ -19,6 +19,11 @@ def C():
     return L.A1(), L.A2()
 
 
+def _sf(fig, x, y, s):
+    """The rounded answer, shown under the unrounded one.  On screen only: never narrated."""
+    T(fig, x, y, s, size=21, color=GREEN)
+
+
 # ============================================================================ overview
 def _title_waves(fig, rect, ph, scale=1):
     C1, C2 = C()
@@ -293,11 +298,13 @@ def graphs(fig, s, ph):
          'y–t graph: amplitude 0.40 m, period 4.0 s\nsnapshot: crests 18 m apart\nFind the frequency and the wave speed.',
          tcol=C2, size=23)
     if s >= 3:
-        T(fig, 0.06, 0.47, r'$f = \dfrac{1}{T} = \dfrac{1}{4.0} = 0.25\ \mathrm{Hz}$', size=30, color=FG)
-        T(fig, 0.06, 0.37, r'$v = \lambda f = 0.25\times18 = 4.5\ \mathrm{m\ s^{-1}}$', size=30, color=GREEN)
+        T(fig, 0.06, 0.475, r'$f = \dfrac{1}{T} = \dfrac{1}{4.0} = 0.25\ \mathrm{Hz}$', size=28, color=FG)
+        _sf(fig, 0.06, 0.405, '= 0.25 Hz (2 s.f.)')
+        T(fig, 0.06, 0.35, r'$v = \lambda f = 0.25\times18 = 4.5\ \mathrm{m\ s^{-1}}$', size=28, color=GREEN)
+        _sf(fig, 0.06, 0.295, '= 4.5 m s⁻¹ (2 s.f.)')
     if s >= 4:
-        bullets(fig, ['Particle velocity = gradient of the y–t graph', 'Tangent at t = 4.5 s: ≈ 0.44 m s⁻¹',
-                      'Use two far-apart points · show them · units'], 3, 0.06, 0.25, size=22, gap=0.012, dim=False,
+        bullets(fig, ['Particle velocity = gradient of the y–t graph', 'Tangent at t = 4.5 s: 0.444 m s⁻¹\n= 0.44 m s⁻¹ (2 s.f.)',
+                      'Use two far-apart points · show them · units'], 3, 0.06, 0.25, size=21, gap=0.008, dim=False,
                 mcol=YELLOW)
 
 
@@ -424,7 +431,8 @@ def string_speed(fig, s, ph):
         T(fig, 0.51, 0.43, r'$\mu = \dfrac{0.012}{1.5} = 0.008\ \mathrm{kg\ m^{-1}}$', size=30)
         if s >= 3:
             T(fig, 0.51, 0.31, r'$v = \sqrt{\dfrac{80}{0.008}} = \sqrt{10\,000}$', size=30)
-            eq(fig, 0.51, 0.15, r'$v = 100\ \mathrm{m\ s^{-1}}$', size=36, color=GREEN)
+            eq(fig, 0.51, 0.17, r'$v = 100\ \mathrm{m\ s^{-1}}$', size=34, color=GREEN)
+            _sf(fig, 0.51, 0.085, '= 1.0 × 10² m s⁻¹ (2 s.f.)')
         return
     # s == 4: sonometer / hanging mass
     ax = wax(fig, [0.50, 0.28, 0.46, 0.50], (0, 12), (-5, 2))
@@ -437,8 +445,8 @@ def string_speed(fig, s, ph):
     label(ax, 10.95, -3.5, 'm', size=24, color=BG, weight='bold')
     darrow(ax, (1.5, 1.2), (8.5, 1.2), color=YELLOW, ms=14); label(ax, 5, 1.6, 'vibrating length l', size=20, color=YELLOW)
     label(ax, 5, -1.5, 'sonometer: tension from a hanging mass', size=20, color=SOFT)
-    eq(fig, 0.52, 0.20, r'$T = mg$', size=40)
-    T(fig, 0.70, 0.235, 'g = 9.8 m s⁻²\n→ more mass, higher pitch', size=22, color=SOFT)
+    eq(fig, 0.52, 0.20, r'$T = F_g = mg$', size=34)
+    T(fig, 0.75, 0.235, 'g = 9.81 m s⁻²\n(sheet: Gravity)\nmore mass, higher pitch', size=20, color=SOFT)
 
 
 def huygens(fig, s, ph):
@@ -594,14 +602,16 @@ def we_refraction(fig, s, ph):
         label(ax, 3.2, -3.9, '65°: TIR', size=20, color=PINK)
     y = 0.53
     if s >= 1:
-        T(fig, 0.06, y, r'$\sin\theta_c = \dfrac{1.33}{1.52} = 0.875\ \ \Rightarrow\ \ \theta_c = 61.0^\circ$', size=27); y -= 0.11
+        T(fig, 0.06, y, r'$\sin\theta_c = \dfrac{1.33}{1.52} = 0.875\ \ \Rightarrow\ \ \theta_c = 61.04^\circ$', size=26); y -= 0.08
+        _sf(fig, 0.06, y, '= 61.0° (3 s.f.)'); y -= 0.06
     if s >= 2:
-        T(fig, 0.06, y, '55° < 61.0°, so it refracts:', size=24, color=SOFT); y -= 0.06
-        T(fig, 0.06, y, r'$\sin\theta_r = \dfrac{1.52\,\sin 55^\circ}{1.33} = 0.936\ \ \Rightarrow\ \ \theta_r = 69.4^\circ$',
-          size=27, color=GREEN); y -= 0.12
+        T(fig, 0.06, y, '55° < 61.0°, so it refracts:', size=22, color=SOFT); y -= 0.06
+        T(fig, 0.06, y, r'$\sin\theta_r = \dfrac{1.52\,\sin 55^\circ}{1.33} = 0.936\ \ \Rightarrow\ \ \theta_r = 69.42^\circ$',
+          size=26, color=GREEN); y -= 0.08
+        _sf(fig, 0.06, y, '= 69° (2 s.f.)'); y -= 0.05
     if s >= 3:
         bullets(fig, ['65° > 61.0° → total internal reflection', 'Check: speeding up → θᵣ > θᵢ ✓',
-                      'sin θᵣ > 1 on a calculator ⇒ TIR'], 3, 0.06, y, size=23, gap=0.01, dim=False, mcol=PINK)
+                      'sin θᵣ > 1 on a calculator ⇒ TIR'], 3, 0.06, y, size=20, gap=0.004, dim=False, mcol=PINK)
 
 
 def two_surfaces(fig, s, ph):
@@ -693,9 +703,10 @@ def seismic(fig, s, ph):
             a = np.radians(np.linspace(104, 180, 60)); ax.plot(sg * 1.04 * np.sin(a), 1.04 * np.cos(a), color=PINK, lw=6, alpha=0.5)
         label(ax, 0, -1.03, 'S-wave shadow zone', size=18, color=PINK, va='top')
     it = ['P-waves: longitudinal', 'S-waves: transverse', 'Speed increases with depth in the mantle']
-    if s >= 1: it += ['Gradual speed change → gradual refraction', 'Bends away from normal → paths curve back up']
-    if s >= 2: it += ['Liquid core: no restoring force for\nsideways (shear) motion → no S-waves']
-    bullets(fig, it, len(it), 0.54, 0.78, size=23, gap=0.014)
+    if s >= 1: it += ['Density and speed rise gradually → gradual refraction', 'Bends away from normal → paths curve back up']
+    if s >= 2: it += ['Liquid core: no restoring force for\nsideways (shear) motion → no S-waves',
+                      'P-waves entering the core bend towards\nthe normal, so they slow down']
+    bullets(fig, it, len(it), 0.54, 0.78, size=21, gap=0.008)
     if s >= 3:
         card(fig, 0.54, 0.06, 0.42, 0.18, 'Exam tip', 'use wave speed, not refractive index\ndenser ≠ slower for seismic waves',
              tcol=YELLOW, size=21)
@@ -719,7 +730,8 @@ def quakes(fig, s, ph):
                       'Three stations → locate the epicentre'], 3, 0.60, 0.76, size=24, dim=False)
         if s == 1:
             T(fig, 0.06, 0.31, r'$\dfrac{d}{v_S} - \dfrac{d}{v_P} = \Delta t$', size=30)
-            T(fig, 0.06, 0.20, r'$d = \dfrac{20}{1/4.5 - 1/8.0} \approx 206\ \mathrm{km}$', size=30, color=GREEN)
+            T(fig, 0.06, 0.20, r'$d = \dfrac{20}{1/4.5 - 1/8.0} = 205.7\ \mathrm{km}$', size=28, color=GREEN)
+            _sf(fig, 0.06, 0.115, '= 2.1 × 10² km (2 s.f.)')
             T(fig, 0.34, 0.29, 'vP = 8.0 km s⁻¹\nvS = 4.5 km s⁻¹', size=22, color=SOFT)
         return
     ax = wax(fig, [0.04, 0.30, 0.92, 0.48], (0, 20), (-4, 2.5))
@@ -785,13 +797,14 @@ def beats(fig, s, ph):
         if s >= 1:
             env = 2 * np.abs(np.cos(np.pi * 4 * t))
             ax.plot(t, env, color=YELLOW, lw=2, ls='--'); ax.plot(t, -env, color=YELLOW, lw=2, ls='--')
+            label(ax, 0.75, -2.35, 'constructive', size=17, color=GREEN); label(ax, 0.875, 2.45, 'destructive', size=17, color=PINK)
             darrow(ax, (0.25, 2.5), (0.5, 2.5), color=PINK, ms=16); label(ax, 0.375, 2.85, '1 beat', size=20, color=PINK)
         it = ['Slightly different frequencies overlap', 'In step → loud; out of step → quiet']
         if s >= 1: it += ['1 beat = one cycle of the envelope\n(max to max)']
         bullets(fig, it, len(it), 0.64, 0.78, size=24)
         if s >= 2:
             learn_eq(fig, 0.66, 0.32, r'$f_{beat} = |\,f_1 - f_2\,|$', size=36, color=GREEN)
-            T(fig, 0.66, 0.19, r'pitch heard $= \dfrac{f_1 + f_2}{2}$', size=26, color=SOFT)
+            learn_eq(fig, 0.66, 0.15, r'pitch heard $= \dfrac{f_1 + f_2}{2}$', size=24, color=SOFT)
         return
     t = np.linspace(0, 1000, 4000)
     ax = gax(fig, [0.07, 0.20, 0.53, 0.50], (0, 1000), (-2.6, 3.1), 'time (ms)', 'displacement', ticks=False)
@@ -804,7 +817,7 @@ def beats(fig, s, ph):
     T(fig, 0.64, 0.52, r'$f_{beat} = \dfrac{4}{1.00\ \mathrm{s}} = 4\ \mathrm{Hz}$', size=28, color=GREEN)
     if s >= 4:
         T(fig, 0.64, 0.41, 'f = 440 ± 4 → 444 Hz or 436 Hz', size=24)
-        bullets(fig, ['Blu-Tack on unknown fork → its f drops', 'Beats get faster → further from 440', '∴ f = 436 Hz'],
+        bullets(fig, ['Blu-Tack on unknown fork → its f drops', 'Beats get faster → further from 440', '∴ f = 436 Hz (3 s.f.)'],
                 3, 0.64, 0.33, size=21, gap=0.01, dim=False, mcol=YELLOW)
 
 
@@ -885,15 +898,19 @@ def we_string(fig, s, ph):
              tcol=PINK, size=24)
     y = 0.78
     if s >= 1:
-        T(fig, 0.52, y, r'$\lambda_1 = 2l = 2\times0.65 = 1.30\ \mathrm{m}$', size=28); y -= 0.09
-        T(fig, 0.52, y, r'$v = \lambda f = 196\times1.30 \approx 255\ \mathrm{m\ s^{-1}}$', size=28, color=GREEN); y -= 0.11
+        T(fig, 0.52, y, r'$\lambda_1 = 2l = 2\times0.65 = 1.30\ \mathrm{m}$', size=26); y -= 0.08
+        T(fig, 0.52, y, r'$v = \lambda f = 196\times1.30 = 254.8\ \mathrm{m\ s^{-1}}$', size=26, color=GREEN); y -= 0.065
+        _sf(fig, 0.52, y, '= 2.5 × 10² m s⁻¹ (2 s.f.)'); y -= 0.065
     if s >= 2:
-        T(fig, 0.52, y, r'$T = \mu v^2 = 0.0012\times255^2 \approx 78\ \mathrm{N}$', size=28, color=GREEN); y -= 0.12
+        T(fig, 0.52, y, r'$T = \mu v^2 = 0.0012\times254.8^2 = 77.91\ \mathrm{N}$', size=26, color=GREEN); y -= 0.065
+        _sf(fig, 0.52, y, '= 78 N (2 s.f.)'); y -= 0.07
     if s >= 3:
-        T(fig, 0.52, y, r'$f \propto v \propto \sqrt{T}$', size=28); y -= 0.09
-        T(fig, 0.52, y, r'$f_{new} = 196\times\sqrt{1.04} \approx 200\ \mathrm{Hz}$', size=28, color=GREEN); y -= 0.09
-        T(fig, 0.52, y, r'$f_{beat} \approx 200 - 196 = 4\ \mathrm{Hz}$', size=28, color=GREEN); y -= 0.08
-        T(fig, 0.52, y, 'ratio method: quicker, fewer rounding errors', size=21, color=SOFT)
+        T(fig, 0.52, y, r'$f \propto v \propto \sqrt{T}$', size=26); y -= 0.075
+        T(fig, 0.52, y, r'$f_{new} = 196\times\sqrt{1.04} = 199.88\ \mathrm{Hz}$', size=26, color=GREEN); y -= 0.06
+        _sf(fig, 0.52, y, '= 200 Hz (3 s.f.)'); y -= 0.06
+        T(fig, 0.52, y, r'$f_{beat} = 199.88 - 196 = 3.88\ \mathrm{Hz}$', size=26, color=GREEN); y -= 0.06
+        _sf(fig, 0.52, y, '= 3.9 Hz (2 s.f.)'); y -= 0.055
+        T(fig, 0.52, y, 'ratio method: quicker, fewer rounding errors', size=20, color=SOFT)
 
 
 def _pipe(ax, x0, y0, Lp, closed, n, col, ext=0.0, h=0.9):
@@ -951,11 +968,14 @@ def pipes(fig, s, ph):
         ax = wax(fig, [0.06, 0.12, 0.38, 0.22], (-0.5, 10.5), (-1, 1))
         _pipe(ax, 0, 0, 10, True, 1, C2, h=1.3)
         y = 0.78
-        for st, c in [(r'$\lambda_1 = 4l = 4\times0.20 = 0.80\ \mathrm{m}$', FG),
-                      (r'$f_1 = \dfrac{v}{\lambda_1} = \dfrac{344}{0.80} = 430\ \mathrm{Hz}$', GREEN),
-                      (r'first overtone $= 3f_1 = 1290\ \mathrm{Hz}$', GREEN),
-                      (r'open both ends: $\lambda_1 = 2l = 0.40\ \mathrm{m}$', FG), (r'$\Rightarrow f_1 = 860\ \mathrm{Hz}$ (doubles)', GREEN)]:
-            T(fig, 0.52, y, st, size=27, color=c); y -= 0.12 if 'dfrac' in st else 0.09
+        for st, c, sf in [(r'$\lambda_1 = 4l = 4\times0.20 = 0.80\ \mathrm{m}$', FG, None),
+                          (r'$f_1 = \dfrac{v}{\lambda_1} = \dfrac{344}{0.80} = 430\ \mathrm{Hz}$', GREEN, '= 4.3 × 10² Hz (2 s.f.)'),
+                          (r'first overtone $= 3f_1 = 1290\ \mathrm{Hz}$', GREEN, '= 1.3 × 10³ Hz (2 s.f.)'),
+                          (r'open both ends: $\lambda_1 = 2l = 0.40\ \mathrm{m}$', FG, None),
+                          (r'$\Rightarrow f_1 = 860\ \mathrm{Hz}$ (doubles)', GREEN, '= 8.6 × 10² Hz (2 s.f.)')]:
+            T(fig, 0.52, y, st, size=26, color=c); y -= 0.085 if 'dfrac' in st or y == 0.78 else 0.06
+            if sf:
+                _sf(fig, 0.52, y, sf); y -= 0.06
         return
     # s == 5: real-world closed pipe (ear canal)
     chip(fig, 'Element 4 · predictions')
@@ -965,7 +985,7 @@ def pipes(fig, s, ph):
     label(ax, 10.3, -1.8, 'open end', size=19, color=SOFT, ha='left')
     darrow(ax, (1, 1.6), (10, 1.6), color=YELLOW, ms=14); label(ax, 5.5, 2.1, 'l ≈ 2.5 cm', size=22, color=YELLOW)
     bullets(fig, ['Ear canal ≈ pipe closed at one end', r'$\lambda_1 = 4l = 0.10\ \mathrm{m}$',
-                  r'$f_1 = 344 / 0.10 \approx 3400\ \mathrm{Hz}$', 'Resonance → ears are extra sensitive\naround 3–4 kHz, and near 10 kHz (3f₁)',
+                  r'$f_1 = 344 / 0.10 = 3440\ \mathrm{Hz}$' + '\n= 3.4 × 10³ Hz (2 s.f.)', 'Resonance → ears are extra sensitive\naround 3–4 kHz, and near 10 kHz (3f₁)',
                   'Shorter canal (children) → higher f₁'], 5, 0.55, 0.76, size=24, dim=False)
 
 
@@ -1058,18 +1078,18 @@ def two_source(fig, s, ph):
     if s == 3:
         box(fig, 0.59, 0.53, 0.37, 0.23, fc=PANEL)
         T(fig, 0.61, 0.73, 'Constructive (maximum)', size=25, color=GREEN, weight='bold')
-        T(fig, 0.61, 0.66, r'$\mathrm{PD} = n\lambda$', size=36); T(fig, 0.61, 0.585, 'waves arrive in phase', size=21, color=SOFT)
+        learn_eq(fig, 0.62, 0.625, r'$\mathrm{PD} = n\lambda$', size=28); T(fig, 0.80, 0.625, 'waves arrive\nin phase', size=19, color=SOFT, va='center')
         box(fig, 0.59, 0.25, 0.37, 0.23, fc=PANEL)
         T(fig, 0.61, 0.45, 'Destructive (minimum)', size=25, color=PINK, weight='bold')
-        T(fig, 0.61, 0.38, r'$\mathrm{PD} = (n-\frac{1}{2})\lambda$', size=36)
-        T(fig, 0.61, 0.305, 'waves arrive completely out of phase', size=21, color=SOFT)
+        learn_eq(fig, 0.62, 0.345, r'$\mathrm{PD} = (n-\frac{1}{2})\lambda$', size=26); T(fig, 0.84, 0.345, 'completely\nout of phase', size=19, color=SOFT, va='center')
+        learn_eq(fig, 0.62, 0.16, r'distant source: $\mathrm{PD} = d\sin\theta$', size=24)
     if s == 4:
         chip(fig, 'Element 2 · problems')
         T(fig, 0.60, 0.78, 'Speakers in phase, f = 686 Hz', size=24, color=C2, weight='bold')
         y = 0.71
-        for st, c in [(r'$\lambda = \dfrac{344}{686} = 0.50\ \mathrm{m}$', FG), (r'PD $= 6.25 - 5.00 = 1.25\ \mathrm{m}$', FG),
-                      (r'$= 2.5\lambda\ \Rightarrow$ destructive: quiet', PINK), (r'PD $= 1.50\ \mathrm{m} = 3\lambda\ \Rightarrow$ loud', GREEN)]:
-            T(fig, 0.60, y, st, size=27, color=c); y -= 0.12 if 'dfrac' in st else 0.085
+        for st, c in [(r'$\lambda = \dfrac{344}{686} = 0.5015\ \mathrm{m}$', FG), ('= 0.501 m (3 s.f.)', GREEN), (r'PD $= 6.25 - 5.00 = 1.25\ \mathrm{m}$', FG),
+                      (r'$\approx 2.5\lambda\ \Rightarrow$ destructive: quiet', PINK), (r'PD $= 1.50\ \mathrm{m} \approx 3\lambda\ \Rightarrow$ loud', GREEN)]:
+            T(fig, 0.60, y, st, size=26 if '$' in st else 21, color=c); y -= 0.09 if 'dfrac' in st else 0.075
 
 
 def radar(fig, s, ph):
@@ -1130,8 +1150,9 @@ def youngs(fig, s, ph):
     if s == 2:
         chip(fig, 'Element 2 · problems')
         T(fig, 0.30, 0.33, 'λ = 532 nm,  d = 0.25 mm,  x = 2.0 m', size=23, color=C2)
-        T(fig, 0.30, 0.26, r'$w = \dfrac{532\times10^{-9}\times2.0}{0.25\times10^{-3}} = 4.3\times10^{-3}\ \mathrm{m} = 4.3\ \mathrm{mm}$', size=26)
-        T(fig, 0.30, 0.15, 'red laser (longer λ) → fringes further apart', size=22, color=SOFT)
+        T(fig, 0.30, 0.26, r'$w = \dfrac{532\times10^{-9}\times2.0}{0.25\times10^{-3}} = 4.256\times10^{-3}\ \mathrm{m}$', size=26)
+        _sf(fig, 0.30, 0.175, '= 4.3 mm (2 s.f.)')
+        T(fig, 0.30, 0.115, 'red laser (longer λ) → fringes further apart', size=22, color=SOFT)
     if s == 3:
         bullets(fig, ['Central bright fringe: PD = 0', 'nth bright fringe: PD = nλ, at n × w from the centre',
                       'Dark fringes halfway: PD = (n − ½)λ'], 3, 0.30, 0.35, size=23, gap=0.008, dim=False)
@@ -1207,9 +1228,8 @@ def polarisation(fig, s, ph):
         ax.add_patch(Arc((0, 0), 2.4, 2.4, theta1=60, theta2=90, color=FG, lw=2)); label(ax, 0.42, 1.5, 'θ', size=26)
         label(ax, 2.3, 2.55, 'A cos θ', size=28, color=C2, ha='left'); label(ax, 2.4, 4.0, 'filter axis', size=20, color=YELLOW, ha='left')
         learn_eq(fig, 0.52, 0.68, r'amplitude through $= A\cos\theta$', size=30, color=C2)
-        learn_eq(fig, 0.52, 0.49, r'$I = I_0\cos^2\theta$', size=32, color=GREEN)
-        bullets(fig, ['cos (not sin) when θ is measured\nfrom the polarisation direction', 'intensity ∝ amplitude²'], 2, 0.52,
-                0.36, size=23, dim=False)
+        bullets(fig, ['cos (not sin) when θ is measured\nfrom the polarisation direction'], 1, 0.52,
+                0.50, size=23, dim=False)
         return
     if s == 3:
         ax = wax(fig, [0.04, 0.36, 0.92, 0.44], (0, 24), (-3.2, 3.2))
@@ -1217,10 +1237,10 @@ def polarisation(fig, s, ph):
             _filter(ax, x, 0, a); label(ax, x, -2.6, nm, size=24, color=YELLOW)
         arrow(ax, (6.2, 0), (9.8, 0), color=C2); arrow(ax, (14.2, 0), (17.8, 0), color=C2); arrow(ax, (22.2, 0), (23.9, 0), color=C2)
         label(ax, 8, 0.8, 'A', size=26); label(ax, 16, 0.8, '0.71 A', size=26); label(ax, 23.2, 1.1, '0.50 A', size=24, color=GREEN)
-        label(ax, 8, -0.8, 'I₀', size=22, color=SOFT); label(ax, 16, -0.8, '0.50 I₀', size=22, color=SOFT)
-        label(ax, 23.2, -1.1, '0.25 I₀', size=22, color=GREEN)
-        bullets(fig, ['Crossed filters (0° and 90°) alone: cos 90° = 0 → nothing', 'Add a 45° filter between: A × cos45° × cos45° = 0.50 A'],
+        chip(fig, 'Element 2 · problems')
+        bullets(fig, ['Crossed filters (0° and 90°) alone: cos 90° = 0 → nothing', 'Add a 45° filter between: A × cos 45° × cos 45° = 0.5000 A'],
                 2, 0.06, 0.30, size=25, dim=False)
+        _sf(fig, 0.08, 0.17, '= 0.50 A (2 s.f.)')
         return
     if s == 4:
         ax = wax(fig, [0.04, 0.14, 0.55, 0.66], (0, 12), (-1, 8))
@@ -1252,7 +1272,7 @@ def light_history(fig, s, ph):
     C1, C2 = C()
     header(fig, 'How we learned light is a wave')
     ev = [('1600s', 'Newton', 'particles:\nreflection,\nstraight lines', MUT),
-          ('1678', 'Huygens', 'waves & wavelets:\nrefraction (slower\nin glass)', C1),
+          ('Late 1600s', 'Hooke, Huygens', 'waves & wavelets:\nrefraction (slower\nin glass)', C1),
           ('1801', 'Young', 'double slit:\ninterference\n→ a wave', GREEN),
           ('1810s', 'Malus, Fresnel', 'polarisation\n→ TRANSVERSE\nwave', C2),
           ('1860s', 'Maxwell', 'EM waves at\n≈ 3 × 10⁸ m s⁻¹\n→ light is EM', YELLOW)]
@@ -1280,7 +1300,7 @@ def exam_tips(fig, s, ph):
                 'Convert units: ms → s, g → kg,\ncm, mm, nm → m', 'String: λ₁ = 2l (not l)\nClosed pipe: λ₁ = 4l',
                 'Smooth sine shapes. Label N, A,\nangles and rays; add arrows', 'Harmonics ≠ overtones',
                 'Path difference = simple subtraction', '“Describe” = what happens\n“Explain” = why (use physics ideas)',
-                'Keep going: errors are carried\nforward for method marks']
+                'Keep going: errors carry forward.\nShow working; round only at the end']
         n = [1, 3, 6, 8][s]
         cols = [C1, C2, PINK, GREEN, YELLOW, C1, C2, PINK]
         for i in range(n):
@@ -1322,6 +1342,7 @@ def particle_motion(fig, s, ph):
     C1, C2 = C()
     if s < 2:
         header(fig, 'What are the particles doing?')
+        chip(fig, 'Element 3 · data')
         ax = wax(fig, [0.04, 0.26, 0.56, 0.54], (0, 10), (-2.3, 2.3))
         x = np.linspace(0, 10, 500)
         ax.axhline(0, color=GRID, lw=1.5, ls='--')
@@ -1358,9 +1379,9 @@ def particle_motion(fig, s, ph):
         if i == 0: ax.set_xticklabels([])
     y = 0.77
     for st, c in [('B copies A 2.0 s later', SOFT), ('→ the wave travels from A to B: east', GREEN),
-                  (r'$v = \dfrac{12}{2.0} = 6.0\ \mathrm{m\ s^{-1}}$', FG), (r'$T = 8.0\ \mathrm{s}$', FG),
-                  (r'$\lambda = vT = 48\ \mathrm{m}$', GREEN)]:
-        T(fig, 0.62, y, st, size=25, color=c); y -= 0.12 if 'dfrac' in st else 0.075
+                  (r'$v = \dfrac{12}{2.0} = 6.0\ \mathrm{m\ s^{-1}}$', FG), (r'$f = \dfrac{1}{T} = \dfrac{1}{8.0} = 0.125\ \mathrm{Hz}$', FG),
+                  (r'$\lambda = \dfrac{v}{f} = \dfrac{6.0}{0.125} = 48\ \mathrm{m}$', GREEN), ('= 48 m (2 s.f.)', GREEN)]:
+        T(fig, 0.62, y, st, size=24 if '$' in st else 21, color=c); y -= 0.09 if 'dfrac' in st else 0.065
     card(fig, 0.62, 0.13, 0.33, 0.17, 'Use what you are given', 'separation and time lag first,\nnot the wave equation', tcol=PINK, size=21)
 
 
@@ -1382,7 +1403,7 @@ def huygens_snell(fig, s, ph):
         label(ax, q[0] + dx, q[1] + dy, nm, size=25, color=YELLOW)
     label(ax, 6.3, 1.5, 'vᵢt', size=24, color=YELLOW); label(ax, 1.2, -1.1, 'vᵣt', size=24, color=YELLOW, ha='right')
     y = 0.76
-    for st, c in [('In the same time t:', SOFT), (r'$BY = v_i t,\quad AX = v_r t$', FG),
+    for st, c in [('In the same time t:', SOFT), (r'$BY = v_i t,\quad AX = v_r t$', FG), (r'$\angle BAY = \theta_i,\quad \angle AYX = \theta_r$', FG),
                   (r'$\sin\theta_i = \dfrac{v_i t}{AY}$', FG), (r'$\sin\theta_r = \dfrac{v_r t}{AY}$', FG),
                   (r'$\dfrac{\sin\theta_i}{\sin\theta_r} = \dfrac{v_i}{v_r}$', GREEN)]:
         T(fig, 0.60, y, st, size=29, color=c); y -= 0.12 if 'dfrac' in st else 0.08
@@ -1412,13 +1433,15 @@ def fibre_example(fig, s, ph):
     ax.plot([-1.6, 1, 5.2, 9.4, 12], [-1.0, 0, 1, -1, 0.0], color=YELLOW, lw=3)
     if s == 0:
         y = 0.40
-        for st, c in [(r'$v = \dfrac{c}{n} = \dfrac{3.00\times10^{8}}{1.46} = 2.05\times10^{8}\ \mathrm{m\ s^{-1}}$', FG),
-                      (r'$t = \dfrac{4.00\times10^{6}}{2.05\times10^{8}} = 19.5\ \mathrm{ms}$  for 4000 km', GREEN)]:
-            T(fig, 0.06, y, st, size=28, color=c); y -= 0.14
+        for st, c, sf in [(r'$v = \dfrac{c}{n} = \dfrac{3.00\times10^{8}}{1.46} = 2.0548\times10^{8}\ \mathrm{m\ s^{-1}}$', FG, '= 2.05 × 10⁸ m s⁻¹ (3 s.f.)'),
+                      (r'$t = \dfrac{4.00\times10^{6}}{2.0548\times10^{8}} = 19.467\ \mathrm{ms}$  for 4000 km', GREEN, '= 19.5 ms (3 s.f.)')]:
+            T(fig, 0.06, y, st, size=26, color=c); _sf(fig, 0.06, y - 0.075, sf); y -= 0.145
         return
-    T(fig, 0.06, 0.40, r'$\sin\theta_c = \dfrac{1.44}{1.46}\ \Rightarrow\ \theta_c = 80.5^\circ$', size=28)
-    T(fig, 0.06, 0.26, r'angle to the axis $= 90^\circ - 80.5^\circ = 9.5^\circ$', size=28)
-    T(fig, 0.06, 0.17, r'$1.00\,\sin\alpha = 1.46\,\sin 9.5^\circ\ \Rightarrow\ \alpha = 13.9^\circ$', size=28, color=GREEN)
+    T(fig, 0.06, 0.41, r'$\sin\theta_c = \dfrac{1.44}{1.46}\ \Rightarrow\ \theta_c = 80.51^\circ$', size=26)
+    _sf(fig, 0.06, 0.335, '= 80.5° (3 s.f.)')
+    T(fig, 0.06, 0.275, r'angle to the axis $= 90^\circ - 80.51^\circ = 9.49^\circ$', size=26)
+    T(fig, 0.06, 0.195, r'$1.46\,\sin 9.49^\circ = 1.00\,\sin\theta_r\ \Rightarrow\ \theta_r = 13.94^\circ$', size=26, color=GREEN)
+    _sf(fig, 0.06, 0.125, '= 13.9° (3 s.f.)')
     card(fig, 0.56, 0.42, 0.39, 0.34, 'The 90° − θ step',
          'θc is measured from the normal to\nthe core wall. The entry face is at\nright angles to that wall, so the\nray inside makes 90° − θc with\nthe normal to the entry face.', tcol=PINK, size=22)
 
@@ -1430,7 +1453,12 @@ def parallel_layers(fig, s, ph):
     ax.add_patch(Rectangle((-5, -1.2), 10, 2.4, fc='#21395a', ec='none'))
     ax.add_patch(Rectangle((-5, -5), 10, 3.8, fc='#17304d', ec='none'))
     for yy in (1.2, -1.2): ax.plot([-5, 5], [yy, yy], color=SOFT, lw=2)
-    p = [(-3.8, 5), (-1.3, 1.2), (-0.1, -1.2), (2.3, -5)]
+    ax.set_aspect('equal')
+    s0 = np.sin(np.radians(40))
+    x1 = -1.5; x0 = x1 - 3.8 * s0 / np.sqrt(1 - s0 ** 2)
+    x2 = x1 + 2.4 * (s0 / 1.5) / np.sqrt(1 - (s0 / 1.5) ** 2)
+    x3 = x2 + 3.8 * (s0 / 1.33) / np.sqrt(1 - (s0 / 1.33) ** 2)
+    p = [(x0, 5), (x1, 1.2), (x2, -1.2), (x3, -5)]
     for a, b in zip(p, p[1:]): arrow(ax, a, b, color=YELLOW, lw=3.5, ms=20)
     label(ax, 3.2, 3.2, 'air', size=22, color=SOFT); label(ax, 3.2, 0, 'glass', size=22, color=SOFT); label(ax, 3.2, -3.2, 'water', size=22, color=SOFT)
     eq(fig, 0.55, 0.68, r'$n\,\sin\theta$ is the same in every layer', size=30, color=GREEN)
@@ -1477,17 +1505,17 @@ def sound_snell(fig, s, ph):
     header(fig, "Snell's law for sound: use speeds")
     chip(fig, 'Element 2 · problems')
     ax = wax(fig, [0.04, 0.12, 0.48, 0.68], (0, 12), (0, 9))
-    bands = [(6, 3, '#21395a', '1510 m s⁻¹'), (3, 3, '#173a5c', '1480 m s⁻¹'), (0, 3, '#21395a', '1510 m s⁻¹')]
+    bands = [(5.2, 3.8, '#21395a', '1510 m s⁻¹'), (3.8, 1.4, '#173a5c', '1480 m s⁻¹'), (0, 3.8, '#21395a', '1510 m s⁻¹')]
     for y0, h, c, t in bands:
         ax.add_patch(Rectangle((0, y0), 12, h, fc=c, ec='none')); label(ax, 11.8, y0 + h - 0.45, t, size=19, color=SOFT, ha='right')
-    ax.plot([0.5, 2.6, 5.0, 7.4, 9.8], [3.4, 5.9, 3.1, 5.9, 3.1], color=YELLOW, lw=3)
-    label(ax, 6, 7.5, 'faster layer', size=20, color=SOFT); label(ax, 6, 1.2, 'faster layer', size=20, color=SOFT); label(ax, 2.5, 3.5, 'slow layer', size=20, color=FG)
+    ax.plot([0.2, 3.8, 11.0, 11.8], [4.5, 5.2, 3.8, 3.96], color=YELLOW, lw=3)
+    label(ax, 6, 7.2, 'faster layer', size=20, color=SOFT); label(ax, 6, 1.9, 'faster layer', size=20, color=SOFT); label(ax, 2.5, 3.4, 'slow layer', size=20, color=FG)
     y = 0.77
-    for st, c in [(r'$\dfrac{\sin 40^\circ}{\sin\theta_r} = \dfrac{1480}{1510}\ \Rightarrow\ \theta_r = 41.0^\circ$', FG),
-                  (r'$\sin\theta_c = \dfrac{1480}{1510}\ \Rightarrow\ \theta_c = 78.6^\circ$', GREEN)]:
-        T(fig, 0.55, y, st, size=29, color=c); y -= 0.15
-    bullets(fig, ['Critical angle: going from slow to fast', 'Steep angles: sound is trapped in the\nslow layer and travels a long way',
-                  'For sound, a slower layer acts like\nthe “optically denser” one'], 3, 0.55, 0.45, size=24, dim=False)
+    for st, c, sf in [(r'$\dfrac{\sin 40^\circ}{\sin\theta_r} = \dfrac{1480}{1510}\ \Rightarrow\ \theta_r = 40.98^\circ$', FG, '= 41° (2 s.f.)'),
+                  (r'$\sin\theta_c = \dfrac{1480}{1510}\ \Rightarrow\ \theta_c = 78.56^\circ$', GREEN, '= 78.6° (3 s.f.)')]:
+        T(fig, 0.55, y, st, size=27, color=c); _sf(fig, 0.55, y - 0.08, sf); y -= 0.15
+    bullets(fig, ['Critical angle: going from slow to fast', 'Rays beyond θc, close to the layer, are trapped\nin the slow layer and travel a long way',
+                  'For sound, reason with wave speeds,\nnot refractive index'], 3, 0.55, 0.45, size=23, dim=False)
 
 
 def super_mixed(fig, s, ph):
@@ -1507,11 +1535,13 @@ def pipe_id(fig, s, ph):
     header(fig, 'Open or closed? Read the resonances')
     chip(fig, 'Element 3 · data')
     card(fig, 0.05, 0.50, 0.43, 0.30, 'Pipe X: 240, 320, 400 Hz', 'spacing 80 Hz, so f₁ = 80 Hz\n240 = 3f₁, 320 = 4f₁, 400 = 5f₁\nan even harmonic → OPEN', tcol=C1, size=24)
-    T(fig, 0.06, 0.42, r'open:  $l = \dfrac{\lambda}{2} = \dfrac{344}{2\times80} = 2.15\ \mathrm{m}$', size=27)
+    T(fig, 0.06, 0.42, r'open:  $l = \dfrac{\lambda}{2} = \dfrac{344}{2\times80} = 2.15\ \mathrm{m}$', size=26)
+    _sf(fig, 0.06, 0.335, '= 2.15 m (3 s.f.)')
     if s == 0:
         return
     card(fig, 0.52, 0.50, 0.43, 0.30, 'Pipe Y: 150, 250, 350 Hz', 'spacing 100 Hz = 2f₁, so f₁ = 50 Hz\n150 = 3f₁, 250 = 5f₁, 350 = 7f₁\nodd harmonics only → CLOSED', tcol=C2, size=24)
-    T(fig, 0.53, 0.42, r'closed:  $l = \dfrac{\lambda}{4} = \dfrac{344}{4\times50} = 1.72\ \mathrm{m}$', size=27)
+    T(fig, 0.53, 0.42, r'closed:  $l = \dfrac{\lambda}{4} = \dfrac{344}{4\times50} = 1.72\ \mathrm{m}$', size=26)
+    _sf(fig, 0.53, 0.335, '= 1.72 m (3 s.f.)')
     card(fig, 0.05, 0.08, 0.90, 0.20, 'Justify with the ends',
          'A closed pipe needs a node at the closed end and an antinode at the open end, so only odd numbers of\nquarter wavelengths fit. That is why it has no even harmonics.', tcol=PINK, size=23)
 
@@ -1535,10 +1565,11 @@ def linearise(fig, s, ph):
         T(fig, 0.68, 0.61, r'$f^2 = \dfrac{1}{4l^2\mu}\,T$', size=30, color=GREEN)
         T(fig, 0.68, 0.48, 'so plot f² against T', size=24, color=SOFT)
     else:
-        T(fig, 0.68, 0.76, r'gradient $= 347\ \mathrm{Hz^2\ N^{-1}}$', size=25)
+        T(fig, 0.68, 0.76, r'gradient $= 347.5\ \mathrm{Hz^2\ N^{-1}}$', size=25)
         T(fig, 0.68, 0.66, r'$\mu = \dfrac{1}{4l^2 \times \mathrm{gradient}}$', size=28)
-        T(fig, 0.68, 0.51, r'$\mu = 2.0\times10^{-3}\ \mathrm{kg\ m^{-1}}$', size=25, color=GREEN)
-        T(fig, 0.68, 0.42, 'use the line, not one point', size=22, color=SOFT)
+        T(fig, 0.68, 0.51, r'$\mu = 1.998\times10^{-3}\ \mathrm{kg\ m^{-1}}$', size=25, color=GREEN)
+        _sf(fig, 0.68, 0.445, '= 2.0 × 10⁻³ kg m⁻¹ (2 s.f.)')
+        T(fig, 0.68, 0.38, 'use the line, not one point', size=22, color=SOFT)
 
 
 def standing_contexts(fig, s, ph):
@@ -1640,9 +1671,9 @@ def youngs_sound(fig, s, ph):
     darrow(ax, (1.3, -4.3), (11, -4.3), color=C1, ms=12); label(ax, 6, -3.8, 'x = 8.0 m', size=19, color=C1)
     darrow(ax, (10.5, 0), (10.5, 1.4), color=PINK, ms=10); label(ax, 10.2, 0.7, 'w = 1.1 m', size=18, color=PINK, ha='right')
     y = 0.76
-    for st, c in [(r'$\lambda = \dfrac{wd}{x} = \dfrac{1.1\times2.0}{8.0} = 0.275\ \mathrm{m}$', FG),
-                  (r'$f = \dfrac{344}{0.275} \approx 1250\ \mathrm{Hz}$', GREEN)]:
-        T(fig, 0.54, y, st, size=29, color=c); y -= 0.15
+    for st, c, sf in [(r'$\lambda = \dfrac{wd}{x} = \dfrac{1.1\times2.0}{8.0} = 0.275\ \mathrm{m}$', FG, '= 0.28 m (2 s.f.)'),
+                  (r'$f = \dfrac{344}{0.275} = 1250.9\ \mathrm{Hz}$', GREEN, '= 1.3 × 10³ Hz (2 s.f.)')]:
+        T(fig, 0.54, y, st, size=27, color=c); _sf(fig, 0.54, y - 0.075, sf); y -= 0.145
     bullets(fig, ['Don’t swap x and d', 'Speakers closer → d smaller → w bigger', 'Shorter λ → smaller w → more fringes fit'], 3, 0.54, 0.46, size=24, dim=False)
     card(fig, 0.05, 0.08, 0.90, 0.17, 'Two separate signal generators?', 'Slightly different frequencies give beats, not a steady pattern. One generator driving both speakers\ngives the same frequency and a fixed phase relationship.', tcol=PINK, size=21)
 
@@ -1680,11 +1711,12 @@ def diffraction_uses(fig, s, ph):
     if s == 1:
         header(fig, 'Diffraction and communication')
         chip(fig, 'Element 4 · predictions')
-        for i, (nm, f_, lam, b, c) in enumerate([('900 MHz', r'$\lambda = \dfrac{3.00\times10^{8}}{9.00\times10^{8}} = 0.33\ \mathrm{m}$', '', 'bends around buildings:\nwide coverage from few towers', GREEN),
-                                                 ('28 GHz', r'$\lambda = \dfrac{3.00\times10^{8}}{2.8\times10^{10}} = 11\ \mathrm{mm}$', '', 'little diffraction, shadows behind\nbuildings: many small transmitters', PINK)]):
+        for i, (nm, f_, lam, b, c) in enumerate([('900 MHz', r'$\lambda = \dfrac{3.00\times10^{8}}{9.00\times10^{8}} = 0.3333\ \mathrm{m}$', '= 0.333 m (3 s.f.)', 'bends around buildings:\nwide coverage from few towers', GREEN),
+                                                 ('28 GHz', r'$\lambda = \dfrac{3.00\times10^{8}}{2.8\times10^{10}} = 0.01071\ \mathrm{m}$', '= 11 mm (2 s.f.)', 'little diffraction, shadows behind\nbuildings: many small transmitters', PINK)]):
             box(fig, 0.05 + i * 0.46, 0.33, 0.44, 0.47)
             T(fig, 0.07 + i * 0.46, 0.77, nm, size=34, color=c, weight='bold')
             T(fig, 0.07 + i * 0.46, 0.67, f_, size=25)
+            _sf(fig, 0.07 + i * 0.46, 0.585, lam)
             T(fig, 0.07 + i * 0.46, 0.51, b, size=24, color=SOFT)
         T(fig, 0.06, 0.25, 'Very long radio waves bend around the curve of the Earth.\nCharged layers high in the atmosphere (the ionosphere) can also reflect radio waves back down.', size=23, color=SOFT)
         return
@@ -1695,7 +1727,7 @@ def diffraction_uses(fig, s, ph):
         y = np.linspace(-4, 4, 500); edge = np.clip(1 - (np.abs(y) / (w_ / 2 + 0.01)) ** 8, 0, 1) if j else np.exp(-y ** 2 / 3.2) * 0.5
         ax.plot(y, edge, color=c, lw=3.2); ax.set_title(t_, color=c, fontsize=18)
     bullets(fig, ['Diffraction blurs detail about the\nsize of the wavelength', 'Visible light: 400–700 nm\n(EM spectrum on the information sheet)',
-                  'A 100 nm virus is too small', 'Shorter λ → finer detail: electrons, X-rays'], 4, 0.61, 0.76, size=23, dim=False)
+                  'Light diffracts around a 100 nm virus:\nno clear image', 'Shorter λ diffracts less: electrons, X-rays'], 4, 0.61, 0.76, size=23, dim=False)
 
 
 def polar_string(fig, s, ph):
@@ -1740,7 +1772,7 @@ def polar_partial(fig, s, ph):
         label(ax, -1.6, -2.7, 'refracted:\nmostly arrows', size=18, color=FG)
         bullets(fig, ['Dot: field out of the page,\nparallel to the surface', 'Arrow: field in the page,\nperpendicular to the ray',
                       'Partial: both remain, in\nunequal amounts'], 3, 0.60, 0.76, size=24, dim=False)
-        T(fig, 0.60, 0.33, 'Polaroid sunglasses cut surface glare,\nso it is easier to see down into water', size=22, color=SOFT)
+        T(fig, 0.60, 0.33, 'Polaroid sunglasses cut surface glare,\nso it is easier to see down into water.\nRainbow light is partly polarised too.', size=21, color=SOFT)
         return
     if s == 1:
         header(fig, 'Which surface? Sunglasses and windows')
@@ -1749,7 +1781,7 @@ def polar_partial(fig, s, ph):
                                         ('Shop window', 'vertical surface\n→ reflection polarised vertically\n→ the lenses let it through', PINK)]):
             card(fig, 0.05 + i * 0.46, 0.45, 0.44, 0.33, nm, b, tcol=c, size=25)
         T(fig, 0.06, 0.33, 'Reflected light is polarised parallel to the surface that reflected it.', size=27, color=YELLOW)
-        T(fig, 0.06, 0.24, 'Say all three: the direction of the reflection, the direction of the lens axis, and the result.', size=23, color=SOFT)
+        T(fig, 0.06, 0.24, 'Say each step: the direction of each reflection, the lens axis, and the result.', size=23, color=SOFT)
         return
     header(fig, 'Scattered light through a rotating filter')
     chip(fig, 'Element 4 · predictions')

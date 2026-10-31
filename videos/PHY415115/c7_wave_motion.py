@@ -49,10 +49,10 @@ REPORT_PAGES = {
     2019: {13: 15, 14: '15-16', 15: 16, 16: '16-17', 17: 17, 18: 18},
     2020: {13: '4, 12', 14: '4, 12', 15: '5, 12-13', 16: '5, 14', 17: '5, 14', 18: '5, 14'},
     2021: {12: '11-12', 13: '12-13', 14: '13-14', 15: '14-15', 16: '15-16', 17: '16-17'},
-    2022: {13: '17-19', 14: '19-21', 15: '21-23', 16: '23-24', 17: '24-26', 18: '26-27'},
+    2022: {13: '17-19', 14: '19-21', 15: '21-23', 16: '23-24', 17: '24-26', 18: '26-28'},
     2023: {13: '18-19', 14: '19-21', 15: '21-23', 16: '23-24', 17: '25-26', 18: '26-27'},
     2024: {13: '18-19', 14: '19-21', 15: '21-23', 16: '23-25', 17: '25-27', 18: '27-29'},
-    2025: {12: 8, 13: '8-9', 14: 9, 15: '9-10', 16: 10, 17: '10-11'},
+    2025: {12: '8, 37-38', 13: '8-9, 39-40', 14: '9, 41', 15: '9-10, 42-43', 16: '10, 44-45', 17: '10-11, 46-47'},
 }
 
 
@@ -72,6 +72,7 @@ REFS = {
     'content': Ref(COURSE_DOC, 'Course document, Science Understanding: General principles of wave motion (Criterion 7)'),
     'appendix': Ref(COURSE_DOC, 'Course document, Appendix 1: contexts (earthquakes and tsunamis; noise and acoustic design; wave theory of light)'),
     'info': Ref(INFO, 'Information sheet, Oscillations, Waves section', page=2),
+    'info_g': Ref(INFO, "Information sheet, Gravity, Kepler's Law section", page=1),
     'spec': Ref(SPEC, 'External assessment specifications, Section C', page=3),
 }
 for _y, _qs in EXAM_PAGES.items():
@@ -101,9 +102,11 @@ SYLLABUS = {
     'W12': ('Principle of superposition, including 1D pulse diagrams', 'content'),
     'W13': ('Beats from two waves of similar frequency', 'content'),
     'W14': ('Resonance: energy builds up when driven at a natural frequency', 'content'),
+    'W14b': ('Energy is transferred efficiently into a system driven at a natural frequency', 'content'),
     'W15': ('Transverse and longitudinal standing waves from superposition of two waves', 'content'),
     'W15b': ('Nodes and antinodes in closed and open pipes and strings', 'content'),
     'W15c': ('Harmonics and overtones', 'content'),
+    'W15e': ('Standing wave theory applied to string and wind instruments and other situations', 'content'),
     'W15d': ('Calculating frequencies of strings and pipes', 'content'),
     'W16': ('Stretched wires of known tension and linear density: v = √(T/μ)', 'content'),
     'W17': ('Two-source interference of light and sound at a large distance from the sources', 'content'),
@@ -233,6 +236,40 @@ CHECKS = [
     ('speaker f', lambda: 344 / 0.275, 1250, 0.001),
     ('phone 900 MHz lambda', lambda: 3.00e8 / 9.00e8, 0.33, 0.02),
     ('phone 28 GHz lambda', lambda: 3.00e8 / 2.8e10, 11e-3, 0.03),
+    ('phone 900 MHz lambda, unrounded', lambda: 3.00e8 / 9.00e8, 0.3333, 1e-3),
+    ('phone 28 GHz lambda, unrounded', lambda: 3.00e8 / 2.8e10, 0.01071, 1e-3),
+    ('buoy particle velocity, unrounded', lambda: 0.4 * 2 * math.pi / 4 * math.cos(2 * math.pi * 4.5 / 4), 0.444, 0.002),
+    ('recorders f', lambda: 1 / 8.0, 0.125, 1e-9),
+    ('glass-water sin critical', lambda: 1.33 / 1.52, 0.875, 1e-3),
+    ('glass-water critical angle, unrounded', lambda: math.degrees(math.asin(1.33 / 1.52)), 61.04, 1e-4),
+    ('glass-water sin refraction', lambda: 1.52 * math.sin(math.radians(55)) / 1.33, 0.936, 1e-3),
+    ('glass-water refraction, unrounded', lambda: math.degrees(math.asin(1.52 * math.sin(math.radians(55)) / 1.33)), 69.42, 1e-4),
+    ('fibre v, unrounded', lambda: 3.00e8 / 1.46, 2.0548e8, 1e-4),
+    ('fibre time, unrounded', lambda: 4.00e6 / (3.00e8 / 1.46), 19.467e-3, 1e-4),
+    ('fibre critical angle, unrounded', lambda: math.degrees(math.asin(1.44 / 1.46)), 80.51, 1e-4),
+    ('fibre angle to axis', lambda: 90 - math.degrees(math.asin(1.44 / 1.46)), 9.49, 1e-3),
+    ('fibre entry angle, unrounded', lambda: math.degrees(math.asin(1.46 * math.sin(math.radians(90 - math.degrees(math.asin(1.44 / 1.46)))))), 13.94, 5e-4),
+    ('sound refraction, unrounded', lambda: math.degrees(math.asin(math.sin(math.radians(40)) * 1510 / 1480)), 40.98, 1e-4),
+    ('sound critical angle, unrounded', lambda: math.degrees(math.asin(1480 / 1510)), 78.56, 1e-4),
+    ('epicentre distance, unrounded', lambda: 20 / (1 / 4.5 - 1 / 8.0), 205.7, 1e-4),
+    ('beat frequency, 4 beats in 1 s', lambda: 4 / 1.00, 4, 1e-9),
+    ('unknown fork, upper', lambda: 440 + 4, 444, 1e-9),
+    ('unknown fork, lower', lambda: 440 - 4, 436, 1e-9),
+    ('guitar lambda', lambda: 2 * 0.65, 1.30, 1e-9),
+    ('guitar v, unrounded', lambda: 196 * 1.30, 254.8, 1e-4),
+    ('guitar tension, unrounded', lambda: 0.0012 * 254.8 ** 2, 77.91, 1e-4),
+    ('guitar frequency factor', lambda: math.sqrt(1.04), 1.02, 1e-3),
+    ('guitar new f, unrounded', lambda: 196 * math.sqrt(1.04), 199.88, 1e-4),
+    ('guitar beat', lambda: 196 * math.sqrt(1.04) - 196, 3.88, 1e-3),
+    ('closed pipe lambda', lambda: 4 * 0.20, 0.80, 1e-9),
+    ('open pipe lambda', lambda: 2 * 0.20, 0.40, 1e-9),
+    ('speakers lambda, unrounded', lambda: 344 / 686, 0.5015, 1e-4),
+    ('speakers second PD in wavelengths', lambda: 1.50 / (344 / 686), 3.0, 0.005),
+    ('wire gradient, unrounded', lambda: (166.7 ** 2 - 83.3 ** 2) / 60, 347.5, 1e-3),
+    ('wire mu, unrounded', lambda: 1 / (4 * 0.60 ** 2 * 347.5), 1.998e-3, 1e-3),
+    ('fringe width, unrounded', lambda: 532e-9 * 2.0 / 0.25e-3, 4.256e-3, 1e-4),
+    ('speaker f, unrounded', lambda: 344 / 0.275, 1250.9, 1e-4),
+    ('filter amplitude', lambda: math.cos(math.radians(45)), 0.7071, 1e-3),
 ]
 
 # --------------------------------------------------------------------------- scenes
@@ -281,7 +318,7 @@ Scene('longitudinal', P1, 'Longitudinal waves, sound and light', V.longitudinal,
     S("Light is different. It's an electromagnetic wave: an electric field and a magnetic field oscillate together, each "
       "perpendicular to the other and to the direction of travel. So light behaves as a transverse wave, and it needs no medium. It crosses the "
       "vacuum of space at the speed of light, three point zero zero times ten to the eight metres per second. That value "
-      "is on your information sheet, in the list of constants.", refs=['content'], covers=['W5'], elements=[1], anim=2),
+      "is on your information sheet, in the oscillations and waves section.", refs=['content'], covers=['W5'], elements=[1], anim=2),
 ]),
 Scene('shm', P1, 'Simple harmonic motion', V.shm, [
     S("Underneath every wave is simple harmonic motion. Each particle in the medium oscillates like a mass on a spring. If "
@@ -357,7 +394,7 @@ Scene('particles', P1, 'Particle motion on a travelling wave', V.particle_motion
       problem='Which particles on a travelling wave have the greatest acceleration, and in which direction?'),
     S("Sometimes you get two graphs, from recorders at different places. Here, B is twelve metres east of A, and B copies A "
       "two seconds later. So the wave travels from A to B, which is east, at twelve over two, or six metres per second. The "
-      "period is eight seconds, so lambda is forty eight metres. Start from the separation and the lag.",
+      "period is eight seconds, so the frequency is zero point one two five hertz, and lambda, which is v over f, is forty eight metres. Start from the separation and the lag.",
       refs=['ex25q15', 'ar25q15'], covers=['W6'], elements=[2, 3], exam=['X25-15'],
       problem='Recorder B is 12 m east of recorder A and copies its motion 2.0 s later, with a period of 8.0 s. Which way does the wave travel, and what are its speed and wavelength?'),
 ]),
@@ -398,19 +435,19 @@ Scene('string_speed', P2, 'Wave speed on a stretched string', V.string_speed, [
     S("v equals the square root of eighty over zero point zero zero eight, from the information sheet. That's the square "
       "root of ten thousand, which is one hundred metres per second.", covers=['W16'], elements=[2]),
     S("In a lab, the tension often comes from a hanging mass, as on a sonometer. The tension equals m g, the weight of the "
-      "mass. Add more mass, the tension rises, the wave speed rises, and so does the pitch. Working backwards from a "
+      "mass. Your information sheet has that as F g equals m g, in the gravity section, with g equal to nine point eight one metres per second squared. Add more mass, the tension rises, the wave speed rises, and so does the pitch. Working backwards from a "
       "required frequency, you can find the mass needed. Examiners often see the mass itself used as the tension, so "
-      "remember to multiply by g. And when the tension changes, so does the wave speed.", covers=['W16'], elements=[2, 4], exam=['X25-13'], refs=['ex25q13', 'ar25q13']),
+      "remember to multiply by g. And when the tension changes, so does the wave speed.", covers=['W16'], elements=[2, 4], exam=['X25-13'], refs=['ex25q13', 'ar25q13', 'info_g']),
 ]),
 Scene('huygens', P2, "Wavefronts and Huygens' principle", V.huygens, [
     S("In two dimensions we draw wavefronts: lines joining points that are in phase, such as along each crest. Huygens' "
       "principle says that every point on a wavefront acts as a source of small circular wavelets. The new wavefront is "
       "the line that touches all of those wavelets. Rays show the direction of travel, at right angles to the wavefronts.",
-      refs=['content'], covers=['W8'], elements=[1], exam=['X24-14']),
+      refs=['content'], elements=[1], exam=['X24-14']),
     S("So when a wave passes through a small gap, or spreads from a point source, the wavefronts become circles centred on "
       "the gap. In the same medium the speed doesn't change, so neither does the wavelength. Draw the circles evenly "
       "spaced, with the same spacing as the incoming waves. That's a mark examiners look for.",
-      refs=['ar24q14'], covers=['W8', 'W18'], elements=[1], exam=['X24-14']),
+      refs=['ar24q14'], covers=['W18'], elements=[1], exam=['X24-14']),
 ]),
 Scene('refraction', P2, "Reflection, refraction and Snell's law", V.extend(V.refraction, 4, V.huygens_snell), [
     S("We measure every angle from the normal: the line perpendicular to the surface. The law of reflection says that the "
@@ -430,7 +467,7 @@ Scene('refraction', P2, "Reflection, refraction and Snell's law", V.extend(V.ref
       "from the first medium into the second. It also equals n r over n i. And because frequency doesn't change, it equals "
       "the wavelength ratio, lambda i over lambda r. Those last two forms aren't on the sheet.", refs=['content'], covers=['W10b', 'W9', 'W10'], elements=[1], anim=2),
     S("You could be asked to show where the sine ratio comes from. A wavefront AB reaches the boundary. In the same time t, "
-      "one end travels v i t in the first medium, and the other end travels v r t in the second. Each sine is one of those "
+      "one end travels v i t in the first medium, and the other end travels v r t in the second. Angle B A Y equals theta i, and angle A Y X equals theta r. Each sine is one of those "
       "distances over the shared side AY. Divide them, and you get the ratio from your information sheet.",
       refs=['ex22q15', 'ar22q15'], covers=['W9', 'W10'], elements=[1], exam=['X22-15']),
 ]),
@@ -502,7 +539,7 @@ Scene('fibre', P2, 'Worked example: an optical fibre', V.fibre_example, [
 ]),
 Scene('dispersion', P2, 'Dispersion in a prism', V.dispersion, [
     S("One more refraction idea: dispersion. In glass, the refractive index is slightly higher for blue light than for red "
-      "light. So when white light enters a prism, blue bends more than red, and the colours spread out into a spectrum. "
+      "light. So when white light enters a prism, blue bends more than red at both surfaces, and the colours spread out into a spectrum. "
       "Each colour also has its own critical angle, so in some situations one colour can escape while another is totally "
       "internally reflected. That's a nice element four prediction to look out for.", covers=['W9', 'W11'],
       elements=[1, 4], exam=['X25-12'], refs=['ex25q12']),
@@ -514,27 +551,27 @@ Scene('refraction_contexts', P2, 'Refraction in unfamiliar contexts', V.refracti
       refs=['ex21q17', 'ex21q12', 'ar21q17', 'ar21q12'], covers=['W9'], elements=[4], exam=['X21-17', 'X21-12']),
     S("In a raindrop, light refracts in, partly reflects at the back, and refracts out. Blue has a higher n than red, so it "
       "separates. Calcite has two refractive indices, one for each polarisation, so the two rays can behave differently: "
-      "one may be totally internally reflected while the other passes through. Apply Snell's law to each in turn.",
+      "one may be totally internally reflected while the other passes through. Apply Snell's law to each in turn. The light that gets through is faint, because one ray is lost and more reflects at each surface.",
       refs=['ex19q15', 'ex20q18', 'ar19q15', 'ar20q18'], covers=['W9', 'W11'], elements=[4], exam=['X19-15', 'X20-18']),
 ]),
 Scene('seismic', P2, 'Seismic waves inside the Earth', V.extend(V.seismic, 4, V.sound_snell), [
     S("Refraction isn't just for light. Every wave refracts when its speed changes. Earthquakes send out P waves, which "
       "are longitudinal, and S waves, which are transverse. Inside the Earth's mantle, their speed generally increases "
       "with depth.", refs=['appendix'], covers=['W2', 'W9', 'A1'], elements=[1], exam=['X24-17'], ),
-    S("Because the speed increases gradually, the wave refracts gradually too. It keeps bending away from the normal, away "
+    S("Going deeper, the density and the wave speed both rise gradually, so the wave refracts gradually too. It keeps bending away from the normal, away "
       "from the faster region, so the ray paths curve back up towards the surface.", refs=['ar24q17'],
       covers=['W9', 'A1'], elements=[1, 4], exam=['X24-17']),
     S("S waves can't pass through the Earth's liquid outer core. Why? A transverse wave needs a restoring force to pull "
       "each layer back when it's displaced sideways. A liquid can't resist that sideways shearing. Its layers just slide "
       "past each other. With no restoring force, there's no S wave. This leaves an S wave shadow on the far side of the "
-      "Earth, and it's how we know the outer core is liquid.", refs=['ar24q17'], covers=['A1', 'W3'], elements=[1],
+      "Earth, and it's how we know the outer core is liquid. P waves do enter the outer core. They bend towards the normal at that boundary, which shows that they slow down.", refs=['ar24q17'], covers=['A1', 'W3'], elements=[1],
       exam=['X24-17']),
     S("Tip: for sound and seismic waves, reason using wave speed, not refractive index, and don't assume that denser means "
       "slower. Refractive index and optical density are ideas for light.", refs=['ar24q17'], covers=['A1'],
       elements=[1], exam=['X24-17']),
     S("Sound obeys the same law, using the speed form on your information sheet. Suppose sound in water meets a faster "
-      "layer at forty degrees. Sine forty over sine theta r equals fourteen eighty over fifteen ten, so theta r is forty one "
-      "point zero degrees. Going from slow to fast also has a critical angle, here seventy eight point six degrees. A slow "
+      "layer at forty degrees. Sine forty over sine theta r equals fourteen eighty over fifteen ten, so theta r is about forty one "
+      "degrees. Going from slow to fast also has a critical angle, here seventy eight point six degrees. A slow "
       "layer between faster ones can trap sound, so it travels a very long way.",
       refs=['ex20q13', 'ar20q13'], covers=['W9', 'W10', 'W11'], elements=[2, 4], exam=['X20-13'],
       problem='Sound in water at 1480 m/s meets a layer at 1510 m/s at 40°. What are the angle of refraction and the critical angle?'),
@@ -551,7 +588,7 @@ Scene('quakes', P2, 'Monitoring earthquakes and tsunamis', V.quakes, [
     S("Tsunamis are ocean waves with very long wavelengths. In deep ocean they travel fast with a small amplitude. Near the "
       "coast the water gets shallower, so they slow down. The frequency stays the same, so by v equals lambda f the "
       "wavelength shortens, the energy bunches up, and the amplitude grows. That's why a tsunami that's barely noticeable "
-      "at sea can be devastating at the shore.", refs=['appendix'], covers=['A1', 'W6'], elements=[1, 4], anim=2),
+      "at sea can be devastating at the shore. Seismographs and computer models use these ideas to predict when a tsunami will arrive, and how much damage it could do.", refs=['appendix'], covers=['A1', 'W6'], elements=[1, 4], anim=2),
 ]),
 Scene('superposition', P3, 'Superposition and pulse diagrams', V.extend(V.superposition, 3, V.super_mixed), [
     S("Part three. When two waves meet in the same place, they don't bounce off each other. They pass straight through. "
@@ -573,7 +610,7 @@ Scene('beats', P3, 'Beats', V.beats, [
       "Sometimes they're out of step, and cancel. So the loudness rises and falls regularly. These are beats.",
       refs=['content'], covers=['W13'], elements=[1]),
     S("On a graph, you see a fast wave inside a slowly changing envelope. One beat is one full cycle of loudness, from one "
-      "envelope maximum to the next. Be careful not to measure between the peaks of the fast wave.", refs=['ar24q18'],
+      "envelope maximum to the next. Be careful not to measure between the peaks of the fast wave. And when you label a beat graph, constructive regions are where the envelope is largest, not simply where the wave is above the axis.", refs=['ar24q18'],
       covers=['W13'], elements=[3], exam=['X24-18']),
     S("The beat frequency is the difference between the two frequencies. f beat equals f one minus f two, taking the "
       "positive value. This is not on the information sheet, so learn it. The pitch you actually hear is the average of the "
@@ -600,15 +637,15 @@ Scene('standing', P3, 'Standing waves', V.standing, [
       covers=['W15'], elements=[1], anim=2),
     S("If you're asked to explain how a standing wave forms, use the key words. The wave reflects from the ends. The "
       "incident and reflected waves superpose, with constructive interference at the antinodes and destructive "
-      "interference at the nodes. And at certain frequencies, the system resonates. Answers that mention reflection, "
-      "superposition and resonance score best.", refs=['ar24q13'], covers=['W15', 'W14'], elements=[1],
+      "interference at the nodes. And at certain frequencies, the system resonates. Answers that mention resonance, "
+      "reflection and standing waves do best.", refs=['ar24q13'], covers=['W15', 'W14'], elements=[1],
       exam=['X24-13'], anim=2),
 ]),
 Scene('strings', P3, 'Strings: harmonics and overtones', V.strings, [
     S("On a string fixed at both ends, both ends must be nodes. The simplest pattern, called the fundamental or first "
       "harmonic, is a single loop. That's half a wavelength, so lambda equals two L. Not L. That's a very common mistake, "
       "and you can avoid it: the oscillations and waves section of your information sheet has a small diagram of this "
-      "pattern, labelled lambda equals two L.", refs=['ar23q13'], covers=['W15b', 'W15'], elements=[1],
+      "pattern, labelled lambda equals two L.", refs=['ar23q13'], covers=['W15b', 'W15', 'W15e'], elements=[1],
       exam=['X23-13'], anim=2),
     S("The next patterns have two, three, and four loops. In general, the n th harmonic has a wavelength of two L over n, "
       "and a frequency of n times v over two L. Those general forms aren't on the sheet, so learn them. The harmonic "
@@ -655,13 +692,13 @@ Scene('linearise', P3, 'Straightening a graph to find mu', V.linearise, [
 Scene('pipes', P3, 'Pipes: open, closed and end correction', V.extend(V.pipes, 6, V.pipe_id, V.pipe_id), [
     S("Air in pipes forms standing waves too. Here we draw the displacement of the air. At a closed end, the air can't "
       "move, so there's a displacement node. At an open end, the air moves most freely, so there's a displacement antinode.",
-      refs=['content'], covers=['W15b', 'W15'], elements=[1]),
+      refs=['content'], covers=['W15b', 'W15', 'W15e'], elements=[1]),
     S("In a pipe open at both ends, there are antinodes at both ends. The fundamental is half a wavelength, so lambda "
       "equals two L, as the diagram in the oscillations and waves section of your information sheet shows. Just like a "
       "string, all harmonics are possible.", covers=['W15'], elements=[1], exam=['X24-13']),
     S("In a pipe closed at one end, there's a node at the closed end, and an antinode at the open end. The fundamental is "
       "just a quarter of a wavelength, so lambda equals four L, also on the information sheet. And only odd harmonics are possible: the first, third, "
-      "fifth, and so on. So the first overtone of a closed pipe is the third harmonic.", refs=['ar23q15'],
+      "fifth, and so on. So the first overtone of a closed pipe is the third harmonic. If you're given the length and the wavelength, divide them first. A ratio of three quarters means the third harmonic, not the fundamental.", refs=['ar23q15'],
       covers=['W15'], elements=[1], exam=['X23-15', 'X24-13']),
     S("In reality, the antinode sits slightly outside each open end. This is the end correction: the pipe behaves as if "
       "it's a little longer than it really is. Apply it at every open end: once for a closed pipe, and twice for an open "
@@ -669,7 +706,7 @@ Scene('pipes', P3, 'Pipes: open, closed and end correction', V.extend(V.pipes, 6
       covers=['W15'], elements=[1], exam=['X24-13']),
     S("Example, for element two. A pipe twenty centimetres long is closed at one end. Ignoring end correction, lambda one "
       "is four L, which is zero point eight metres. The speed of sound in air, three hundred and forty four metres per "
-      "second, is on your information sheet. So f one is three forty four over zero point eight, which is four hundred and "
+      "second, is in the oscillations and waves section of your information sheet. So f one is three forty four over zero point eight, which is four hundred and "
       "thirty hertz. The first overtone is the third harmonic, at twelve hundred and ninety hertz. If we open up the closed "
       "end, the fundamental doubles, to eight hundred and sixty hertz.", covers=['W15d', 'W15'], elements=[2],
       problem='A pipe 20 cm long is closed at one end. What are its fundamental and first overtone, and its fundamental if opened?'),
@@ -696,7 +733,7 @@ Scene('standing_contexts', P3, 'Standing waves in unfamiliar contexts', V.standi
     S("The same rules apply elsewhere. Around a wine glass rim, a whole number of wavelengths must fit the circumference. In "
       "a microwave oven, metal walls are nodes, and nodes half a wavelength apart leave cold spots, so a turntable moves the "
       "food. A phone antenna holds a quarter wave, with a node at the tip, so its length is lambda over four.",
-      refs=['ex18q16', 'ex19q16', 'ex20q14', 'ar18q16', 'ar20q14'], covers=['W15', 'W14'], elements=[4],
+      refs=['ex18q16', 'ex19q16', 'ex20q14', 'ar18q16', 'ar20q14'], covers=['W15', 'W14', 'W15e'], elements=[4],
       exam=['X18-16', 'X19-16', 'X20-14']),
     S("And for a pipe, the length fixes the wavelength. So if the wave speed changes, the frequency changes in proportion. "
       "A warmer room raises the pitch of an organ. A lungful of helium, where sound travels much faster, raises the pitch of "
@@ -705,10 +742,10 @@ Scene('standing_contexts', P3, 'Standing waves in unfamiliar contexts', V.standi
 ]),
 Scene('resonance', P3, 'Resonance', V.resonance, [
     S("Every object has natural frequencies at which it tends to oscillate. When a periodic driving force matches one of "
-      "those natural frequencies, energy builds up and the amplitude grows very large. That's resonance. It's why a singer "
+      "those natural frequencies, energy is transferred in efficiently, so it builds up and the amplitude grows very large. That's resonance. It's why a singer "
       "can make a wine glass ring, why a guitar body amplifies its strings, and why engineers worry about bridges and "
       "buildings in wind and earthquakes. Damping and flexible suspension help protect them.", refs=['content', 'appendix'],
-      covers=['W14'], elements=[1]),
+      covers=['W14', 'W14b'], elements=[1]),
     S("For strings and pipes, the natural frequencies are exactly the standing wave frequencies we just found. So "
       "resonance and standing waves go together: a standing wave builds up strongly when the driving frequency matches one "
       "of the harmonics.", covers=['W14', 'W15'], elements=[1]),
@@ -723,7 +760,7 @@ Scene('noise', P3, 'Noise pollution and acoustic design', V.noise, [
     S("Acoustic design uses every idea in this criterion. Soft, porous materials absorb sound and reduce reflections and "
       "echo. Heavy barriers reflect sound, but low frequencies, with long wavelengths, diffract over and around walls, "
       "which is why you still hear the bass of traffic. Engineers avoid resonance by mounting machines on soft supports, "
-      "and they shape rooms so that reflections send sound where it's wanted.", refs=['appendix'],
+      "and they shape rooms so that reflections send sound where it's wanted. Road designers also use noise barriers, quieter surfaces and lower speeds, and ear protection is compulsory in noisy industrial work.", refs=['appendix'],
       covers=['A2', 'W14', 'W18'], elements=[1, 4]),
 ]),
 Scene('two_source', P4, 'Two-source interference and path difference', V.two_source, [
@@ -741,8 +778,8 @@ Scene('two_source', P4, 'Two-source interference and path difference', V.two_sou
       exam=['X24-14']),
     S("If the path difference is a whole number of wavelengths, n lambda, the waves arrive in phase. That's constructive "
       "interference, a maximum. If the path difference is a whole number minus a half, times lambda, the waves arrive "
-      "completely out of phase. That's destructive interference, a minimum. Equal paths, at zero angle, always give a "
-      "maximum for in-phase sources.", covers=['W17'], elements=[1], exam=['X23-16', 'X24-14']),
+      "completely out of phase. That's destructive interference, a minimum. These conditions aren't on the sheet, so learn them. Equal paths, at zero angle, always give a "
+      "maximum for in-phase sources. For a distant source, the path difference is d sine theta, so the first minimum is where that equals half a wavelength.", covers=['W17'], elements=[1], exam=['X23-16', 'X24-14']),
     S("Example, for element two. Two speakers are driven in phase at six hundred and eighty six hertz. The wavelength is "
       "three forty four over six eight six, which is about zero point five zero metres. You stand five metres from speaker "
       "A, and six point two five metres from speaker B. The path difference is one point two five metres, which is two and "
@@ -812,7 +849,7 @@ Scene('youngs', P4, "Young's double slit and fringe width", V.extend(V.youngs, 5
     S("The band width formula works for sound too. Two speakers two metres apart are driven by one signal generator. Eight "
       "metres away, loud spots are one point one metres apart. So lambda is w d over x, which is zero point two seven five "
       "metres, and the frequency is about twelve hundred and fifty hertz. Speakers moved closer give a bigger band width. "
-      "With two separate generators, you'd likely hear beats instead of a steady pattern.",
+      "A shorter wavelength gives narrower bands, so more of them fit on a screen. With two separate generators, you'd likely hear beats instead of a steady pattern.",
       refs=['ex22q17', 'ar22q17', 'ar24q14', 'ar21q16'], covers=['W17', 'W17d'], elements=[2, 4], exam=['X22-17', 'X21-16'],
       problem='Speakers 2.0 m apart give loud spots 1.1 m apart at a distance of 8.0 m. What is the frequency of the sound?'),
 ]),
@@ -846,10 +883,11 @@ Scene('diffraction_uses', P4, 'Diffraction: walls, phones and microscopes', V.di
       "around the Earth's curve, and the ionosphere can reflect them too.",
       refs=['content', 'ar20q14', 'ex18q18', 'ar18q18'], covers=['W18c'], elements=[1, 4], exam=['X20-14', 'X18-18'],
       problem='What are the wavelengths of 900 MHz and 28 GHz phone signals, and how do they affect coverage?'),
-    S("It also limits microscopes. Diffraction blurs detail about the size of the wavelength. The E M spectrum on your "
-      "information sheet shows that visible light runs from about four hundred to seven hundred nanometres, so a one hundred "
-      "nanometre virus can't be resolved. A shorter wavelength can do better, such as X rays or an electron beam.",
-      refs=['content', 'info', 'ex22q18'], covers=['W18d'], elements=[1, 4], exam=['X22-18'],
+    S("It also limits microscopes. The E M spectrum on your "
+      "information sheet shows that visible light runs from about four hundred to seven hundred nanometres. A one hundred "
+      "nanometre virus is much smaller than that, so light diffracts around it and no clear image forms. Say that, because just "
+      "saying the wavelength is bigger earns few marks. A shorter wavelength diffracts less around it, such as X rays or an electron beam.",
+      refs=['content', 'info', 'ex22q18', 'ar22q18'], covers=['W18d'], elements=[1, 4], exam=['X22-18'],
       problem="Why can't a visible-light microscope resolve a 100 nm virus?"),
 ]),
 Scene('polar_string', P4, 'Polarisation with a string', V.polar_string, [
@@ -868,14 +906,12 @@ Scene('polarisation', P4, 'Polarisation', V.polarisation, [
       refs=['content'], covers=['W19', 'W2'], elements=[1], exam=['X20-17']),
     S("If polarised light meets a second filter at an angle theta, resolve the amplitude like a vector. The component "
       "along the new axis is A cos theta, and that's what gets through. These aren't on the sheet, so learn the idea. Use "
-      "cosine, not sine, when theta is measured from the polarisation direction. And since intensity depends on amplitude squared, intensity falls by a factor of cos "
-      "squared theta.", refs=['ar23q14'], covers=['W19'], elements=[1, 2], exam=['X23-14']),
+      "cosine, not sine, when theta is measured from the polarisation direction.", refs=['ar23q14'], covers=['W19'], elements=[1, 2], exam=['X23-14']),
     S("Two filters at ninety degrees to each other, called crossed filters, block everything, since cos ninety is zero. "
       "But put a third filter between them at forty five degrees, and some light gets through. The middle filter passes A "
       "cos forty five, about zero point seven one A, now polarised at forty five degrees. The last filter is forty five "
-      "degrees from that, so it passes zero point seven one of that again. That's half the original amplitude, and a "
-      "quarter of the intensity.", refs=['ar23q14'], covers=['W19'], elements=[2, 4], exam=['X23-14'],
-      problem='Three polarising filters are set at 0°, 45° and 90°. What fraction of the amplitude and intensity gets through?'),
+      "degrees from that, so it passes zero point seven one of that again. That's half the original amplitude.", refs=['ar23q14'], covers=['W19'], elements=[2, 4], exam=['X23-14'],
+      problem='Three polarising filters are set at 0°, 45° and 90°. What fraction of the amplitude gets through?'),
     S("Light reflected off water or a road is partly polarised, mostly horizontally. Polarising sunglasses have vertical "
       "transmission axes, so they block much of that glare. Tilt your head ninety degrees, and the glare comes back.",
       covers=['W19c', 'W19d', 'W19'], elements=[4], exam=['X25-16'], refs=['ex25q16']),
@@ -887,23 +923,23 @@ Scene('polarisation', P4, 'Polarisation', V.polarisation, [
 Scene('polar_partial', P4, 'Partial polarisation', V.polar_partial, [
     S("Diagrams show polarisation with dots and arrows. Dots are the field out of the page, and arrows are the field in the "
       "page. Unpolarised light has equal amounts. When it hits water or glass, the reflected ray has mostly dots, and the "
-      "transmitted ray has mostly arrows. Both remain, so we call this partial polarisation.",
+      "transmitted ray has mostly arrows. Both remain, so we call this partial polarisation. Polarising sunglasses cut that surface glare, which helps someone see fish under the water. Rainbow light is polarised too, because it has reflected and refracted at the surfaces of the droplet.",
       refs=['content', 'ar21q15', 'ar18q18'], covers=['W19c', 'W19d', 'W19e'], elements=[1, 3], exam=['X21-15', 'X18-18', 'X25-16']),
     S("Reflected light is polarised parallel to the surface that reflected it. Water is horizontal, so vertical axis "
       "sunglasses block the glare. A shop window is vertical, so its reflection is vertically polarised, and the sunglasses "
-      "let it through. For full marks, state all three: the reflection's direction, the lens axis, and the result.",
+      "let it through. For full marks, state each step: the water's reflection is horizontal, the lenses block horizontal, the window's reflection is vertical, so it gets through.",
       refs=['ar25q16', 'ar21q15'], covers=['W19d', 'W19e'], elements=[4], exam=['X25-16', 'X21-15'],
       problem='Do polarising sunglasses reduce reflections from water and from a shop window?'),
     S("Now look at light scattered through ninety degrees, through a rotating polarising filter. Lined up with the scattered "
       "light's polarisation, it's brightest. Rotate ninety degrees, and it's darkest. Rotate a hundred and eighty degrees, "
-      "and it's back to the start. Describe what happens along the way, not just at the end.",
+      "and it's back to the start. Say which way the scattered light is polarised, then describe what happens along the way, not just at the end.",
       refs=['ar25q16'], covers=['W19f'], elements=[4], exam=['X25-16']),
 ]),
 Scene('light_history', P4, 'How we learned light is a wave', V.light_history, [
     S("The course also asks you to understand how the wave theory of light developed. Newton favoured a particle model, "
-      "which explained reflection and straight line travel. Huygens proposed waves and wavelets, which explained "
+      "which explained reflection and straight line travel. Robert Hooke and Christiaan Huygens proposed waves and wavelets, which explained "
       "refraction, but only if light travels more slowly in glass.", refs=['appendix'], covers=['A3'], elements=[1]),
-    S("In eighteen oh one, Young's double slit experiment showed interference fringes, which particles couldn't explain. "
+    S("In eighteen oh one, Young's double slit experiment showed interference fringes, which particles couldn't explain. Young also developed the ideas of coherence and superposition of light. "
       "Polarisation then showed that light must be a transverse wave. A medium called the aether was proposed to carry it, "
       "but experiments such as Michelson and Morley's later ruled that out.", refs=['appendix'], covers=['A3', 'W17', 'W19'],
       elements=[1]),
@@ -925,8 +961,8 @@ Scene('exam_tips', P5, 'Tips for tests and the exam', V.exam_tips, [
       refs=['ar24q13', 'ar24q14', 'ar23q17']),
     S("Seven: answer the question that's asked. Describe means say what happens. Explain means say why it happens, using "
       "physics ideas like restoring force, superposition, or a change in speed. And eight: use your earlier answers. If you "
-      "get part a wrong, keep going. Markers usually carry the error forward, and still give you method marks.",
-      refs=['ar24q16', 'ar23q15']),
+      "get part a wrong, keep going. Markers usually carry the error forward, and still give you method marks. So show your working, and keep extra digits until the end, because rounding too early causes errors.",
+      refs=['ar24q16', 'ar23q15', 'ar25q13']),
 
 ]),
 Scene('more_tips', P5, 'More examiner tips', V.more_tips, [
