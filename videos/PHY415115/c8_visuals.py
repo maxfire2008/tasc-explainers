@@ -50,6 +50,11 @@ def _lines(fig, x, y, rows, size=26, gap=0.085):
     return y
 
 
+def _sf(fig, x, y, s):
+    """The rounded answer, shown under the unrounded one.  On screen only: never narrated."""
+    T(fig, x, y, s, size=21, color=GREEN)
+
+
 # ============================================================================ overview
 def _title_art(fig, rect, ph, scale=1):
     """Wave packets: a photon is both a wave and a particle."""
@@ -212,9 +217,11 @@ def photon_energy(fig, s, ph):
         label(ax, 5, y0 + 1.15, nm, size=21, color=FG)
     if s >= 1:
         chip(fig, 'Element 2 · problems')
-        _lines(fig, 0.54, 0.35, [('Green light, 530 nm:', SOFT),
-                                 (r'$E = \dfrac{(6.63\times10^{-34})(3.00\times10^{8})}{530\times10^{-9}} = 3.75\times10^{-19}\ \mathrm{J}$', FG),
-                                 ('Same photon, using eV s:  2.34 eV', GREEN)], size=23, gap=0.085)
+        T(fig, 0.54, 0.395, 'Green light, 530 nm:', size=22, color=SOFT)
+        T(fig, 0.54, 0.345, r'$E = \dfrac{(6.63\times10^{-34})(3.00\times10^{8})}{530\times10^{-9}} = 3.7528\times10^{-19}\ \mathrm{J}$', size=22)
+        _sf(fig, 0.54, 0.26, '= 3.75 × 10⁻¹⁹ J (3 s.f.)')
+        T(fig, 0.54, 0.205, 'Same photon, using eV s:  2.3434 eV', size=22)
+        _sf(fig, 0.54, 0.16, '= 2.34 eV (3 s.f.)')
 
 
 def wien(fig, s, ph):
@@ -233,7 +240,8 @@ def wien(fig, s, ph):
     if s == 1:
         chip(fig, 'Element 2 · problems')
         T(fig, 0.07, 0.31, r'Coffee at 80 °C:  $T = 80 + 273 = 353\ \mathrm{K}$', size=25)
-        T(fig, 0.07, 0.235, r'$\lambda_p = \dfrac{2.90\times10^{-3}}{353} = 8.2\times10^{-6}\ \mathrm{m}$  (infrared)', size=25, color=GREEN)
+        T(fig, 0.07, 0.235, r'$\lambda_p = \dfrac{2.90\times10^{-3}}{353} = 8.2153\times10^{-6}\ \mathrm{m}$  (infrared)', size=25)
+        _sf(fig, 0.07, 0.155, '= 8.2 × 10⁻⁶ m (2 s.f.)')
     if s >= 2:
         chip(fig, 'Element 4 · predictions')
         card(fig, 0.05, 0.07, 0.90, 0.19, 'A peak is not the whole spectrum',
@@ -337,17 +345,22 @@ def we_photo(fig, s, ph):
     header(fig, 'Worked example: magnesium')
     chip(fig, 'Element 2 · problems')
     card(fig, 0.05, 0.60, 0.90, 0.20, 'Question', 'Magnesium has a work function of 3.70 eV. Find its threshold frequency and threshold wavelength. For 250 nm\nultraviolet, find the maximum kinetic energy, the stopping voltage and the fastest electron’s speed.', tcol=C2, size=22)
-    y = 0.54
+    y = 0.56
     if s >= 0:
-        T(fig, 0.06, y, r'$f_0 = \dfrac{W}{h} = \dfrac{3.70}{4.14\times10^{-15}} = 8.94\times10^{14}\ \mathrm{Hz}$', size=26);
-        T(fig, 0.56, y, r'$\lambda_0 = \dfrac{c}{f_0} = 336\ \mathrm{nm}$', size=26, color=GREEN)
+        T(fig, 0.06, y, r'$f_0 = \dfrac{W}{h} = \dfrac{3.70}{4.14\times10^{-15}} = 8.9372\times10^{14}\ \mathrm{Hz}$', size=26)
+        _sf(fig, 0.06, 0.49, '= 8.94 × 10¹⁴ Hz (3 s.f.)')
+        T(fig, 0.56, y, r'$\lambda_0 = \dfrac{c}{f_0} = 335.68\ \mathrm{nm}$', size=26)
+        _sf(fig, 0.56, 0.49, '= 336 nm (3 s.f.)')
     if s >= 1:
-        T(fig, 0.06, 0.42, r'photon: $E = \dfrac{hc}{\lambda} = \dfrac{1.24\times10^{-6}}{250\times10^{-9}} = 4.97\ \mathrm{eV}$', size=26)
-        T(fig, 0.06, 0.31, r'$E_K(\mathrm{max}) = 4.97 - 3.70 = 1.27\ \mathrm{eV}$', size=26, color=GREEN)
-        T(fig, 0.56, 0.31, r'stopping voltage $= 1.27\ \mathrm{V}$', size=26, color=GREEN)
+        T(fig, 0.06, 0.435, r'photon: $E = \dfrac{hc}{\lambda} = \dfrac{1.242\times10^{-6}}{250\times10^{-9}} = 4.968\ \mathrm{eV}$', size=26)
+        T(fig, 0.06, 0.345, r'$E_K(\mathrm{max}) = 4.968 - 3.70 = 1.268\ \mathrm{eV}$', size=26)
+        _sf(fig, 0.06, 0.30, '= 1.27 eV (3 s.f.)')
+        T(fig, 0.56, 0.345, r'stopping voltage $= 1.268\ \mathrm{V}$', size=26)
+        _sf(fig, 0.56, 0.30, '= 1.27 V (3 s.f.)')
     if s >= 2:
-        T(fig, 0.06, 0.22, r'$1.27\ \mathrm{eV} = 2.03\times10^{-19}\ \mathrm{J}$    $\Rightarrow$    $v = \sqrt{\dfrac{2E_K}{m_e}} = 6.7\times10^{5}\ \mathrm{m\ s^{-1}}$', size=26, color=GREEN)
-        T(fig, 0.06, 0.115, 'Check: 250 nm is below the 336 nm threshold wavelength, so electrons are emitted. ½mv² needs joules.', size=21, color=YELLOW)
+        T(fig, 0.06, 0.255, r'$1.268\ \mathrm{eV} = 2.0288\times10^{-19}\ \mathrm{J}$    $\Rightarrow$    $v = \sqrt{\dfrac{2E_K}{m_e}} = 6.6738\times10^{5}\ \mathrm{m\ s^{-1}}$', size=25)
+        _sf(fig, 0.06, 0.175, '= 6.67 × 10⁵ m s⁻¹ (3 s.f.)')
+        T(fig, 0.06, 0.125, 'Check: 250 nm is below the 336 nm threshold wavelength, so electrons are emitted. ½mv² needs joules.', size=21, color=YELLOW)
 
 
 def pe_graph(fig, s, ph):
@@ -377,7 +390,7 @@ def pe_graph(fig, s, ph):
             bullets(fig, ['Larger W: line shifts right', 'SAME gradient: parallel lines', 'Use a ruler, and label the intercept',
                           'Brighter light: same graph\n(only the current grows)'], 4, 0.60, 0.76, size=24, dim=False)
         if s == 2:
-            bullets(fig, ['Read f for a given wavelength\nusing f = c / λ', 'Trace up to the line and across', 'e.g. 240 nm: f = 12.5 × 10¹⁴ Hz\nmetal 1: 2.98 eV', 'Below f₀: no electrons, not\nnegative energy'], 4, 0.60, 0.76, size=24, dim=False)
+            bullets(fig, ['Read f for a given wavelength\nusing f = c / λ', 'Trace up to the line and across', 'e.g. 240 nm: f = 12.5 × 10¹⁴ Hz\nmetal 1: 2.98 eV (3 s.f.)', 'Below f₀: no electrons, not\nnegative energy'], 4, 0.60, 0.76, size=24, dim=False)
         return
     header(fig, 'If the x-axis is wavelength')
     chip(fig, 'Element 3 · data')
@@ -418,9 +431,9 @@ def millikan_data(fig, s, ph):
     if s >= 2:
         learn_eq(fig, 0.06, 0.475, r'$V = \dfrac{h}{e}f - \dfrac{W}{e}$', size=24)
         _lines(fig, 0.05, 0.37, [(r'gradient $= \dfrac{1.94-0.28}{4.00\times10^{14}} = 4.15\times10^{-15}\ \mathrm{V\ s}$', FG),
-                                  (r'so $h = 4.15\times10^{-15}\ \mathrm{eV\ s}$', GREEN),
-                                  (r'$y$-intercept $\approx -2.2\ \mathrm{V}$, so $W = 2.2\ \mathrm{eV}$', GREEN),
-                                  (r'$x$-intercept: $f_0 \approx 5.3\times10^{14}\ \mathrm{Hz}$', GREEN)], size=23, gap=0.068)
+                                  (r'so $h = 4.15\times10^{-15}\ \mathrm{eV\ s}$ (3 s.f.)', GREEN),
+                                  (r'$y$-intercept $\approx -2.2\ \mathrm{V}$, so $W = 2.2\ \mathrm{eV}$ (2 s.f.)', GREEN),
+                                  (r'$x$-intercept: $f_0 \approx 5.3\times10^{14}\ \mathrm{Hz}$ (2 s.f.)', GREEN)], size=23, gap=0.068)
 
 
 # ============================================================================ part 1: X-rays
@@ -514,14 +527,16 @@ def we_xray(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Worked example: an 80 kV tube')
     chip(fig, 'Element 2 · problems')
-    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'An X-ray tube runs at 80 kV. Find the shortest wavelength it produces, and the momentum of that photon.', tcol=C2, size=24)
+    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'An X-ray tube runs at 80.0 kV. Find the shortest wavelength it produces, and the momentum of that photon.', tcol=C2, size=24)
     T(fig, 0.06, 0.56, r'Electron energy: $eV = (1.60\times10^{-19})(80\times10^{3}) = 1.28\times10^{-14}\ \mathrm{J}$', size=26)
-    T(fig, 0.06, 0.46, r'$\lambda_{\mathrm{min}} = \dfrac{hc}{eV} = \dfrac{(6.63\times10^{-34})(3.00\times10^{8})}{1.28\times10^{-14}} = 1.55\times10^{-11}\ \mathrm{m}$', size=26, color=GREEN)
+    T(fig, 0.06, 0.46, r'$\lambda_{\mathrm{min}} = \dfrac{hc}{eV} = \dfrac{(6.63\times10^{-34})(3.00\times10^{8})}{1.28\times10^{-14}} = 1.5539\times10^{-11}\ \mathrm{m}$', size=26)
+    _sf(fig, 0.06, 0.385, '= 1.55 × 10⁻¹¹ m (3 s.f.)')
     if s == 0:
-        T(fig, 0.06, 0.32, 'Quick check in eV: 80 keV photon, λ = (1.24 × 10⁻⁶) / (80 × 10³) = 1.55 × 10⁻¹¹ m', size=23, color=SOFT)
+        T(fig, 0.06, 0.32, 'Quick check in eV: 80.0 keV photon, λ = (1.242 × 10⁻⁶) / (80.0 × 10³) = 1.55 × 10⁻¹¹ m', size=23, color=SOFT)
         T(fig, 0.06, 0.24, 'Use h in J s with joules, and h in eV s with electron-volts.', size=24, color=YELLOW)
     if s >= 1:
-        T(fig, 0.06, 0.32, r'$p = \dfrac{h}{\lambda} = \dfrac{6.63\times10^{-34}}{1.55\times10^{-11}} = 4.3\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$', size=26, color=GREEN)
+        T(fig, 0.06, 0.335, r'$p = \dfrac{h}{\lambda} = \dfrac{6.63\times10^{-34}}{1.5539\times10^{-11}} = 4.2667\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$', size=26)
+        _sf(fig, 0.06, 0.262, '= 4.27 × 10⁻²³ kg m s⁻¹ (3 s.f.)')
         card(fig, 0.05, 0.06, 0.90, 0.15, 'Why most photons are longer', 'Most electrons pass further from a nucleus, or lose energy in stages, so few give up all their energy at once.', tcol=PINK, size=22)
 
 
@@ -547,7 +562,8 @@ def xray_sketch(fig, s, ph):
     for w_, c_, ha_, dx in [(63.7, YELLOW, 'right', -1.5), (72.6, PINK, 'left', 1.5)]:
         ax2.text(w_ + dx, float(_xs(np.array([w_]), 35)[0]) + 0.02, f'{w_}', color=c_, fontsize=18, ha=ha_)
     T(fig, 0.45, 0.205, r'$\lambda = \dfrac{1.24\times10^{-6}}{E}$:  17.1 keV → 72.6 pm,  19.5 keV → 63.7 pm,  35 keV → 35.5 pm', size=19)
-    T(fig, 0.45, 0.12, 'Label λmin and both lines. Mark the wavelengths you calculated.', size=21, color=YELLOW)
+    T(fig, 0.45, 0.15, 'Each wavelength to 3 s.f.', size=19, color=GREEN)
+    T(fig, 0.45, 0.11, 'Label λmin and both lines. Mark the wavelengths you calculated.', size=21, color=YELLOW)
 
 
 # ============================================================================ part 1: momentum
@@ -569,22 +585,25 @@ def photon_momentum(fig, s, ph):
     label(ax, 3, 1.3, 'massless, but p ≠ 0', size=21, color=YELLOW)
     T(fig, 0.56, 0.25, 'Photons have no rest mass, yet they\nstill push on what they hit. Use p = h/λ,\nnot p = mv with v = c.', size=20, color=SOFT)
     if s >= 1:
-        T(fig, 0.56, 0.135, 'From keV: 50 keV = 8.0 × 10⁻¹⁵ J, so\np = E/c = 2.7 × 10⁻²³ kg m s⁻¹', size=20, color=GREEN)
+        T(fig, 0.56, 0.135, 'From keV: 50 keV = 8.0 × 10⁻¹⁵ J, so\np = E/c = 2.7 × 10⁻²³ kg m s⁻¹ (2 s.f.)', size=20, color=GREEN)
 
 
 def laser_force(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Worked example: the force of a laser beam')
     chip(fig, 'Element 2 · problems')
-    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'A 5.0 mW laser shines 532 nm light onto a surface. How many photons arrive each second?\nWhat force do they exert on a black surface, and on a perfect mirror?', tcol=C2, size=22)
-    T(fig, 0.06, 0.56, r'one photon: $E = \dfrac{hc}{\lambda} = 3.74\times10^{-19}\ \mathrm{J}$', size=26)
-    T(fig, 0.47, 0.56, r'photons per second $= \dfrac{5.0\times10^{-3}}{3.74\times10^{-19}} = 1.34\times10^{16}$', size=25, color=GREEN)
+    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'A 5.00 mW laser shines 532 nm light onto a surface. How many photons arrive each second?\nWhat force do they exert on a black surface, and on a perfect mirror?', tcol=C2, size=22)
+    T(fig, 0.06, 0.56, r'one photon: $E = \dfrac{hc}{\lambda} = 3.7387\times10^{-19}\ \mathrm{J}$', size=26)
+    T(fig, 0.47, 0.56, r'photons per second $= \dfrac{5.00\times10^{-3}}{3.7387\times10^{-19}} = 1.3374\times10^{16}$', size=24)
+    _sf(fig, 0.47, 0.485, '= 1.34 × 10¹⁶ (3 s.f.)')
     if s >= 1:
-        T(fig, 0.06, 0.44, r'one photon: $p = \dfrac{h}{\lambda} = 1.25\times10^{-27}\ \mathrm{kg\ m\ s^{-1}}$', size=26)
-        T(fig, 0.06, 0.33, r'absorbed: $F = \dfrac{\Delta p}{\Delta t} = (1.34\times10^{16})(1.25\times10^{-27}) = 1.67\times10^{-11}\ \mathrm{N}$', size=26, color=GREEN)
+        T(fig, 0.06, 0.45, r'one photon: $p = \dfrac{h}{\lambda} = 1.2462\times10^{-27}\ \mathrm{kg\ m\ s^{-1}}$', size=26)
+        T(fig, 0.06, 0.365, r'absorbed: $F = \dfrac{\Delta p}{\Delta t} = (1.3374\times10^{16})(1.2462\times10^{-27}) = 1.6667\times10^{-11}\ \mathrm{N}$', size=25)
+        _sf(fig, 0.06, 0.295, '= 1.67 × 10⁻¹¹ N (3 s.f.)')
     if s >= 2:
-        T(fig, 0.06, 0.22, r'reflected: $\Delta p$ doubles, since $p$ reverses, so $F = 3.3\times10^{-11}\ \mathrm{N}$', size=26, color=YELLOW)
-        T(fig, 0.06, 0.13, 'Tiny, but with no air drag it can change a spacecraft’s momentum over months. (Beyond the course: a solar sail.)', size=22, color=SOFT)
+        T(fig, 0.06, 0.245, r'reflected: $\Delta p$ doubles, since $p$ reverses, so $F = 3.3333\times10^{-11}\ \mathrm{N}$', size=25, color=YELLOW)
+        _sf(fig, 0.06, 0.195, '= 3.33 × 10⁻¹¹ N (3 s.f.)')
+        T(fig, 0.06, 0.135, 'Tiny, but with no air drag it can change a spacecraft’s momentum over months. (Beyond the course: a solar sail.)', size=22, color=SOFT)
 
 
 def compton(fig, s, ph):
@@ -609,8 +628,8 @@ def compton90(fig, s, ph):
     header(fig, 'Worked example: scattering through 90°')
     chip(fig, 'Element 2 · problems')
     card(fig, 0.05, 0.60, 0.50, 0.20, 'Question', 'An X-ray with λ = 2.00 × 10⁻¹¹ m scatters through 90°,\nleaving with λ′ = 2.24 × 10⁻¹¹ m. Find the electron’s\nmomentum, direction and speed.', tcol=C2, size=20)
-    _lines(fig, 0.06, 0.54, [(r'$p = \dfrac{h}{\lambda} = 3.32\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$', FG),
-                             (r"$p' = \dfrac{h}{\lambda'} = 2.96\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$", FG)], size=25, gap=0.10)
+    T(fig, 0.06, 0.555, r'$p = \dfrac{h}{\lambda} = 3.315\times10^{-23}$', size=23)
+    T(fig, 0.27, 0.555, r"$p' = \dfrac{h}{\lambda'} = 2.9598\times10^{-23}$ kg m s⁻¹", size=23)
     ax = wax(fig, [0.59, 0.20, 0.37, 0.60], (-1.4, 6), (-1.2, 5))
     if s >= 1:
         a = 3.315 * 1.2; b = 2.96 * 1.2
@@ -621,25 +640,29 @@ def compton90(fig, s, ph):
         ax.add_patch(Rectangle((0, 0), 0.3, 0.3, fill=False, ec=SOFT))
         ax.add_patch(Arc((a, 0), 2.0, 2.0, theta1=180 - 41.8, theta2=180, color=C2, lw=2)); label(ax, a - 1.5, 0.42, '41.8°', size=18, color=C2)
         label(ax, 2.2, -1.0, "p = p′ + pₑ (vector sum)", size=20, color=FG)
-        T(fig, 0.06, 0.34, r'$p_e = \sqrt{(3.32)^2 + (2.96)^2}\times10^{-23} = 4.44\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$', size=24, color=GREEN)
+        T(fig, 0.06, 0.475, r'$p_e = \sqrt{(3.315)^2 + (2.9598)^2}\times10^{-23} = 4.4441\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$', size=23)
+        _sf(fig, 0.06, 0.425, '= 4.44 × 10⁻²³ kg m s⁻¹ (3 s.f.)')
     if s >= 2:
-        T(fig, 0.06, 0.24, r'angle: $\tan\theta = \dfrac{2.96}{3.32}$, so $\theta = 41.8^\circ$ from the original direction', size=24, color=GREEN)
-        T(fig, 0.06, 0.14, r'$v = \dfrac{p_e}{m_e} = \dfrac{4.44\times10^{-23}}{9.11\times10^{-31}} = 4.9\times10^{7}\ \mathrm{m\ s^{-1}}$', size=24, color=GREEN)
+        T(fig, 0.06, 0.38, r'angle: $\tan\theta = 2.9598\,/\,3.315$, so $\theta = 41.76^\circ$ from the original direction', size=23)
+        _sf(fig, 0.06, 0.335, '= 41.8° (3 s.f.)')
+        T(fig, 0.06, 0.29, r'$v = \dfrac{p_e}{m_e} = \dfrac{4.4441\times10^{-23}}{9.11\times10^{-31}} = 4.8782\times10^{7}\ \mathrm{m\ s^{-1}}$', size=23)
+        _sf(fig, 0.06, 0.215, '= 4.88 × 10⁷ m s⁻¹ (3 s.f.)')
 
 
 def compton180(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Worked example: a head-on bounce')
     chip(fig, 'Element 2 · problems')
-    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'An X-ray with λ = 3.00 × 10⁻¹¹ m, moving east, hits a free electron and bounces straight back\nwith λ′ = 3.49 × 10⁻¹¹ m. Find the speed of the electron.', tcol=C2, size=22)
+    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'An X-ray with λ = 3.00 × 10⁻¹¹ m, moving east, hits a free electron and bounces straight back\nwith λ′ = 3.485 × 10⁻¹¹ m. Find the speed of the electron.', tcol=C2, size=22)
     T(fig, 0.06, 0.56, r'$p = 2.21\times10^{-23}$ east', size=26, color=PINK); T(fig, 0.38, 0.56, r"$p' = 1.90\times10^{-23}$ WEST", size=26, color=YELLOW)
     T(fig, 0.72, 0.56, 'kg m s⁻¹', size=24, color=SOFT)
     if s >= 1:
         T(fig, 0.06, 0.47, r'Conservation, east positive:  $+2.21 = -1.90 + p_e$', size=26)
-        T(fig, 0.06, 0.38, r'$p_e = 4.11\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$ east    $\Rightarrow$    $v = 4.5\times10^{7}\ \mathrm{m\ s^{-1}}$', size=26, color=GREEN)
-        T(fig, 0.06, 0.31, 'Momentum is a vector: the two photon momenta ADD here. State the law you are using.', size=22, color=YELLOW)
+        T(fig, 0.06, 0.40, r'$p_e = 4.1124\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$ east    $\Rightarrow$    $v = 4.5142\times10^{7}\ \mathrm{m\ s^{-1}}$', size=26)
+        _sf(fig, 0.06, 0.345, '= 4.11 × 10⁻²³ kg m s⁻¹ east, and 4.51 × 10⁷ m s⁻¹ (3 s.f.)')
+        T(fig, 0.06, 0.295, 'Momentum is a vector: the two photon momenta ADD here. State the law you are using.', size=22, color=YELLOW)
     if s >= 2:
-        card(fig, 0.05, 0.06, 0.90, 0.19, 'Checking validity (A-standard)', 'Photon energy lost: 6.63 × 10⁻¹⁵ − 5.70 × 10⁻¹⁵ = 9.3 × 10⁻¹⁶ J.   Electron’s ½mv² = 9.27 × 10⁻¹⁶ J.  Close, but not exact.\nv = 0.15c, so a small relativistic effect is left out of ½mv². Say so.', tcol=C2, size=21)
+        card(fig, 0.05, 0.06, 0.90, 0.19, 'Checking validity (A-standard)', 'Photon energy lost: 6.63 × 10⁻¹⁵ − 5.707 × 10⁻¹⁵ = 9.23 × 10⁻¹⁶ J.   Electron’s ½mv² = 9.28 × 10⁻¹⁶ J.  Close, but not exact.\nv = 0.15c, so ½mv² runs slightly high: it leaves out a small relativistic effect. Say so.', tcol=C2, size=21)
 
 
 # ============================================================================ part 2: matter waves
@@ -669,10 +692,11 @@ def we_debroglie(fig, s, ph):
     card(fig, 0.05, 0.64, 0.90, 0.16, 'Question', 'Electrons are accelerated from rest through 150 V. Find their de Broglie wavelength.', tcol=C2, size=25)
     _lines(fig, 0.06, 0.59, [(r'$E_K = eV = (1.60\times10^{-19})(150) = 2.40\times10^{-17}\ \mathrm{J}$', FG),
                              (r'$\frac{1}{2}mv^2 = E_K\ \Rightarrow\ v = 7.3\times10^{6}\ \mathrm{m\ s^{-1}}$  (2.4% of c: ignore relativity)', FG),
-                             (r'$\lambda = \dfrac{h}{mv} = \dfrac{6.63\times10^{-34}}{(9.11\times10^{-31})(7.26\times10^{6})} = 1.0\times10^{-10}\ \mathrm{m}$', GREEN)], size=25, gap=0.095)
+                             (r'$\lambda = \dfrac{h}{mv} = \dfrac{6.63\times10^{-34}}{(9.11\times10^{-31})(7.2587\times10^{6})} = 1.0026\times10^{-10}\ \mathrm{m}$', FG)], size=25, gap=0.085)
+    _sf(fig, 0.06, 0.345, '= 1.00 × 10⁻¹⁰ m (3 s.f.)')
     if s >= 1:
-        card(fig, 0.05, 0.06, 0.44, 0.235, 'Trap: electron ≠ photon', 'A 150 eV photon has λ = hc/E = 8.3 nm.\nElectrons don’t travel at c: never\nuse E = hc/λ for an electron.', tcol=PINK, size=21)
-        card(fig, 0.51, 0.06, 0.44, 0.235, 'A thrown ball', '0.058 kg at 40 m/s:\nλ = 2.9 × 10⁻³⁴ m.  Far too small for any\ngap: no wave behaviour can be seen.', tcol=YELLOW, size=21)
+        card(fig, 0.05, 0.06, 0.44, 0.235, 'Trap: electron ≠ photon', 'A 150 eV photon has λ = hc/E = 8.28 nm (3 s.f.).\nElectrons don’t travel at c: never\nuse E = hc/λ for an electron.', tcol=PINK, size=21)
+        card(fig, 0.51, 0.06, 0.44, 0.235, 'A thrown ball', '0.058 kg at 40 m/s:\nλ = 2.9 × 10⁻³⁴ m (2 s.f.).  Far too small for any\ngap: no wave behaviour can be seen.', tcol=YELLOW, size=21)
 
 
 def duality(fig, s, ph):
@@ -691,7 +715,7 @@ def duality(fig, s, ph):
     if s >= 1:
         chip(fig, 'Element 2 · problems')
         card(fig, 0.05, 0.07, 0.90, 0.20, 'Same wavelength, same momentum',
-              'An electron at 2.0 × 10⁵ m/s has λ = 3.6 × 10⁻⁹ m and p = 1.8 × 10⁻²⁵ kg m/s: near the UV / X-ray boundary.\nA photon with that λ has exactly the same momentum: p = h/λ holds for both.', tcol=GREEN, size=21)
+              'An electron at 2.0 × 10⁵ m/s has λ = 3.6 × 10⁻⁹ m and p = 1.8 × 10⁻²⁵ kg m/s (2 s.f.): near UV / X-ray.\nA photon with that λ has exactly the same momentum: p = h/λ holds for both.', tcol=GREEN, size=21)
 
 
 # ---------------------------------------------------------------------------- spectra
@@ -764,7 +788,7 @@ def _levels(fig, rect, ion=True):
     label(ax, 5.5, 6.45, 'ionised: 6.0 eV', size=18, color=SOFT)
     for E, nm in LEVELS:
         ax.plot([1.5, 9.5], [E, E], color=FG, lw=3)
-        label(ax, 1.3, E, f'{E:.1f}', size=19, color=SOFT, ha='right')
+        label(ax, 1.3, E, f'{E:.2f}', size=19, color=SOFT, ha='right')
         label(ax, 9.45, E + 0.22, nm, size=15, color=MUT, ha='right')
     label(ax, 0.1, 6.45, 'eV', size=18, color=SOFT, ha='left')
     return ax
@@ -778,14 +802,15 @@ def levels(fig, s, ph):
     bullets(fig, ['Horizontal lines = allowed energies', 'Exam diagrams often set ground state = 0 eV,\nor measure downward as negatives', 'Only the differences matter'], 3, 0.54, 0.77, size=23, dim=False)
     if s >= 1:
         chip(fig, 'Element 2 · problems')
-        arrow(ax, (3, 3.6), (3, 2.4), color=PINK); label(ax, 3.2, 3.0, '1.2 eV', size=18, color=PINK, ha='left')
-        arrow(ax, (5, 2.4), (5, 0.03), color=GREEN); label(ax, 5.2, 1.2, '2.4 eV', size=18, color=GREEN, ha='left')
-        arrow(ax, (7.2, 4.5), (7.2, 2.4), color=YELLOW); label(ax, 7.4, 3.45, '2.1 eV', size=18, color=YELLOW, ha='left')
+        arrow(ax, (3, 3.6), (3, 2.4), color=PINK); label(ax, 3.2, 3.0, '1.20 eV', size=18, color=PINK, ha='left')
+        arrow(ax, (5, 2.4), (5, 0.03), color=GREEN); label(ax, 5.2, 1.2, '2.40 eV', size=18, color=GREEN, ha='left')
+        arrow(ax, (7.2, 4.5), (7.2, 2.4), color=YELLOW); label(ax, 7.4, 3.45, '2.10 eV', size=18, color=YELLOW, ha='left')
         T(fig, 0.54, 0.50, r'$\lambda = \dfrac{hc}{\Delta E} = \dfrac{1.24\times10^{-6}}{\Delta E\ (\mathrm{eV})}$', size=28)
-        rows = [('2.4 eV', '518 nm', 'green', GREEN), ('2.1 eV', '591 nm', 'orange', YELLOW), ('1.2 eV', '1035 nm', 'infrared', PINK)]
-        for i, (a, b, c_, col) in enumerate(rows):
+        rows = [('2.40 eV', '517.5 nm', '= 518 nm (3 s.f.)', 'green', GREEN), ('2.10 eV', '591.4 nm', '= 591 nm (3 s.f.)', 'orange', YELLOW),
+                ('1.20 eV', '1035 nm', '= 1040 nm (3 s.f.)', 'infrared', PINK)]
+        for i, (a, b, r_, c_, col) in enumerate(rows):
             y = 0.37 - i * 0.055
-            T(fig, 0.56, y, a, size=23, color=col); T(fig, 0.67, y, b, size=23, color=col); T(fig, 0.80, y, c_, size=23, color=col)
+            T(fig, 0.54, y, a, size=20, color=col); T(fig, 0.615, y, b, size=20, color=col); T(fig, 0.70, y, r_, size=20, color=GREEN); T(fig, 0.875, y, c_, size=20, color=col)
     if s >= 2:
         T(fig, 0.54, 0.185, 'Working backwards: given λ, find ΔE, then find\nthe ONE pair of levels with that gap. Name both.', size=22, color=YELLOW)
 
@@ -827,7 +852,7 @@ def excitation(fig, s, ph):
     if s == 2:
         arrow(ax, (4, 0.03), (4, 6.5), color=YELLOW); label(ax, 4.2, 3.0, 'ionised', size=20, color=YELLOW, ha='left')
         card(fig, 0.47, 0.50, 0.49, 0.30, 'Ionisation: any energy above 6.0 eV', 'A 7.0 eV photon removes the electron\nand leaves it 1.0 eV of kinetic energy.\nHigh-energy photons ionise atoms.', tcol=YELLOW, size=23)
-        T(fig, 0.47, 0.42, 'Ionisation energy in joules: 6.0 × 1.60 × 10⁻¹⁹ = 9.6 × 10⁻¹⁹ J', size=23, color=GREEN)
+        T(fig, 0.47, 0.42, 'Ionisation energy in joules: 6.0 × 1.60 × 10⁻¹⁹ = 9.6 × 10⁻¹⁹ J (2 s.f.)', size=22, color=GREEN)
     if s == 3:
         arrow(ax, (2.2, 4.5), (2.2, 3.6), color=PINK, ms=16); arrow(ax, (3.2, 4.5), (3.2, 2.4), color=YELLOW, ms=16); arrow(ax, (4.2, 4.5), (4.2, 0.03), color=GREEN, ms=16)
         arrow(ax, (5.3, 3.6), (5.3, 2.4), color=PINK, ms=16); arrow(ax, (6.2, 3.6), (6.2, 0.03), color=C1, ms=16); arrow(ax, (7.1, 2.4), (7.1, 0.03), color=C2, ms=16)
@@ -919,7 +944,8 @@ def particles(fig, s, ph):
         T(fig, x + 0.018, y + 0.12, b, size=21, color=SOFT)
     if s >= 2:
         chip(fig, 'Element 2 · problems')
-        T(fig, 0.05, 0.20, r'Annihilation: $e^+ + e^- \to 2\gamma$.   Each γ carries at least $0.000549\ \mathrm{u}\times931\ \mathrm{MeV\ u^{-1}} = 0.511\ \mathrm{MeV}$', size=25, color=GREEN)
+        T(fig, 0.05, 0.20, r'Annihilation: $e^+ + e^- \to 2\gamma$.   Each γ carries at least $0.000549\ \mathrm{u}\times931\ \mathrm{MeV\ u^{-1}} = 0.5111\ \mathrm{MeV}$', size=25)
+        _sf(fig, 0.05, 0.145, '= 0.511 MeV (3 s.f.)')
 
 
 def background(fig, s, ph):
@@ -1014,15 +1040,19 @@ def we_activity(fig, s, ph):
     header(fig, 'Worked example: a medical isotope')
     chip(fig, 'Element 2 · problems')
     card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'Iodine-131 has a half-life of 8.02 days. A sample has an activity of 5.0 MBq. How many atoms does it contain,\nand what is its mass? What is its activity 20.0 days later, and what was it 10.0 days earlier?', tcol=C2, size=22)
-    T(fig, 0.06, 0.56, r'$\lambda = \dfrac{0.693}{8.02\times24\times3600\ \mathrm{s}} = 1.00\times10^{-6}\ \mathrm{s^{-1}}$', size=25)
-    T(fig, 0.55, 0.56, r'$N = \dfrac{A}{\lambda} = 5.0\times10^{12}$ atoms', size=25, color=GREEN)
+    T(fig, 0.06, 0.56, r'$\lambda = \dfrac{0.693}{8.02\times24\times3600\ \mathrm{s}} = 1.0001\times10^{-6}\ \mathrm{s^{-1}}$', size=25)
+    T(fig, 0.55, 0.56, r'$N = \dfrac{A}{\lambda} = 4.9995\times10^{12}$ atoms', size=25)
+    _sf(fig, 0.55, 0.495, '= 5.0 × 10¹² atoms (2 s.f.)')
     if s >= 1:
-        T(fig, 0.06, 0.44, r'$m = \dfrac{NM}{N_A} = \dfrac{(5.0\times10^{12})(131)}{6.02\times10^{23}} = 1.09\times10^{-9}\ \mathrm{g}$', size=25, color=GREEN)
-        T(fig, 0.55, 0.44, 'A becquerel is per SECOND,\nso λ must be in s⁻¹ for N.', size=23, color=YELLOW)
+        T(fig, 0.06, 0.475, r'$m = \dfrac{NM}{N_A} = \dfrac{(4.9995\times10^{12})(131)}{6.02\times10^{23}} = 1.0879\times10^{-9}\ \mathrm{g}$', size=24)
+        _sf(fig, 0.06, 0.405, '= 1.1 × 10⁻⁹ g (2 s.f.)')
+        T(fig, 0.55, 0.43, 'A becquerel is per SECOND,\nso λ must be in s⁻¹ for N.', size=23, color=YELLOW)
     if s >= 2:
-        T(fig, 0.06, 0.32, r'$\lambda t = \dfrac{0.693\times20.0}{8.02} = 1.73$   (days cancel)    $A = 5.0\,e^{-1.73} = 0.89\ \mathrm{MBq}$', size=25, color=GREEN)
-        T(fig, 0.06, 0.21, r'Earlier: $A_0 = A\,e^{+\lambda t} = 5.0\,e^{+0.864} = 11.9\ \mathrm{MBq}$   (more than now, as it should be)', size=25, color=GREEN)
-        T(fig, 0.06, 0.12, 'Check: 20.0 days is about 2.5 half-lives, so about 18% should remain. 0.89 / 5.0 = 18% ✓', size=23, color=YELLOW)
+        T(fig, 0.06, 0.335, r'$\lambda t = \dfrac{0.693\times20.0}{8.02} = 1.728$   (days cancel)    $A = 5.0\,e^{-1.728} = 0.8880\ \mathrm{MBq}$', size=24)
+        _sf(fig, 0.06, 0.27, '= 0.89 MBq (2 s.f.)')
+        T(fig, 0.06, 0.23, r'Earlier: $A_0 = A\,e^{+\lambda t} = 5.0\,e^{+0.864} = 11.864\ \mathrm{MBq}$   (more than now, as it should be)', size=24)
+        _sf(fig, 0.06, 0.18, '= 12 MBq (2 s.f.)')
+        T(fig, 0.06, 0.13, 'Check: 20.0 days is about 2.5 half-lives, so about 18% should remain. 0.89 / 5.0 = 18% ✓', size=23, color=YELLOW)
 
 
 def we_age(fig, s, ph):
@@ -1031,13 +1061,15 @@ def we_age(fig, s, ph):
     chip(fig, 'Element 2 · problems')
     card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'Old wood has 40% of the carbon-14 activity of living wood (half-life 5730 years). How old is it?', tcol=C2, size=24)
     _lines(fig, 0.06, 0.56, [(r'$0.40 = e^{-\lambda t}\ \ \Rightarrow\ \ \ln(0.40) = -\lambda t$', FG),
-                             (r'$\lambda = \dfrac{0.693}{5730} = 1.21\times10^{-4}\ \mathrm{y^{-1}}$', FG),
-                             (r'$t = \dfrac{0.916}{1.21\times10^{-4}} \approx 7580$ years', GREEN)], size=26, gap=0.10)
+                             (r'$\lambda = \dfrac{0.693}{5730} = 1.2094\times10^{-4}\ \mathrm{y^{-1}}$', FG),
+                             (r'$t = \dfrac{0.9163}{1.2094\times10^{-4}} = 7576$ years', FG)], size=25, gap=0.09)
+    _sf(fig, 0.06, 0.315, '= 7600 years (2 s.f.)')
     if s >= 1:
         card(fig, 0.05, 0.06, 0.44, 0.215, 'Percentages', '“73% less” means 27% remains.\nA fraction: divide by 100 first.\ne.g. 0.50% of 3.0 g is 0.015 g.', tcol=PINK, size=21)
         card(fig, 0.51, 0.06, 0.44, 0.215, 'Two decay routes', 'If a nucleus can decay in two ways,\nuse the half-life for the route the\nquestion asks about.', tcol=YELLOW, size=21)
         T(fig, 0.55, 0.53, 'Back in time: an isotope now 2.0% of an\nelement, half-life 1.0 × 10⁹ y. Two half-lives ago,\nwith the other isotopes unchanged:', size=22, color=SOFT)
-        T(fig, 0.55, 0.40, r'$2.0\,e^{+\lambda t} = 2.0\,e^{+1.386} = 8.0\%$', size=26, color=GREEN)
+        T(fig, 0.55, 0.40, r'$2.0\,e^{+\lambda t} = 2.0\,e^{+1.386} = 7.998\%$', size=26)
+        _sf(fig, 0.55, 0.345, '= 8.0% (2 s.f.)')
 
 
 def we_power(fig, s, ph):
@@ -1049,11 +1081,13 @@ def we_power(fig, s, ph):
     T(fig, 0.06, 0.49, r'Total power: $\dfrac{0.50}{0.050} = 10\ \mathrm{W}$', size=25)
     if s >= 1:
         T(fig, 0.42, 0.49, r'one decay: $5.6\times10^{6}\times1.60\times10^{-19} = 8.96\times10^{-13}\ \mathrm{J}$', size=25)
-        T(fig, 0.06, 0.38, r'decays per second: $A = \dfrac{10}{8.96\times10^{-13}} = 1.1\times10^{13}\ \mathrm{Bq}$', size=25, color=GREEN)
+        T(fig, 0.06, 0.38, r'decays per second: $A = \dfrac{10}{8.96\times10^{-13}} = 1.1161\times10^{13}\ \mathrm{Bq}$', size=25)
+        _sf(fig, 0.60, 0.375, '= 1.1 × 10¹³ Bq (2 s.f.)')
     if s >= 2:
-        T(fig, 0.06, 0.28, r'$\lambda = \dfrac{0.693}{432\times365\times24\times3600} = 5.09\times10^{-11}\ \mathrm{s^{-1}}$,   $N = \dfrac{A}{\lambda} = 2.2\times10^{23}$', size=25)
-        T(fig, 0.06, 0.17, r'$m = \dfrac{NM}{N_A} = \dfrac{(2.2\times10^{23})(241)}{6.02\times10^{23}} \approx 88\ \mathrm{g}$', size=25, color=GREEN)
-        T(fig, 0.52, 0.17, 'Over 70 years, m/m₀ = e^(−λt) = 0.89.\nThe formula gives grams: that is 0.088 kg.', size=21, color=YELLOW)
+        T(fig, 0.06, 0.295, r'$\lambda = \dfrac{0.693}{432\times365\times24\times3600} = 5.0868\times10^{-11}\ \mathrm{s^{-1}}$,   $N = \dfrac{A}{\lambda} = 2.1941\times10^{23}$', size=24)
+        T(fig, 0.06, 0.205, r'$m = \dfrac{NM}{N_A} = \dfrac{(2.1941\times10^{23})(241)}{6.02\times10^{23}} = 87.84\ \mathrm{g}$', size=24)
+        _sf(fig, 0.06, 0.135, '= 88 g (2 s.f.)')
+        T(fig, 0.56, 0.20, 'Over 70 years, m/m₀ = e^(−λt) = 0.89.\nThe formula gives grams: that is 0.088 kg.', size=21, color=YELLOW)
 
 
 def decay_data(fig, s, ph):
@@ -1074,8 +1108,9 @@ def decay_data(fig, s, ph):
         t = np.linspace(0, 10, 200); ax.plot(t, 400 * 2 ** (-t / 4), color=C1, lw=3)
         ax.scatter(tt, net, s=110, color=YELLOW, zorder=5)
         ax.plot([0, 4, 4], [200, 200, 0], color=C2, ls='--', lw=2); ax.plot([0, 8, 8], [100, 100, 0], color=C2, ls='--', lw=2)
-        T(fig, 0.05, 0.22, r'400 → 200 takes 4.0 min;  200 → 100 takes 4.0 more', size=20, color=SOFT)
-        T(fig, 0.05, 0.15, r'$T_{1/2} = 4.0\ \mathrm{min}$,  $\lambda = \dfrac{0.693}{4.0} = 0.17\ \mathrm{min^{-1}}$', size=24, color=GREEN)
+        T(fig, 0.05, 0.245, r'400 → 200 takes 4.0 min;  200 → 100 takes 4.0 more', size=19, color=SOFT)
+        T(fig, 0.05, 0.19, r'$T_{1/2} = 4.0\ \mathrm{min}$,  $\lambda = \dfrac{0.693}{4.0} = 0.1733\ \mathrm{min^{-1}}$', size=23)
+        _sf(fig, 0.05, 0.12, '= 0.17 min⁻¹ (2 s.f.)')
 
 
 # ============================================================================ part 4: mass and energy
@@ -1088,7 +1123,7 @@ def emc2(fig, s, ph):
                   'Use × 931 with u and MeV.  Multiply: don’t divide'], 3, 0.06, 0.53, size=25, dim=False)
     if s >= 1:
         chip(fig, 'Element 2 · problems')
-        card(fig, 0.05, 0.07, 0.90, 0.22, 'A star radiating 1.2 × 10²⁷ W', 'Each second:  m = E/c² = (1.2 × 10²⁷)/(3.00 × 10⁸)² = 1.3 × 10¹⁰ kg lost as radiation.\nA star losing mass this fast compared with the Sun uses up its fuel sooner: expect a shorter life.', tcol=GREEN, size=23)
+        card(fig, 0.05, 0.07, 0.90, 0.22, 'A star radiating 1.2 × 10²⁷ W', 'Each second:  m = E/c² = (1.2 × 10²⁷)/(3.00 × 10⁸)² = 1.3 × 10¹⁰ kg (2 s.f.) lost as radiation.\nA star losing mass this fast compared with the Sun uses up its fuel sooner: expect a shorter life.', tcol=GREEN, size=23)
 
 
 def _ball_cluster(ax, cx, cy, n, r, seed=1):
@@ -1113,10 +1148,10 @@ def binding(fig, s, ph):
     chip(fig, 'Element 2 · problems')
     card(fig, 0.53, 0.60, 0.42, 0.20, 'Example', 'Nickel-62 atom (Z = 28) has a mass of\n61.928345 u. Find its binding energy per nucleon.\n(Mass: reference data, not from TASC.)', tcol=C2, size=20)
     if s >= 1:
-        _lines(fig, 0.54, 0.555, [('parts:  28(1.007276 + 0.000549) + 34(1.008665)', FG), ('          = 62.513710 u', FG),
-                                  ('Δm = 62.513710 − 61.928345 = 0.585365 u', GREEN)], size=21, gap=0.05)
+        _lines(fig, 0.54, 0.565, [('parts:  28(1.007276 + 0.000549) + 34(1.008665)', FG), ('          = 62.513710 u', FG),
+                                 ('Δm = 62.513710 − 61.928345 = 0.585365 u', GREEN)], size=20, gap=0.04)
     if s >= 2:
-        _lines(fig, 0.54, 0.40, [('BE = 0.585365 × 931 = 545 MeV', GREEN), ('per nucleon = 545 / 62 = 8.79 MeV per nucleon', GREEN)], size=21, gap=0.05)
+        _lines(fig, 0.54, 0.445, [('BE = 0.585365 × 931 = 544.97 MeV', FG), ('= 545 MeV (3 s.f.)', GREEN), ('per nucleon = 544.97 / 62 = 8.7899 MeV', FG), ('= 8.79 MeV per nucleon (3 s.f.)', GREEN)], size=20, gap=0.036)
         card(fig, 0.53, 0.07, 0.42, 0.22, 'Common errors', 'Converting the whole atom’s mass to energy\nAssuming the parts add to exactly 62 u\nDividing by Z or by 931, not by A', tcol=PINK, size=20)
         T(fig, 0.05, 0.15, 'A quoted atomic mass includes electrons, so add\nZ electrons. If it is the nucleus only, leave them out.', size=21, color=YELLOW)
 
@@ -1153,10 +1188,12 @@ def reaction_energy(fig, s, ph):
     T(fig, 0.06, 0.78, r'Fusion:  $^{2}_{1}\mathrm{H} + ^{3}_{1}\mathrm{H}\ \to\ ^{4}_{2}\mathrm{He} + ^{1}_{0}n$', size=28, color=C2)
     _lines(fig, 0.06, 0.70, [('before: 2.013553 + 3.015501 = 5.029054 u   (nuclear masses)', FG),
                              ('after:  4.001506 + 1.008665 = 5.010171 u', FG),
-                             ('Δm = 0.018883 u    E = 0.018883 × 931 = 17.6 MeV released', GREEN)], size=24, gap=0.06)
+                             ('Δm = 0.018883 u    E = 0.018883 × 931 = 17.580 MeV released', FG),
+                             ('= 17.6 MeV (3 s.f.)', GREEN)], size=23, gap=0.046)
     if s >= 1:
-        T(fig, 0.06, 0.50, r'Fission:  $^{235}_{92}\mathrm{U} + ^{1}_{0}n\ \to\ ^{141}_{56}\mathrm{Ba} + ^{92}_{36}\mathrm{Kr} + 3\,^{1}_{0}n$', size=28, color=C2)
-        _lines(fig, 0.06, 0.42, [('236.052593 u → 235.866572 u   (atomic masses; electrons cancel)', FG), ('Δm = 0.186021 u    E = 173 MeV released, per fission', GREEN)], size=24, gap=0.06)
+        T(fig, 0.06, 0.515, r'Fission:  $^{235}_{92}\mathrm{U} + ^{1}_{0}n\ \to\ ^{141}_{56}\mathrm{Ba} + ^{92}_{36}\mathrm{Kr} + 3\,^{1}_{0}n$', size=28, color=C2)
+        _lines(fig, 0.06, 0.445, [('236.052593 u → 235.866572 u   (atomic masses; electrons cancel)', FG), ('Δm = 0.186021 u    E = 173.19 MeV released, per fission', FG),
+                                 ('= 173 MeV (3 s.f.)', GREEN)], size=23, gap=0.046)
     if s >= 2:
         card(fig, 0.05, 0.07, 0.90, 0.24, 'The sign tells you the direction', 'Products lighter: energy released.  Products HEAVIER: energy must be supplied, e.g. a photon or a fast particle’s kinetic energy.\nEnergy leaves as gamma photons or kinetic energy. Ignore a neutrino’s mass.\nTASC beta minus: treat given masses as nuclear and subtract the electron’s 0.000549 u. Told “atomic masses”? It cancels.', tcol=PINK, size=20)
 
@@ -1167,7 +1204,7 @@ def stars(fig, s, ph):
         header(fig, 'Fusion in stars')
         chip(fig, 'Element 4 · predictions')
         T(fig, 0.06, 0.78, r'Net result in the Sun:  $4\,^{1}_{1}p\ \to\ ^{4}_{2}\mathrm{He} + 2\,^{0}_{+1}e + 2\,\nu$', size=28, color=C2)
-        _lines(fig, 0.06, 0.70, [(r'Δm = 4(1.007276) − 4.001506 − 2(0.000549) = 0.0265 u, so 24.7 MeV', FG)], size=24)
+        _lines(fig, 0.06, 0.70, [(r'Δm = 4(1.007276) − 4.001506 − 2(0.000549) = 0.0265 u, so 24.67 MeV = 24.7 MeV (3 s.f.)', FG)], size=24)
         ax = wax(fig, [0.60, 0.20, 0.36, 0.45], (-5, 5), (-5, 5)); ax.set_aspect('equal')
         ax.add_patch(Circle((0, 0), 1.0, fc=YELLOW, ec='none'))
         for r_ in (2.0, 3.2, 4.4):
@@ -1176,10 +1213,13 @@ def stars(fig, s, ph):
         if s == 0:
             bullets(fig, ['Temperature: very fast nuclei overcome\nelectric repulsion', 'High density: collisions are frequent', 'Enough energy to reach the short-range\nstrong force'], 3, 0.06, 0.60, size=23, dim=False)
         else:
-            _lines(fig, 0.06, 0.61, [('Measured 590 W per m² at r = 2.28 × 10¹¹ m:', SOFT),
-                                     (r'$P = 590\times4\pi r^2 = 3.9\times10^{26}\ \mathrm{W}$', FG),
-                                     (r'mass loss $= \dfrac{P}{c^2} = 4.3\times10^{9}\ \mathrm{kg\ s^{-1}}$', GREEN),
-                                     (r'reactions $= \dfrac{P}{24.7\ \mathrm{MeV}} = 9.8\times10^{37}\ \mathrm{s^{-1}}$', GREEN)], size=24, gap=0.09)
+            T(fig, 0.06, 0.635, 'Measured 590 W per m² at r = 2.28 × 10¹¹ m:', size=23, color=SOFT)
+            T(fig, 0.06, 0.585, r'$P = 590\times4\pi r^2 = 3.8542\times10^{26}\ \mathrm{W}$', size=23)
+            _sf(fig, 0.06, 0.54, '= 3.9 × 10²⁶ W (2 s.f.)')
+            T(fig, 0.06, 0.48, r'mass loss $= \dfrac{P}{c^2} = 4.2824\times10^{9}\ \mathrm{kg\ s^{-1}}$', size=23)
+            _sf(fig, 0.06, 0.41, '= 4.3 × 10⁹ kg s⁻¹ (2 s.f.)')
+            T(fig, 0.06, 0.36, r'reactions $= \dfrac{P}{24.7\ \mathrm{MeV}} = 9.7525\times10^{37}\ \mathrm{s^{-1}}$', size=23)
+            _sf(fig, 0.06, 0.29, '= 9.8 × 10³⁷ s⁻¹ (2 s.f.)')
         return
     header(fig, 'Building heavier elements in stars')
     chip(fig, 'Element 4 · predictions')
@@ -1243,7 +1283,8 @@ def strong_force(fig, s, ph):
     header(fig, 'Why the nucleus holds together')
     chip(fig, 'Element 4 · predictions')
     card(fig, 0.05, 0.58, 0.48, 0.22, 'Question', 'An alpha particle and a carbon nucleus (Z = 6) sit\n5.0 fm apart. Find the electric force, and explain\nwhat this suggests about the nucleus.', tcol=C2, size=21)
-    T(fig, 0.06, 0.53, r'$F = \dfrac{k_E q_1 q_2}{r^2} = \dfrac{(9.00\times10^{9})(2e)(6e)}{(5.0\times10^{-15})^2} \approx 110\ \mathrm{N}$', size=25, color=GREEN)
+    T(fig, 0.06, 0.53, r'$F = \dfrac{k_E q_1 q_2}{r^2} = \dfrac{(9.00\times10^{9})(2e)(6e)}{(5.0\times10^{-15})^2} = 110.59\ \mathrm{N}$', size=24)
+    _sf(fig, 0.06, 0.46, '= 1.1 × 10² N (2 s.f.)')
     T(fig, 0.06, 0.40, 'Huge for such tiny masses. Charges come from Z, not mass.\nSquare r. Yet nuclei stay together.', size=23, color=SOFT)
     ax = gax(fig, [0.60, 0.25, 0.35, 0.53], (0, 6), (-2.5, 2.5), 'separation (fm)', 'force (+ repulsive)', ticks=False)
     r = np.linspace(0.6, 6, 400); ax.plot(r, 0.9 / r ** 1.0, color=PINK, lw=3)

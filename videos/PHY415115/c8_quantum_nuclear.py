@@ -230,7 +230,7 @@ _am_l = 0.693 / (432 * _yr)
 _i_l = 0.693 / (8.02 * 86400)
 _sun = 590 * 4 * math.pi * 2.28e11 ** 2
 _p1, _p2 = _h / 2.00e-11, _h / 2.24e-11
-_b1, _b2 = _h / 3.00e-11, _h / 3.49e-11
+_b1, _b2 = _h / 3.00e-11, _h / 3.485e-11
 
 # Every number spoken or shown in a worked example, recomputed.  check fails on a mismatch.
 CHECKS = [
@@ -267,7 +267,7 @@ CHECKS = [
     ('table f0', lambda: 2.2 / 4.15e-15, 5.3e14, 0.001),
     ('80 kV energy', lambda: _e * 80e3, 1.28e-14, 1e-6),
     ('80 kV lambda', lambda: _h * _c / (_e * 80e3), 1.55e-11, 0.003),
-    ('80 kV p', lambda: _h / 1.55e-11, 4.3e-23, 0.01),
+    ('80 kV p', lambda: _e * 80e3 / _c, 4.27e-23, 0.002),
     ('K alpha gap', lambda: 20 - 2.9, 17.1, 1e-6),
     ('K beta gap', lambda: 20 - 0.5, 19.5, 1e-6),
     ('K alpha', lambda: _he * _c / 17.1e3, 72.6e-12, 0.001),
@@ -278,26 +278,26 @@ CHECKS = [
     ('laser p', lambda: _h / 532e-9, 1.25e-27, 0.004),
     ('laser F', lambda: 5.0e-3 / (_h * _c / 532e-9) * _h / 532e-9, 1.67e-11, 0.002),
     ('laser F via P/c', lambda: 5.0e-3 / _c, 1.67e-11, 0.002),
-    ('mirror F', lambda: 2 * 5.0e-3 / _c, 3.3e-11, 0.015),
+    ('mirror F', lambda: 2 * 5.0e-3 / _c, 3.33e-11, 0.002),
     ('comp90 p', lambda: _p1, 3.32e-23, 0.002),
     ('comp90 p2', lambda: _p2, 2.96e-23, 0.001),
     ('comp90 pe', lambda: math.hypot(_p1, _p2), 4.44e-23, 0.002),
     ('comp90 angle', lambda: math.degrees(math.atan(_p2 / _p1)), 41.8, 0.002),
-    ('comp90 v', lambda: 4.44e-23 / _me, 4.9e7, 0.01),
+    ('comp90 v', lambda: math.hypot(_p1, _p2) / _me, 4.88e7, 0.001),
     ('comp180 p', lambda: _b1, 2.21e-23, 0.001),
     ('comp180 p2', lambda: _b2, 1.90e-23, 0.001),
     ('comp180 pe', lambda: _b1 + _b2, 4.11e-23, 0.001),
-    ('comp180 v', lambda: (_b1 + _b2) / _me, 4.5e7, 0.005),
+    ('comp180 v', lambda: (_b1 + _b2) / _me, 4.51e7, 0.001),
     ('comp180 v/c', lambda: (_b1 + _b2) / _me / _c, 0.15, 0.005),
     ('comp180 E1', lambda: _h * _c / 3.00e-11, 6.63e-15, 0.001),
-    ('comp180 E2', lambda: _h * _c / 3.49e-11, 5.70e-15, 0.001),
-    ('comp180 loss', lambda: _h * _c / 3.00e-11 - _h * _c / 3.49e-11, 9.3e-16, 0.002),
-    ('comp180 KE', lambda: 0.5 * _me * ((_b1 + _b2) / _me) ** 2, 9.27e-16, 0.001),
+    ('comp180 E2', lambda: _h * _c / 3.485e-11, 5.707e-15, 0.001),
+    ('comp180 loss', lambda: _h * _c / 3.00e-11 - _h * _c / 3.485e-11, 9.23e-16, 0.001),
+    ('comp180 KE', lambda: 0.5 * _me * ((_b1 + _b2) / _me) ** 2, 9.28e-16, 0.001),
     ('150 V energy', lambda: _e * 150, 2.40e-17, 1e-6),
     ('150 V speed', lambda: math.sqrt(2 * 2.40e-17 / _me), 7.26e6, 0.001),
     ('150 V percent of c', lambda: 100 * 7.26e6 / _c, 2.4, 0.01),
     ('150 V lambda', lambda: _h / (_me * 7.26e6), 1.0e-10, 0.003),
-    ('150 eV photon', lambda: _he * _c / 150, 8.3e-9, 0.003),
+    ('150 eV photon', lambda: _he * _c / 150, 8.28e-9, 0.001),
     ('ball lambda', lambda: _h / (0.058 * 40), 2.9e-34, 0.02),
     ('slow electron lambda', lambda: _h / (_me * 2.0e5), 3.6e-9, 0.02),
     ('slow electron p', lambda: _me * 2.0e5, 1.8e-25, 0.02),
@@ -317,10 +317,10 @@ CHECKS = [
     ('I-131 later', lambda: 5.0 * math.exp(-0.693 * 20 / 8.02), 0.89, 0.005),
     ('I-131 remaining percent', lambda: 100 * math.exp(-0.693 * 20 / 8.02), 18, 0.02),
     ('I-131 earlier exponent', lambda: 0.693 * 10.0 / 8.02, 0.864, 0.001),
-    ('I-131 earlier', lambda: 5.0 * math.exp(0.693 * 10 / 8.02), 11.9, 0.005),
+    ('I-131 earlier', lambda: 5.0 * math.exp(0.693 * 10 / 8.02), 12, 0.02),
     ('C-14 lambda', lambda: 0.693 / 5730, 1.21e-4, 0.001),
     ('ln 0.40', lambda: -math.log(0.40), 0.916, 0.001),
-    ('C-14 age', lambda: 5730 * -math.log(0.40) / 0.693, 7580, 0.002),
+    ('C-14 age', lambda: 5730 * -math.log(0.40) / 0.693, 7600, 0.005),
     ('percent of a mass', lambda: 3.0 * 0.50 / 100, 0.015, 1e-9),
     ('isotope in the past', lambda: 2.0 * math.exp(0.693 * 2), 8.0, 0.002),
     ('exponent two half-lives', lambda: 0.693 * 2, 1.386, 1e-6),
@@ -356,6 +356,36 @@ CHECKS = [
     ('50 keV in joules', lambda: 50e3 * _e, 8.0e-15, 1e-6),
     ('50 keV momentum', lambda: 50e3 * _e / _c, 2.7e-23, 0.015),
     ('americium in kg', lambda: 88 / 1000, 0.088, 1e-9),
+    # Unrounded values shown on screen above each rounded answer.
+    ('shown: green photon', lambda: _h * _c / 530e-9, 3.7528e-19, 1e-4),
+    ('shown: coffee', lambda: 2.90e-3 / 353, 8.2153e-6, 1e-4),
+    ('shown: Mg f0', lambda: 3.70 / _he, 8.9372e14, 1e-4),
+    ('shown: Mg lambda0', lambda: _he * _c / 3.70, 335.68e-9, 1e-4),
+    ('shown: Mg Ek', lambda: _he * _c / 250e-9 - 3.70, 1.268, 1e-4),
+    ('shown: Mg v', lambda: math.sqrt(2 * 1.268 * _e / _me), 6.6738e5, 1e-4),
+    ('shown: 80 kV lambda', lambda: _h * _c / (_e * 80e3), 1.5539e-11, 1e-4),
+    ('shown: laser n', lambda: 5.00e-3 / (_h * _c / 532e-9), 1.3374e16, 1e-4),
+    ('shown: laser F', lambda: 5.00e-3 / _c, 1.6667e-11, 1e-4),
+    ('shown: comp90 pe', lambda: math.hypot(_p1, _p2), 4.4441e-23, 1e-4),
+    ('shown: comp180 pe', lambda: _b1 + _b2, 4.1124e-23, 1e-4),
+    ('shown: 150 V lambda', lambda: _h / math.sqrt(2 * _me * _e * 150), 1.0026e-10, 1e-4),
+    ('shown: 150 V speed', lambda: math.sqrt(2 * _e * 150 / _me), 7.2587e6, 1e-4),
+    ('shown: annihilation', lambda: _mel * 931, 0.5111, 1e-3),
+    ('shown: I-131 N', lambda: 5.0e6 / _i_l, 4.9995e12, 1e-4),
+    ('shown: I-131 m', lambda: 5.0e6 / _i_l * 131 / _NA, 1.0879e-9, 1e-4),
+    ('shown: I-131 later', lambda: 5.0 * math.exp(-0.693 * 20 / 8.02), 0.8880, 1e-3),
+    ('shown: I-131 earlier', lambda: 5.0 * math.exp(0.693 * 10 / 8.02), 11.864, 1e-3),
+    ('shown: C-14', lambda: 0.9163 / (0.693 / 5730), 7576, 1e-3),
+    ('shown: Am activity', lambda: _am_A, 1.1161e13, 1e-4),
+    ('shown: Am N', lambda: _am_A / _am_l, 2.1941e23, 1e-4),
+    ('shown: Am m', lambda: _am_A / _am_l * 241 / _NA, 87.84, 1e-3),
+    ('shown: Ni-62 BE', lambda: _ni * 931, 544.97, 1e-4),
+    ('shown: DT', lambda: 0.018883 * 931, 17.580, 1e-3),
+    ('shown: fission', lambda: 0.186021 * 931, 173.19, 1e-3),
+    ('shown: star P', lambda: _sun, 3.8542e26, 1e-4),
+    ('shown: star mass', lambda: _sun / _c ** 2, 4.2824e9, 1e-4),
+    ('shown: star reactions', lambda: _sun / (24.7e6 * _e), 9.7525e37, 1e-4),
+    ('shown: electric force', lambda: 9.00e9 * (2 * _e) * (6 * _e) / (5.0e-15) ** 2, 110.59, 1e-3),
     ('electric force', lambda: 9.00e9 * (2 * _e) * (6 * _e) / (5.0e-15) ** 2, 110, 0.01),
 ]
 
@@ -586,8 +616,8 @@ Scene('we_xray', P1, 'Worked example: an 80 kV tube', V.extend(V.we_xray, 2, V.x
       "The shortest wavelength is h c over e V, which is one point five five times ten to the minus eleven metres. Match your "
       "constant to your units: use joules with h in joule seconds, or electron volts with the other one.",
       refs=['ex22q24', 'ar23q23', 'ex19q22', 'ar19q22', 'ex23q23'], covers=['X1'], elements=[2], exam=['X22-24', 'X23-23', 'X19-22', 'X20-19'],
-      problem='An X-ray tube runs at 80 kV. What is the shortest wavelength it produces?'),
-    S("The momentum of that photon is h over lambda, about four point three times ten to the minus twenty three kilogram metres "
+      problem='An X-ray tube runs at 80.0 kV. What is the shortest wavelength it produces?'),
+    S("The momentum of that photon is h over lambda, about four point two seven times ten to the minus twenty three kilogram metres "
       "per second. And remember why most X rays have a longer wavelength than this limit: most electrons don't lose all their "
       "energy in one event.", refs=['ex22q24', 'ar22q24', 'ar20q19'], covers=['X1', 'C1'], elements=[2], exam=['X22-24', 'X20-19'],
       problem='What is the momentum of an X-ray photon of wavelength 1.55 × 10⁻¹¹ m?'),
@@ -615,14 +645,14 @@ Scene('laser_force', P1, 'Worked example: the force of a laser', V.laser_force, 
       "photon has three point seven four times ten to the minus nineteen joules. Five milliwatts means five times ten to the "
       "minus three joules each second. Dividing, that's one point three four times ten to the sixteen photons per second. "
       "Take care: milli is not mega.", refs=['ex24q22', 'ar24q22', 'ex20q23', 'ar20q23'], covers=['L5'], elements=[2], exam=['X24-22', 'X20-23'],
-      problem='A 5.0 mW laser emits 532 nm light. How many photons does it emit each second?'),
+      problem='A 5.00 mW laser emits 532 nm light. How many photons does it emit each second?'),
     S("Force is the change in momentum each second. Each photon has a momentum of one point two five times ten to the minus "
       "twenty seven. On a black surface the photons are absorbed, so each one transfers all of that. Multiply by the number per second to get one "
       "point six seven times ten to the minus eleven newtons. Don't forget to include the number of photons.",
       refs=['ar24q22'], covers=['C1'], elements=[2], exam=['X24-22'],
       problem='What force does a beam of 1.34 × 10¹⁶ photons per second exert on a black surface, if each has a momentum of 1.25 × 10⁻²⁷ kg m/s?'),
     S("If the surface is a perfect mirror, each photon reverses, so its change in momentum doubles. The force is three point "
-      "three times ten to the minus eleven newtons. Many students miss that factor of two. It's a tiny force. But a spacecraft "
+      "three three times ten to the minus eleven newtons. Many students miss that factor of two. It's a tiny force. But a spacecraft "
       "has no air drag, so over many months, sunlight on it can change its momentum noticeably. And don't use power equals force "
       "times velocity here: it doesn't apply.",
       refs=['ar20q23', 'ex20q23'], covers=['C1'], elements=[2, 4], exam=['X20-23'],
@@ -651,24 +681,24 @@ Scene('compton90', P1, 'Worked example: scattering through 90°', V.compton90, [
       refs=['ar18q21'], covers=['C2'], elements=[2], exam=['X18-21', 'X23-22']),
     S("Finish it. The angle has a tangent of two point nine six over three point three two, which is forty one point eight "
       "degrees from the original direction, on the opposite side to the photon. Then convert momentum to speed, as some "
-      "students forget: divide by the electron mass, to get four point nine times ten to the seven metres per second.",
+      "students forget: divide by the electron mass, to get four point eight eight times ten to the seven metres per second.",
       refs=['ar18q21'], covers=['C2'], elements=[2], exam=['X18-21']),
 ]),
 Scene('compton180', P1, 'Worked example: a head-on bounce', V.compton180, [
     S("The simplest version has the photon bouncing straight back. An X ray moving east has a wavelength of three point zero "
-      "zero times ten to the minus eleven metres, and returns with three point four nine times ten to the minus eleven. Its "
+      "zero times ten to the minus eleven metres, and returns with three point four eight five times ten to the minus eleven. Its "
       "momenta are two point two one, east, and one point nine zero, west, both times ten to the minus twenty three. Always "
       "state the direction, because momentum is a vector.",
       refs=['ex24q24', 'ar24q24', 'ex25q20', 'ar25q20'], covers=['C2'], elements=[2], exam=['X24-24', 'X25-20'],
-      problem='An X-ray of 3.00 × 10⁻¹¹ m moving east bounces straight back with 3.49 × 10⁻¹¹ m. What is the speed of the electron?'),
+      problem='An X-ray of 3.00 × 10⁻¹¹ m moving east bounces straight back with 3.485 × 10⁻¹¹ m. What is the speed of the electron?'),
     S("Take east as positive. Plus two point two one equals minus one point nine zero, plus the electron's momentum. So the electron "
       "has four point one one times ten to the minus twenty three, going east: the two values add. Most errors "
-      "come from treating them both as positive and subtracting. Dividing by the mass gives four point five times ten to the "
+      "come from treating them both as positive and subtracting. Dividing by the mass gives four point five one times ten to the "
       "seven metres per second. In a show that question, state the conservation law too.",
       refs=['ar24q24', 'ar25q20'], covers=['C2'], elements=[2], exam=['X24-24', 'X25-20']),
-    S("Now check validity, for an A rating. The photon loses nine point three times ten to the minus sixteen joules. The electron's "
-      "half m v squared comes to nine point two seven times ten to the minus sixteen. That's very close, but not exact. At fifteen percent of "
-      "the speed of light, a small relativistic effect has been left out of half m v squared. Relativity isn't assessable in the exam, "
+    S("Now check validity, for an A rating. The photon loses nine point two three times ten to the minus sixteen joules. The electron's "
+      "half m v squared comes to nine point two eight times ten to the minus sixteen. That's very close, but not exact. At fifteen percent of "
+      "the speed of light, half m v squared runs slightly high, because it leaves out a small relativistic effect. Relativity isn't assessable in the exam, "
       "but it's the best reason to give.",
       refs=['ar25q20', 'ex25q20'], covers=['C2', 'S3'], elements=[2, 4], exam=['X25-20']),
 ]),
@@ -694,7 +724,7 @@ Scene('we_debroglie', P2, 'Worked example: electron wavelength', V.we_debroglie,
       "Lambda is h over m v, which is about one times ten to the minus ten metres. That's the spacing of atoms!",
       refs=['ex21q21', 'ar21q21', 'ex19q23'], covers=['D3', 'D5'], elements=[2], exam=['X21-21', 'X19-23'],
       problem='Electrons are accelerated from rest through 150 V. What is their de Broglie wavelength?'),
-    S("Here's the classic trap. A one hundred and fifty electron volt photon has a much longer wavelength, of eight point three "
+    S("Here's the classic trap. A one hundred and fifty electron volt photon has a much longer wavelength, of eight point two eight "
       "nanometres. Examiners report many students don't distinguish between the two, using the photon formula for electrons, or "
       "treating the electrons as if they travel at c. And for a contrast: a fifty eight gram ball at forty metres per second "
       "has a wavelength around ten to the minus thirty four metres. Nothing is that small, so it never shows wave behaviour.",
@@ -907,7 +937,7 @@ Scene('we_activity', P3, 'Worked example: a medical isotope', V.we_activity, [
       problem='What is the mass of 5.0 × 10¹² atoms of iodine-131?'),
     S("What about twenty days later? Time and half life are both in days, so lambda t is one point seven three, and the days cancel. "
       "A is five times e to the minus one point seven three, or zero point eight nine megabecquerels. Going ten days back, reverse the "
-      "sign, to get eleven point nine. It should be bigger, and it is. Check: twenty days is about two and a half half lives, so "
+      "sign, to get about twelve. It should be bigger, and it is. Check: twenty days is about two and a half half lives, so "
       "about eighteen percent should remain.",
       refs=['ar22q20', 'ar25q21', 'ex22q20', 'ex24q19', 'ar24q19'], covers=['R6'], elements=[2], exam=['X22-20', 'X25-21', 'X24-19'],
       problem='An iodine-131 sample (half-life 8.02 days) now has 5.0 MBq. What will its activity be in 20.0 days, and what was it 10.0 days ago?'),
@@ -916,7 +946,7 @@ Scene('we_age', P3, 'Finding a time: natural logs', V.we_age, [
     S("To find a time, you need natural logs. Radiometric dating is the classic case. Old wood has forty percent of the carbon "
       "fourteen activity of living wood, and the half life is five thousand seven hundred and thirty years. So zero point four "
       "zero equals e to the minus lambda t. Take natural logs: lambda t is zero point nine one six. Dividing by lambda gives about "
-      "seven thousand five hundred and eighty years.",
+      "seven thousand six hundred years.",
       refs=['ex21q20', 'ar21q20', 'appendix'], covers=['R6', 'K1'], elements=[2], exam=['X21-20'],
       problem='Old wood has 40% of the carbon-14 activity of living wood (half-life 5730 y). How old is it?'),
     S("Watch the wording. Seventy three percent less means twenty seven percent remains. A percentage of a mass needs care: zero point "

@@ -219,7 +219,8 @@ Within a Part, teach each topic in this order:
 1. **Concept**, with a diagram or animation that builds up.
 2. **Formula**, with its sheet status (`sheet_eq` or `learn_eq`) and what each letter means.
 3. **Worked example** in its own scene or steps: `chip()` with the element, a question `card()`, one line of working per
-   step, the answer in `GREEN`, and a validity check where it suits.
+   step, the answer in `GREEN`, and a validity check where it suits. Show each final answer unrounded, then directly under it
+   the rounded value with its precision (`= 4.44 (3 s.f.)`, matching the least precise input). This line is on screen only: don't narrate it or point it out.
 4. **Trap or tip** from the reports, said plainly ("Tip: …"), cited with its page.
 5. **Real-world or unfamiliar context** for element four, plus any contexts the course names.
 
