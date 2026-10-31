@@ -17,7 +17,7 @@ explainer/                the engine (shared by every video). Change with care.
   style.py                ALL house style: colours, course/module accents, VOICE, timing, wording, thresholds
   layout.py               drawing helpers (header, bullets, card, sheet_eq, learn_eq, chip, wax, gax, arrows...)
   spec.py                 data model: Video, Scene, Step, Ref, InfoSheet
-  builtin.py              AI-disclaimer scene (first) and credits scene (last), added automatically
+  builtin.py              AI-disclaimer scene (first, or after a `title` scene) and credits scene (last), added automatically
   sources.py              content.csv, download + cache, text extraction, verbatim-overlap checker
   tts.py                  narration synthesis (Kokoro), cached by text+voice hash
   subtitles.py            .srv3 (styled, YouTube) .srt .vtt .ass (burn-in)
@@ -145,7 +145,7 @@ acceptable: write genuinely new questions. Add to `allowed_overlaps` only for un
 criterion's own title from an attribution-licensed course document).
 
 **AI disclosure.** The disclaimer scene and the "AI generated content" footer on every slide are added by the engine.
-Never remove or bypass them, and never draw a slide outside the pipeline.
+The disclaimer comes first, or second when the spec's first scene has the id `title` (a title card). Never remove or bypass them, and never draw a slide outside the pipeline.
 
 **References.** Every slide that relies on a source cites it in `Step.refs`. The footer shows `Refs [n]`, and
 `references.md`/`description.txt` list them with locator, page, **URL** and licence. Write `Ref.loc` so it reads

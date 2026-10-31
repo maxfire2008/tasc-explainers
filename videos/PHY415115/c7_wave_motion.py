@@ -237,11 +237,13 @@ CHECKS = [
 # --------------------------------------------------------------------------- scenes
 S = Step
 SCENES = [
-Scene('intro', P0, 'Introduction: how Criterion 7 is assessed', V.intro, [
+Scene('title', P0, 'Welcome', V.title_card, [
     S("Welcome. This video is a complete briefing on Criterion 7 of TASC Physics, PHY415115: identify and apply general "
       "principles of wave motion. Use it to revise for your class tests on waves and for the end of year exam. By the end, "
       "you should know every part of the waves content, which formulas are on your information sheet and where to find "
       "them, and the traps that examiners keep seeing in student answers.", refs=['standards'], anim=4),
+]),
+Scene('intro', P0, 'How Criterion 7 is assessed', V.overview, [
     S("Criterion 7 is assessed in two ways. Your teacher assesses it during the year, through class tests, practicals and "
       "other tasks. It's also assessed externally, in Section C of the end of year exam. That's about forty five minutes, "
       "forty five marks, and five to seven compulsory questions. In the exam you can use the TASC information sheet and an "

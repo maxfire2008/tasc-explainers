@@ -1,9 +1,11 @@
-"""Scenes the framework adds to EVERY video: the AI disclaimer (first) and credits (last).
+"""Scenes the framework adds to EVERY video: the AI disclaimer (first, or straight after a
+title card: a first scene with id TITLE_ID) and credits (last).
 Specs must not define these themselves."""
 from . import layout as L
 from . import style as S
 from .spec import Scene, Step
 
+TITLE_ID = 'title'
 DISCLAIMER_ID = '_disclaimer'
 CREDITS_ID = '_credits'
 
@@ -29,7 +31,7 @@ def _make_credits(video):
 def wrap(video):
     ids = [sc.id for sc in video.scenes]
     if DISCLAIMER_ID not in ids:
-        video.scenes.insert(0, Scene(DISCLAIMER_ID, '', 'AI disclaimer', _disclaimer,
+        video.scenes.insert(1 if ids and ids[0] == TITLE_ID else 0, Scene(DISCLAIMER_ID, '', 'AI disclaimer', _disclaimer,
                                      [Step(S.DISCLAIMER_NARRATION, min_dur=S.MIN_CHAPTER)]))
     if CREDITS_ID not in ids:
         video.scenes.append(Scene(CREDITS_ID, '', 'Credits and references', _make_credits(video),

@@ -20,6 +20,14 @@ def C():
 
 
 # ============================================================================ overview
+def title_card(fig, s, ph):
+    intro(fig, 0, ph)
+
+
+def overview(fig, s, ph):
+    intro(fig, s + 1, ph)
+
+
 def intro(fig, s, ph):
     C1, C2 = C()
     if s == 0:

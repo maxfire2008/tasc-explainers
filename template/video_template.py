@@ -13,7 +13,7 @@ Rules that the checker enforces (see CLAUDE.md for the reasons):
   * no verbatim text from 'copyrighted' sources; quotes from 'quotes' sources are short and cited
   * a slide that shows an information-sheet formula (sheet_eq) says "information sheet" in its narration
   * every number in a worked example is recomputed in CHECKS
-The framework adds the AI disclaimer (first) and credits (last) scenes, the footer
+The framework adds the AI disclaimer (first, or after a first scene with id 'title') and credits (last) scenes, the footer
 ("AI generated content", course label, reference numbers) and all output documents.
 """
 import math
