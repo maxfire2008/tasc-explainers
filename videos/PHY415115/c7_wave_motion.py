@@ -1,15 +1,9 @@
 """PHY415115 Physics, Criterion 7: Identify and apply general principles of wave motion.
 
 Worked example of a full video spec.  Build with:
-    python -m explainer check   videos/PHY415115/c7_wave_motion.py
-    python -m explainer preview videos/PHY415115/c7_wave_motion.py
-    python -m explainer all     videos/PHY415115/c7_wave_motion.py
-
-TODO for the agent before rendering (see CLAUDE.md, "Before you render"):
-  * run `python -m explainer sources PHY415115`, then fill every PDF `page=` below from the cached files
-  * confirm the info-sheet section name and that each sheet_eq formula is really on the sheet
-  * add exam_topics for the 2021 and 2022 papers (only 2023-2025 were reviewed when this was written)
-  * confirm element order against the standards table in the course document
+    uv run python -m explainer check   videos/PHY415115/c7_wave_motion.py
+    uv run python -m explainer preview videos/PHY415115/c7_wave_motion.py
+    uv run python -m explainer all     videos/PHY415115/c7_wave_motion.py
 """
 import math
 
@@ -28,37 +22,63 @@ P4 = 'Part 4 · Interference, diffraction & polarisation'
 P5 = 'Finish · Tests & exam technique'
 
 # --------------------------------------------------------------------------- references
-# Source NAMES from sources/PHY415115/content.csv (list them with: python -m explainer sources PHY415115).
+# Source NAMES from sources/PHY415115/content.csv (list them with: uv run python -m explainer sources PHY415115).
 COURSE_DOC = 'phy415115-9.html'
 INFO = 'PHY415115-Physics-Information-sheet.pdf'
 SPEC = 'PHY415115-Physics-External-Assessment-Specifications.pdf'
 
 
-def exam(y, q, page=None):
-    return Ref(f'PHY415115-Physics-TASC-Exam-Paper-{y}.pdf', f'{y} exam, Section C, Question {q}', page)
+EXAM_FILES = {2018: 'PHY415115 Physics TASC Exam Paper 2018.pdf', 2019: 'PHY415115 Physics TASC Exam Paper 2019.pdf',
+              2020: 'PHY415115 Physics TASC Exam Paper 2020.pdf'}
+REPORT_FILES = {2018: 'PHY415115 - Assessment Panel Report 2018.pdf', 2019: 'PHY415115 Assessment Report 2019.pdf',
+                2020: 'PHY415115 Assessment Report 2020.pdf'}
+# Question -> PDF pages for this criterion's section of each paper and report (from the cached PDFs).
+EXAM_PAGES = {
+    2018: {13: 31, 14: 32, 15: 33, 16: '33-35', 17: '36-37', 18: '37-39'},
+    2019: {13: 27, 14: '28-29', 15: '30-31', 16: '32-33', 17: '34-35', 18: 36},
+    2020: {13: 28, 14: 29, 15: '30-31', 16: 32, 17: 33, 18: '34-35'},
+    2021: {12: '31-32', 13: 33, 14: '34-35', 15: '36-37', 16: '38-39', 17: '40-41'},
+    2022: {13: '31-32', 14: 33, 15: '34-35', 16: 36, 17: '37-38', 18: 39},
+    2023: {13: 39, 14: '40-41', 15: '42-43', 16: '44-45', 17: '46-47', 18: '48-49'},
+    2024: {13: '36-37', 14: '38-39', 15: '40-41', 16: '42-43', 17: '44-45', 18: 46},
+    2025: {12: '31-32', 13: '33-34', 14: 35, 15: '36-37', 16: '38-39', 17: '40-41'},
+}
+REPORT_PAGES = {
+    2018: {13: 4, 14: '4-5', 15: 5, 16: 5, 17: 5, 18: 6},
+    2019: {13: 15, 14: '15-16', 15: 16, 16: '16-17', 17: 17, 18: 18},
+    2020: {13: '4, 12', 14: '4, 12', 15: '5, 12-13', 16: '5, 14', 17: '5, 14', 18: '5, 14'},
+    2021: {12: '11-12', 13: '12-13', 14: '13-14', 15: '14-15', 16: '15-16', 17: '16-17'},
+    2022: {13: '17-19', 14: '19-21', 15: '21-23', 16: '23-24', 17: '24-26', 18: '26-27'},
+    2023: {13: '18-19', 14: '19-21', 15: '21-23', 16: '23-24', 17: '25-26', 18: '26-27'},
+    2024: {13: '18-19', 14: '19-21', 15: '21-23', 16: '23-25', 17: '25-27', 18: '27-29'},
+    2025: {12: 8, 13: '8-9', 14: 9, 15: '9-10', 16: 10, 17: '10-11'},
+}
 
 
-def report(y, q, page=None):
-    return Ref(f'PHY415115-Physics-Assessment-Report-{y}.pdf', f'{y} assessment report, Criterion 7, Question {q}', page)
+def exam(y, q):
+    name = EXAM_FILES.get(y, f'PHY415115-Physics-TASC-Exam-Paper-{y}.pdf')
+    section = 'Part 3' if y <= 2021 else 'Section C'
+    return Ref(name, f'{y} exam, {section}, Question {q}', EXAM_PAGES[y][q])
+
+
+def report(y, q):
+    name = REPORT_FILES.get(y, f'PHY415115-Physics-Assessment-Report-{y}.pdf')
+    return Ref(name, f'{y} assessment report, Criterion 7, Question {q}', REPORT_PAGES[y][q])
 
 
 REFS = {
     'standards': Ref(COURSE_DOC, 'Course document, Criterion 7 standards (element table)'),
-    'content': Ref(COURSE_DOC, 'Course document, content: Unit 2 Waves (wave interactions, wave interference)'),
-    'appendix': Ref(COURSE_DOC, 'Course document, Appendix 1: contexts (earthquakes & tsunamis; noise & acoustic design; wave theory of light)'),
+    'content': Ref(COURSE_DOC, 'Course document, Science Understanding: General principles of wave motion (Criterion 7)'),
+    'appendix': Ref(COURSE_DOC, 'Course document, Appendix 1: contexts (earthquakes and tsunamis; noise and acoustic design; wave theory of light)'),
     'info': Ref(INFO, 'Information sheet, Oscillations, Waves section', page=2),
-    'spec': Ref(SPEC, 'External assessment specifications, Section C', page=None),
-    'ex23q13': exam(2023, 13), 'ex23q14': exam(2023, 14), 'ex23q15': exam(2023, 15), 'ex23q16': exam(2023, 16),
-    'ex23q17': exam(2023, 17), 'ex23q18': exam(2023, 18),
-    'ex24q13': exam(2024, 13), 'ex24q14': exam(2024, 14), 'ex24q15': exam(2024, 15), 'ex24q16': exam(2024, 16),
-    'ex24q17': exam(2024, 17), 'ex24q18': exam(2024, 18),
-    'ex25q12': exam(2025, 12), 'ex25q13': exam(2025, 13), 'ex25q14': exam(2025, 14), 'ex25q15': exam(2025, 15),
-    'ex25q16': exam(2025, 16), 'ex25q17': exam(2025, 17),
-    'ar23q13': report(2023, 13), 'ar23q14': report(2023, 14), 'ar23q15': report(2023, 15), 'ar23q16': report(2023, 16),
-    'ar23q17': report(2023, 17), 'ar23q18': report(2023, 18),
-    'ar24q13': report(2024, 13), 'ar24q14': report(2024, 14), 'ar24q15': report(2024, 15), 'ar24q16': report(2024, 16),
-    'ar24q17': report(2024, 17), 'ar24q18': report(2024, 18),
+    'spec': Ref(SPEC, 'External assessment specifications, Section C', page=3),
 }
+for _y, _qs in EXAM_PAGES.items():
+    for _q in _qs:
+        REFS[f'ex{_y % 100}q{_q}'] = exam(_y, _q)
+for _y, _qs in REPORT_PAGES.items():
+    for _q in _qs:
+        REFS[f'ar{_y % 100}q{_q}'] = report(_y, _q)
 
 # --------------------------------------------------------------------------- coverage targets
 # Every dot point of the course content for this criterion.  check fails if one is uncovered.
@@ -184,8 +204,8 @@ Scene('longitudinal', P1, 'Longitudinal waves, sound and light', V.longitudinal,
       "and so are the P waves from earthquakes.", refs=['content'], covers=['W2', 'W4'], elements=[1], anim=2),
     S("Sound is a mechanical wave. It needs a medium, like air, water or rock, because it travels by particles pushing on "
       "their neighbours. That's why there's no sound in space.", refs=['content'], covers=['W4'], elements=[1], anim=2),
-    S("Light is different. It's an electromagnetic wave: oscillating electric and magnetic fields, at right angles to each "
-      "other and to the direction of travel. So light behaves as a transverse wave, and it needs no medium. It crosses the "
+    S("Light is different. It's an electromagnetic wave: an electric field and a magnetic field oscillate together, each "
+      "perpendicular to the other and to the direction of travel. So light behaves as a transverse wave, and it needs no medium. It crosses the "
       "vacuum of space at the speed of light, three point zero zero times ten to the eight metres per second. That value "
       "is on your information sheet, in the list of constants.", refs=['content'], covers=['W5'], elements=[1], anim=2),
 ]),
@@ -193,9 +213,9 @@ Scene('shm', P1, 'Simple harmonic motion', V.shm, [
     S("Underneath every wave is simple harmonic motion. Each particle in the medium oscillates like a mass on a spring. If "
       "you follow a point moving steadily around a circle, and watch only its height, you get exactly the same motion. "
       "Plotted against time, it traces out a sine curve.", refs=['content'], covers=['W3'], elements=[1], anim=4),
-    S("We can write the displacement as y equals A sine omega t, where A is the amplitude, the maximum displacement from "
-      "rest. Omega is the angular frequency. The relationship omega equals two pi f, which also equals two pi over T, is on "
-      "your information sheet, in the oscillations and waves section.", refs=['content'], covers=['W3'], elements=[1], anim=4),
+    S("The largest displacement from rest is the amplitude, A. One full trip around the circle takes one period, T. This "
+      "course treats simple harmonic motion qualitatively, so you don't need an equation for it. You just need the picture, "
+      "and the link between the circle and the sine curve.", refs=['content'], covers=['W3'], elements=[1], anim=4),
     S("The key idea is that the restoring force always points back towards the rest position. The further a particle is "
       "displaced, the stronger the pull back. That's what keeps the oscillation going, and it's what lets a medium carry a "
       "wave at all. Keep that idea of a restoring force in mind. We'll need it later, for earthquakes.",
@@ -208,8 +228,8 @@ Scene('quantities', P1, 'Describing a wave: A, λ, T, f, v', V.quantities, [
     S("Period, T, is the time for one complete oscillation, in seconds. Frequency, f, is the number of oscillations each "
       "second, in hertz. Frequency and period are reciprocals: f equals one over T. You'll find that on your information "
       "sheet, in the oscillations and waves section.", refs=['content'], covers=['W6'], elements=[1]),
-    S("And wave speed, v, links them all together: v equals f lambda, also on the information sheet. In one period, the "
-      "wave moves forward exactly one wavelength. So the speed is wavelength divided by period, which is f lambda.",
+    S("And wave speed, v, links them all together: v equals lambda f, also on the information sheet. In one period, the "
+      "wave moves forward exactly one wavelength. So the speed is wavelength divided by period, which is lambda f.",
       refs=['content'], covers=['W6'], elements=[1], anim=2),
     S("One important fact: the frequency of a wave is set by its source. When a wave moves into a new medium, its speed "
       "and wavelength can change, but its frequency stays the same. Those formulas, from the information sheet, still "
@@ -225,7 +245,7 @@ Scene('graphs', P1, 'Displacement–distance vs displacement–time graphs', V.g
     S("Here's an example for element three. A buoy bobs up and down on the sea. Its displacement time graph shows an "
       "amplitude of zero point four metres, and a period of four seconds. A snapshot of the sea surface shows crests "
       "eighteen metres apart.", covers=['W6'], elements=[3]),
-    S("So the frequency is one over four, which is zero point two five hertz. And the wave speed is f lambda: zero point "
+    S("So the frequency is one over four, which is zero point two five hertz. And the wave speed is lambda f: zero point "
       "two five times eighteen, which is four point five metres per second. Notice that we needed both graphs: one for the "
       "period, and one for the wavelength.", covers=['W6'], elements=[2, 3]),
     S("You might also be asked for the velocity of the particle itself, at some moment. That's the gradient of the "
@@ -303,20 +323,21 @@ Scene('refraction', P2, "Reflection, refraction and Snell's law", V.refraction, 
       "crosses first slows down first, so the wavefront swings around. Slowing down bends the ray towards the normal. "
       "Speeding up bends it away.", refs=['content'], covers=['W9'], elements=[1], anim=2),
     S("For light, we describe a medium by its absolute refractive index, n. That's the speed of light in a vacuum, "
-      "divided by the speed of light in the medium. Glass has n of about one point five, so light travels at about two "
-      "thirds of its vacuum speed in glass. A higher n means slower light.", refs=['content'], covers=['W10'],
+      "divided by the speed of light in the medium. That equation isn't on your sheet, so learn it. Glass has n of about "
+      "one point five, so light travels at about two thirds of its vacuum speed in glass. A higher n means slower light.", refs=['content'], covers=['W10'],
       elements=[1], anim=2),
     S("Snell's law connects the angles. On your information sheet, in the oscillations and waves section, it's written as "
-      "n one sine theta i equals n two sine theta r. Equivalently, the ratio of the sines equals the ratio of the speeds, v "
-      "one over v two, which equals n two over n one. That ratio, n two over n one, is the relative refractive index, going "
-      "from medium one into medium two.", refs=['content'], covers=['W9', 'W10'], elements=[1], anim=2),
+      "n i sine theta i equals n r sine theta r, where i means the incident medium and r the refracting medium. The sheet "
+      "also gives the ratio of the sines, which equals v i over v r, and calls that n: the relative refractive index, going "
+      "from the first medium into the second. It also equals n r over n i. And because frequency doesn't change, it equals "
+      "the wavelength ratio, lambda i over lambda r. Those last two forms aren't on the sheet.", refs=['content'], covers=['W9', 'W10'], elements=[1], anim=2),
 ]),
 Scene('tir', P2, 'Critical angle and total internal reflection', V.tir, [
     S("When light goes from a slower medium into a faster one, like glass into air, it bends away from the normal. As you "
       "increase the angle of incidence, the refracted ray swings closer and closer to the surface.", covers=['W11'],
       elements=[1], anim=6),
     S("At the critical angle, the refracted ray runs exactly along the surface, at ninety degrees to the normal. Put theta "
-      "r equals ninety degrees into Snell's law, and you get: sine of the critical angle equals n two over n one. This one "
+      "r equals ninety degrees into Snell's law, and you get: sine of the critical angle equals n r over n i. This one "
       "is not on the sheet, so learn it, or derive it from Snell's law.", covers=['W11'], elements=[1]),
     S("Beyond the critical angle, no light is refracted at all. All of it reflects back into the first medium. That's "
       "total internal reflection. It only happens going from a higher n to a lower n. It's how optical fibres keep light "
@@ -331,7 +352,7 @@ Scene('we_refraction', P2, 'Worked example: glass to water', V.we_refraction, [
       "escape into the water?", covers=['W9', 'W11'], elements=[2]),
     S("First, find the critical angle. Sine theta c equals one point three three over one point five two, which is zero "
       "point eight seven five. So the critical angle is sixty one point zero degrees.", covers=['W11'], elements=[2]),
-    S("Fifty five degrees is less than the critical angle, so the light does refract into the water. Snell's law, from the "
+    S("Fifty five degrees is below the critical angle, so the light does refract into the water. Snell's law, from the "
       "information sheet, gives sine theta r equals one point five two times sine fifty five degrees, all divided by one "
       "point three three. That's zero point nine three six, so theta r is about sixty nine point four degrees. It bends away "
       "from the normal, as it should, because it's speeding up.", covers=['W9'], elements=[2]),
@@ -386,7 +407,7 @@ Scene('quakes', P2, 'Monitoring earthquakes and tsunamis', V.quakes, [
       "twenty seconds, so the distance is twenty divided by one over four point five minus one over eight. That's about two "
       "hundred and six kilometres.", covers=['A1'], elements=[2]),
     S("Tsunamis are ocean waves with very long wavelengths. In deep ocean they travel fast with a small amplitude. Near the "
-      "coast the water gets shallower, so they slow down. The frequency stays the same, so by v equals f lambda the "
+      "coast the water gets shallower, so they slow down. The frequency stays the same, so by v equals lambda f the "
       "wavelength shortens, the energy bunches up, and the amplitude grows. That's why a tsunami that's barely noticeable "
       "at sea can be devastating at the shore.", refs=['appendix'], covers=['A1', 'W6'], elements=[1, 4], anim=2),
 ]),
@@ -439,10 +460,12 @@ Scene('standing', P3, 'Standing waves', V.standing, [
 Scene('strings', P3, 'Strings: harmonics and overtones', V.strings, [
     S("On a string fixed at both ends, both ends must be nodes. The simplest pattern, called the fundamental or first "
       "harmonic, is a single loop. That's half a wavelength, so lambda equals two L. Not L. That's a very common mistake, "
-      "and this relationship isn't on the information sheet.", refs=['ar23q13'], covers=['W15'], elements=[1],
+      "and you can avoid it: the oscillations and waves section of your information sheet has a small diagram of this "
+      "pattern, labelled lambda equals two L.", refs=['ar23q13'], covers=['W15'], elements=[1],
       exam=['X23-13'], anim=2),
     S("The next patterns have two, three, and four loops. In general, the n th harmonic has a wavelength of two L over n, "
-      "and a frequency of n times v over two L. So the harmonic frequencies are whole number multiples of the fundamental.",
+      "and a frequency of n times v over two L. Those general forms aren't on the sheet, so learn them. The harmonic "
+      "frequencies are whole number multiples of the fundamental.",
       covers=['W15'], elements=[1], anim=2),
     S("Watch the words. The first harmonic is the fundamental. The first overtone is the next frequency above the "
       "fundamental, which on a string is the second harmonic. Harmonics and overtones are counted differently, so read the "
@@ -453,7 +476,7 @@ Scene('we_string', P3, 'Worked example: a guitar string', V.we_string, [
       "frequency is one hundred and ninety six hertz. Its linear mass density is one point two grams per metre. Find the "
       "wave speed, and the tension.", covers=['W15', 'W16'], elements=[2], exam=['X23-13', 'X25-13'],
       refs=['ex23q13', 'ex25q13']),
-    S("The fundamental wavelength is two L, which is one point three zero metres. So, using v equals f lambda, v is one "
+    S("The fundamental wavelength is two L, which is one point three zero metres. So, using v equals lambda f, v is one "
       "ninety six times one point three zero, which is about two hundred and fifty five metres per second.",
       covers=['W15'], elements=[2]),
     S("Rearranging the string speed formula gives T equals mu v squared. With mu equal to zero point zero zero one two "
@@ -469,9 +492,10 @@ Scene('pipes', P3, 'Pipes: open, closed and end correction', V.pipes, [
       "move, so there's a displacement node. At an open end, the air moves most freely, so there's a displacement antinode.",
       refs=['content'], covers=['W15'], elements=[1]),
     S("In a pipe open at both ends, there are antinodes at both ends. The fundamental is half a wavelength, so lambda "
-      "equals two L. Just like a string, all harmonics are possible.", covers=['W15'], elements=[1], exam=['X24-13']),
+      "equals two L, as the diagram in the oscillations and waves section of your information sheet shows. Just like a "
+      "string, all harmonics are possible.", covers=['W15'], elements=[1], exam=['X24-13']),
     S("In a pipe closed at one end, there's a node at the closed end, and an antinode at the open end. The fundamental is "
-      "just a quarter of a wavelength, so lambda equals four L. And only odd harmonics are possible: the first, third, "
+      "just a quarter of a wavelength, so lambda equals four L, also on the information sheet. And only odd harmonics are possible: the first, third, "
       "fifth, and so on. So the first overtone of a closed pipe is the third harmonic.", refs=['ar23q15'],
       covers=['W15'], elements=[1], exam=['X23-15', 'X24-13']),
     S("In reality, the antinode sits slightly outside each open end. This is the end correction: the pipe behaves as if "
@@ -550,21 +574,22 @@ Scene('youngs', P4, "Young's double slit and fringe width", V.youngs, [
     S("Young's double slit experiment shows light interfering. Light passes through two narrow slits, a distance d apart, "
       "onto a screen a distance x away. You see evenly spaced bright and dark fringes.", refs=['content', 'ex25q14'],
       covers=['W17'], elements=[1], exam=['X25-14']),
-    S("The fringe width, W, equals lambda x over d. That's the form on your information sheet, in the oscillations and "
-      "waves section, so use its letters: x is the distance to the screen, and d is the slit separation. A bigger "
-      "wavelength, a more distant screen, or slits closer together all give wider fringes. This experiment was crucial "
+    S("The band width, w, is the distance from one node to the next. You may also hear it called the fringe width. It "
+      "equals lambda x over d. That's the form on your information sheet, in the oscillations and waves section, so use "
+      "its letters: x is the distance to the screen, and d is the slit separation. A bigger wavelength, a more distant "
+      "screen, or slits closer together all give wider fringes. This experiment was crucial "
       "evidence that light is a wave.", covers=['W17'], elements=[1]),
     S("Example, for element two. A green laser, with a wavelength of five hundred and thirty two nanometres, shines on two "
-      "slits zero point two five millimetres apart, with a screen two metres away. Using the information sheet formula, W "
+      "slits zero point two five millimetres apart, with a screen two metres away. Using the information sheet formula, w "
       "equals five hundred and thirty two times ten to the minus nine, times two, divided by zero point two five times ten "
       "to the minus three. That's about four point three millimetres. Switch to a red laser, with its longer wavelength, "
       "and the fringes spread further apart.", covers=['W17'], elements=[2], exam=['X25-14']),
-    S("Where are the fringes? The central bright fringe has zero path difference. The n th bright fringe is n fringe "
+    S("Where are the fringes? The central bright fringe has zero path difference. The n th bright fringe is n band "
       "widths from the centre, where the path difference is n wavelengths. The dark fringes sit halfway between, where the "
       "path difference is a whole number minus a half, times lambda.", covers=['W17'], elements=[1, 3],
       exam=['X25-14']),
     S("Is the answer valid? The formula relies on a small angle approximation. It only works when the distance to the "
-      "screen is much bigger than the fringe width and the slit separation. Here, it's a few millimetres compared with two "
+      "screen is much bigger than the band width and the slit separation. Here, it's a few millimetres compared with two "
       "metres, so it's fine. If you're asked about the limitations of this formula, that's the answer, and vague "
       "references to other factors don't earn marks.", refs=['ar24q14'], covers=['W17'], elements=[2],
       exam=['X24-14']),
@@ -589,8 +614,8 @@ Scene('polarisation', P4, 'Polarisation', V.polarisation, [
       "sideways direction to filter out. So polarisation tells transverse waves apart from longitudinal ones.",
       refs=['content'], covers=['W19', 'W2'], elements=[1]),
     S("If polarised light meets a second filter at an angle theta, resolve the amplitude like a vector. The component "
-      "along the new axis is A cos theta, and that's what gets through. Use cosine, not sine, when theta is measured from "
-      "the polarisation direction. And since intensity depends on amplitude squared, intensity falls by a factor of cos "
+      "along the new axis is A cos theta, and that's what gets through. These aren't on the sheet, so learn the idea. Use "
+      "cosine, not sine, when theta is measured from the polarisation direction. And since intensity depends on amplitude squared, intensity falls by a factor of cos "
       "squared theta.", refs=['ar23q14'], covers=['W19'], elements=[1, 2], exam=['X23-14']),
     S("Two filters at ninety degrees to each other, called crossed filters, block everything, since cos ninety is zero. "
       "But put a third filter between them at forty five degrees, and some light gets through. The middle filter passes A "

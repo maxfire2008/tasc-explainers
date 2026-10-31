@@ -159,7 +159,7 @@ Numbers are assigned by first appearance, so don't hard-code them.
 **Information sheet.** Every formula shown is either
 * `sheet_eq(...)`: it is on the information sheet. The slide gets a tag naming the sheet section, and the narration
   **on the slide where it first appears must say "information sheet" and name the section** (the checker enforces the
-  phrase). Use the sheet's exact notation and letters (e.g. PHY415115 uses `W = λx/d` with x = slit-to-screen
+  phrase). Use the sheet's exact notation and letters (e.g. PHY415115 uses `w = λx/d` with x = slit-to-screen
   distance), and say what each letter means; or
 * `learn_eq(...)`: it is *not* on the sheet, so tell students to learn or derive it; or
 * plain `eq(...)`: only for things that aren't formulas to recall (e.g. `PD = r₂ − r₁`, a substitution line).

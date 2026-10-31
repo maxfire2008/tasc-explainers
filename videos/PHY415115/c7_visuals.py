@@ -192,8 +192,7 @@ def shm(fig, s, ph):
     if s >= 1:
         darrow(ax, (11 + 11.5 * 0.125, 0), (11 + 11.5 * 0.125, R), color=YELLOW, ms=16)
         label(ax, 11 + 11.5 * 0.125 + 0.3, R / 2, 'A', size=26, color=YELLOW, ha='left', weight='bold')
-        eq(fig, 0.06, 0.16, r'$y = A\,\sin\,\omega t$', size=34)
-        sheet_eq(fig, 0.30, 0.16, r'$\omega = 2\pi f = \dfrac{2\pi}{T}$', size=34)
+        T(fig, 0.06, 0.20, 'A = amplitude: largest displacement from rest\nOne trip around the circle = one period, T', size=24, color=SOFT)
     if s >= 2:
         F = -0.75 * py
         if abs(F) > 0.12:
@@ -234,7 +233,7 @@ def quantities(fig, s, ph):
         T(fig, 0.665, y - 0.062, desc, size=17, color=SOFT, va='center')
         T(fig, 0.94, y - 0.04, unit, size=24, color=SOFT, va='center', ha='right')
     if s >= 1: sheet_eq(fig, 0.07, 0.29, r'$f = \dfrac{1}{T}$', size=40)
-    if s >= 2: sheet_eq(fig, 0.27, 0.29, r'$v = f\lambda$', size=48, color=GREEN)
+    if s >= 2: sheet_eq(fig, 0.27, 0.29, r'$v = \lambda f$', size=48, color=GREEN)
     if s >= 3:
         card(fig, 0.05, 0.07, 0.52, 0.11, 'f is set by the source', 'new medium → v and λ change, f stays the same',
              tcol=PINK, size=21)
@@ -273,7 +272,7 @@ def graphs(fig, s, ph):
          tcol=C2, size=23)
     if s >= 3:
         T(fig, 0.06, 0.47, r'$f = \dfrac{1}{T} = \dfrac{1}{4.0} = 0.25\ \mathrm{Hz}$', size=30, color=FG)
-        T(fig, 0.06, 0.37, r'$v = f\lambda = 0.25\times18 = 4.5\ \mathrm{m\ s^{-1}}$', size=30, color=GREEN)
+        T(fig, 0.06, 0.37, r'$v = \lambda f = 0.25\times18 = 4.5\ \mathrm{m\ s^{-1}}$', size=30, color=GREEN)
     if s >= 4:
         bullets(fig, ['Particle velocity = gradient of the y–t graph', 'Tangent at t = 4.5 s: ≈ 0.44 m s⁻¹',
                       'Use two far-apart points · show them · units'], 3, 0.06, 0.25, size=22, gap=0.012, dim=False,
@@ -493,14 +492,14 @@ def refraction(fig, s, ph):
                       'Slower → bends towards the normal', 'Faster → bends away from the normal'], 4, 0.58, 0.76,
                 size=25, dim=False)
     if s >= 2:
-        eq(fig, 0.60, 0.72, r'$n = \dfrac{c}{v}$', size=44)
+        learn_eq(fig, 0.60, 0.72, r'$n = \dfrac{c}{v}$', size=40)
         for i, (m_, nv) in enumerate([('air', '1.00'), ('water', '1.33'), ('glass', '≈ 1.5')]):
             T(fig, 0.78, 0.77 - i * 0.055, m_, size=24, color=SOFT); T(fig, 0.93, 0.77 - i * 0.055, nv, size=24, ha='right')
-        T(fig, 0.60, 0.60, 'absolute n: compared with a vacuum\nhigher n → slower light', size=22, color=SOFT)
+        T(fig, 0.60, 0.585, 'absolute n: compared with a vacuum\nhigher n → slower light', size=20, color=SOFT)
     if s >= 3:
-        sheet_eq(fig, 0.60, 0.43, r'$n_1\sin\theta_i = n_2\sin\theta_r$', size=36, color=GREEN)
-        sheet_eq(fig, 0.60, 0.25, r'$\dfrac{\sin\theta_i}{\sin\theta_r} = \dfrac{v_1}{v_2} = \dfrac{n_2}{n_1}$', size=34)
-        T(fig, 0.60, 0.13, 'n₂ / n₁ = relative refractive index (1 → 2)', size=21, color=SOFT)
+        sheet_eq(fig, 0.60, 0.46, r'$n_i\sin\theta_i = n_r\sin\theta_r$', size=30, color=GREEN)
+        sheet_eq(fig, 0.60, 0.31, r'$\dfrac{\sin\theta_i}{\sin\theta_r} = \dfrac{v_i}{v_r} = n$', size=28)
+        learn_eq(fig, 0.60, 0.155, r'relative $n = \dfrac{n_r}{n_i} = \dfrac{\lambda_i}{\lambda_r}$', size=26)
 
 
 def _tir_draw(ax, thd, n1=1.5, show_vals=True, C2=None):
@@ -536,7 +535,7 @@ def tir(fig, s, ph):
     elif s == 1:
         _tir_draw(ax, thc, show_vals=False, C2=C2)
         label(ax, 4.8, 3.3, f'θᵢ = θc = {thc:.1f}°', size=24, color=FG, ha='right')
-        learn_eq(fig, 0.60, 0.68, r'$\sin\theta_c = \dfrac{n_2}{n_1}$', size=46, color=GREEN)
+        learn_eq(fig, 0.60, 0.68, r'$\sin\theta_c = \dfrac{n_r}{n_i}$', size=46, color=GREEN)
         T(fig, 0.60, 0.53, 'from Snell’s law with θᵣ = 90°\nglass → air: θc = 41.8°', size=24, color=SOFT)
     else:
         _tir_draw(ax, 55, C2=C2)
@@ -712,7 +711,7 @@ def quakes(fig, s, ph):
     arrow(ax, (2, 1.6), (6, 1.6), color=C2); label(ax, 4, 2.1, 'towards shore', size=20, color=C2)
     label(ax, 4, -2.6, 'deep ocean: fast, long λ, small amplitude', size=20, color=SOFT)
     label(ax, 15.5, -0.9, 'shallow: slower, shorter λ, taller', size=20, color=YELLOW)
-    bullets(fig, ['Frequency stays the same (set by the source)', 'Shallower → slower → λ shortens (v = fλ)',
+    bullets(fig, ['Frequency stays the same (set by the source)', 'Shallower → slower → λ shortens (v = λf)',
                   'Energy bunches up → amplitude grows'], 3, 0.06, 0.25, size=24, dim=False)
 
 
@@ -830,10 +829,10 @@ def strings(fig, s, ph):
     if s == 0:
         ax = wax(fig, [0.05, 0.36, 0.56, 0.36], (-0.5, 10.5), (-1.6, 1.4))
         _string(ax, 1, ph, A=1.0)
-        darrow(ax, (0, -1.35), (10, -1.35), color=C2, ms=16); label(ax, 5, -1.15, 'L', size=24, color=C2)
+        darrow(ax, (0, -1.35), (10, -1.35), color=C2, ms=16); label(ax, 5, -1.15, 'l', size=24, color=C2)
         label(ax, 5, 1.25, 'one loop = λ/2', size=24, color=YELLOW)
         bullets(fig, ['Fixed ends → nodes', 'Fundamental (1st harmonic): one loop'], 2, 0.64, 0.76, size=25, dim=False)
-        learn_eq(fig, 0.66, 0.52, r'$\lambda_1 = 2L$', size=46, color=GREEN)
+        sheet_eq(fig, 0.66, 0.52, r'$\lambda = 2l$', size=46, color=GREEN)
         T(fig, 0.66, 0.38, 'not L !', size=28, color=PINK, weight='bold')
         return
     for n in range(1, 5):
@@ -841,8 +840,8 @@ def strings(fig, s, ph):
         _string(ax, n, ph, A=0.85, col=[C1, GREEN, C2, PINK][n - 1])
         fig.text(0.53, 0.765 - (n - 1) * 0.165, f'n = {n}', color=FG, fontsize=22, va='center')
     if s == 1:
-        learn_eq(fig, 0.64, 0.68, r'$\lambda_n = \dfrac{2L}{n}$', size=38, color=GREEN)
-        learn_eq(fig, 0.64, 0.46, r'$f_n = \dfrac{n\,v}{2L} = n f_1$', size=38, color=GREEN)
+        learn_eq(fig, 0.64, 0.68, r'$\lambda_n = \dfrac{2l}{n}$', size=38, color=GREEN)
+        learn_eq(fig, 0.64, 0.46, r'$f_n = \dfrac{n\,v}{2l} = n f_1$', size=38, color=GREEN)
         T(fig, 0.64, 0.31, 'whole-number multiples\nof the fundamental', size=24, color=SOFT)
     else:
         rows = [('f₁', '1st harmonic', 'fundamental'), ('2f₁', '2nd harmonic', '1st overtone'),
@@ -864,8 +863,8 @@ def we_string(fig, s, ph):
              tcol=PINK, size=24)
     y = 0.78
     if s >= 1:
-        T(fig, 0.52, y, r'$\lambda_1 = 2L = 2\times0.65 = 1.30\ \mathrm{m}$', size=28); y -= 0.09
-        T(fig, 0.52, y, r'$v = f\lambda = 196\times1.30 \approx 255\ \mathrm{m\ s^{-1}}$', size=28, color=GREEN); y -= 0.11
+        T(fig, 0.52, y, r'$\lambda_1 = 2l = 2\times0.65 = 1.30\ \mathrm{m}$', size=28); y -= 0.09
+        T(fig, 0.52, y, r'$v = \lambda f = 196\times1.30 \approx 255\ \mathrm{m\ s^{-1}}$', size=28, color=GREEN); y -= 0.11
     if s >= 2:
         T(fig, 0.52, y, r'$T = \mu v^2 = 0.0012\times255^2 \approx 78\ \mathrm{N}$', size=28, color=GREEN); y -= 0.12
     if s >= 3:
@@ -900,9 +899,11 @@ def pipes(fig, s, ph):
         return
     if s in (1, 2):
         cols_ = [(False, 'Open at both ends', 'all harmonics',
-                  [(1, 'λ = 2L', 'f₁'), (2, 'λ = L', '2f₁'), (3, 'λ = 2L/3', '3f₁')], 0.05)]
+                  [(1, 'λ = 2l', 'f₁'), (2, 'λ = l', '2f₁'), (3, 'λ = 2l/3', '3f₁')], 0.05)]
         if s == 2: cols_.append((True, 'Closed at one end', 'odd harmonics only',
-                                 [(1, 'λ = 4L', 'f₁'), (3, 'λ = 4L/3', '3f₁'), (5, 'λ = 4L/5', '5f₁')], 0.52))
+                                 [(1, 'λ = 4l', 'f₁'), (3, 'λ = 4l/3', '3f₁'), (5, 'λ = 4l/5', '5f₁')], 0.52))
+        sheet_eq(fig, 0.06, 0.115, r'$\lambda = 2l$', size=22)
+        if s == 2: sheet_eq(fig, 0.53, 0.115, r'$\lambda = 4l$', size=22)
         for closed, title, sub, rows, x0 in cols_:
             T(fig, x0, 0.79, title, size=28, color=C2 if closed else C1, weight='bold')
             T(fig, x0, 0.73, sub, size=21, color=SOFT)
@@ -914,24 +915,24 @@ def pipes(fig, s, ph):
     if s == 3:
         ax = wax(fig, [0.05, 0.40, 0.90, 0.38], (0, 24), (-2.2, 2.2))
         _pipe(ax, 1, 0, 9, True, 1, C2, ext=1.0, h=1.6); _pipe(ax, 13.5, 0, 9, False, 1, C1, ext=1.0, h=1.6)
-        darrow(ax, (1, -1.3), (11, -1.3), color=YELLOW, ms=14); label(ax, 6, -1.75, 'L + e', size=22, color=YELLOW)
-        darrow(ax, (12.5, -1.3), (23.5, -1.3), color=YELLOW, ms=14); label(ax, 18, -1.75, 'L + 2e', size=22, color=YELLOW)
+        darrow(ax, (1, -1.3), (11, -1.3), color=YELLOW, ms=14); label(ax, 6, -1.75, 'l + e', size=22, color=YELLOW)
+        darrow(ax, (12.5, -1.3), (23.5, -1.3), color=YELLOW, ms=14); label(ax, 18, -1.75, 'l + 2e', size=22, color=YELLOW)
         label(ax, 6, 1.6, 'closed pipe: one open end', size=20, color=SOFT); label(ax, 18, 1.6, 'open pipe: two open ends', size=20, color=SOFT)
         bullets(fig, ['End correction e: the antinode sits just outside each open end', 'Pipe acts slightly longer than it is',
                       'Sketch antinodes just outside the opening, not inside'], 3, 0.06, 0.33, size=24, dim=False)
         return
     if s == 4:
         chip(fig, 'Element 2 · problems')
-        card(fig, 0.05, 0.58, 0.42, 0.22, 'Example', 'Pipe, L = 20 cm, closed at one end.\nFind f₁ and the first overtone.\n(Ignore end correction.)',
+        card(fig, 0.05, 0.58, 0.42, 0.22, 'Example', 'Pipe, l = 20 cm, closed at one end.\nFind f₁ and the first overtone.\n(Ignore end correction.)',
              tcol=C2, size=22)
         sheet_eq(fig, 0.06, 0.45, r'$v_{sound} = 344\ \mathrm{m\ s^{-1}}$ (air, 20 °C)', size=26)
         ax = wax(fig, [0.06, 0.12, 0.38, 0.22], (-0.5, 10.5), (-1, 1))
         _pipe(ax, 0, 0, 10, True, 1, C2, h=1.3)
         y = 0.78
-        for st, c in [(r'$\lambda_1 = 4L = 4\times0.20 = 0.80\ \mathrm{m}$', FG),
+        for st, c in [(r'$\lambda_1 = 4l = 4\times0.20 = 0.80\ \mathrm{m}$', FG),
                       (r'$f_1 = \dfrac{v}{\lambda_1} = \dfrac{344}{0.80} = 430\ \mathrm{Hz}$', GREEN),
                       (r'first overtone $= 3f_1 = 1290\ \mathrm{Hz}$', GREEN),
-                      (r'open both ends: $\lambda_1 = 2L = 0.40\ \mathrm{m}$', FG), (r'$\Rightarrow f_1 = 860\ \mathrm{Hz}$ (doubles)', GREEN)]:
+                      (r'open both ends: $\lambda_1 = 2l = 0.40\ \mathrm{m}$', FG), (r'$\Rightarrow f_1 = 860\ \mathrm{Hz}$ (doubles)', GREEN)]:
             T(fig, 0.52, y, st, size=27, color=c); y -= 0.12 if 'dfrac' in st else 0.09
         return
     # s == 5: real-world closed pipe (ear canal)
@@ -940,8 +941,8 @@ def pipes(fig, s, ph):
     _pipe(ax, 1, 0, 9, True, 1, C2, h=2.2)
     label(ax, 0.6, -1.8, 'eardrum\n(closed end)', size=19, color=SOFT, ha='left')
     label(ax, 10.3, -1.8, 'open end', size=19, color=SOFT, ha='left')
-    darrow(ax, (1, 1.6), (10, 1.6), color=YELLOW, ms=14); label(ax, 5.5, 2.1, 'L ≈ 2.5 cm', size=22, color=YELLOW)
-    bullets(fig, ['Ear canal ≈ pipe closed at one end', r'$\lambda_1 = 4L = 0.10\ \mathrm{m}$',
+    darrow(ax, (1, 1.6), (10, 1.6), color=YELLOW, ms=14); label(ax, 5.5, 2.1, 'l ≈ 2.5 cm', size=22, color=YELLOW)
+    bullets(fig, ['Ear canal ≈ pipe closed at one end', r'$\lambda_1 = 4l = 0.10\ \mathrm{m}$',
                   r'$f_1 = 344 / 0.10 \approx 3400\ \mathrm{Hz}$', 'Resonance → ears are extra sensitive\naround 3–4 kHz',
                   'Shorter canal (children) → higher f₁'], 5, 0.55, 0.76, size=24, dim=False)
 
@@ -1097,25 +1098,25 @@ def youngs(fig, s, ph):
         ax.plot([5, 17.5], [ys_, 2.2], color=GREEN, lw=1, alpha=0.5)
     darrow(ax, (4.3, -0.6), (4.3, 0.6), color=YELLOW, ms=12); label(ax, 3.8, 0, 'd', size=24, color=YELLOW)
     darrow(ax, (5, -3.6), (17.5, -3.6), color=YELLOW, ms=14); label(ax, 11.2, -3.15, 'x', size=24, color=YELLOW)
-    darrow(ax, (20.1, 0), (20.1, 1.1), color=YELLOW, ms=12); label(ax, 20.5, 0.55, 'W', size=24, color=YELLOW, ha='left')
+    darrow(ax, (20.1, 0), (20.1, 1.1), color=YELLOW, ms=12); label(ax, 20.5, 0.55, 'w', size=24, color=YELLOW, ha='left')
     label(ax, 17.7, 4.15, 'screen', size=18, color=SOFT)
     if s >= 1:
-        sheet_eq(fig, 0.05, 0.27, r'$W = \dfrac{\lambda x}{d}$', size=46, color=GREEN)
+        sheet_eq(fig, 0.05, 0.27, r'$w = \dfrac{\lambda x}{d}$', size=46, color=GREEN)
     if s == 1:
-        bullets(fig, ['W = fringe width (spacing)', 'x = slits to screen,  d = slit separation',
+        bullets(fig, ['w = band width: node to node (fringe spacing)', 'x = slits to screen,  d = slit separation',
                       'λ ↑, x ↑ or d ↓  → wider fringes', 'evidence that light is a wave'], 4, 0.30, 0.35, size=22, gap=0.006, dim=False)
     if s == 2:
         chip(fig, 'Element 2 · problems')
         T(fig, 0.30, 0.33, 'λ = 532 nm,  d = 0.25 mm,  x = 2.0 m', size=23, color=C2)
-        T(fig, 0.30, 0.26, r'$W = \dfrac{532\times10^{-9}\times2.0}{0.25\times10^{-3}} = 4.3\times10^{-3}\ \mathrm{m} = 4.3\ \mathrm{mm}$', size=26)
+        T(fig, 0.30, 0.26, r'$w = \dfrac{532\times10^{-9}\times2.0}{0.25\times10^{-3}} = 4.3\times10^{-3}\ \mathrm{m} = 4.3\ \mathrm{mm}$', size=26)
         T(fig, 0.30, 0.15, 'red laser (longer λ) → fringes further apart', size=22, color=SOFT)
     if s == 3:
-        bullets(fig, ['Central bright fringe: PD = 0', 'nth bright fringe: PD = nλ, at n × W from the centre',
+        bullets(fig, ['Central bright fringe: PD = 0', 'nth bright fringe: PD = nλ, at n × w from the centre',
                       'Dark fringes halfway: PD = (n − ½)λ'], 3, 0.30, 0.35, size=23, gap=0.008, dim=False)
     if s == 4:
         box(fig, 0.30, 0.07, 0.55, 0.26, fc=PANEL2)
         T(fig, 0.32, 0.31, 'Is the answer valid?', size=26, color=PINK, weight='bold')
-        T(fig, 0.32, 0.25, 'Formula assumes small angles:\nx much bigger than W and d\n4.3 mm and 0.25 mm ≪ 2.0 m ✓', size=23)
+        T(fig, 0.32, 0.25, 'Formula assumes small angles:\nx much bigger than w and d\n4.3 mm and 0.25 mm ≪ 2.0 m ✓', size=23)
 
 
 def diffraction(fig, s, ph):
@@ -1183,8 +1184,8 @@ def polarisation(fig, s, ph):
         ax.plot([0, p * np.sin(th)], [4, p * np.cos(th)], color=MUT, lw=1.5, ls=':')
         ax.add_patch(Arc((0, 0), 2.4, 2.4, theta1=60, theta2=90, color=FG, lw=2)); label(ax, 0.42, 1.5, 'θ', size=26)
         label(ax, 2.3, 2.55, 'A cos θ', size=28, color=C2, ha='left'); label(ax, 2.4, 4.0, 'filter axis', size=20, color=YELLOW, ha='left')
-        eq(fig, 0.52, 0.66, r'amplitude through $= A\cos\theta$', size=34, color=C2)
-        eq(fig, 0.52, 0.48, r'$I = I_0\cos^2\theta$', size=38, color=GREEN)
+        learn_eq(fig, 0.52, 0.68, r'amplitude through $= A\cos\theta$', size=30, color=C2)
+        learn_eq(fig, 0.52, 0.49, r'$I = I_0\cos^2\theta$', size=32, color=GREEN)
         bullets(fig, ['cos (not sin) when θ is measured\nfrom the polarisation direction', 'intensity ∝ amplitude²'], 2, 0.52,
                 0.36, size=23, dim=False)
         return
@@ -1254,7 +1255,7 @@ def exam_tips(fig, s, ph):
     if s <= 3:
         header(fig, 'Tips for tests and the exam')
         tips = ['EM waves (light, radio, radar): c = 3.00 × 10⁸ m s⁻¹.\n344 m s⁻¹ is for sound only',
-                'Convert units: ms → s, g → kg,\ncm, mm, nm → m', 'String: λ₁ = 2L (not L)\nClosed pipe: λ₁ = 4L',
+                'Convert units: ms → s, g → kg,\ncm, mm, nm → m', 'String: λ₁ = 2l (not l)\nClosed pipe: λ₁ = 4l',
                 'Smooth sine shapes. Label N, A,\nangles and rays; add arrows', 'Harmonics ≠ overtones',
                 'Path difference = simple subtraction', '“Describe” = what happens\n“Explain” = why (use physics ideas)',
                 'Keep going: errors are carried\nforward for method marks']
@@ -1271,7 +1272,7 @@ def exam_tips(fig, s, ph):
     chips = [('energy transfer', C1), ('A · λ · T · f · v', C1), ('transverse / longitudinal', C1), ('SHM · graphs', C1),
              ('reflection · pulses', C2), ('refraction · Snell', C2), ('critical angle · TIR', C2), ('v = √(T/μ)', C2),
              ('superposition · beats', PINK), ('standing waves', PINK), ('strings & pipes', PINK), ('resonance', PINK),
-             ('interference · PD', GREEN), ('W = λx/d', GREEN), ('diffraction', GREEN), ('polarisation', GREEN)]
+             ('interference · PD', GREEN), ('w = λx/d', GREEN), ('diffraction', GREEN), ('polarisation', GREEN)]
     for i, (t, c) in enumerate(chips):
         x = 0.05 + (i % 4) * 0.228; y = 0.66 - (i // 4) * 0.15
         box(fig, x, y, 0.21, 0.11, fc=PANEL, ec=c, lw=2)
