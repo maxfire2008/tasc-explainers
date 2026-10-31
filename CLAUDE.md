@@ -251,6 +251,8 @@ Highlighted subtitle terms come from `Video.keywords` (course accent), plus buil
 * Kokoro sometimes mispronounces jargon. Fix it with `style.PRONUNCIATIONS`, then re-run `tts` (only changed steps
   regenerate).
 * All clips must share encoder settings (they do via `style.VIDEO`) because they are joined with `-c copy`.
+* A scene drawn through `extend()` (in a visuals file) hashes `extend`'s source, not the base function's, so use
+  `render --force` after editing those draw functions.
 * Keep the render command in the foreground or check on it; background jobs may be stopped when a session idles.
 
 ---
