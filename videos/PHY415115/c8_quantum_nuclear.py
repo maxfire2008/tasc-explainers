@@ -75,6 +75,7 @@ REFS = {
     'appendix': Ref(COURSE_DOC, 'Course document, Appendix 1: examples in context for C8 & C4'),
     'info': Ref(INFO, 'Information sheet, Quantum and Nuclear sections', page=2),
     'info1': Ref(INFO, 'Information sheet, Motion in a Straight Line, Momentum, Force, Centripetal Force section', page=1),
+    'info1e': Ref(INFO, 'Information sheet, Electrostatics section', page=1),
     'spec': Ref(SPEC, 'External assessment specifications, Section D and Appendix A', page='3-5'),
 }
 for _y, _qs in EXAM_PAGES.items():
@@ -351,6 +352,10 @@ CHECKS = [
     ('sun power', lambda: _sun, 3.9e26, 0.02),
     ('sun mass loss', lambda: _sun / _c ** 2, 4.3e9, 0.01),
     ('sun reactions', lambda: _sun / (24.7e6 * _e), 9.8e37, 0.01),
+    ('fission vs fusion per reaction', lambda: 173 / 17.6, 10, 0.02),
+    ('50 keV in joules', lambda: 50e3 * _e, 8.0e-15, 1e-6),
+    ('50 keV momentum', lambda: 50e3 * _e / _c, 2.7e-23, 0.015),
+    ('americium in kg', lambda: 88 / 1000, 0.088, 1e-9),
     ('electric force', lambda: 9.00e9 * (2 * _e) * (6 * _e) / (5.0e-15) ** 2, 110, 0.01),
 ]
 
@@ -599,7 +604,8 @@ Scene('photon_momentum', P1, 'Photons carry momentum', V.photon_momentum, [
       "equals c.", refs=['content'], covers=['C1'], elements=[1], exam=['X23-22'], anim=2),
     S("You might be asked to show where this comes from. Take two energy equations: E equals m c squared, and E equals h c over "
       "lambda. Set them equal. Cancel one c, and m c equals h over lambda. Since m c is a momentum, p equals h over lambda. "
-      "Don't start from a half m v squared.",
+      "Don't start from a half m v squared. Given a photon's energy, say fifty kiloelectron volts, convert to joules and divide by c: "
+      "two point seven times ten to the minus twenty three kilogram metres per second.",
       refs=['ex23q22', 'ar23q22'], covers=['C1'], elements=[1, 2], exam=['X23-22'], anim=2,
       problem='By combining two energy equations, show that the momentum of a photon is p = h/λ.'),
 ]),
@@ -833,7 +839,7 @@ Scene('background', P3, 'Activity and background radiation', V.background, [
     S("Will a detector notice a weak sample? A sample of twenty becquerel has twelve hundred decays each minute. That sounds like "
       "plenty, against a background of twenty four counts per minute. But radiation goes in all directions, and the tube catches only a "
       "small part. If it catches one percent, that's twelve counts per minute, which is a small rise. Activity isn't the same as count "
-      "rate. Examiners rewarded students for pointing that out. And in any experiment, subtract the background first.",
+      "rate. In any experiment, subtract the background first.",
       refs=['ar18q24', 'ex18q24'], covers=['N6', 'N7'], elements=[4], exam=['X18-24'],
       problem='A 20 Bq sample sits by a Geiger tube that catches 1% of decays, with a background of 24 counts/min. Would you notice it?'),
 ]),
@@ -858,11 +864,11 @@ Scene('equations', P3, 'Writing decay equations', V.equations, [
       problem='Write the decay equations for strontium-90 (beta minus, Z = 38) and fluorine-18 (beta plus, Z = 9).'),
     S("Gamma decay changes neither A nor Z. A nucleus left in an excited, metastable state, marked with a small m, gives out a gamma "
       "photon as it settles. So technetium ninety nine m becomes technetium ninety nine, plus gamma. This is what a medical "
-      "scan detects. Some half lives are measured in seconds, some in hours; a metastable state still has its own half life.",
+      "scan detects. Remember to show the metastable marker on the left side.",
       refs=['content', 'ar23q19', 'ex23q19'], covers=['R3'], elements=[1], exam=['X23-19']),
     S("The common errors: leaving out a neutrino, an equals sign instead of an arrow, numbers that don't balance, leaving the "
       "metastable marker off, or writing the daughter as just X with no numbers. Asked for a decay equation, students sometimes "
-      "copy the half life formula from the information sheet. And when asked for one equation, keep each particle on the correct side.",
+      "copy the half life formula from the information sheet. And if you include an energy term, put it on the correct side.",
       refs=['ar23q19', 'ar25q21', 'ar24q19', 'ar22q19'], covers=['R3'], elements=[1], exam=['X25-21', 'X23-19']),
 ]),
 Scene('series', P3, 'Decay series', V.series, [
@@ -932,7 +938,7 @@ Scene('we_power', P3, 'Worked example: a nuclear battery', V.we_power, [
       refs=['ar19q20', 'ex24q19', 'ar24q19'], covers=['R5', 'N7'], elements=[2], exam=['X19-20', 'X24-19']),
     S("The half life in seconds gives lambda, five point zero nine times ten to the minus eleven per second. N is A over lambda: two "
       "point two times ten to the twenty three atoms. Then the mass is N M over N A, about eighty eight grams. The formula gives "
-      "grams straight away, so don't convert it again. After seventy years, about eighty nine percent remains, so the power falls very slowly.",
+      "grams, so convert if you need kilograms: a slip here puts you out by a factor of a thousand. After seventy years, about eighty nine percent remains, so the power falls very slowly.",
       refs=['ar19q20', 'ar24q19', 'ex24q19', 'ex19q20', 'ex21q20'], covers=['R5', 'R6'], elements=[2], exam=['X19-20', 'X24-19', 'X21-20']),
 ]),
 Scene('decay_data', P3, 'Half-life from experimental data', V.decay_data, [
@@ -1049,7 +1055,7 @@ Scene('strong_force', P4, 'Why the nucleus holds together', V.strong_force, [
       "section of your sheet. An alpha particle and a carbon nucleus, five femtometres apart, have charges of two e and six e. The force "
       "is about one hundred and ten newtons. That's enormous for such tiny masses. Take charges from the atomic number, not the mass, "
       "and remember to square the distance.",
-      refs=['ex25q19', 'ar25q19'], covers=['R8'], elements=[2, 4], exam=['X25-19'],
+      refs=['ex25q19', 'ar25q19', 'info1e'], covers=['R8'], elements=[2, 4], exam=['X25-19'],
       problem='An alpha particle and a carbon nucleus (Z = 6) are 5.0 fm apart. What is the electric force, and what does it suggest about nuclei?'),
     S("So something stronger must hold nuclei together: the strong nuclear force. It's very short range, reaching only about the size of "
       "a nucleus, so it doesn't reach outside. And it only acts on protons and neutrons, not on electrons. That's what you need to "

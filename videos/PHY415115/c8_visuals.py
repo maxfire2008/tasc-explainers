@@ -183,11 +183,11 @@ def blackbody(fig, s, ph):
     for T_, c in [(6000, C1), (5000, C2), (4000, PINK)]:
         ax.plot(lam, _planck(lam, float(T_)) / n0, color=c, lw=3.5)
         pk = 2.90e6 / T_
-        ax.text(pk + 60, _planck(pk, float(T_)) / n0 + 0.02, f'{T_} K', color=c, fontsize=19, va='bottom')
+        ax.text(pk + 190, _planck(pk, float(T_)) / n0 - 0.03, f'{T_} K', color=c, fontsize=19, va='bottom', zorder=6, bbox=dict(fc=PANEL, ec='none', pad=1.5))
     if s >= 1:
         l2 = np.linspace(560, 3000, 300)
         ax.plot(l2, (800 / l2) ** 4 * 0.62, color=YELLOW, lw=3, ls='--')
-        ax.text(760, 1.06, 'classical prediction:\nendless rise at short λ', color=YELLOW, fontsize=19, va='center')
+        ax.text(1150, 1.0, 'classical prediction:\nendless rise at short λ', color=YELLOW, fontsize=19, va='center')
     it = ['Hot objects give a continuous spectrum:\nevery wavelength, not separate lines']
     if s >= 1: it += ['Classical physics could not explain the\nintensity at short wavelengths']
     if s >= 2: it += ['Black body: completely absorbs, and\nemits, all wavelengths (e.g. a cavity\nwith a small hole)',
@@ -199,7 +199,7 @@ def photon_energy(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Photon energy')
     qeq(fig, 0.07, 0.68, r'$E = hf$', size=52, color=GREEN)
-    T(fig, 0.07, 0.56, 'E = photon energy,  f = frequency,  h = Planck’s constant', size=24, color=SOFT)
+    T(fig, 0.07, 0.56, 'E = photon energy,  f = frequency,  h = Planck’s constant', size=21, color=SOFT)
     qeq(fig, 0.07, 0.43, r'$h = 6.63\times10^{-34}\ \mathrm{J\ s} = 4.14\times10^{-15}\ \mathrm{eV\ s}$', size=30)
     if s >= 1:
         card(fig, 0.05, 0.07, 0.42, 0.22, 'Combine with $c = f\\lambda$',
@@ -236,7 +236,7 @@ def wien(fig, s, ph):
         T(fig, 0.07, 0.235, r'$\lambda_p = \dfrac{2.90\times10^{-3}}{353} = 8.2\times10^{-6}\ \mathrm{m}$  (infrared)', size=25, color=GREEN)
     if s >= 2:
         chip(fig, 'Element 4 · predictions')
-        card(fig, 0.05, 0.09, 0.90, 0.24, 'A peak is not the whole spectrum',
+        card(fig, 0.05, 0.07, 0.90, 0.19, 'A peak is not the whole spectrum',
              'A 12 000 K star has λp = 242 nm, in the ultraviolet. It still emits strongly across the visible, with more at the blue end,\nso it looks blue-white. A 3500 K star peaks at 829 nm, just in the infrared, and looks red.',
              tcol=PINK, size=21)
 
@@ -264,7 +264,7 @@ def _phototube(fig, rect, ph, reverse=False, electrons=True, f_label='light'):
     ax.add_patch(Ellipse((5, 6.2), 7.4, 7.2, fc=PANEL2, ec=SOFT, lw=2))
     ax.add_patch(Arc((5, 6.2), 5.4, 5.2, theta1=100, theta2=260, color=FG, lw=7))
     ax.scatter([5.2], [6.2], s=120, color=YELLOW, zorder=6)
-    label(ax, 2.0, 2.3, 'metal plate', size=18, color=FG, ha='left')
+    label(ax, 2.6, 1.6, 'metal plate', size=18, color=FG, ha='left')
     label(ax, 5.5, 7.1, 'collector', size=18, color=YELLOW, ha='left')
     xx = np.linspace(0, 1, 200)
     p0 = np.array([9.8, 9.6]); p1 = np.array([2.9, 7.0])
@@ -297,9 +297,9 @@ def photoelectric(fig, s, ph):
                       'Classical wave physics got it wrong'], 4, 0.50, 0.76, size=26, dim=False)
     elif s == 1:
         rows = [('Classical prediction', 'What is observed', C2),
-                ('Any colour works if bright enough', 'No electrons below a threshold\nfrequency, however bright', FG),
-                ('Brighter light, faster electrons', 'Brighter: more electrons, same\nmaximum kinetic energy', FG),
-                ('Dim light: a long delay', 'Emission is effectively instant', FG)]
+                ('Any colour works\nif bright enough', 'No electrons below a threshold\nfrequency, however bright', FG),
+                ('Brighter light,\nfaster electrons', 'Brighter: more electrons, same\nmaximum kinetic energy', FG),
+                ('Dim light:\na long delay', 'Emission is effectively instant', FG)]
         for i, (a, b, c) in enumerate(rows):
             y = 0.76 - i * 0.145
             if i: box(fig, 0.49, y - 0.11, 0.47, 0.135, fc=PANEL if i % 2 else PANEL2)
@@ -387,7 +387,7 @@ def pe_graph(fig, s, ph):
         l0 = 1242 / W
         l = np.linspace(110, l0, 200)
         ax.plot(l, 1242 / l - W, color=c, lw=4); ax.scatter([l0], [0], s=100, color=c, zorder=5, clip_on=False)
-        ax.text(l0 + 12, 0.35, f'{l0:.0f} nm', color=c, fontsize=19)
+        ax.text(l0 + 12, 0.35, f'{int(l0 + 0.5)} nm', color=c, fontsize=19)
     bullets(fig, ['A curve: E = hc/λ − W', 'Never reaches the y-axis:\nit climbs as λ falls', 'Larger W: x-intercept moves left', 'Label the new x-intercept:\nλ₀ = hc / W'], 4, 0.60, 0.76, size=24, dim=False)
 
 
@@ -397,8 +397,8 @@ def millikan_data(fig, s, ph):
     chip(fig, 'Element 3 · data')
     rows = [('λ (nm)', 'f (×10¹⁴ Hz)', 'V (V)'), ('500', '6.00', '0.28'), ('400', '7.50', '0.91'), ('300', '10.0', '1.94')]
     for j, r in enumerate(rows):
-        y = 0.74 - j * 0.07
-        box(fig, 0.05, y - 0.03, 0.40, 0.062, fc=PANEL if j % 2 else PANEL2)
+        y = 0.79 - j * 0.065
+        box(fig, 0.05, y - 0.03, 0.40, 0.06, fc=PANEL if j % 2 else PANEL2)
         for k, (x, t) in enumerate(zip((0.08, 0.20, 0.37), r)):
             if k == 1 and s == 0 and j > 0: t = '?'
             T(fig, x, y, t, size=23, color=C2 if j == 0 else FG, va='center', weight='bold' if j == 0 else 'normal')
@@ -416,8 +416,8 @@ def millikan_data(fig, s, ph):
         T(fig, 0.05, 0.42, 'Plot with care, on the scale given.\nThen rule one straight line of best fit.', size=24)
         learn_eq(fig, 0.06, 0.25, r'$V = \dfrac{h}{e}f - \dfrac{W}{e}$', size=32)
     if s >= 2:
-        learn_eq(fig, 0.06, 0.445, r'$V = \dfrac{h}{e}f - \dfrac{W}{e}$', size=26)
-        _lines(fig, 0.05, 0.345, [(r'gradient $= \dfrac{1.94-0.28}{4.00\times10^{14}} = 4.15\times10^{-15}\ \mathrm{V\ s}$', FG),
+        learn_eq(fig, 0.06, 0.475, r'$V = \dfrac{h}{e}f - \dfrac{W}{e}$', size=24)
+        _lines(fig, 0.05, 0.37, [(r'gradient $= \dfrac{1.94-0.28}{4.00\times10^{14}} = 4.15\times10^{-15}\ \mathrm{V\ s}$', FG),
                                   (r'so $h = 4.15\times10^{-15}\ \mathrm{eV\ s}$', GREEN),
                                   (r'$y$-intercept $\approx -2.2\ \mathrm{V}$, so $W = 2.2\ \mathrm{eV}$', GREEN),
                                   (r'$x$-intercept: $f_0 \approx 5.3\times10^{14}\ \mathrm{Hz}$', GREEN)], size=23, gap=0.068)
@@ -431,11 +431,11 @@ def _tube(fig, rect, ph):
     label(ax, 6, 6.2, 'vacuum', size=17, color=MUT)
     # cathode
     xx = np.linspace(1.6, 2.6, 60); ax.plot(xx, 4.4 + 0.3 * np.sin(TAU * 4 * (xx - 1.6)), color=YELLOW, lw=3)
-    label(ax, 2.1, 3.25, 'hot filament\n(cathode −)', size=15, color=YELLOW)
+    label(ax, 3.4, 3.35, 'hot filament\n(cathode −)', size=15, color=YELLOW)
     # anode
     ax.add_patch(Polygon([[8.2, 3.3], [9.6, 3.3], [9.6, 5.4], [8.8, 5.4]], fc=C2, ec=FG, lw=1.5))
     ax.add_patch(Rectangle((9.6, 4.0), 2.0, 0.7, fc=SOFT, ec=FG, lw=1.5))
-    label(ax, 10.2, 5.0, 'tungsten\nanode +', size=15, color=C2, ha='left')
+    label(ax, 7.1, 5.85, 'tungsten anode (+)', size=15, color=C2, ha='left')
     for k in range(5):
         t = (ph * 2 + k / 5) % 1
         ax.scatter([2.8 + 5.6 * t], [4.4 + 0.2 * np.sin(k * 2.1)], s=55, color=C1, zorder=6)
@@ -485,11 +485,11 @@ def xray_spectrum(fig, s, ph):
     if s == 0:
         ax.annotate('sharp cut-off: λmin', (35.5, 0.02), (6, 0.85), color=YELLOW, fontsize=18, arrowprops=dict(arrowstyle='-|>', color=YELLOW, lw=2))
         ax.text(112, 0.62, 'continuous', color=C1, fontsize=20, ha='center')
-        bullets(fig, ['Continuous: electrons pass near nuclei', 'Strong electric force from the nucleus\nswerves them: a large acceleration',
+        bullets(fig, ['Continuous: electrons pass near nuclei', 'Electric attraction to the nucleus\nswerves them: a large acceleration',
                       'Accelerated charge radiates a photon', 'Sharper swerve, more energy lost', 'Called braking radiation (bremsstrahlung)'], 5, 0.60, 0.76, size=22, dim=False)
     if s == 1:
-        ax.annotate('Kβ', (63.7, 0.85), (50, 1.45), color=PINK, fontsize=22, arrowprops=dict(arrowstyle='-|>', color=PINK))
-        ax.annotate('Kα', (72.6, 1.7), (88, 1.85), color=PINK, fontsize=22, arrowprops=dict(arrowstyle='-|>', color=PINK))
+        ax.annotate('Kβ', (63.7, float(_xs(np.array([63.7]), 35)[0])), (48, 1.2), color=PINK, fontsize=22, arrowprops=dict(arrowstyle='-|>', color=PINK))
+        ax.annotate('Kα', (72.6, float(_xs(np.array([72.6]), 35)[0])), (88, 1.3), color=PINK, fontsize=22, arrowprops=dict(arrowstyle='-|>', color=PINK))
         ax.text(112, 0.62, 'continuous', color=C1, fontsize=20, ha='center')
         bullets(fig, ['Characteristic: fixed lines of the target', 'Incoming electron knocks out an inner\natomic electron',
                       'An outer electron falls into the gap,\nemitting one photon', 'K lines: fall to n = 1.  L lines: fall to n = 2',
@@ -520,7 +520,7 @@ def we_xray(fig, s, ph):
         T(fig, 0.06, 0.24, 'Use h in J s with joules, and h in eV s with electron-volts.', size=24, color=YELLOW)
     if s >= 1:
         T(fig, 0.06, 0.32, r'$p = \dfrac{h}{\lambda} = \dfrac{6.63\times10^{-34}}{1.55\times10^{-11}} = 4.3\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$', size=26, color=GREEN)
-        card(fig, 0.05, 0.08, 0.90, 0.16, 'Why most photons are longer', 'Most electrons pass further from a nucleus, or lose energy in stages, so few give up all their energy at once.', tcol=PINK, size=22)
+        card(fig, 0.05, 0.06, 0.90, 0.15, 'Why most photons are longer', 'Most electrons pass further from a nucleus, or lose energy in stages, so few give up all their energy at once.', tcol=PINK, size=22)
 
 
 def xray_sketch(fig, s, ph):
@@ -540,8 +540,10 @@ def xray_sketch(fig, s, ph):
     ax2.set_xticks([0, 40, 80, 120])
     l = np.linspace(5, 120, 2000)
     ax2.plot(l, _xs(l, 35), color=C1, lw=3.5)
-    ax2.text(36, 0.14, '35.5', color=YELLOW, fontsize=18, ha='right'); ax2.text(61, 0.95, '63.7', color=YELLOW, fontsize=18, ha='right'); ax2.text(75, 1.72, '72.6', color=PINK, fontsize=18, ha='left')
-    T(fig, 0.45, 0.20, r'$\lambda = \dfrac{1.24\times10^{-6}}{E}$:  17.1 keV → 72.6 pm,  19.5 keV → 63.7 pm;  35 kV cut-off → 35.5 pm', size=20)
+    ax2.text(36, 0.1, '35.5', color=YELLOW, fontsize=18, ha='right')
+    for w_, c_, ha_, dx in [(63.7, YELLOW, 'right', -1.5), (72.6, PINK, 'left', 1.5)]:
+        ax2.text(w_ + dx, float(_xs(np.array([w_]), 35)[0]) + 0.02, f'{w_}', color=c_, fontsize=18, ha=ha_)
+    T(fig, 0.45, 0.205, r'$\lambda = \dfrac{1.24\times10^{-6}}{E}$:  17.1 keV → 72.6 pm,  19.5 keV → 63.7 pm,  35 keV → 35.5 pm', size=19)
     T(fig, 0.45, 0.12, 'Label λmin and both lines. Mark the wavelengths you calculated.', size=21, color=YELLOW)
 
 
@@ -562,16 +564,18 @@ def photon_momentum(fig, s, ph):
     arrow(ax, (6.0, 0), (7.6, 0), color=PINK)
     ax.add_patch(Rectangle((8.0, -2.2), 0.5, 4.4, fc=SOFT, ec=FG)); label(ax, 5, -2.0, 'photon strikes a surface', size=20, color=SOFT)
     label(ax, 3, 1.3, 'massless, but p ≠ 0', size=21, color=YELLOW)
-    T(fig, 0.56, 0.22, 'Photons have no rest mass, yet they\nstill push on what they hit. Use p = h/λ,\nnot p = mv with v = c.', size=22, color=SOFT)
+    T(fig, 0.56, 0.25, 'Photons have no rest mass, yet they\nstill push on what they hit. Use p = h/λ,\nnot p = mv with v = c.', size=20, color=SOFT)
+    if s >= 1:
+        T(fig, 0.56, 0.135, 'From keV: 50 keV = 8.0 × 10⁻¹⁵ J, so\np = E/c = 2.7 × 10⁻²³ kg m s⁻¹', size=20, color=GREEN)
 
 
 def laser_force(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Worked example: the force of a laser beam')
     chip(fig, 'Element 2 · problems')
-    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'A 5.0 mW laser emits 532 nm light onto a surface. How many photons arrive each second, and what force do they exert?\nFind it for a black surface, and for a perfect mirror.', tcol=C2, size=22)
+    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'A 5.0 mW laser shines 532 nm light onto a surface. How many photons arrive each second?\nWhat force do they exert on a black surface, and on a perfect mirror?', tcol=C2, size=22)
     T(fig, 0.06, 0.56, r'one photon: $E = \dfrac{hc}{\lambda} = 3.74\times10^{-19}\ \mathrm{J}$', size=26)
-    T(fig, 0.53, 0.56, r'photons per second $= \dfrac{5.0\times10^{-3}}{3.74\times10^{-19}} = 1.34\times10^{16}$', size=26, color=GREEN)
+    T(fig, 0.47, 0.56, r'photons per second $= \dfrac{5.0\times10^{-3}}{3.74\times10^{-19}} = 1.34\times10^{16}$', size=25, color=GREEN)
     if s >= 1:
         T(fig, 0.06, 0.44, r'one photon: $p = \dfrac{h}{\lambda} = 1.25\times10^{-27}\ \mathrm{kg\ m\ s^{-1}}$', size=26)
         T(fig, 0.06, 0.33, r'absorbed: $F = \dfrac{\Delta p}{\Delta t} = (1.34\times10^{16})(1.25\times10^{-27}) = 1.67\times10^{-11}\ \mathrm{N}$', size=26, color=GREEN)
@@ -586,7 +590,7 @@ def compton(fig, s, ph):
     ax = wax(fig, [0.04, 0.34, 0.52, 0.46], (0, 12), (-4, 4))
     arrow(ax, (0.4, 0), (4.6, 0), color=PINK); label(ax, 2.5, 0.65, 'X-ray, λ', size=22, color=PINK)
     ax.scatter([5.2], [0], s=260, color=C1, zorder=5); label(ax, 5.2, -0.8, 'electron', size=19, color=C1)
-    arrow(ax, (5.6, 0.4), (8.6, 3.5), color=YELLOW); label(ax, 9.5, 3.0, 'photon, longer λ′', size=21, color=YELLOW)
+    arrow(ax, (5.6, 0.4), (8.6, 3.5), color=YELLOW); label(ax, 9.9, 2.4, 'photon, longer λ′', size=21, color=YELLOW)
     arrow(ax, (5.6, -0.4), (9, -2.3), color=C1); label(ax, 9.9, -3.0, 'recoiling electron', size=21, color=C1)
     ax.plot([5.2, 10], [0, 0], color=MUT, ls='--', lw=1.5)
     bullets(fig, ['An X-ray photon collides with an electron, like a ball', 'Total momentum and energy are conserved',
@@ -624,7 +628,7 @@ def compton180(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Worked example: a head-on bounce')
     chip(fig, 'Element 2 · problems')
-    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'An X-ray with λ = 3.00 × 10⁻¹¹ m, moving east, hits a free electron and bounces straight back with λ′ = 3.49 × 10⁻¹¹ m.\nFind the speed of the electron.', tcol=C2, size=22)
+    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'An X-ray with λ = 3.00 × 10⁻¹¹ m, moving east, hits a free electron and bounces straight back\nwith λ′ = 3.49 × 10⁻¹¹ m. Find the speed of the electron.', tcol=C2, size=22)
     T(fig, 0.06, 0.56, r'$p = 2.21\times10^{-23}$ east', size=26, color=PINK); T(fig, 0.38, 0.56, r"$p' = 1.90\times10^{-23}$ WEST", size=26, color=YELLOW)
     T(fig, 0.72, 0.56, 'kg m s⁻¹', size=24, color=SOFT)
     if s >= 1:
@@ -632,7 +636,7 @@ def compton180(fig, s, ph):
         T(fig, 0.06, 0.38, r'$p_e = 4.11\times10^{-23}\ \mathrm{kg\ m\ s^{-1}}$ east    $\Rightarrow$    $v = 4.5\times10^{7}\ \mathrm{m\ s^{-1}}$', size=26, color=GREEN)
         T(fig, 0.06, 0.31, 'Momentum is a vector: the two photon momenta ADD here. State the law you are using.', size=22, color=YELLOW)
     if s >= 2:
-        card(fig, 0.05, 0.07, 0.90, 0.20, 'Checking validity (A-standard)', 'Photon energy lost: 6.63 × 10⁻¹⁵ − 5.70 × 10⁻¹⁵ = 9.3 × 10⁻¹⁶ J.   Electron’s ½mv² = 9.27 × 10⁻¹⁶ J.  Close, but not exact.\nv = 0.15c, so a small relativistic effect is left out of ½mv². Say so.', tcol=C2, size=21)
+        card(fig, 0.05, 0.06, 0.90, 0.19, 'Checking validity (A-standard)', 'Photon energy lost: 6.63 × 10⁻¹⁵ − 5.70 × 10⁻¹⁵ = 9.3 × 10⁻¹⁶ J.   Electron’s ½mv² = 9.27 × 10⁻¹⁶ J.  Close, but not exact.\nv = 0.15c, so a small relativistic effect is left out of ½mv². Say so.', tcol=C2, size=21)
 
 
 # ============================================================================ part 2: matter waves
@@ -643,16 +647,16 @@ def debroglie(fig, s, ph):
     _sheet('Motion…, Momentum, Force', fig, 0.32, 0.70, r'$p = mv$', size=40)
     learn_eq(fig, 0.62, 0.70, r'$\lambda = \dfrac{h}{mv}$', size=44)
     if s >= 1:
-        ax = wax(fig, [0.05, 0.28, 0.50, 0.30], (0, 12), (-3, 3))
+        ax = wax(fig, [0.05, 0.27, 0.50, 0.29], (0, 12), (-3, 3))
         ax.plot([6.5, 6.5], [-3, -0.6], color=SOFT, lw=5); ax.plot([6.5, 6.5], [0.6, 3], color=SOFT, lw=5)
         ax.scatter([1], [0], s=90, color=C1)
         arrow(ax, (1.5, 0), (5.8, 0), color=C1); label(ax, 3.6, 0.8, 'electrons', size=20, color=C1)
         for r in (1.2, 2.4, 3.6, 4.8):
             ax.add_patch(Arc((6.5, 0), 2 * r, 2 * r, theta1=-55, theta2=55, color=GREEN, lw=2))
-        label(ax, 9.6, 2.6, 'interfere and\ndiffract', size=20, color=GREEN)
+        label(ax, 3.4, -1.7, 'they diffract and\ninterfere', size=20, color=GREEN)
         bullets(fig, ['Electrons diffract through crystals, as X-rays do', 'Needs a gap near λ: about 10⁻¹⁰ m, the spacing of atoms'], 2, 0.05, 0.23, size=23, gap=0.012, dim=False)
     if s >= 2:
-        card(fig, 0.58, 0.28, 0.38, 0.30, 'Quantum mechanics', 'Schrödinger turned this into a\nwave equation for the electron.\nQualitative only in this course.', tcol=C2, size=22)
+        card(fig, 0.58, 0.24, 0.38, 0.28, 'Quantum mechanics', 'Schrödinger turned this into a\nwave equation for the electron.\nQualitative only in this course.', tcol=C2, size=22)
 
 
 def we_debroglie(fig, s, ph):
@@ -664,8 +668,8 @@ def we_debroglie(fig, s, ph):
                              (r'$\frac{1}{2}mv^2 = E_K\ \Rightarrow\ v = 7.3\times10^{6}\ \mathrm{m\ s^{-1}}$  (2.4% of c: ignore relativity)', FG),
                              (r'$\lambda = \dfrac{h}{mv} = \dfrac{6.63\times10^{-34}}{(9.11\times10^{-31})(7.26\times10^{6})} = 1.0\times10^{-10}\ \mathrm{m}$', GREEN)], size=25, gap=0.095)
     if s >= 1:
-        card(fig, 0.05, 0.08, 0.44, 0.21, 'Trap: electron ≠ photon', 'A 150 eV photon has λ = hc/E = 8.3 nm.\nElectrons don’t travel at c: never\nuse E = hc/λ for an electron.', tcol=PINK, size=21)
-        card(fig, 0.51, 0.08, 0.44, 0.21, 'A cricket ball', '0.058 kg at 40 m/s (a thrown ball):\nλ = 2.9 × 10⁻³⁴ m.  Far too small for any\ngap: no wave behaviour can be seen.', tcol=YELLOW, size=21)
+        card(fig, 0.05, 0.06, 0.44, 0.235, 'Trap: electron ≠ photon', 'A 150 eV photon has λ = hc/E = 8.3 nm.\nElectrons don’t travel at c: never\nuse E = hc/λ for an electron.', tcol=PINK, size=21)
+        card(fig, 0.51, 0.06, 0.44, 0.235, 'A thrown ball', '0.058 kg at 40 m/s:\nλ = 2.9 × 10⁻³⁴ m.  Far too small for any\ngap: no wave behaviour can be seen.', tcol=YELLOW, size=21)
 
 
 def duality(fig, s, ph):
@@ -684,7 +688,7 @@ def duality(fig, s, ph):
     if s >= 1:
         chip(fig, 'Element 2 · problems')
         card(fig, 0.05, 0.07, 0.90, 0.20, 'Same wavelength, same momentum',
-              'An electron at 2.0 × 10⁵ m/s has λ = 3.6 × 10⁻⁹ m and p = 1.8 × 10⁻²⁵ kg m/s.  On the EM spectrum that λ is at the UV / X-ray boundary.\nA photon with that λ has exactly the same momentum: p = h/λ holds for both.', tcol=GREEN, size=21)
+              'An electron at 2.0 × 10⁵ m/s has λ = 3.6 × 10⁻⁹ m and p = 1.8 × 10⁻²⁵ kg m/s: near the UV / X-ray boundary.\nA photon with that λ has exactly the same momentum: p = h/λ holds for both.', tcol=GREEN, size=21)
 
 
 # ---------------------------------------------------------------------------- spectra
@@ -701,16 +705,16 @@ def spectra(fig, s, ph):
     header(fig, 'Line spectra')
     ax = wax(fig, [0.05, 0.46, 0.90, 0.34], (380, 720), (0, 11))
     _rainbow(ax, 380, 720, 8.2, 10.4)
-    label(ax, 382, 10.8, 'continuous: hot solid', size=20, color=SOFT, ha='left')
+    label(ax, 382, 11.1, 'continuous: hot solid', size=20, color=SOFT, ha='left')
     if s >= 0:
         ax.add_patch(Rectangle((380, 4.2), 340, 2.2, fc='black', ec=GRID))
         for w in H_LINES: ax.plot([w, w], [4.2, 6.4], color=_wl_rgb(w), lw=4)
-        label(ax, 382, 6.9, 'emission: bright lines on dark (hydrogen)', size=20, color=SOFT, ha='left')
+        label(ax, 382, 7.1, 'emission: bright lines on dark (hydrogen)', size=20, color=SOFT, ha='left')
     if s >= 1:
         _rainbow(ax, 380, 720, 0.2, 2.4)
         for w in H_LINES: ax.plot([w, w], [0.2, 2.4], color='black', lw=4)
-        label(ax, 382, 2.9, 'absorption: dark lines at the SAME wavelengths', size=20, color=SOFT, ha='left')
-    ax.set_xlim(380, 720); ax.set_ylim(0, 11)
+        label(ax, 382, 3.1, 'absorption: dark lines at the SAME wavelengths', size=20, color=SOFT, ha='left')
+    ax.set_xlim(380, 720); ax.set_ylim(0, 11.7)
     it = ['Emission: a low-pressure gas, excited, gives only certain wavelengths']
     if s >= 1: it += ['Absorption: white light through a cool gas loses those same wavelengths']
     if s >= 2: it += ['Each element has its own lines, like a fingerprint',
@@ -739,8 +743,12 @@ def bohr(fig, s, ph):
                   'No radiation while staying in a level'], 3, 0.50, 0.76, size=24, dim=False)
     if s >= 1:
         bullets(fig, ['Fall to a lower level: one photon emitted', 'Rise to a higher level: one photon absorbed'], 2, 0.50, 0.53, size=24, dim=False, mcol=GREEN)
-        learn_eq(fig, 0.52, 0.36, r'$hf = E_{\mathrm{high}} - E_{\mathrm{low}}$', size=36, color=GREEN)
-        T(fig, 0.50, 0.23, 'Fixed level gaps → fixed photon energies → a line spectrum', size=23, color=YELLOW)
+        learn_eq(fig, 0.52, 0.345, r'$hf = E_{\mathrm{high}} - E_{\mathrm{low}}$', size=36, color=GREEN)
+        T(fig, 0.50, 0.215, 'Fixed level gaps → fixed photon energies →\na line spectrum', size=23, color=YELLOW)
+        arrow(ax, (2.2 * np.cos(0.9), 2.2 * np.sin(0.9)), (1.2 * np.cos(0.9), 1.2 * np.sin(0.9)), color=GREEN, lw=3, ms=18)
+        t = np.linspace(0, 1, 120); w = 0.13 * np.sin(TAU * 6 * t)
+        ax.plot(1.2 + 2.9 * t + 0.6 * w, 1.7 + 1.6 * t - w, color=YELLOW, lw=2.2)
+        label(ax, 3.3, 3.7, 'photon', size=18, color=YELLOW)
 
 
 LEVELS = [(0.0, 'n = 1  ground'), (2.4, 'n = 2'), (3.6, 'n = 3'), (4.5, 'n = 4')]
@@ -816,8 +824,8 @@ def excitation(fig, s, ph):
         card(fig, 0.47, 0.50, 0.49, 0.30, 'Ionisation: any energy above 6.0 eV', 'A 7.0 eV photon removes the electron\nand leaves it 1.0 eV of kinetic energy.\nHigh-energy photons ionise atoms.', tcol=YELLOW, size=23)
         T(fig, 0.47, 0.42, 'Ionisation energy in joules: 6.0 × 1.60 × 10⁻¹⁹ = 9.6 × 10⁻¹⁹ J', size=23, color=GREEN)
     if s == 3:
-        arrow(ax, (2.5, 4.5), (2.5, 3.6), color=PINK, ms=16); arrow(ax, (4, 4.5), (4, 2.4), color=YELLOW, ms=16); arrow(ax, (5.5, 4.5), (5.5, 0.03), color=GREEN, ms=16)
-        arrow(ax, (7, 3.6), (7, 2.4), color=PINK, ms=16); arrow(ax, (8, 3.6), (8, 0.03), color=C1, ms=16); arrow(ax, (9, 2.4), (9, 0.03), color=C2, ms=16)
+        arrow(ax, (2.2, 4.5), (2.2, 3.6), color=PINK, ms=16); arrow(ax, (3.2, 4.5), (3.2, 2.4), color=YELLOW, ms=16); arrow(ax, (4.2, 4.5), (4.2, 0.03), color=GREEN, ms=16)
+        arrow(ax, (5.3, 3.6), (5.3, 2.4), color=PINK, ms=16); arrow(ax, (6.2, 3.6), (6.2, 0.03), color=C1, ms=16); arrow(ax, (7.1, 2.4), (7.1, 0.03), color=C2, ms=16)
         card(fig, 0.47, 0.50, 0.49, 0.30, 'Coming back down', 'Excited by a 5.0 eV electron, the atom reaches\nn = 4. It can then drop in any steps: six\ndifferent lines are possible from four levels.', tcol=C2, size=23)
         T(fig, 0.47, 0.42, 'Going up: treat it as one jump from the ground state.\nA 10 eV electron can’t make a 10 eV photon here: the largest\nphoton from a bound level has less than 6.0 eV.', size=21, color=YELLOW)
     if s == 0:
@@ -839,10 +847,10 @@ def standing_atom(fig, s, ph):
     ax.add_patch(Circle((0, 0), 2.3, fill=False, ec=GRID, lw=2)); ax.plot(r * np.cos(t), r * np.sin(t), color=PINK, lw=3.5)
     ax.add_patch(Circle((0, 0), 0.25, fc=PINK))
     label(ax, 0, -3.3, 'doesn’t join up: not allowed', size=17, color=PINK)
-    bullets(fig, ['Link to Criterion 7: only certain standing waves fit', 'Each fit is one allowed level', 'Explains WHY energy is quantised'], 3, 0.66, 0.76, size=22, dim=False)
+    bullets(fig, ['Link to Criterion 7: only\ncertain standing waves fit', 'Each fit is one allowed level', 'Explains WHY energy is quantised'], 3, 0.66, 0.76, size=22, dim=False)
     if s >= 1:
-        T(fig, 0.66, 0.50, 'Qualitative only.', size=23, color=YELLOW)
-        T(fig, 0.66, 0.44, 'Modern picture: not a neat\norbit but an electron “cloud”,\nshowing the probability of\nfinding the electron.', size=22, color=SOFT)
+        T(fig, 0.66, 0.47, 'Qualitative only.', size=23, color=YELLOW)
+        T(fig, 0.66, 0.41, 'Modern picture: not a neat\norbit but an electron “cloud”,\nshowing the probability of\nfinding the electron.', size=22, color=SOFT)
 
 
 # ============================================================================ part 3: radioactivity
@@ -850,16 +858,16 @@ def rutherford(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Discovering the nucleus')
     ax = wax(fig, [0.04, 0.14, 0.50, 0.66], (0, 12), (-5, 5))
-    ax.add_patch(Rectangle((0.1, -1.1), 1.6, 2.2, fc=PANEL2, ec=SOFT)); label(ax, 0.9, 1.6, 'α source', size=18, color=SOFT)
+    ax.add_patch(Rectangle((0.1, -1.1), 1.6, 2.2, fc=PANEL2, ec=SOFT)); label(ax, 0.9, -1.7, 'α source', size=18, color=SOFT, zorder=8, bbox=dict(fc=BG, ec='none', pad=2))
     ax.scatter([6.5] * 7, np.linspace(-3.6, 3.6, 7), s=70, color=PINK, zorder=5)
     for y in (-3.0, -1.8, -0.6, 0.6, 1.8, 3.0):
-        off = 0.35 if abs(y) < 1 else 0.05
+        off = 0.13 if abs(y) < 1 else 0.03
         sg = np.sign(y) * off
         xx = np.linspace(1.7, 11.8, 100)
         ax.plot(xx, y + sg * (xx > 6.5) * (xx - 6.5), color=C1, lw=1.8)
     ax.plot([1.7, 6.2, 2.0], [0.06, 0.06, 1.6], color=YELLOW, lw=2.5)
     label(ax, 6.5, 4.5, 'gold foil nuclei (not to scale)', size=17, color=PINK)
-    label(ax, 3.2, 2.1, 'a very few\nbounce back', size=17, color=YELLOW)
+    label(ax, 3.6, 3.7, 'a very few\nbounce back', size=17, color=YELLOW, zorder=8, bbox=dict(fc=BG, ec='none', pad=2))
     label(ax, 10, -4.1, 'most go straight through', size=17, color=C1)
     bullets(fig, ['Rutherford’s team, 1909: alpha\nparticles fired at thin gold foil', 'Most passed straight through:\nthe atom is mostly empty space',
                   'A few bounced back: a tiny, massive,\npositive nucleus'], 3, 0.57, 0.77, size=24, dim=False)
@@ -873,7 +881,7 @@ def radiation(fig, s, ph):
     cols = [0.05, 0.215, 0.42, 0.635, 0.80]
     head = ['', 'what it is', 'charge', 'stopped by', 'ionising']
     rows = [('α', 'helium nucleus', '+2', 'paper, skin\n(cm of air)', 'strongly', YELLOW),
-            ('β', 'fast electron or\npositron', '−1 or +1', 'about a mm or so\nof aluminium', 'moderately', C1),
+            ('β', 'fast electron or\npositron', '−1 or +1', 'a few mm\nof aluminium', 'moderately', C1),
             ('γ', 'high-energy\nphoton', '0', 'lead reduces it,\nnever completely', 'weakly', PINK)]
     for x, h_ in zip(cols, head): T(fig, x, 0.79, h_, size=22, color=C2, weight='bold')
     for j, (a, b, c_, d, e, col) in enumerate(rows):
@@ -906,7 +914,7 @@ def particles(fig, s, ph):
         T(fig, x + 0.018, y + 0.12, b, size=21, color=SOFT)
     if s >= 2:
         chip(fig, 'Element 2 · problems')
-        T(fig, 0.05, 0.135, r'Annihilation: $e^+ + e^- \to 2\gamma$.   Each γ carries at least $0.000549\ \mathrm{u}\times931\ \mathrm{MeV\ u^{-1}} = 0.511\ \mathrm{MeV}$', size=25, color=GREEN)
+        T(fig, 0.05, 0.20, r'Annihilation: $e^+ + e^- \to 2\gamma$.   Each γ carries at least $0.000549\ \mathrm{u}\times931\ \mathrm{MeV\ u^{-1}} = 0.511\ \mathrm{MeV}$', size=25, color=GREEN)
 
 
 def background(fig, s, ph):
@@ -918,7 +926,7 @@ def background(fig, s, ph):
         chip(fig, 'Element 4 · predictions')
         T(fig, 0.51, 0.79, 'Would a detector notice a weak sample?', size=26, color=YELLOW, weight='bold')
         _lines(fig, 0.51, 0.72, [('Sample activity: 20 Bq = 1200 decays per minute', FG), ('Background count: about 24 counts per minute', FG),
-                                 ('Radiation spreads in all directions and most misses the tube', SOFT),
+                                 ('Radiation spreads out, so most misses the tube', SOFT),
                                  ('If it catches 1%: about 12 counts per minute', FG)], size=23, gap=0.065)
         T(fig, 0.51, 0.44, 'Only a small rise above 24, so hard to notice\nwithout a long count.', size=24, color=GREEN)
         T(fig, 0.51, 0.33, 'Count rate is not activity: the detector records\nonly some of the decays.', size=24, color=PINK)
@@ -967,10 +975,10 @@ def series(fig, s, ph):
     pts = [(88, 226, 'Ra'), (86, 222, 'Rn'), (84, 218, 'Po'), (82, 214, 'Pb'), (83, 214, 'Bi'), (84, 214, 'Po')]
     for a, b in zip(pts[:-1], pts[1:]):
         col = YELLOW if b[1] != a[1] else C1
-        arrow(ax, (a[0], a[1]), (b[0], b[1]), color=col, lw=3, ms=20, shrinkA=9, shrinkB=9)
+        arrow(ax, (a[0], a[1]), (b[0], b[1]), color=col, lw=3, ms=20, shrinkA=18, shrinkB=18)
     for z, a_, n in pts:
-        ax.scatter([z], [a_], s=320, color=PANEL2, edgecolor=FG, zorder=5)
-        ax.text(z, a_, n, color=FG, fontsize=13, ha='center', va='center', zorder=6)
+        ax.scatter([z], [a_], s=1100, color=PANEL2, edgecolor=FG, zorder=5)
+        ax.text(z, a_, n, color=FG, fontsize=17, ha='center', va='center', zorder=6)
     bullets(fig, ['One daughter may itself be unstable', 'Each decay in the chain: a new element', 'Alpha: A falls by 4, Z falls by 2', 'Beta minus: A same, Z rises by 1',
                   'The chain ends on a stable isotope'], 5, 0.60, 0.76, size=24, dim=False)
     T(fig, 0.60, 0.35, 'yellow = alpha,  blue = beta minus', size=22, color=SOFT)
@@ -985,15 +993,14 @@ def halflife(fig, s, ph):
     t = np.linspace(0, 5, 200); ax.plot(t, 2 ** -t, color=C1, lw=4)
     for k in range(1, 4):
         ax.plot([k, k, 0], [0, 2.0 ** -k, 2.0 ** -k], color=C2, ls='--', lw=1.5)
-    y = 0.77
-    T(fig, 0.52, y, 'Half-life: time for half of the nuclei to decay', size=24)
+    T(fig, 0.53, 0.805, 'Half-life: time for half of the nuclei to decay', size=23)
     neq(fig, 0.53, 0.665, r'$-\dfrac{dN}{dt} = \lambda N = A$', size=31, color=GREEN)
     neq(fig, 0.79, 0.665, r'$\lambda = \dfrac{0.693}{T_{1/2}}$', size=31)
     if s >= 1:
         neq(fig, 0.53, 0.47, r'$\dfrac{N}{N_0} = e^{-\lambda t} = \dfrac{A}{A_0} = \dfrac{\mathrm{Count\ Rate}}{\mathrm{Orig\ Count\ Rate}}$', size=26, color=GREEN)
     if s >= 2:
         learn_eq(fig, 0.53, 0.30, r'$\dfrac{N}{N_0} = \dfrac{m}{m_0} = 2^{-t/T_{1/2}}$', size=27)
-        neq(fig, 0.83, 0.30, r'$N = \dfrac{mN_A}{M}$', size=23)
+        neq(fig, 0.78, 0.30, r'$N = \dfrac{mN_A}{M}$', size=23)
         T(fig, 0.53, 0.165, 'm in grams here.  λ is the decay constant: don’t\nconfuse it with wavelength.', size=21, color=YELLOW)
 
 
@@ -1022,8 +1029,8 @@ def we_age(fig, s, ph):
                              (r'$\lambda = \dfrac{0.693}{5730} = 1.21\times10^{-4}\ \mathrm{y^{-1}}$', FG),
                              (r'$t = \dfrac{0.916}{1.21\times10^{-4}} \approx 7580$ years', GREEN)], size=26, gap=0.10)
     if s >= 1:
-        card(fig, 0.05, 0.08, 0.44, 0.19, 'Percentages', '“73% less” means 27% remains.\nA fraction: divide by 100 first.\ne.g. 0.50% of 3.0 g is 0.015 g.', tcol=PINK, size=21)
-        card(fig, 0.51, 0.08, 0.44, 0.19, 'Two decay routes', 'If a nucleus can decay in two ways,\nuse the half-life for the route the\nquestion asks about.', tcol=YELLOW, size=21)
+        card(fig, 0.05, 0.06, 0.44, 0.215, 'Percentages', '“73% less” means 27% remains.\nA fraction: divide by 100 first.\ne.g. 0.50% of 3.0 g is 0.015 g.', tcol=PINK, size=21)
+        card(fig, 0.51, 0.06, 0.44, 0.215, 'Two decay routes', 'If a nucleus can decay in two ways,\nuse the half-life for the route the\nquestion asks about.', tcol=YELLOW, size=21)
         T(fig, 0.55, 0.53, 'Back in time: an isotope now 2.0% of an\nelement, half-life 1.0 × 10⁹ y. Two half-lives ago,\nwith the other isotopes unchanged:', size=22, color=SOFT)
         T(fig, 0.55, 0.40, r'$2.0\,e^{+\lambda t} = 2.0\,e^{+1.386} = 8.0\%$', size=26, color=GREEN)
 
@@ -1032,7 +1039,7 @@ def we_power(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Worked example: a nuclear battery')
     chip(fig, 'Element 4 · predictions')
-    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'A deep-space probe needs 0.50 W of electrical power. Its americium-241 source (half-life 432 y, 5.6 MeV per decay) is\n5.0% efficient. Why not use solar panels? How much americium does it need?', tcol=C2, size=22)
+    card(fig, 0.05, 0.62, 0.90, 0.18, 'Question', 'A deep-space probe needs 0.50 W of electrical power from americium-241 (half-life 432 y, 5.6 MeV per decay),\nat 5.0% efficiency. Why not use solar panels? How much americium does it need?', tcol=C2, size=22)
     T(fig, 0.06, 0.56, 'Far from the Sun, sunlight’s intensity falls with the square of distance: too weak.', size=24, color=SOFT)
     T(fig, 0.06, 0.49, r'Total power: $\dfrac{0.50}{0.050} = 10\ \mathrm{W}$', size=25)
     if s >= 1:
@@ -1041,7 +1048,7 @@ def we_power(fig, s, ph):
     if s >= 2:
         T(fig, 0.06, 0.28, r'$\lambda = \dfrac{0.693}{432\times365\times24\times3600} = 5.09\times10^{-11}\ \mathrm{s^{-1}}$,   $N = \dfrac{A}{\lambda} = 2.2\times10^{23}$', size=25)
         T(fig, 0.06, 0.17, r'$m = \dfrac{NM}{N_A} = \dfrac{(2.2\times10^{23})(241)}{6.02\times10^{23}} \approx 88\ \mathrm{g}$', size=25, color=GREEN)
-        T(fig, 0.52, 0.17, 'Over 70 years, m/m₀ = e^(−λt) = 0.89.\nThe grams come straight out of the formula.', size=21, color=YELLOW)
+        T(fig, 0.52, 0.17, 'Over 70 years, m/m₀ = e^(−λt) = 0.89.\nThe formula gives grams: that is 0.088 kg.', size=21, color=YELLOW)
 
 
 def decay_data(fig, s, ph):
@@ -1095,7 +1102,7 @@ def binding(fig, s, ph):
     label(ax, 2.7, 3.9, 'separate nucleons:\nmore mass', size=19, color=FG)
     arrow(ax, (5.2, 5.2), (7.5, 5.2), color=YELLOW); label(ax, 6.35, 5.9, 'energy out', size=18, color=YELLOW)
     arrow(ax, (7.5, 4.2), (5.2, 4.2), color=GREEN); label(ax, 6.35, 3.5, 'energy in', size=18, color=GREEN)
-    _ball_cluster(ax, 9.5, 5.2, 6, 0.55)
+    _ball_cluster(ax, 9.5, 5.2, 6, 0.45)
     label(ax, 9.5, 3.9, 'nucleus:\nless mass', size=19, color=FG)
     bullets(fig, ['Mass defect: mass of parts − mass of the whole', 'Binding energy: energy to separate it completely', 'It is NOT energy stored in the nucleus'], 3, 0.05, 0.40, size=23, gap=0.012, dim=False)
     chip(fig, 'Element 2 · problems')
@@ -1125,7 +1132,7 @@ def be_curve(fig, s, ph):
     if s >= 1:
         arrow(ax, (7, 3.5), (40, 7.4), color=GREEN); ax.text(30, 4.4, 'FUSION\nreleases energy', color=GREEN, fontsize=19)
         arrow(ax, (225, 6.5), (120, 7.6), color=PINK); ax.text(150, 5.0, 'FISSION\nreleases energy', color=PINK, fontsize=19)
-    it = ['Higher on the curve: more tightly bound, more stable', 'Peak near iron-56']
+    it = ['Higher on the curve: more tightly\nbound, more stable', 'Peak near iron-56']
     if s >= 1: it += ['Energy is released by moving UP the curve:\nfrom either side, towards the peak',
                       'Products have more BE than the reactants\nhad, so mass drops, and energy comes out']
     if s >= 2: it += ['Near iron: either direction goes downhill,\nso energy must be put in. Fusion beyond\niron can’t sustain itself in stars']
@@ -1173,13 +1180,13 @@ def stars(fig, s, ph):
     bullets(fig, ['Mass goes UP in the first step: an energy input, from the star’s heat', 'Mass goes DOWN in the second: energy released, as gamma and kinetic energy',
                   'It works in a giant star’s core because of huge temperature and density: collisions are\nfast and frequent enough to catch a short-lived Be-8 nucleus',
                   'Explain the reason, don’t just list the factor'], 4, 0.06, 0.68, size=24, dim=False)
-    card(fig, 0.05, 0.10, 0.90, 0.16, 'Same idea on Earth', 'Rutherford’s reaction with alpha particles and nitrogen (the first transmutation) also has heavier products, so it absorbs energy.', tcol=C1, size=22)
+    card(fig, 0.05, 0.10, 0.90, 0.16, 'Same idea on Earth', 'Rutherford’s reaction of alpha particles with nitrogen also has heavier products, so it absorbs energy.', tcol=C1, size=22)
 
 
 def fission(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Fission and chain reactions')
-    ax = wax(fig, [0.03, 0.14, 0.55, 0.66], (0, 12), (-5.5, 5.5))
+    ax = wax(fig, [0.03, 0.14, 0.55, 0.66], (0, 12), (-5.5, 5.5)); ax.set_aspect('equal')
     def nuc(x, y, sc=0.55, c=C2):
         ax.add_patch(Circle((x, y), sc, fc=c, ec=FG, lw=1, zorder=4))
     def n_(x0, y0, x1, y1):
@@ -1192,9 +1199,12 @@ def fission(fig, s, ph):
             for dy in (-1.05, 0, 1.05):
                 n_(x0 + 0.5, y0 + dy * 0.15, 6.6, y0 + dy); nuc(7.1, y0 + dy, sc=0.38)
         label(ax, 10.2, 0, 'each generation\nmultiplies', size=21, color=PINK)
-    label(ax, 1.9, -1.2, 'U-235', size=18, color=C2)
+    for dy in (1.0, -1.0):
+        ax.add_patch(Circle((2.9, dy * 1.3), 0.32, fc=GREEN, ec=FG, lw=1, zorder=4))
+    label(ax, 1.2, -3.0, 'two smaller\nnuclei', size=15, color=GREEN)
+    label(ax, 1.5, -0.95, 'U-235', size=18, color=C2)
     it = ['Neutron + U-235: splits into two smaller nuclei\nand 2 or 3 more neutrons', 'A large nucleus can also split spontaneously,\nthough rarely']
-    if s >= 1: it += ['Chain reaction: those neutrons cause more fissions', 'Critical mass: the least mass that sustains a\nchain reaction. Too small: neutrons escape']
+    if s >= 1: it += ['Chain reaction: those neutrons cause\nmore fissions', 'Critical mass: the least mass that sustains a\nchain reaction. Too small: neutrons escape']
     bullets(fig, it, len(it), 0.60, 0.77, size=21, gap=0.016)
 
 
@@ -1208,10 +1218,10 @@ def reactor(fig, s, ph):
     for x in (2.55, 3.95):
         ax.add_patch(Rectangle((x, 4.0 + 1.5 * np.sin(TAU * ph)), 0.35, 5.0, fc=PINK, ec='none'))
     label(ax, 3.6, 1.0, 'fuel rods in moderator (water or graphite)', size=15, color=YELLOW)
-    label(ax, 3.6, 9.5, 'control rods', size=17, color=PINK)
+    label(ax, 4.6, 9.3, 'control rods', size=17, color=PINK, ha='left')
     ax.plot([6.2, 8.2, 8.2], [7, 7, 6.2], color=PINK, lw=3); ax.plot([8.2, 8.2, 6.2], [3.0, 2.4, 2.4], color=C1, lw=3)
     ax.add_patch(Rectangle((7.2, 3), 2.0, 3.2, fc=PANEL2, ec=SOFT, lw=2)); label(ax, 8.2, 4.6, 'heat\nexchanger', size=15)
-    arrow(ax, (9.2, 5.4), (11, 5.4), color=FG); label(ax, 11.3, 6.1, 'steam', size=16, color=SOFT)
+    arrow(ax, (9.2, 5.4), (11, 5.4), color=FG); label(ax, 10.0, 5.95, 'steam', size=16, color=SOFT)
     ax.add_patch(Polygon([[11, 3.6], [11, 6.4], [13.2, 7], [13.2, 3]], fc=BG, ec=FG, lw=2)); label(ax, 12.1, 5, 'turbine', size=15)
     cards = [('Moderator', 'slows fast neutrons, so they\ncan cause more fissions', YELLOW), ('Control rods', 'absorb neutrons: push in to\nslow the reaction, or shut it down', PINK),
              ('Heat exchange', 'coolant carries heat out, to make\nsteam and drive a turbine', C1)]
@@ -1234,7 +1244,7 @@ def strong_force(fig, s, ph):
     ax.plot(r, np.clip(st, -2.4, 2.4), color=GREEN, lw=3.5)
     ax.text(3.2, 0.5, 'electric', color=PINK, fontsize=19); ax.text(1.65, -1.75, 'strong force', color=GREEN, fontsize=19)
     if s >= 1:
-        bullets(fig, ['Strong nuclear force: attraction stronger than the electric repulsion', 'Very short range: only about the size of a nucleus', 'Acts only on protons and neutrons, not electrons'], 3, 0.06, 0.28, size=23, gap=0.012, dim=False)
+        bullets(fig, ['Strong nuclear force: an attraction,\nstronger than the electric repulsion', 'Very short range: about the size of a nucleus', 'Acts only on protons and neutrons, not electrons'], 3, 0.06, 0.30, size=22, gap=0.012, dim=False)
 
 
 def quarks(fig, s, ph):
@@ -1351,13 +1361,13 @@ def more_tips(fig, s, ph):
 def summary_panel(fig, ph):
     C1, C2 = C()
     header(fig, 'Criterion 8 in one screen')
-    chips_ = [('E = hf', C1), ('λpT = 2.90 × 10⁻³ m K', C1), ('EK(max) = eV = hf − W', C1), ('hfmax = eV', C1), ('p = h/λ = E/c', C1),
+    chips_ = [('E = hf', C1), ('λpT = 2.90 × 10⁻³ m K', C1), ('EK(max) = eV = hf − W', C1), ('hf(max) = eV', C1), ('p = h/λ = E/c', C1),
               ('λ = h/mv', C2), ('hf = ΔE', C2), ('line spectra', C2), ('standing waves', C2),
               ('α β γ', PINK), ('A and Z balance', PINK), ('A = λN', PINK), ('λ = 0.693/T½', PINK), ('N/N₀ = e^(−λt)', PINK),
               ('E = mc²', GREEN), ('931 MeV = 1 u', GREEN), ('BE per nucleon', GREEN), ('fission & fusion', GREEN), ('strong force', GREEN), ('quarks', GREEN)]
     x, y = 0.06, 0.75
     for t, c in chips_:
-        w = len(t) * 0.0125 + 0.03
+        w = len(t) * 0.0105 + 0.012
         if x + w > 0.95:
             x = 0.06; y -= 0.10
         chip(fig, t, color=c, size=24, x=x, y=y, ha='left')
