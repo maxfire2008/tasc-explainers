@@ -347,7 +347,7 @@ def write_docs(v, tl):
     problems = [f"{fmt_time(it['start'])} {it['step'].problem.strip()}" for it in tl if it['step'].problem.strip()]
     open(os.path.join(od, 'problems.txt'), 'w').write('\n'.join(problems) + '\n')
     # description
-    desc = [v.description.strip(), '', 'AI generated content: may contain errors.', '', 'Chapters', *lines, '',
+    desc = [v.description.strip(), '', 'AI generated content: may contain errors.', '', S.UPDATES_NOTE, '', 'Chapters', *lines, '',
             *(['Problems solved in this video', *problems, ''] if problems else []),
             'References (numbers match the slide footers)', *ref_txt]
     open(os.path.join(od, 'description.txt'), 'w').write('\n'.join(desc).strip() + '\n')
@@ -372,7 +372,7 @@ def credit_lines(v):
     lines += [(textwrap.fill(a, 95), L.FG, 22) for a in dict.fromkeys(att)] or [('(see references.md)', L.FG, 22)]
     if other:
         lines += [('Referenced, not reproduced:', L.SOFT, 22), (textwrap.fill(' · '.join(other), 120), L.FG, 19)]
-    lines += [('', L.FG, 8), ('Example questions are original. Full numbered references: see the description.',
+    lines += [('', L.FG, 8), ('Example questions are original. Full numbered references and updated versions: see the description.',
                               L.SOFT, 20),
               (f'Narration: synthetic voice (Kokoro, {S.VOICE["voice"]}) · Visuals: Python / Matplotlib · '
                + S.FOOTER_AI, L.SOFT, 18)]

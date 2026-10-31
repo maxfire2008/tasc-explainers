@@ -112,16 +112,19 @@ FOOTER_AI = 'AI generated content'
 DISCLAIMER_TITLE = 'AI-generated content'
 DISCLAIMER_BODY = ('The narration, visuals and example questions in this video were produced with\n'
                    'by artificial intelligence with some human oversight. They may contain errors.\n'
-                   'Always check with your teacher, the course document and the information sheet.')
+                   'Always check with your teacher, the course document and the information sheet.\n'
+                   'Check the description for any updated version of this video.')
 DISCLAIMER_NARRATION = ('Before we start: this video was made with the by artificial intelligence with some human oversight, '
                         'including the narration, the visuals and the worked examples. It may contain errors, '
-                        'so always check with your teacher, your course document and your information sheet.')
+                        'so always check with your teacher, your course document and your information sheet. '
+                        'Check the description too: if this video has been corrected or updated, the newest version is linked there.')
 COPYRIGHT_HOLDER = 'Tasmanian Assessment, Standards and Certification (TASC)'
 ATTRIBUTION_LICENCE = 'Creative Commons Attribution 4.0 International (CC BY 4.0) licence'
 CREDITS_NARRATION = ('Course content in this video is adapted from material published by {holder}, '
                      'used under a  Creative Commons Attribution 4.0 International licence. Past exams and assessment reports are '
                      'referenced but not reproduced, and every example question is original. '
-                     'The full reference list is in the description.')
+                     'The full reference list is in the description, along with a link to any updated version of this video.')
+UPDATES_NOTE = 'Updated versions: any corrected or newer version of this video is linked here.'
 INFO_SHEET_TAG = 'Information sheet · {section}'
 NOT_ON_SHEET_TAG = 'Not on the information sheet: learn it'
 
