@@ -588,7 +588,7 @@ def two_surfaces(fig, s, ph):
     header(fig, 'Two surfaces: use the geometry')
     ax = wax(fig, [0.04, 0.10, 0.50, 0.72], (-1, 9), (-7.5, 3))
     ax.add_patch(Rectangle((0, -7), 7, 7, fc='#1a3150', ec=SOFT, lw=2))
-    label(ax, -11.5, -0.7, 'glass n = 1.50', size=18, color=SOFT, ha='left')
+    label(ax, 0.3, -0.6, 'glass n = 1.50', size=18, color=SOFT, ha='left')
     th1 = np.radians(40); th2 = np.arcsin(np.sin(th1) / 1.5)
     P = np.array([4.5, 0.0]); d = np.array([np.sin(th2), -np.cos(th2)])
     tq = (7 - P[0]) / d[0]; Q = P + tq * d
