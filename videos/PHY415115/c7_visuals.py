@@ -1198,6 +1198,43 @@ def _filter(ax, x, y, ang, r=1.6, col=YELLOW):
            color=col, ms=16)
 
 
+def coherent_phase(fig, s, ph):
+    C1, C2 = C()
+    header(fig, 'Coherent is not the same as in phase')
+    x = np.linspace(0, TAU * 2, 400)
+    for i, (nm, b, c, p2) in enumerate([('In phase', 'no phase difference', GREEN, 0 * x),
+                                        ('Coherent', 'same f, constant phase difference', C1, 0 * x + 1.1),
+                                        ('Not coherent', 'phase difference keeps changing', PINK, 0.32 * x)]):
+        ax = wax(fig, [0.05 + i * 0.31, 0.46, 0.28, 0.25], (0, TAU * 2), (-1.3, 1.3))
+        ax.plot(x, np.sin(x), color=YELLOW, lw=3); ax.plot(x, np.sin(x + p2), color=c, lw=3, ls='--')
+        T(fig, 0.05 + i * 0.31, 0.77, nm, size=26, color=c, weight='bold')
+        T(fig, 0.05 + i * 0.31, 0.43, b, size=19, color=SOFT)
+    bullets(fig, ['Two-source pattern: the phase difference is constant at each point, but depends on where you are',
+                  'Loud spots: arriving waves in phase.  Quiet spots: out of phase'], 2, 0.05, 0.36, size=23, dim=False)
+    card(fig, 0.05, 0.07, 0.90, 0.16, 'Conditions for interference', 'same frequency, and a constant phase relationship', tcol=GREEN, size=24)
+
+
+def fast_slow(fig, s, ph):
+    C1, C2 = C()
+    header(fig, 'Fast and slow media')
+    rows = [('Light', 'air', 'water, then glass', 'higher n → slower', YELLOW),
+            ('Sound', 'solids such as steel, then water', 'air', 'about 6000, 1500, 340 m s⁻¹', C2)]
+    if s >= 1:
+        rows += [('String', 'lighter string', 'heavier string', 'same T, bigger μ → slower', C1),
+                 ('Seismic', 'deeper, denser mantle', 'shallower rock', 'speed rises with depth', PINK),
+                 ('Tsunami', 'deep water', 'shallow water', 'slows near the coast', GREEN)]
+    for x, h in [(0.05, 'Wave'), (0.17, 'Faster in'), (0.46, 'Slower in'), (0.68, 'Remember')]:
+        T(fig, x, 0.785, h, size=22, color=SOFT, weight='bold')
+    for i, (nm, f, sl, why, c) in enumerate(rows):
+        y = 0.655 - i * 0.095
+        box(fig, 0.04, y, 0.92, 0.085, fc=PANEL)
+        T(fig, 0.05, y + 0.042, nm, size=23, color=c, weight='bold', va='center')
+        T(fig, 0.17, y + 0.042, f, size=21, va='center'); T(fig, 0.46, y + 0.042, sl, size=21, va='center'); T(fig, 0.68, y + 0.042, why, size=19, color=SOFT, va='center')
+    T(fig, 0.60, 0.82, 'Sound speeds: typical values, not from TASC', size=18, color=MUT)
+    if s >= 1:
+        card(fig, 0.05, 0.08, 0.90, 0.18, 'No single rule about density', 'Heavier string: slower.  Deeper, denser rock: faster.\nWork out which case you’re in, then decide which way the wave bends.', tcol=YELLOW, size=22)
+
+
 def polarisation(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Polarisation')
@@ -1230,6 +1267,7 @@ def polarisation(fig, s, ph):
         learn_eq(fig, 0.52, 0.68, r'amplitude through $= A\cos\theta$', size=30, color=C2)
         bullets(fig, ['cos (not sin) when θ is measured\nfrom the polarisation direction'], 1, 0.52,
                 0.50, size=23, dim=False)
+        card(fig, 0.52, 0.17, 0.43, 0.18, 'Beyond the course wording', 'The course asks for qualitative polarisation,\nbut the 2023 exam asked for this, so learn it.', tcol=YELLOW, size=21)
         return
     if s == 3:
         ax = wax(fig, [0.04, 0.36, 0.92, 0.44], (0, 24), (-3.2, 3.2))

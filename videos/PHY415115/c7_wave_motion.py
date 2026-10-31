@@ -576,6 +576,14 @@ Scene('seismic', P2, 'Seismic waves inside the Earth', V.extend(V.seismic, 4, V.
       refs=['ex20q13', 'ar20q13'], covers=['W9', 'W10', 'W11'], elements=[2, 4], exam=['X20-13'],
       problem='Sound in water at 1480 m/s meets a layer at 1510 m/s at 40°. What are the angle of refraction and the critical angle?'),
 ]),
+Scene('fast_slow', P2, 'Fast and slow media', V.fast_slow, [
+    S("Whenever a wave changes medium, you need to know which side is fast and which is slow. Learn it for each type of wave. Light is fastest in air, slower in water, and slower again in glass. "
+      "A higher refractive index means slower light. Sound is the other way around: it's slowest in air, faster in water, and faster again in a solid such as steel.",
+      refs=['content', 'ar24q17'], covers=['W9', 'W10c'], elements=[1, 4], exam=['X24-17']),
+    S("On strings at the same tension, the heavier string is slower, because mu is bigger. In the Earth's mantle, going deeper, the denser rock carries faster waves. And a tsunami is fast in deep water, and slow in shallow water. "
+      "So there's no single rule about density: a heavier string is slower, but deeper rock is faster. Work out which case you're in, then decide which way the wave bends.",
+      refs=['ar22q13', 'ar24q17', 'appendix'], covers=['W16', 'W7', 'A1'], elements=[1, 4], exam=['X22-13', 'X24-17']),
+]),
 Scene('quakes', P2, 'Monitoring earthquakes and tsunamis', V.quakes, [
     S("The course also asks you to apply waves to monitoring earthquakes and tsunamis. P waves are faster, so they reach a "
       "seismometer first, and the S waves arrive later. The further away the earthquake, the bigger that delay. Using "
@@ -787,12 +795,16 @@ Scene('two_source', P4, 'Two-source interference and path difference', V.two_sou
       "whole wavelengths, and it's loud again.", covers=['W17'], elements=[2],
       problem='Two speakers in phase at 686 Hz are 5.00 m and 6.25 m from you. Is your position loud or quiet?'),
 ]),
-Scene('coherence', P4, 'Getting coherent sources', V.coherence, [
+Scene('coherence', P4, 'Getting coherent sources', V.extend(V.coherence, 1, V.coherent_phase), [
     S("How do we get coherent light? Light from an ordinary lamp first goes through a narrow slit or pinhole, which acts as "
       "a single source. It diffracts, so one wavefront reaches both slits. A laser does the same job, because its light is "
       "already coherent. The single slit doesn't select a colour. Monochromatic means one wavelength. And coherent sources "
       "have a constant phase relationship, which doesn't have to mean in phase.",
       refs=['content', 'ar21q16', 'ar19q17', 'ar25q14'], covers=['W17b'], elements=[1], exam=['X21-16', 'X19-17', 'X25-14']),
+    S("Coherent and in phase are different ideas, and examiners want you to keep them apart. In phase means there's no phase difference. Coherent means the same frequency, and a phase difference that stays constant. "
+      "In a two source pattern, the phase difference between the arriving waves is constant at each point, but it depends on where you are. At the loud spots they're in phase, and at the quiet spots they're out of phase. "
+      "So if you're asked for the conditions for interference, write: the same frequency, and a constant phase relationship.",
+      refs=['ar25q14', 'ar22q17', 'ar23q16'], covers=['W17b', 'W17'], elements=[1], exam=['X25-14', 'X22-17', 'X23-16']),
 ]),
 Scene('antinodal', P4, 'Counting antinodal lines and steering a beam', V.antinodal_lines, [
     S("How many antinodal lines are there? The largest possible path difference is the source separation, d. So with d equal "
@@ -905,7 +917,7 @@ Scene('polarisation', P4, 'Polarisation', V.polarisation, [
       "sideways direction to filter out. So polarisation tells transverse waves apart from longitudinal ones.",
       refs=['content'], covers=['W19', 'W2'], elements=[1], exam=['X20-17']),
     S("If polarised light meets a second filter at an angle theta, resolve the amplitude like a vector. The component "
-      "along the new axis is A cos theta, and that's what gets through. These aren't on the sheet, so learn the idea. Use "
+      "along the new axis is A cos theta, and that's what gets through. Strictly, the course only asks for polarisation qualitatively, and this isn't on the sheet, but the 2023 exam asked for it, so learn it. Use "
       "cosine, not sine, when theta is measured from the polarisation direction.", refs=['ar23q14'], covers=['W19'], elements=[1, 2], exam=['X23-14']),
     S("Two filters at ninety degrees to each other, called crossed filters, block everything, since cos ninety is zero. "
       "But put a third filter between them at forty five degrees, and some light gets through. The middle filter passes A "
