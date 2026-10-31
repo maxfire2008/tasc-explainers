@@ -3,7 +3,9 @@
 Worked example of a full video spec.  Build with:
     uv run python -m explainer check   videos/PHY415115/c7_wave_motion.py
     uv run python -m explainer preview videos/PHY415115/c7_wave_motion.py
-    uv run python -m explainer all     videos/PHY415115/c7_wave_motion.py
+    uv run python -m explainer tts     videos/PHY415115/c7_wave_motion.py
+    uv run python -m explainer docs    videos/PHY415115/c7_wave_motion.py
+    uv run python -m explainer render  videos/PHY415115/c7_wave_motion.py    # operator only
 """
 import math
 

@@ -5,7 +5,8 @@ This file runs as-is so you can see the moving parts:
     uv run python -m explainer check   template/video_template.py --allow-missing-sources
     uv run python -m explainer preview template/video_template.py
     uv run python -m explainer tts     template/video_template.py
-    uv run python -m explainer render  template/video_template.py
+    uv run python -m explainer docs    template/video_template.py
+    uv run python -m explainer render  template/video_template.py    # operator only
 
 Rules that the checker enforces (see CLAUDE.md for the reasons):
   * every syllabus dot point, every element and every past-exam topic is covered by some Step
@@ -32,6 +33,11 @@ P1 = 'Part 1 · Describing waves'            # part label shown above slide titl
 
 # --------------------------------------------------------------------------- draw functions
 # draw(fig, s, ph): s = build step (0..n-1), ph = animation phase 0..1 (seamless loop).
+def title_card(fig, s, ph):
+    fig.text(0.5, 0.60, 'Criterion 0: Example module', ha='center', va='center', color=L.A1(), fontsize=60, weight='bold')
+    fig.text(0.5, 0.48, 'Revision for class tests and the exam', ha='center', va='center', color=L.SOFT, fontsize=26)
+
+
 def wave_speed(fig, s, ph):
     header(fig, 'Wave speed')                              # part label comes from the Scene
     ax = wax(fig, [0.05, 0.40, 0.55, 0.38], (0, 10), (-1.6, 1.6))
@@ -70,6 +76,10 @@ EXAM_TOPICS = {'X24-1': ('Wave speed from frequency and wavelength (in our own w
 CHECKS = [('example v', lambda: 50 * 0.40, 20, 1e-9)]
 
 SCENES = [
+    # Id 'title' puts this first, with the engine's disclaimer straight after it.  See the blueprint in CLAUDE.md.
+    Scene('title', P1, 'Welcome', title_card, [
+        Step("Welcome. This video revises the example module, for your class tests and for the end of year exam."),
+    ]),
     Scene('wave_speed', P1, 'Wave speed', wave_speed, [
         Step("In one period, a wave moves forward exactly one wavelength.",
              refs=['content'], covers=['T1'], elements=[1], anim=2),
