@@ -1,6 +1,6 @@
 # Agent instructions: TASC course explainer videos
 
-You are building **narrated, animated revision videos (15–45 min)**, one per course module/criterion, for Tasmanian
+You are building **narrated, animated revision videos (a rough goal of 15–45 min)**, one per course module/criterion, for Tasmanian
 TASC courses. Each video is one Python *spec* file (plus a visuals file) rendered by the `explainer` engine in this repo.
 The worked example is `videos/PHY415115/c7_wave_motion.py` + `c7_visuals.py`: read both before starting a new video.
 
@@ -101,9 +101,11 @@ python -m explainer sources PHY415115 --refresh  # re-download (e.g. a paper was
      supplied, described **in your own words**. Every topic must be taught somewhere. The checker warns if an exam
      file has no topics.
 
-3. **Plan the running order and time budget.** 15–45 minutes total. Spend time in proportion to (a) how much of the
-   syllabus it is, (b) how often and how heavily it is examined, (c) how often the assessment reports say students
-   get it wrong. Group scenes into 3–5 Parts; `Scene.topic` becomes the YouTube chapter title. Typical shape:
+3. **Plan the running order and time budget.** Aim for 15–45 minutes total. This is a rough goal, not a hard limit:
+   going over is fine when the content needs it, and coverage always wins over duration. Spend time in proportion to
+   (a) how much of the syllabus it is, (b) how often and how heavily it is examined, (c) how often the assessment
+   reports say students get it wrong. To stay close to the goal, give a **brief mention** (a sentence or two, no scene
+   of its own) to anything that appeared in only one exam and isn't in the course content. Group scenes into 3–5 Parts; `Scene.topic` becomes the YouTube chapter title. Typical shape:
    overview (assessment, elements, standards) → Parts → tips for tests and the exam → summary. The engine adds the
    disclaimer and credits. `check` prints an estimated duration per part.
 
@@ -163,7 +165,9 @@ Numbers are assigned by first appearance, so don't hard-code them.
 Verify each formula against the actual sheet before using `sheet_eq`, and set `Video.info_sheet.section` to the
 sheet's real section heading. Constants on the sheet (e.g. speed of sound) also count: show them with `sheet_eq`.
 
-**Coverage.** 100% of `SYLLABUS`, `ELEMENTS` and `EXAM_TOPICS`. If time is tight, shorten a topic; don't drop it.
+**Coverage.** 100% of `SYLLABUS`, `ELEMENTS` and `EXAM_TOPICS`. To save time, shorten a topic; don't drop it. Course
+content gets full teaching. A topic from a single exam that isn't in the course content still needs an `EXAM_TOPICS`
+entry and a covering step, but a brief mention is enough.
 
 **Accuracy.** Physics/maths must be right. Recompute every number in `CHECKS`. Check that directions, signs, phase
 changes and diagrams match the narration (e.g. reflected pulses not bigger than the incident pulse; rays bending the
@@ -258,4 +262,4 @@ Highlighted subtitle terms come from `Video.keywords` (course accent), plus buil
 - [ ] Information-sheet formulas use `sheet_eq` with the sheet's notation, and the narration names the sheet section
 - [ ] Narration addresses tests *and* the exam; elements referred to by number
 - [ ] Preview contact sheets reviewed; no overlaps or clipping
-- [ ] Rendered; duration 15–45 min; `coverage.md` has no gaps; subtitles, timestamps, references and description generated
+- [ ] Rendered; duration close to the 15–45 min goal (not a hard limit); `coverage.md` has no gaps; subtitles, timestamps, references and description generated

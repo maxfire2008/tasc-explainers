@@ -1,6 +1,6 @@
 # TASC explainer videos
 
-Generates narrated, animated revision videos (15–45 min) for TASC course modules, with a consistent house style,
+Generates narrated, animated revision videos (a rough goal of 15–45 min) for TASC course modules, with a consistent house style,
 on-slide references, information-sheet callouts, YouTube chapters, styled subtitles and coverage checking.
 
 Agents: read **CLAUDE.md** first.
