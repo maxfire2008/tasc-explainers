@@ -516,11 +516,11 @@ def xray_spectrum(fig, s, ph):
     if s == 3:
         l2 = l
         ax.plot(l2, _xs(l2, 50), color=GREEN, lw=3)
-        bullets(fig, ['Higher VOLTAGE', 'More energetic electrons:\nλmin moves to shorter wavelengths', 'More energy per electron: the whole\ncurve grows too',
-                      'Lines stay at the same wavelengths,\nbut get taller'], 4, 0.60, 0.77, size=22, gap=0.014, dim=False)
+        bullets(fig, ['Higher VOLTAGE', 'Most important: λmin falls\n(more energetic electrons)', 'Intensity rises, but current is its\nmain control',
+                      'Lines stay at the same wavelengths:\nset by the metal, not the voltage'], 4, 0.60, 0.77, size=22, gap=0.014, dim=False)
         ax.text(148, 1.84, 'green = larger voltage', color=GREEN, fontsize=19, ha='right', va='top')
         T(fig, 0.60, 0.445, 'Too low to eject an inner electron: no lines.', size=20, color=SOFT)
-        card(fig, 0.60, 0.13, 0.36, 0.27, 'Marking note', 'The 2023 marking guide says intensity\ndoesn’t rise unless the current does.\nPhysically it does. Give both effects,\neach with a reason.', tcol=PINK, size=20)
+        card(fig, 0.60, 0.13, 0.36, 0.27, 'Marking note', 'The 2022 report says intensity rises. The\n2023 guide says not unless the current does.\nWrite: λmin falls and intensity rises,\nwith current its main control.', tcol=PINK, size=20)
 
 
 def we_xray(fig, s, ph):
@@ -1146,14 +1146,14 @@ def binding(fig, s, ph):
     label(ax, 9.5, 3.9, 'nucleus:\nless mass', size=19, color=FG)
     bullets(fig, ['Mass defect: mass of parts − mass of the whole', 'Binding energy: energy to separate it completely', 'It is NOT energy stored in the nucleus'], 3, 0.05, 0.40, size=23, gap=0.012, dim=False)
     chip(fig, 'Element 2 · problems')
-    card(fig, 0.53, 0.60, 0.42, 0.20, 'Example', 'Nickel-62 atom (Z = 28) has a mass of\n61.928345 u. Find its binding energy per nucleon.\n(Mass: reference data, not from TASC.)', tcol=C2, size=20)
+    card(fig, 0.53, 0.58, 0.42, 0.22, 'Example', 'Nickel-62 atom (Z = 28) has a mass of 61.928345 u,\nelectrons included. Find its BE per nucleon.\n(Mass: reference data, not from TASC.)', tcol=C2, size=20)
     if s >= 1:
         _lines(fig, 0.54, 0.565, [('parts:  28(1.007276 + 0.000549) + 34(1.008665)', FG), ('          = 62.513710 u', FG),
                                  ('Δm = 62.513710 − 61.928345 = 0.585365 u', GREEN)], size=20, gap=0.04)
     if s >= 2:
         _lines(fig, 0.54, 0.445, [('BE = 0.585365 × 931 = 544.97 MeV', FG), ('= 545 MeV (3 s.f.)', GREEN), ('per nucleon = 544.97 / 62 = 8.7899 MeV', FG), ('= 8.79 MeV per nucleon (3 s.f.)', GREEN)], size=20, gap=0.036)
         card(fig, 0.53, 0.07, 0.42, 0.22, 'Common errors', 'Converting the whole atom’s mass to energy\nAssuming the parts add to exactly 62 u\nDividing by Z or by 931, not by A', tcol=PINK, size=20)
-        T(fig, 0.05, 0.15, 'A quoted atomic mass includes electrons, so add\nZ electrons. If it is the nucleus only, leave them out.', size=21, color=YELLOW)
+        T(fig, 0.05, 0.15, 'Told the electrons are included, so add Z electrons.\nNot told? See the next slide.', size=21, color=YELLOW)
 
 
 BE_DATA = [(2, 1.11), (3, 2.57), (4, 7.07), (6, 5.33), (7, 5.61), (9, 6.46), (12, 7.68), (16, 7.98), (20, 8.03), (28, 8.45), (40, 8.55),
@@ -1180,6 +1180,36 @@ def be_curve(fig, s, ph):
     bullets(fig, it, len(it), 0.63, 0.78, size=20, gap=0.014, dim=False)
 
 
+def binding_electrons(fig, s, ph):
+    C1, C2 = C()
+    header(fig, 'Binding energy: do electrons count?')
+    chip(fig, 'Element 2 · problems')
+    card(fig, 0.05, 0.56, 0.43, 0.24, 'Question says electrons are included', 'Add Z electrons to the parts:\nZ(mₚ + mₑ) + N mₙ\ne.g. the 2024 exam', tcol=C2, size=22)
+    card(fig, 0.52, 0.56, 0.43, 0.24, 'Question doesn’t say', 'Use the mass you’re given:\nZ mₚ + N mₙ, no electrons needed\nAdding them probably won’t cost you', tcol=GREEN, size=22)
+    if s >= 1:
+        T(fig, 0.06, 0.50, 'Helium-4 nucleus: 4.001506 u', size=25, color=C2, weight='bold')
+        _lines(fig, 0.06, 0.44, [('parts:  2(1.007276 + 1.008665) = 4.031882 u', FG), ('Δm = 4.031882 − 4.001506 = 0.030376 u', FG), ('BE = 0.030376 × 931 = 28.280 MeV', FG), ('= 28.3 MeV (3 s.f.)', GREEN),
+                                 ('per nucleon = 28.280 / 4 = 7.0700 MeV', FG), ('= 7.07 MeV per nucleon (3 s.f.)', GREEN)], size=22, gap=0.042)
+        card(fig, 0.60, 0.20, 0.35, 0.25, 'One rule for both', 'Not told otherwise? Treat a\ngiven mass as nuclear.\nBeta decay: next up.', tcol=YELLOW, size=21)
+        T(fig, 0.60, 0.14, 'Mass: reference data, not from TASC', size=18, color=MUT)
+
+
+def beta_mass(fig, s, ph):
+    C1, C2 = C()
+    header(fig, 'Mass differences in beta decay')
+    chip(fig, 'Element 2 · problems')
+    T(fig, 0.05, 0.785, 'Made-up nuclei and masses', size=18, color=MUT)
+    T(fig, 0.05, 0.73, 'Beta minus:  parent → daughter + e⁻ + antineutrino', size=25, color=C2, weight='bold')
+    _lines(fig, 0.05, 0.67, [('Δm = 23.984150 − 23.982900 − 0.000549 = 0.000701 u', FG), ('E = 0.000701 × 931 = 0.65263 MeV', FG), ('= 0.653 MeV (3 s.f.)', GREEN)], size=23, gap=0.046)
+    T(fig, 0.72, 0.67, 'mₑ = 0.000549 u\n(information sheet)', size=20, color=YELLOW)
+    if s >= 1:
+        T(fig, 0.05, 0.50, 'Beta plus:  parent → daughter + e⁺ + neutrino', size=25, color=C2, weight='bold')
+        _lines(fig, 0.05, 0.44, [('Δm = 11.008200 − 11.006300 − 0.000549 = 0.001351 u', FG), ('E = 0.001351 × 931 = 1.25778 MeV', FG), ('= 1.26 MeV (3 s.f.)', GREEN)], size=23, gap=0.046)
+        T(fig, 0.72, 0.44, 'positron mass =\nelectron mass', size=20, color=YELLOW)
+    if s >= 2:
+        card(fig, 0.05, 0.07, 0.90, 0.20, 'Question explicitly says “atomic masses”?', 'Beta minus: the electron’s mass cancels, so don’t subtract it.\nBeta plus: subtract two electron masses (the positron, and one fewer orbital electron).', tcol=PINK, size=22)
+
+
 def reaction_energy(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Energy from a mass difference')
@@ -1195,7 +1225,7 @@ def reaction_energy(fig, s, ph):
         _lines(fig, 0.06, 0.445, [('236.052593 u → 235.866572 u   (atomic masses; electrons cancel)', FG), ('Δm = 0.186021 u    E = 173.19 MeV released, per fission', FG),
                                  ('= 173 MeV (3 s.f.)', GREEN)], size=23, gap=0.046)
     if s >= 2:
-        card(fig, 0.05, 0.07, 0.90, 0.24, 'The sign tells you the direction', 'Products lighter: energy released.  Products HEAVIER: energy must be supplied, e.g. a photon or a fast particle’s kinetic energy.\nEnergy leaves as gamma photons or kinetic energy. Ignore a neutrino’s mass.\nTASC beta minus: treat given masses as nuclear and subtract the electron’s 0.000549 u. Told “atomic masses”? It cancels.', tcol=PINK, size=20)
+        card(fig, 0.05, 0.07, 0.90, 0.19, 'The sign tells you the direction', 'Products lighter: energy released.  Products HEAVIER: energy must be supplied, e.g. a photon or a fast particle’s kinetic energy.\nEnergy leaves as gamma photons or kinetic energy. Ignore a neutrino’s mass.', tcol=PINK, size=20)
 
 
 def stars(fig, s, ph):

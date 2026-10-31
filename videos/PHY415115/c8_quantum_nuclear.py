@@ -339,6 +339,20 @@ CHECKS = [
     ('Ni-62 defect', lambda: _ni, 0.585365, 1e-5),
     ('Ni-62 BE', lambda: _ni * 931, 545, 0.001),
     ('Ni-62 per nucleon', lambda: _ni * 931 / 62, 8.79, 0.001),
+    ('He-4 parts', lambda: 2 * (_mp + _mn), 4.031882, 1e-7),
+    ('He-4 defect', lambda: 2 * (_mp + _mn) - 4.001506, 0.030376, 1e-5),
+    ('shown: He-4 BE', lambda: (2 * (_mp + _mn) - 4.001506) * 931, 28.280, 1e-4),
+    ('He-4 BE', lambda: (2 * (_mp + _mn) - 4.001506) * 931, 28.3, 0.002),
+    ('shown: He-4 per nucleon', lambda: (2 * (_mp + _mn) - 4.001506) * 931 / 4, 7.0700, 1e-4),
+    ('He-4 per nucleon', lambda: (2 * (_mp + _mn) - 4.001506) * 931 / 4, 7.07, 0.001),
+    ('beta minus before electron', lambda: 23.984150 - 23.982900, 0.001250, 1e-6),
+    ('beta minus defect', lambda: 23.984150 - 23.982900 - _mel, 0.000701, 1e-6),
+    ('shown: beta minus energy', lambda: (23.984150 - 23.982900 - _mel) * 931, 0.65263, 1e-4),
+    ('beta minus energy', lambda: (23.984150 - 23.982900 - _mel) * 931, 0.653, 0.001),
+    ('beta plus before positron', lambda: 11.008200 - 11.006300, 0.001900, 1e-6),
+    ('beta plus defect', lambda: 11.008200 - 11.006300 - _mel, 0.001351, 1e-6),
+    ('shown: beta plus energy', lambda: (11.008200 - 11.006300 - _mel) * 931, 1.25778, 1e-4),
+    ('beta plus energy', lambda: (11.008200 - 11.006300 - _mel) * 931, 1.26, 0.002),
     ('DT before', lambda: 2.013553 + 3.015501, 5.029054, 1e-7),
     ('DT after', lambda: 4.001506 + 1.008665, 5.010171, 1e-7),
     ('DT defect', lambda: 5.029054 - 5.010171, 0.018883, 1e-4),
@@ -603,10 +617,11 @@ Scene('xray_spectrum', P1, 'The X-ray spectrum', V.xray_spectrum, [
       "so do the spikes. They just get taller. A common sketching error is to move the cut off, or move the spikes.",
       refs=['ar21q21', 'ex21q21', 'ex22q24'], covers=['X4', 'X3'], elements=[3, 4], exam=['X21-21', 'X22-24'],
       problem='What happens to an X-ray spectrum when the tube current is increased?'),
-    S("Increase the voltage, and each electron has more energy. So the cut off moves to a shorter wavelength, and the whole "
-      "curve grows as well, because each electron brings more energy. The spikes don't move, as they belong to the target, though they do get taller. And if the voltage is too low "
-      "to eject an inner electron, those lines don't appear at all. A note on marking: the 2023 marking guide says intensity doesn't rise unless the current changes, but physically it does. "
-      "So give both effects, each with a reason: the cut off moves to a shorter wavelength, and the intensity rises.",
+    S("Increase the voltage, and each electron has more energy. So the minimum wavelength falls: the cut off moves to a shorter wavelength. That's the most important point. "
+      "The intensity rises too, because each electron brings more energy, although voltage only has some effect, and the tube current is the main control of intensity. "
+      "The spikes stay at the same wavelengths, because they depend on the target metal, not on the voltage. Always say that. You can add that they get taller, but that alone doesn't answer the question. "
+      "And if the voltage is too low to eject an inner electron, those lines don't appear at all. A note on marking: the 2022 report says intensity rises, but the 2023 marking guide says it doesn't unless the current changes. "
+      "So write that the minimum wavelength falls and the intensity rises, and say that current is the main control of intensity.",
       refs=['ar22q24', 'ex22q24', 'ex23q23', 'ar23q23', 'ex18q23'], covers=['X1', 'X3'], elements=[3, 4], exam=['X22-24', 'X23-23', 'X18-23'],
       problem='What happens to an X-ray spectrum when the tube voltage is increased?'),
 ]),
@@ -1002,15 +1017,24 @@ Scene('binding', P4, 'Mass defect and binding energy', V.binding, [
       "The more binding energy per nucleon, the more stable the nucleus.",
       refs=['content'], covers=['M2'], elements=[1]),
     S("Example for element two. A nickel sixty two atom, Z equals twenty eight, has a mass of sixty one point nine two eight "
-      "three four five u. The parts are twenty eight protons, twenty eight electrons, and thirty four neutrons, using the sheet's "
+      "three four five u, and we're told that includes the electrons. So the parts are twenty eight protons, twenty eight electrons, and thirty four neutrons, using the sheet's "
       "masses: sixty two point five one three seven one u. Subtract to get a mass defect of zero point five eight five three six five u.",
       refs=['ex19q21', 'ar19q21', 'ex24q21', 'ar24q21', 'ex21q20', 'ar21q20'], covers=['M2'], elements=[2], exam=['X19-21', 'X24-21', 'X21-20'],
-      problem='A nickel-62 atom (Z = 28) has a mass of 61.928345 u. What is its binding energy per nucleon?'),
+      problem='A nickel-62 atom (Z = 28) has a mass of 61.928345 u, electrons included. What is its binding energy per nucleon?'),
     S("Multiply by nine hundred and thirty one to get five hundred and forty five mega electron volts. Divide by sixty two nucleons, to "
       "get eight point seven nine per nucleon. Common errors: converting the whole atom's mass to energy, assuming the parts add to a "
-      "whole number, and dividing by Z or by nine hundred and thirty one. Read carefully: a quoted atomic mass includes electrons, so "
-      "add them, but for a mass given for the nucleus, don't. And check whether you've been asked for the total, or per nucleon.",
-      refs=['ar19q21', 'ar24q21', 'ar22q19', 'ar21q20', 'ex22q19'], covers=['M2'], elements=[2], exam=['X19-21', 'X24-21', 'X22-19', 'X21-20']),
+      "whole number, and dividing by Z or by nine hundred and thirty one. And check whether you've been asked for the total, or per nucleon.",
+      refs=['ar19q21', 'ar24q21', 'ar21q20'], covers=['M2'], elements=[2], exam=['X19-21', 'X24-21', 'X21-20']),
+]),
+Scene('binding_electrons', P4, 'Binding energy: do electrons count?', V.binding_electrons, [
+    S("Do electrons count? Go by the information you're given. If the question says the electrons are included, as the 2024 exam did, add Z electrons to the parts, as we did for nickel. "
+      "If it doesn't say, just use the mass you're given, with protons and neutrons only. You don't need to bring electrons in. Students did it both ways in 2022, when there was no explicit direction, so adding them probably won't cost you.",
+      refs=['ex24q21', 'ar22q19', 'ex22q19'], covers=['M2'], elements=[2], exam=['X24-21', 'X22-19']),
+    S("Here's an element two example. A helium four nucleus has a mass of four point zero zero one five zero six u. Two protons and two neutrons come to four point zero three one eight eight two u. "
+      "The mass defect is zero point zero three zero three seven six u, which gives twenty eight point three mega electron volts, or seven point zero seven per nucleon. "
+      "This fits the beta decay rule coming up: unless you're told otherwise, treat a given mass as nuclear.",
+      refs=['ar22q19'], covers=['M2'], elements=[2], exam=['X22-19'],
+      problem='A helium-4 nucleus has a mass of 4.001506 u. What is its binding energy per nucleon?'),
 ]),
 Scene('be_curve', P4, 'The binding energy per nucleon curve', V.be_curve, [
     S("Plot binding energy per nucleon against mass number, and you get this famous curve. It rises steeply, peaks near iron, then "
@@ -1039,11 +1063,23 @@ Scene('reaction_energy', P4, 'Energy from a mass difference', V.reaction_energy,
       problem='The fission of U-235 + n → Ba-141 + Kr-92 + 3n has a mass drop of 0.186021 u. How much energy is released?'),
     S("Then check the sign. If the products are lighter, energy is released, as gamma photons or kinetic energy. If the products are "
       "heavier, energy must be supplied. For instance, a gamma photon needs a minimum energy to knock a neutron out of a nucleus. "
-      "Students often claim energy is released when the mass shows otherwise. Count every particle. In TASC beta minus questions, treat the given masses as nuclear "
-      "masses, and subtract the electron's zero point zero zero zero five four nine u. The 2023 report names leaving it out as a common mistake. The exception is if the question explicitly says "
-      "atomic masses: then the electron's mass cancels. And don't work out separate mass defects if a simple total will do.",
-      refs=['ex20q22', 'ar20q22', 'ex23q20', 'ar23q20', 'ar22q19', 'ex25q19', 'ar25q19', 'ex19q20', 'ex21q20', 'ar21q20'], covers=['M3'], elements=[2, 4],
-      exam=['X20-22', 'X23-20', 'X22-19', 'X25-19', 'X19-20', 'X21-20']),
+      "Students often claim energy is released when the mass shows otherwise. Count every particle. And don't work out separate mass defects if a simple total will do.",
+      refs=['ex20q22', 'ar20q22', 'ar22q19', 'ex25q19', 'ar25q19', 'ex19q20'], covers=['M3'], elements=[2, 4],
+      exam=['X20-22', 'X22-19', 'X25-19', 'X19-20']),
+]),
+Scene('beta_mass', P4, 'Mass differences in beta decay', V.beta_mass, [
+    S("Beta decay needs one more step, because the decay creates a particle. In TASC beta minus questions, treat the given masses as nuclear masses, and subtract the electron's zero point zero zero zero five four nine u, from your information sheet. "
+      "The 2023 report deducts a mark for leaving it out, and the 2021 guide accepted it either way, so subtracting covers both. Example: a parent of twenty three point nine eight four one five zero u, and a daughter of twenty three point nine eight two nine zero zero u. "
+      "The mass difference is zero point zero zero zero seven zero one u, or about zero point six five three mega electron volts.",
+      refs=['ex23q20', 'ar23q20', 'ex21q20', 'ar21q20', 'info'], covers=['M3'], elements=[2], exam=['X23-20', 'X21-20'],
+      problem='A beta-minus decay has a parent nucleus of 23.984150 u and a daughter of 23.982900 u. How much energy is released?'),
+    S("Beta plus uses the same approach, although the reports only show it for beta minus. A proton becomes a neutron and a positron, and a positron has the same mass as an electron. So subtract zero point zero zero zero five four nine u again. "
+      "With a parent of eleven point zero zero eight two zero zero u and a daughter of eleven point zero zero six three zero zero u, the mass difference is zero point zero zero one three five one u, or about one point two six mega electron volts.",
+      refs=['content', 'info'], covers=['M3', 'N4'], elements=[2, 4],
+      problem='A beta-plus decay has a parent nucleus of 11.008200 u and a daughter of 11.006300 u. How much energy is released?'),
+    S("The exception is a question that explicitly says atomic masses. Atoms include their orbital electrons. In beta minus, the electron's mass then cancels, so don't subtract it. "
+      "In beta plus, subtract two electron masses: one for the positron, and one because the daughter atom has one fewer orbital electron.",
+      refs=['ar23q20'], covers=['M3'], elements=[2, 4], exam=['X23-20']),
 ]),
 Scene('stars', P4, 'Fusion in stars', V.stars, [
     S("Stars are powered by fusion, which is the course's context here. In the Sun, the net result is four protons becoming a "
