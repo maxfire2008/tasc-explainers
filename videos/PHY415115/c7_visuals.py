@@ -588,7 +588,7 @@ def two_surfaces(fig, s, ph):
     header(fig, 'Two surfaces: use the geometry')
     ax = wax(fig, [0.04, 0.10, 0.50, 0.72], (-1, 9), (-7.5, 3))
     ax.add_patch(Rectangle((0, -7), 7, 7, fc='#1a3150', ec=SOFT, lw=2))
-    label(ax, 6.4, -0.7, 'glass n = 1.50', size=18, color=SOFT, ha='right')
+    label(ax, -11.5, -0.7, 'glass n = 1.50', size=18, color=SOFT, ha='left')
     th1 = np.radians(40); th2 = np.arcsin(np.sin(th1) / 1.5)
     P = np.array([4.5, 0.0]); d = np.array([np.sin(th2), -np.cos(th2)])
     tq = (7 - P[0]) / d[0]; Q = P + tq * d
@@ -902,7 +902,7 @@ def pipes(fig, s, ph):
                   [(1, 'λ = 2l', 'f₁'), (2, 'λ = l', '2f₁'), (3, 'λ = 2l/3', '3f₁')], 0.05)]
         if s == 2: cols_.append((True, 'Closed at one end', 'odd harmonics only',
                                  [(1, 'λ = 4l', 'f₁'), (3, 'λ = 4l/3', '3f₁'), (5, 'λ = 4l/5', '5f₁')], 0.52))
-        sheet_eq(fig, 0.235, 0.775, r'$\lambda = 2l$', size=22)
+        sheet_eq(fig, 0.26, 0.775, r'$\lambda = 2l$', size=22)
         if s == 2: sheet_eq(fig, 0.72, 0.775, r'$\lambda = 4l$', size=22)
         for closed, title, sub, rows, x0 in cols_:
             T(fig, x0, 0.79, title, size=28, color=C2 if closed else C1, weight='bold')
