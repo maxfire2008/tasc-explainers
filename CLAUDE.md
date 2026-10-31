@@ -4,6 +4,7 @@ You are preparing **narrated, animated revision videos (a rough goal of 15–45 
 for Tasmanian TASC courses in maths and the sciences. Each video is one Python *spec* file plus a visuals file, built by
 the `explainer` engine in this repo. The model to follow is `videos/PHY415115/c7_wave_motion.py` + `c7_visuals.py`: read
 both in full before starting a new video.
+Also read `videos/PHY415115/c8_quantum_nuclear.py` and `c8_visuals.py`: they are the model for significant figures, several sheet sections, marking notes and labelled illustrative data, which C7 predates.
 
 Audience: students revising for **class tests and other internal assessment, and for the external exam**. Mention the
 exam where relevant, but never present the video as being only for the exam.
@@ -133,6 +134,10 @@ colours to `style.COURSE_ACCENTS` and `style.MODULE_ACCENTS` if they're new.
    * Formats change between years. Section names vary ("Part 3" or "Section C"), question numbers shift, some papers
      offer either/or questions, and some reports are comments while others are mostly model answers. Use each source's own
      labels. A page with little extracted text may be an image, so render it and look.
+   * Whole report sections can be image-only, and extraction can silently drop words from a sentence. PHY415115's 2019 report
+     has its Criterion 8 comments only as images, and its 2025 report has handwritten solutions. Print each page's extracted
+     length to spot these. Before relying on a surprising or garbled line, or calling two reports contradictory, read the page image.
+   * Record what each report's model answer *and* marker's comments say as you read. Conflicts are easiest to catch here (section 5, **Conflicting sources**).
 
 2. **Build the coverage targets in the spec** (the checker fails if any target is uncovered):
    * `SYLLABUS`: every content dot point for the module, *plus* every context/example the course names for it
@@ -169,6 +174,19 @@ colours to `style.COURSE_ACCENTS` and `style.MODULE_ACCENTS` if they're new.
 
    Add `problem='...'` to the step where each solved problem starts (section 9).
 
+   **Significant figures** (the course asks for them, so they're in every video, but they're not a teaching point):
+   * Show each final answer unrounded, then directly under it the rounded value with its precision: `= 4.44 × 10⁻²³ kg m s⁻¹ (3 s.f.)`.
+     Copy the `_sf` helper from `c8_visuals.py`. This line is on screen only: don't narrate it or mention it.
+   * Round to the least precise input. Decide this when you write the question, so that the answer you want to say is justified: write
+     `80.0 kV`, not `80 kV`, if you'll say a 3 s.f. answer. Narrate the rounded value's digits or a clearly rounded "about".
+   * Carry unrounded values through the working, because rounded factors can visibly fail to multiply to the shown answer.
+     Put both the unrounded and the rounded value in `CHECKS`, computed from the inputs.
+   * If there's no room underneath, or the value doesn't change when rounded (cards, tables, a value read from a graph), add the
+     precision on the same line. Quick values mentioned in passing need no label.
+
+   **Validity checks must survive exact numbers.** Before claiming why two values differ, recompute with unrounded inputs. In C8's first
+   draft, a rounded wavelength made ½mv² fall *below* the photon's energy loss, so the relativistic explanation was wrong until the wavelength was corrected.
+
 5. **Write the spec**: refs, coverage, scenes, steps. One step = one narration chunk = one build state of a slide,
    10–30 s each. Tag every step with `refs`, `covers`, `elements`, `exam` as appropriate. Only tag what the step really
    teaches: `coverage.md` trusts these tags.
@@ -183,6 +201,8 @@ colours to `style.COURSE_ACCENTS` and `style.MODULE_ACCENTS` if they're new.
    course dot points and each past question, phrase by phrase, and find where the narration or slide teaches each one. Check
    each report comment on a common error, and each "on the sheet" and "not on the sheet" claim against the sheet image, in
    both directions. Fix any gap, then re-run `check`.
+   Also audit your own claims about marking ("the report says…"): reopen the page and confirm the comment says that and is about that part of the question. Check that each
+   vector diagram really adds head to tail, and that its arrows, signs and angles agree with the working.
 
 9. `uv run python -m explainer preview <spec>` and **look at every contact sheet** (`out/<id>/preview/_sheetNN.jpg`; open
    single frames at full size where text is dense). Fix overlaps, clipped text, text running off the slide, and labels
@@ -270,6 +290,9 @@ Numbers are assigned by first appearance, so don't hard-code them.
 A formula may appear on the sheet only beside a diagram, and it still counts (use `sheet_eq`). A rearranged or extended form
 that isn't printed is `learn_eq`. Verify each formula against the actual sheet before using `sheet_eq`, and set `Video.info_sheet.section` to the
 sheet's real section heading. Constants on the sheet (e.g. speed of sound) also count: show them with `sheet_eq`.
+A video may use several sheet sections. `sheet_eq` tags the slide with `ctx['sheet_section']`, so name the real section for each formula (copy `_sheet`, `qeq` and `neq`
+from `c8_visuals.py`), set `InfoSheet.section` to the main ones, and say that section in the narration. The automatic citation points at one page only, so add a
+separate `Ref` (with `page=`) for a section or constant on another page. A form that is in the course document but not on the sheet is still `learn_eq`, because the tag is about the sheet.
 
 **Coverage.** 100% of `SYLLABUS`, `ELEMENTS` and `EXAM_TOPICS`. To save time, shorten a topic; don't drop it. Course
 content gets full teaching. A topic from a single exam that isn't in the course content still needs an `EXAM_TOPICS`
@@ -279,6 +302,22 @@ entry and a covering step, but a brief mention is enough.
 asked or what a report said: check the source. Keep to the course's depth, so qualitative topics stay qualitative. Recompute every number in `CHECKS`. Check that directions, signs, phase
 changes and diagrams match the narration (e.g. reflected pulses not bigger than the incident pulse; rays bending the
 right way).
+
+**Conflicting sources.** The course document and the information sheet are definitive: if either one defines something, that settles it, whatever a report says. Reports,
+marking guides and outside physics rank below them, and they do sometimes disagree. When they do:
+1. Read the actual page images of every report involved, then check the physics online with reputable sources. Cite what you find in your report to the operator.
+2. Don't resolve it silently, and don't drop the topic. If the physics is clear and a student can safely state it with a reason, teach the physics and add a short
+   on-screen marking note, for example "the 2023 marking guide says otherwise: give both effects, each with a reason" (C8: X-ray intensity against tube voltage).
+3. If the exam needs a particular convention to earn the marks, teach TASC's convention as a clear rule, and say when it stops applying (C8: in beta-minus
+   questions, treat given masses as nuclear and subtract the electron, unless the question says "atomic masses"). Tell the operator where this differs from the physics.
+4. List anything still open in your handover. If the operator wants a teacher's ruling, open one GitHub issue per question, self-contained: the question, a table of what
+   each source says with PDF pages, the outside physics, what the video does now, and a checklist of what needs answering. The repo is public, so use short report quotes and no exam question text.
+
+**Data that isn't from TASC** is fine as long as it's clearly not part of the course:
+* Verify reference data, such as nuclide masses and half-lives, against a current table online rather than recalling it. C8's first draft had three outdated masses. The mass an exam or a table
+  quotes may be atomic or nuclear, so say which you've used.
+* Label invented or illustrative material on the slide, in small muted text: "illustrative shape, not measured data", "a made-up atom", "masses: reference data, not from TASC".
+* Mark content that goes beyond the course ("as an aside beyond the course…"), and keep any content the course marks as internally assessed in its own clearly labelled part.
 
 ---
 
@@ -294,6 +333,13 @@ The narration is read by a TTS model, so write what should be *heard*:
   narration, so subtitles stay readable.
 * Subtitles are generated from the narration text. Keep it clean prose (no stage directions or markup).
 * Say "element two" etc. when an example targets an element; "Tip:" for exam/test advice.
+* Find likely mispronunciations before handing over, without synthesising audio (this isn't `tts`, so agents may run it). List the course's names and jargon, then read the phonemes:
+  ```python
+  from kokoro_onnx.tokenizer import Tokenizer
+  print(Tokenizer().phonemize('Wien', 'en-us'))   # wˈiːn, so it needs a respelling: Veen
+  ```
+  Test a respelling the same way, including plurals and prefixes (`megabecquerels`), then add it to `style.PRONUNCIATIONS` as a regex. If no respelling works (C8: Poincaré), drop the name from
+  the narration and keep it on the slide. Phonemes aren't proof, so tell the operator which names to listen for. Editing `style.py` invalidates every video's clip cache: say so in your handover.
 
 ---
 
@@ -399,6 +445,11 @@ Highlighted subtitle terms come from `Video.keywords` (course accent), plus buil
 * Reports also reveal scope: PHY415115's 2021 report says one derivation is beyond the course. Respect such notes: still
   list the question, but don't teach beyond the course.
 * Keep the terms the course and papers use (e.g. "band width" as well as "fringe width"), so students recognise them.
+* matplotlib mathtext also lacks `\tfrac`: use `\frac`. A `\dfrac` line is about 0.07 tall, so the next line needs that much room; adding answer lines to a dense slide usually means moving everything on it, or changing a fraction to `a / b`.
+* The most common layout faults: a long single line in a `card()` running past its edge (wrap with `\n`), and text over a curve (use `bbox=dict(fc=PANEL, ec='none', pad=1.5)`).
+* Point `annotate` at values computed from the plotted curve, never at guessed coordinates, or the labels float away from the peaks.
+* Small contact-sheet thumbnails hide overlaps. For dense slides, tile just those frames at full resolution, or open them one at a time.
+* Unrelated work can land on `main` while you're working. Don't merge or rebase unless asked. When asked, re-run `check`, a full preview and `thumbnail` afterwards, since engine changes can alter how your slides look.
 * A spec file's `TODO` notes and placeholder comments must be gone when you finish.
 
 ---
@@ -411,6 +462,9 @@ Highlighted subtitle terms come from `Video.keywords` (course accent), plus buil
 - [ ] Follows the blueprint: title card, disclaimer, overview, Parts, tips, summary, credits
 - [ ] `check`: 0 errors, and ideally 0 warnings; no missing PDF page numbers; every source in `content.csv` referenced
 - [ ] Every worked example is original, and every number is in `CHECKS`
+- [ ] Every final answer shows the unrounded value, then the rounded value with its s.f. on screen, un-narrated
+- [ ] Source conflicts handled as in section 5, and non-TASC data verified and labelled
+- [ ] Names and jargon checked with the phonemiser; respellings added to `style.PRONUNCIATIONS`
 - [ ] Information-sheet formulas use `sheet_eq` with the sheet's notation, and the narration names the sheet section
 - [ ] Narration addresses tests *and* the exam; elements referred to by number
 - [ ] Full preview reviewed: no overlaps or clipping, and diagrams are correct
@@ -428,6 +482,8 @@ Stop before rendering. In your final report, give:
 * the video's spec path and id, the thumbnail path, and any module mapping you assumed;
 * the `check` result and the estimated duration, marked as an estimate;
 * anything you couldn't do or verify (e.g. a source that wouldn't download);
+* every conflict between sources, what the video does about it and any open question, plus where the video follows TASC's convention over the physics;
+* the names to listen for in the first render, and whether `style.py` changed;
 * the command for the operator: `uv run python -m explainer render videos/<COURSE>/<spec>.py`, and whether it needs `--force`.
 
 After rendering, the operator checks `coverage.md`, `problems.txt` and the other timed documents, watches a few minutes at several points and publishes the mp4 with the docs. If they report

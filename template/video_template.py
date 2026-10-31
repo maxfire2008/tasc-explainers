@@ -64,6 +64,7 @@ def example(fig, s, ph):
     card(fig, 0.05, 0.58, 0.45, 0.20, 'Question', 'f = 50 Hz, λ = 0.40 m.\nFind the wave speed.')
     if s >= 1:
         T(fig, 0.55, 0.74, r'$v = f\lambda = 50\times0.40 = 20\ \mathrm{m\ s^{-1}}$', size=32, color=GREEN)
+        # A final answer that needs rounding gets an un-narrated line under it: '= 4.44 (3 s.f.)'.  See CLAUDE.md section 3.
         learn_eq(fig, 0.55, 0.50, r'$f = \dfrac{v}{\lambda}$', size=36)      # NOT on the sheet (rearranged)
 
 
