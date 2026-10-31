@@ -1,4 +1,4 @@
-"""CLI:  python -m explainer <command> <spec.py> [options]
+"""CLI:  uv run python -m explainer <command> <spec.py> [options]
 
 commands
   sources  download/cache every URL in content.csv and list source NAMES  (--refresh to re-download)

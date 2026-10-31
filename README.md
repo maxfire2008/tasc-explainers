@@ -6,13 +6,13 @@ on-slide references, information-sheet callouts, YouTube chapters, styled subtit
 Agents: read **CLAUDE.md** first.
 
 ```bash
-pip install -r requirements.txt --break-system-packages   # also needs ffmpeg (+libass for burnt-in subs) and the Inter font
+uv sync                                                   # also needs ffmpeg (+libass for burnt-in subs) and the Inter font
 bash scripts/get_models.sh                                # Kokoro TTS model (~340 MB)
 # list source URLs in sources/<COURSE>/content.csv (see sources/README.md), then:
-python -m explainer sources PHY415115                     # downloads + caches them
-python -m explainer check   videos/PHY415115/c7_wave_motion.py
-python -m explainer preview videos/PHY415115/c7_wave_motion.py
-python -m explainer all     videos/PHY415115/c7_wave_motion.py --burn-subs
+uv run python -m explainer sources PHY415115                     # downloads + caches them
+uv run python -m explainer check   videos/PHY415115/c7_wave_motion.py
+uv run python -m explainer preview videos/PHY415115/c7_wave_motion.py
+uv run python -m explainer all     videos/PHY415115/c7_wave_motion.py --burn-subs
 ```
 
 Outputs land in `out/<video id>/`: the mp4, `.srv3` styled YouTube subtitles, `.srt`/`.vtt`, `timestamps.txt`,

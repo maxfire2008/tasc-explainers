@@ -9,7 +9,7 @@ One folder per course code, e.g. `sources/PHY415115/`, containing **`content.csv
 
 licence: `attribution` | `quotes` | `copyrighted` (see CLAUDE.md section 2).
 
-`python -m explainer sources PHY415115` downloads every URL into `sources/PHY415115/cache/` (git-ignored) and lists
+`uv run python -m explainer sources PHY415115` downloads every URL into `sources/PHY415115/cache/` (git-ignored) and lists
 the source NAMEs specs use in `Ref(...)`.  If a download is blocked, place the file at the printed cache path.
 
 `content.example.csv` is the full list for the PHY415115 example; copy it to `sources/PHY415115/content.csv`.

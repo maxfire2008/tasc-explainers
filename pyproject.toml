@@ -1,0 +1,17 @@
+[project]
+name = "tasc-explainers"
+version = "0.1.0"
+description = "Narrated, animated revision videos for Tasmanian TASC courses"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "matplotlib>=3.7",
+    "pillow",
+    "soundfile",
+    "kokoro-onnx",
+    "pypdf",
+]
+
+[tool.uv]
+package = false

@@ -27,20 +27,21 @@ videos/<COURSE>/          one folder per course: <module>_<slug>.py (spec) + <mo
 sources/<COURSE>/         content.csv (URLs + licences, operator-supplied) and cache/ (downloads, git-ignored)
 out/<video id>/           all outputs (video, docs, subtitles, previews, caches)
 scripts/get_models.sh     downloads the Kokoro TTS model into models/kokoro/
+pyproject.toml, uv.lock   Python dependencies (managed with uv: `uv add <package>`, then commit both files)
 ```
 
 Commands (run from the repo root):
 
 ```
-pip install -r requirements.txt --break-system-packages   # plus ffmpeg (with libass for --burn-subs) and the Inter font
+uv sync                                                        # creates .venv from pyproject.toml + uv.lock; also needs ffmpeg (with libass for --burn-subs) and the Inter font
 bash scripts/get_models.sh
-python -m explainer sources PHY415115                          # download + list source NAMEs
-python -m explainer check   videos/PHY415115/c7_wave_motion.py   # must report 0 errors
-python -m explainer preview videos/PHY415115/c7_wave_motion.py   # frames + contact sheets in out/<id>/preview/
-python -m explainer tts     videos/PHY415115/c7_wave_motion.py
-python -m explainer render  videos/PHY415115/c7_wave_motion.py   # [--burn-subs] [--force]
-python -m explainer docs    videos/PHY415115/c7_wave_motion.py   # docs + subtitles only (needs tts)
-python -m explainer all     videos/PHY415115/c7_wave_motion.py   # check -> tts -> render
+uv run python -m explainer sources PHY415115                          # download + list source NAMEs
+uv run python -m explainer check   videos/PHY415115/c7_wave_motion.py   # must report 0 errors
+uv run python -m explainer preview videos/PHY415115/c7_wave_motion.py   # frames + contact sheets in out/<id>/preview/
+uv run python -m explainer tts     videos/PHY415115/c7_wave_motion.py
+uv run python -m explainer render  videos/PHY415115/c7_wave_motion.py   # [--burn-subs] [--force]
+uv run python -m explainer docs    videos/PHY415115/c7_wave_motion.py   # docs + subtitles only (needs tts)
+uv run python -m explainer all     videos/PHY415115/c7_wave_motion.py   # check -> tts -> render
 ```
 
 ---
@@ -60,8 +61,8 @@ The engine downloads each URL once into `sources/<COURSE>/cache/` (with `index.j
 sha256) and uses the cached copy from then on. `--refresh` re-downloads.
 
 ```
-python -m explainer sources PHY415115            # download/cache everything, list NAME / licence / size / URL
-python -m explainer sources PHY415115 --refresh  # re-download (e.g. a paper was updated)
+uv run python -m explainer sources PHY415115            # download/cache everything, list NAME / licence / size / URL
+uv run python -m explainer sources PHY415115 --refresh  # re-download (e.g. a paper was updated)
 ```
 
 * **Source NAME** = the last part of the URL path, URL-decoded; if it has no extension, `.html` is added
@@ -82,7 +83,7 @@ python -m explainer sources PHY415115 --refresh  # re-download (e.g. a paper was
 
 ## 3. Workflow for a new video
 
-1. **Download and read every source for the module.** Run `python -m explainer sources <COURSE>`, then extract text:
+1. **Download and read every source for the module.** Run `uv run python -m explainer sources <COURSE>`, then extract text:
    ```python
    from explainer.sources import extract_text, extract_pages
    pages = extract_pages('sources/PHY415115/cache/PHY415115-Physics-TASC-Exam-Paper-2024.pdf')  # pages[n-1] = page n
@@ -120,10 +121,10 @@ python -m explainer sources PHY415115 --refresh  # re-download (e.g. a paper was
 6. **Write the visuals** (`<module>_visuals.py`) using only `explainer.layout` helpers and matplotlib on `wax`/`gax`
    axes. Copy patterns from `c7_visuals.py`.
 
-7. `python -m explainer check <spec>` until **0 errors**. Treat warnings as a to-do list. Missing PDF page numbers
+7. `uv run python -m explainer check <spec>` until **0 errors**. Treat warnings as a to-do list. Missing PDF page numbers
    and unreferenced sources must be fixed, not ignored.
 
-8. `python -m explainer preview <spec>` and **look at every contact sheet** (`out/<id>/preview/_sheetNN.jpg`; open
+8. `uv run python -m explainer preview <spec>` and **look at every contact sheet** (`out/<id>/preview/_sheetNN.jpg`; open
    single frames at full size where text is dense). Fix overlaps, clipped text, text running off the slide, and labels
    colliding with the header or footer. Re-preview just the changed scenes with `--only scene_id ...`.
 

@@ -2,10 +2,10 @@
 functions into a sibling <module>_visuals.py, as in videos/PHY415115/), then fill it in.
 
 This file runs as-is so you can see the moving parts:
-    python -m explainer check   template/video_template.py --allow-missing-sources
-    python -m explainer preview template/video_template.py
-    python -m explainer tts     template/video_template.py
-    python -m explainer render  template/video_template.py
+    uv run python -m explainer check   template/video_template.py --allow-missing-sources
+    uv run python -m explainer preview template/video_template.py
+    uv run python -m explainer tts     template/video_template.py
+    uv run python -m explainer render  template/video_template.py
 
 Rules that the checker enforces (see CLAUDE.md for the reasons):
   * every syllabus dot point, every element and every past-exam topic is covered by some Step
@@ -57,7 +57,7 @@ def example(fig, s, ph):
 # --------------------------------------------------------------------------- spec
 REFS = {
     # key: Ref(source NAME from content.csv or its URL, locator, page for PDFs)
-    # NAME = last part of the URL path (+ '.html' if it has no extension); list with: python -m explainer sources <COURSE>
+    # NAME = last part of the URL path (+ '.html' if it has no extension); list with: uv run python -m explainer sources <COURSE>
     'content': Ref('course-doc.html', 'Course document, content: Waves'),
     'standards': Ref('course-doc.html', 'Course document, criterion standards table'),
     'info': Ref('Information-sheet.pdf', 'Information sheet, Waves section', page=2),
