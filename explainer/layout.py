@@ -9,7 +9,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+from matplotlib.patches import Circle, FancyBboxPatch, FancyArrowPatch
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.text import Text
 
@@ -77,13 +77,15 @@ def ai_badge(fig):
     """Large robot icon + AI notice for thumbnails.  Drawn by the pipeline; do not call from scenes."""
     x, y, w, h = 0.425, 0.025, 0.55, 0.125
     box(fig, x, y, w, h, fc=PANEL, ec=PINK, lw=5)
-    ax = wax(fig, [x + 0.012, y + 0.012, h * 9 / 16 * 1.25, h - 0.024], (-5, 5), (-4.2, 5.8))
-    ax.add_patch(FancyBboxPatch((-3.4, -3.2), 6.8, 5.2, boxstyle='round,pad=0,rounding_size=1.1', fc=PINK, ec='none'))
-    ax.plot([0, 0], [2, 3.3], color=PINK, lw=6, solid_capstyle='round'); ax.scatter([0], [3.6], s=420, color=PINK)
+    ax = wax(fig, [x + 0.012, y + 0.012, h * 9 / 16 * 1.25, h - 0.024], (-6, 6), (-4, 5))
+    ax.set_aspect('equal')
+    ax.add_patch(FancyBboxPatch((-3.6, -3.6), 7.2, 5.8, boxstyle='round,pad=0,rounding_size=1.2', fc=PINK, ec='none'))
+    ax.plot([0, 0], [2.2, 3.6], color=PINK, lw=6)
+    ax.add_patch(Circle((0, 4), 0.8, fc=PINK, ec='none'))
     for sx in (-1, 1):
-        ax.add_patch(FancyBboxPatch((sx * 4.2 - 0.6, -1.4), 1.2, 1.9, boxstyle='round,pad=0,rounding_size=0.4', fc=PINK, ec='none'))
-        ax.scatter([sx * 1.45], [0.1], s=620, color=BG, zorder=5)
-    ax.plot([-1.5, 1.5], [-1.9, -1.9], color=BG, lw=8, solid_capstyle='round', zorder=5)
+        ax.add_patch(FancyBboxPatch((sx * 4.5 - 0.6, -1.8), 1.2, 2.2, boxstyle='round,pad=0,rounding_size=0.4', fc=PINK, ec='none'))
+        ax.add_patch(Circle((sx * 1.6, 0), 0.95, fc=BG, ec='none', zorder=5))
+    ax.add_patch(FancyBboxPatch((-1.9, -2.6), 3.8, 0.8, boxstyle='round,pad=0,rounding_size=0.3', fc=BG, ec='none', zorder=5))
     fig.text(x + h * 9 / 16 * 1.25 + 0.03, y + h / 2, S.FOOTER_AI, color=FG, fontsize=54, weight='bold', va='center')
 
 
