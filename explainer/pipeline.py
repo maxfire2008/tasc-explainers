@@ -228,7 +228,7 @@ def make_thumbnail(v):
     setup(v)
     fig = L.new_fig()
     v.thumbnail(fig)
-    fig.text(0.97, 0.035, S.FOOTER_AI, color=L.SOFT, fontsize=26, va='center', ha='right', style='italic')
+    L.ai_badge(fig)
     rgb = L.to_rgb(fig)
     plt.close(fig)
     size = (S.THUMBNAIL['width'], S.THUMBNAIL['height'])
@@ -398,13 +398,14 @@ def render(v, force=False, burn_subs=False):
     from PIL import Image
     make_tts(v)
     make_thumbnail(v)
+    L.ctx['scale'] = S.VIDEO['render_scale']
     analyse(v); setup(v)
     v.credit_lines = credit_lines(v)
     tl = timeline(v)
     cd = out_dir(v, 'clips')
     enc = ['-c:v', 'libx264', '-preset', S.VIDEO['preset'], '-crf', str(S.VIDEO['crf']), '-pix_fmt', 'yuv420p',
            '-r', str(FPS), '-g', str(S.VIDEO['gop']), '-video_track_timescale', '15360']
-    W, H = S.VIDEO['width'], S.VIDEO['height']
+    W, H = S.VIDEO['width'] * L.ctx['scale'], S.VIDEO['height'] * L.ctx['scale']
     counter, prev_scene, clips = 0, None, []
     for n, it in enumerate(tl):
         sc, i, st = it['scene'], it['i'], it['step']

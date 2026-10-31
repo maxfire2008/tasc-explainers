@@ -9,7 +9,8 @@ import hashlib
 from dataclasses import dataclass
 
 # --------------------------------------------------------------------------- canvas
-VIDEO = dict(width=1920, height=1080, fps=30, crf=20, preset='veryfast', gop=120,
+# width/height = the layout canvas (also previews).  render_scale multiplies it for the final render: 2 -> 3840x2160.
+VIDEO = dict(width=1920, height=1080, render_scale=2, fps=30, crf=20, preset='veryfast', gop=120,
              audio_bitrate='160k')
 
 # --------------------------------------------------------------------------- base palette (dark theme)

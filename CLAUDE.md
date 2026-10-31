@@ -301,7 +301,8 @@ The narration is read by a TTS model, so write what should be *heard*:
 * Use `explainer.layout` helpers only; never hard-code colours. Course accent `L.A1()`, module accent `L.A2()`
   (both set from `style.COURSE_ACCENTS` / `style.MODULE_ACCENTS`; add entries there for a new course/module).
   Semantic colours: `PINK` warnings/destructive/nodes, `GREEN` answers/constructive, `YELLOW` equations and highlights.
-* Canvas 1920×1080. Keep content in x 0.04–0.96, y 0.07–0.82. The header (part label + title) sits above, and the footer
+* Lay out on a 1920×1080 canvas. Previews use that size, and the final render draws the same layout at 3840×2160
+  (`style.VIDEO['render_scale']`). Keep content in x 0.04–0.96, y 0.07–0.82. The header (part label + title) sits above, and the footer
   (course, refs, AI notice) below. `chip()` defaults to the top-right corner.
 * Minimum font size about 17 pt; body 22–28 pt; titles come from `header()`.
 * Slides **build up** across steps (`s` = step index): add elements rather than replacing the whole layout, so the
@@ -313,8 +314,8 @@ The narration is read by a TTS model, so write what should be *heard*:
 * **Thumbnail:** base it on the title card, with the same dark background, accent colours and signature graphic. It has to
   read at phone size, so use only the criterion number, a short topic name of one to three words (not the full criterion
   title) and the course, in very large type: about 150 pt for the topic and at least 58 pt for the rest. Share the graphic with the
-  title card through a helper (`_title_waves` in `c7_visuals.py`) and choose a graphic that suits the subject. The
-  engine adds the AI notice and saves a 1280×720 PNG. Don't add question text or anything from exam papers.
+  title card through a helper (`_title_waves` in `c7_visuals.py`) and choose a graphic that suits the subject. The engine adds a large AI notice with a robot icon at the bottom right (x from 0.42, y below 0.16), so keep text
+  out of that area, and saves a 1280×720 PNG. Don't add question text or anything from exam papers.
 * Reusable patterns in `c7_visuals.py` (copy them into a new visuals file; keep draw functions per scene):
   * `extend(base, n, *extras)` adds steps after a finished scene without rewriting its `if s == …` logic.
   * `title_card` and `overview` split one draw function between the `title` and `intro` scenes; `summary` does the same for tips.
@@ -343,7 +344,7 @@ The operator's `render` produces everything below. `docs` produces all but the m
 
 | file | use |
 |---|---|
-| `<id>.mp4` | the video (1080p30, H.264/AAC) |
+| `<id>.mp4` | the video (3840×2160, 30 fps, H.264/AAC) |
 | `<id>_subtitled.mp4` | optional burnt-in styled subtitles (`--burn-subs`, needs ffmpeg with libass) |
 | `<id>.srv3` | **styled YouTube subtitles** (colours, background, highlighted key terms). YouTube Studio → Subtitles → Upload file → *With timing* |
 | `<id>.srt`, `<id>.vtt` | plain subtitles for other platforms |

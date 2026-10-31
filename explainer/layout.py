@@ -2,7 +2,7 @@
 (plus plain matplotlib on axes from wax/gax) so that every video looks the same.
 
 Coordinates passed to helpers are *figure fractions* (0..1, origin bottom-left) unless
-the helper takes an axes.  The canvas is 1920x1080.  Keep content inside
+the helper takes an axes.  The layout canvas is 1920x1080.  Keep content inside
 x 0.04..0.96 and y 0.07..0.82 (header above, footer below).
 """
 import matplotlib
@@ -26,7 +26,7 @@ TAU = 2 * np.pi
 # Theme + per-frame context.  The pipeline sets these; specs call use() at import so
 # frames can also be drawn interactively.
 TH = S.theme('DEFAULT', 'DEFAULT')
-ctx = dict(part='', sheet_used=False, sheet_section='', course_label='')
+ctx = dict(part='', sheet_used=False, sheet_section='', course_label='', scale=1)
 
 
 def use(theme):
@@ -46,7 +46,7 @@ def A2():
 
 # ----------------------------------------------------------------------------- basics
 def new_fig():
-    fig = plt.figure(figsize=(S.VIDEO['width'] / 100, S.VIDEO['height'] / 100), dpi=100)
+    fig = plt.figure(figsize=(S.VIDEO['width'] / 100, S.VIDEO['height'] / 100), dpi=100 * ctx['scale'])
     fig.patch.set_facecolor(BG)
     return fig
 
@@ -71,6 +71,20 @@ def footer(fig, ref_numbers=()):
     if ref_numbers:
         fig.text(0.80, 0.032, 'Refs ' + ', '.join(f'[{n}]' for n in ref_numbers), color=A1(), fontsize=14,
                  va='center', ha='right')
+
+
+def ai_badge(fig):
+    """Large robot icon + AI notice for thumbnails.  Drawn by the pipeline; do not call from scenes."""
+    x, y, w, h = 0.425, 0.025, 0.55, 0.125
+    box(fig, x, y, w, h, fc=PANEL, ec=PINK, lw=5)
+    ax = wax(fig, [x + 0.012, y + 0.012, h * 9 / 16 * 1.25, h - 0.024], (-5, 5), (-4.2, 5.8))
+    ax.add_patch(FancyBboxPatch((-3.4, -3.2), 6.8, 5.2, boxstyle='round,pad=0,rounding_size=1.1', fc=PINK, ec='none'))
+    ax.plot([0, 0], [2, 3.3], color=PINK, lw=6, solid_capstyle='round'); ax.scatter([0], [3.6], s=420, color=PINK)
+    for sx in (-1, 1):
+        ax.add_patch(FancyBboxPatch((sx * 4.2 - 0.6, -1.4), 1.2, 1.9, boxstyle='round,pad=0,rounding_size=0.4', fc=PINK, ec='none'))
+        ax.scatter([sx * 1.45], [0.1], s=620, color=BG, zorder=5)
+    ax.plot([-1.5, 1.5], [-1.9, -1.9], color=BG, lw=8, solid_capstyle='round', zorder=5)
+    fig.text(x + h * 9 / 16 * 1.25 + 0.03, y + h / 2, S.FOOTER_AI, color=FG, fontsize=54, weight='bold', va='center')
 
 
 def T(fig, x, y, s, size=28, color=FG, **kw):
@@ -127,7 +141,7 @@ def sheet_eq(fig, x, y, s, size=40, color=YELLOW):
 def _below(fig, t, size):
     """Figure y just below a boxed text (box pad 0.45 em)."""
     bb = t.get_window_extent(fig.canvas.get_renderer())
-    return (bb.y0 - 0.45 * size * 100 / 72) / fig.bbox.height - 0.012
+    return (bb.y0 - 0.45 * size * fig.dpi / 72) / fig.bbox.height - 0.012
 
 
 def learn_eq(fig, x, y, s, size=40, color=YELLOW):
