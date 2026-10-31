@@ -112,7 +112,7 @@ def transverse(fig, s, ph):
     label(ax, 6.8, 1.95, 'direction of travel', size=22, color=C2, ha='right')
     if s >= 1:
         darrow(ax, (x[i] + 0.55, -1.1), (x[i] + 0.55, 1.1), color=PINK)
-        label(ax, x[i] + 0.75, 0, 'particle\nmotion', size=20, color=PINK, ha='left')
+        label(ax, x[i] - 0.75, 0.25, 'particle\nmotion', size=20, color=PINK, ha='right', zorder=10, bbox=dict(fc=BG, ec='none', pad=2))
     items = ['A wave transfers energy, not matter: each particle\noscillates about its rest position']
     if s >= 1:
         items += ['Transverse: particles oscillate ⊥ to the direction of travel',
@@ -197,8 +197,8 @@ def shm(fig, s, ph):
         F = -0.75 * py
         if abs(F) > 0.12:
             arrow(ax, (mx + 1.0, py), (mx + 1.0, py + F), color=C2, lw=4, ms=24)
-        label(ax, mx + 1.0, -3.5, 'restoring force → towards rest', size=20, color=C2)
-        card(fig, 0.62, 0.07, 0.33, 0.15, 'Restoring force', 'always points back to rest;\nbigger displacement → bigger force',
+        label(ax, 0.2, -3.5, 'restoring force → towards rest', size=20, color=C2, ha='left')
+        card(fig, 0.62, 0.05, 0.33, 0.175, 'Restoring force', 'always points back to rest;\nbigger displacement → bigger force',
              tcol=C2, size=21)
 
 
@@ -233,10 +233,10 @@ def quantities(fig, s, ph):
         T(fig, 0.665, y - 0.062, desc, size=17, color=SOFT, va='center')
         T(fig, 0.94, y - 0.04, unit, size=24, color=SOFT, va='center', ha='right')
     if s >= 1: sheet_eq(fig, 0.07, 0.29, r'$f = \dfrac{1}{T}$', size=40)
-    if s >= 2: sheet_eq(fig, 0.27, 0.29, r'$v = \lambda f$', size=48, color=GREEN)
+    if s >= 2: sheet_eq(fig, 0.31, 0.29, r'$v = \lambda f$', size=48, color=GREEN)
     if s >= 3:
-        card(fig, 0.05, 0.07, 0.52, 0.11, 'f is set by the source', 'new medium → v and λ change, f stays the same',
-             tcol=PINK, size=21)
+        card(fig, 0.05, 0.05, 0.52, 0.115, 'f is set by the source', 'new medium → v and λ change, f stays the same',
+             tcol=PINK, size=19)
 
 
 def graphs(fig, s, ph):
@@ -380,11 +380,11 @@ def pulses(fig, s, ph):
 def string_speed(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Wave speed on a stretched string')
-    sheet_eq(fig, 0.06, 0.68, r'$v = \sqrt{\dfrac{T}{\mu}}$', size=62, color=GREEN)
+    sheet_eq(fig, 0.06, 0.685, r'$v = \sqrt{\dfrac{T}{\mu}}$', size=46, color=GREEN)
     bullets(fig, ['T = tension (N)', 'μ = linear mass density (kg m⁻¹)\n= mass ÷ length',
                   'tighter → faster;  heavier → slower'], 3, 0.06, 0.50, size=25, dim=False)
     if s >= 1:
-        card(fig, 0.05, 0.08, 0.40, 0.17, 'Careful!', 'T here is tension, not period\nconvert g → kg before dividing',
+        card(fig, 0.05, 0.06, 0.40, 0.19, 'Careful!', 'T here is tension, not period\nconvert g → kg before dividing',
              tcol=PINK, size=22)
     if s <= 1:
         ax = wax(fig, [0.50, 0.30, 0.46, 0.45], (0, 10), (-3, 3))
@@ -393,11 +393,11 @@ def string_speed(fig, s, ph):
         for q in (1, 9): ax.add_patch(Circle((q, 0), 0.2, color=SOFT))
         arrow(ax, (1, 0), (-0.2, 0), color=C2, lw=4); arrow(ax, (9, 0), (10.2, 0), color=C2, lw=4)
         label(ax, 0.3, 0.5, 'T', size=30, color=C2, weight='bold'); label(ax, 9.7, 0.5, 'T', size=30, color=C2, weight='bold')
-        label(ax, 5, -2.2, 'μ = m / L', size=28, color=SOFT)
+        label(ax, 5, -2.2, 'μ = m / l', size=28, color=SOFT)
         return
     if s in (2, 3):
         chip(fig, 'Element 2 · problems')
-        card(fig, 0.50, 0.58, 0.45, 0.20, 'Example', 'L = 1.5 m,  m = 12 g,  T = 80 N.\nFind the wave speed.', tcol=C2, size=24)
+        card(fig, 0.50, 0.58, 0.45, 0.20, 'Example', 'l = 1.5 m,  m = 12 g,  T = 80 N.\nFind the wave speed.', tcol=C2, size=24)
         T(fig, 0.51, 0.52, r'$m = 12\ \mathrm{g} = 0.012\ \mathrm{kg}$', size=30)
         T(fig, 0.51, 0.43, r'$\mu = \dfrac{0.012}{1.5} = 0.008\ \mathrm{kg\ m^{-1}}$', size=30)
         if s >= 3:
@@ -413,7 +413,7 @@ def string_speed(fig, s, ph):
     ax.plot([10.95, 10.95], [0.1, -3.0], color=C1, lw=2)
     ax.add_patch(Rectangle((10.45, -4.0), 1.0, 1.0, fc=C2, ec=FG))
     label(ax, 10.95, -3.5, 'm', size=24, color=BG, weight='bold')
-    darrow(ax, (1.5, 1.2), (8.5, 1.2), color=YELLOW, ms=14); label(ax, 5, 1.6, 'vibrating length L', size=20, color=YELLOW)
+    darrow(ax, (1.5, 1.2), (8.5, 1.2), color=YELLOW, ms=14); label(ax, 5, 1.6, 'vibrating length l', size=20, color=YELLOW)
     label(ax, 5, -1.5, 'sonometer: tension from a hanging mass', size=20, color=SOFT)
     eq(fig, 0.52, 0.20, r'$T = mg$', size=40)
     T(fig, 0.70, 0.235, 'g = 9.8 m s⁻²\n→ more mass, higher pitch', size=22, color=SOFT)
@@ -438,7 +438,7 @@ def huygens(fig, s, ph):
         for r in (1.6, 3.4, 5.2, 7.0, 8.8):
             ax.add_patch(Arc((0.35, 0), 2 * r, 2 * r, theta1=-75, theta2=75, color=C1, lw=3))
         darrow(ax, (2.0, -4.2), (3.8, -4.2), color=C2, ms=12); label(ax, 2.9, -3.7, 'same λ', size=20, color=C2)
-        label(ax, 0.2, 4.8, 'barrier with a small gap', size=18, color=SOFT, ha='left')
+        label(ax, 1.5, 4.8, 'barrier with a small gap', size=18, color=SOFT, ha='left', zorder=10, bbox=dict(fc=BG, ec='none', pad=2))
     if s == 0:
         bullets(fig, ['Wavefront: line joining points in phase\n(e.g. along a crest)',
                       'Every point on a wavefront acts as a\nsource of circular wavelets',
@@ -494,7 +494,7 @@ def refraction(fig, s, ph):
     if s >= 2:
         learn_eq(fig, 0.60, 0.72, r'$n = \dfrac{c}{v}$', size=40)
         for i, (m_, nv) in enumerate([('air', '1.00'), ('water', '1.33'), ('glass', '≈ 1.5')]):
-            T(fig, 0.78, 0.77 - i * 0.055, m_, size=24, color=SOFT); T(fig, 0.93, 0.77 - i * 0.055, nv, size=24, ha='right')
+            T(fig, 0.82, 0.77 - i * 0.055, m_, size=24, color=SOFT); T(fig, 0.955, 0.77 - i * 0.055, nv, size=24, ha='right')
         T(fig, 0.60, 0.585, 'absolute n: compared with a vacuum\nhigher n → slower light', size=20, color=SOFT)
     if s >= 3:
         sheet_eq(fig, 0.60, 0.46, r'$n_i\sin\theta_i = n_r\sin\theta_r$', size=30, color=GREEN)
@@ -530,7 +530,7 @@ def tir(fig, s, ph):
     thc = np.degrees(np.arcsin(1 / 1.5))
     if s == 0:
         _tir_draw(ax, 37.5 - 17.5 * np.cos(TAU * ph), C2=C2)
-        bullets(fig, ['Slower → faster medium: bends away from normal', 'Increase θᵢ → refracted ray nears the surface'],
+        bullets(fig, ['Slower → faster medium:\nbends away from normal', 'Increase θᵢ → refracted ray\nnears the surface'],
                 2, 0.58, 0.76, size=25, dim=False)
     elif s == 1:
         _tir_draw(ax, thc, show_vals=False, C2=C2)
@@ -588,7 +588,7 @@ def two_surfaces(fig, s, ph):
     header(fig, 'Two surfaces: use the geometry')
     ax = wax(fig, [0.04, 0.10, 0.50, 0.72], (-1, 9), (-7.5, 3))
     ax.add_patch(Rectangle((0, -7), 7, 7, fc='#1a3150', ec=SOFT, lw=2))
-    label(ax, 6.6, -6.6, 'glass n = 1.50', size=18, color=SOFT, ha='right')
+    label(ax, 6.4, -0.7, 'glass n = 1.50', size=18, color=SOFT, ha='right')
     th1 = np.radians(40); th2 = np.arcsin(np.sin(th1) / 1.5)
     P = np.array([4.5, 0.0]); d = np.array([np.sin(th2), -np.cos(th2)])
     tq = (7 - P[0]) / d[0]; Q = P + tq * d
@@ -643,7 +643,7 @@ def dispersion(fig, s, ph):
         ax.plot([q[0], q[0] + 3 * o[0]], [q[1], q[1] + 3 * o[1]], color=c, lw=3.5)
     label(ax, -2.6, 0.85, 'white light', size=20, color=FG)
     label(ax, 0, -0.45, 'spread exaggerated for clarity', size=17, color=MUT)
-    bullets(fig, ['n is slightly higher for blue than for red', 'Blue bends more → colours spread\ninto a spectrum',
+    bullets(fig, ['n is slightly higher for blue\nthan for red', 'Blue bends more → colours spread\ninto a spectrum',
                   'Each colour has its own critical angle:\none colour can escape while another\nis totally internally reflected'],
             3, 0.64, 0.74, size=24, dim=False)
 
@@ -675,7 +675,7 @@ def seismic(fig, s, ph):
     if s >= 2: it += ['Liquid core: no restoring force for\nsideways (shear) motion → no S-waves']
     bullets(fig, it, len(it), 0.54, 0.78, size=23, gap=0.014)
     if s >= 3:
-        card(fig, 0.54, 0.07, 0.42, 0.16, 'Exam tip', 'use wave speed, not refractive index\ndenser ≠ slower for seismic waves',
+        card(fig, 0.54, 0.06, 0.42, 0.18, 'Exam tip', 'use wave speed, not refractive index\ndenser ≠ slower for seismic waves',
              tcol=YELLOW, size=21)
 
 
@@ -805,7 +805,7 @@ def standing(fig, s, ph):
         darrow(a2, (2, -1.6), (4, -1.6), color=GREEN, ms=14); label(a2, 3, -2.1, 'λ/2', size=20, color=GREEN)
         darrow(a2, (6, -1.6), (7, -1.6), color=GREEN, ms=14); label(a2, 6.5, -2.1, 'λ/4', size=20, color=GREEN)
     if s == 0:
-        bullets(fig, ['Two identical waves, opposite directions', 'Usually a wave + its reflection', 'The pattern does not travel',
+        bullets(fig, ['Two identical waves,\nopposite directions', 'Usually a wave + its reflection', 'The pattern does not travel',
                       'Nodes (N): never move', 'Antinodes (A): biggest oscillation'], 5, 0.65, 0.78, size=23, dim=False)
     elif s == 1:
         bullets(fig, ['N to N = λ/2', 'N to A = λ/4', 'Between nodes: all in phase', 'Across a node: phase flips'], 4, 0.65,
@@ -833,7 +833,7 @@ def strings(fig, s, ph):
         label(ax, 5, 1.25, 'one loop = λ/2', size=24, color=YELLOW)
         bullets(fig, ['Fixed ends → nodes', 'Fundamental (1st harmonic): one loop'], 2, 0.64, 0.76, size=25, dim=False)
         sheet_eq(fig, 0.66, 0.52, r'$\lambda = 2l$', size=46, color=GREEN)
-        T(fig, 0.66, 0.38, 'not L !', size=28, color=PINK, weight='bold')
+        T(fig, 0.66, 0.38, 'not l !', size=28, color=PINK, weight='bold')
         return
     for n in range(1, 5):
         ax = wax(fig, [0.05, 0.70 - (n - 1) * 0.165, 0.46, 0.13], (-0.5, 10.5), (-1.1, 1.1))
@@ -857,7 +857,7 @@ def we_string(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Worked example: a guitar string')
     chip(fig, 'Elements 2 & 4')
-    card(fig, 0.05, 0.56, 0.42, 0.24, 'Question', 'L = 65 cm,  f₁ = 196 Hz,\nμ = 1.2 g m⁻¹.\nFind v and the tension T.', tcol=C2, size=24)
+    card(fig, 0.05, 0.56, 0.42, 0.24, 'Question', 'l = 65 cm,  f₁ = 196 Hz,\nμ = 1.2 g m⁻¹.\nFind v and the tension T.', tcol=C2, size=24)
     if s >= 3:
         card(fig, 0.05, 0.20, 0.42, 0.30, 'Prediction', 'Tension increases by 4%.\nNew frequency? Beats with\na 196 Hz tuning fork?',
              tcol=PINK, size=24)
@@ -902,8 +902,8 @@ def pipes(fig, s, ph):
                   [(1, 'λ = 2l', 'f₁'), (2, 'λ = l', '2f₁'), (3, 'λ = 2l/3', '3f₁')], 0.05)]
         if s == 2: cols_.append((True, 'Closed at one end', 'odd harmonics only',
                                  [(1, 'λ = 4l', 'f₁'), (3, 'λ = 4l/3', '3f₁'), (5, 'λ = 4l/5', '5f₁')], 0.52))
-        sheet_eq(fig, 0.06, 0.115, r'$\lambda = 2l$', size=22)
-        if s == 2: sheet_eq(fig, 0.53, 0.115, r'$\lambda = 4l$', size=22)
+        sheet_eq(fig, 0.235, 0.775, r'$\lambda = 2l$', size=22)
+        if s == 2: sheet_eq(fig, 0.72, 0.775, r'$\lambda = 4l$', size=22)
         for closed, title, sub, rows, x0 in cols_:
             T(fig, x0, 0.79, title, size=28, color=C2 if closed else C1, weight='bold')
             T(fig, x0, 0.73, sub, size=21, color=SOFT)
@@ -957,7 +957,7 @@ def resonance(fig, s, ph):
         ax.plot(f, A, color=C1, lw=3.5); ax.axvline(1, color=YELLOW, lw=1.5, ls='--')
         ax.set_xticks([1]); ax.set_xticklabels(['natural frequency f₀'])
         bullets(fig, ['Driving f matches a natural f\n→ amplitude grows very large', 'Wine glass shattered by a voice',
-                      'Guitar body amplifies the strings', 'Bridges & buildings: wind, earthquakes'], 4, 0.62, 0.76, size=24)
+                      'Guitar body amplifies the strings', 'Bridges & buildings:\nwind, earthquakes'], 4, 0.62, 0.76, size=24)
     else:
         A = sum(1 / np.sqrt((n ** 2 - f ** 2) ** 2 + (0.15 * f) ** 2) / n for n in (1, 2, 3)); A /= A.max()
         ax.plot(f, A, color=C1, lw=3.5); ax.set_xticks([1, 2, 3]); ax.set_xticklabels(['f₁', '2f₁', '3f₁'])
@@ -976,7 +976,7 @@ def noise(fig, s, ph):
         ax.plot(x, -0.75 * np.sin(TAU * x / 3), color=C2, lw=3); label(ax, 0, 1.15, 'anti-noise (inverted)', size=20, color=C2, ha='left')
         ax.plot(x, 0 * x - 2.2, color=FG, lw=4); label(ax, 0, -1.55, 'sum: near silence', size=20, color=FG, ha='left')
         bullets(fig, ['Noise-cancelling headphones', 'Microphone samples the noise', 'Speaker adds an inverted copy',
-                      'Destructive superposition', 'Works best for steady, low-frequency hum'], 5, 0.61, 0.77, size=24)
+                      'Destructive superposition', 'Works best for steady,\nlow-frequency hum'], 5, 0.61, 0.77, size=24)
         return
     items = [('Absorb', 'soft, porous panels turn sound energy into heat → fewer reflections, less echo', C1),
              ('Block', 'heavy, sealed barriers reflect sound; low frequencies (long λ) diffract over walls', C2),
@@ -1323,7 +1323,7 @@ def particle_motion(fig, s, ph):
             bullets(fig, ['Crest and trough: greatest\nacceleration, towards rest', 'Rest position: zero acceleration',
                           'The biggest restoring force is at\nthe biggest displacement'], 3, 0.63, 0.76, size=24, dim=False)
             T(fig, 0.06, 0.20, 'pink arrows = particle acceleration', size=22, color=PINK)
-            card(fig, 0.63, 0.12, 0.32, 0.16, 'Check', 'travelling wave, not a\nstanding wave', tcol=PINK, size=21)
+            card(fig, 0.63, 0.10, 0.32, 0.185, 'Check', 'travelling wave, not a\nstanding wave', tcol=PINK, size=21)
         return
     header(fig, 'Two recorders, one wave')
     chip(fig, 'Element 3 · data')
@@ -1347,7 +1347,8 @@ def huygens_snell(fig, s, ph):
     C1, C2 = C()
     header(fig, "Where Snell's law comes from")
     ax = wax(fig, [0.04, 0.12, 0.50, 0.68], (-1, 9), (-5, 5))
-    _ray_diagram(ax, 'medium i: speed vᵢ', 'medium r: speed vᵣ', tint=False)
+    ax.axhline(0, color=SOFT, lw=2)
+    label(ax, 8.9, 0.45, 'speed vᵢ', size=20, color=SOFT, ha='right'); label(ax, 8.9, -0.45, 'speed vᵣ', size=20, color=SOFT, ha='right')
     A_, Y = (1.5, 0), (6.5, 0)
     ti, tr = np.radians(40), np.arcsin(0.6 * np.sin(np.radians(40)))
     AY = 5
@@ -1357,7 +1358,7 @@ def huygens_snell(fig, s, ph):
     arrow(ax, B, Y, color=YELLOW); arrow(ax, A_, X, color=YELLOW)
     for q, nm, dx, dy in [(A_, 'A', -0.3, 0.4), (B, 'B', 0.1, 0.45), (Y, 'Y', 0.4, 0.4), (X, 'X', -0.25, -0.45)]:
         label(ax, q[0] + dx, q[1] + dy, nm, size=25, color=YELLOW)
-    label(ax, 6.3, 1.5, 'vᵢt', size=24, color=YELLOW); label(ax, 2.2, -1.6, 'vᵣt', size=24, color=YELLOW)
+    label(ax, 6.3, 1.5, 'vᵢt', size=24, color=YELLOW); label(ax, 1.2, -1.1, 'vᵣt', size=24, color=YELLOW, ha='right')
     y = 0.76
     for st, c in [('In the same time t:', SOFT), (r'$BY = v_i t,\quad AX = v_r t$', FG),
                   (r'$\sin\theta_i = \dfrac{v_i t}{AY}$', FG), (r'$\sin\theta_r = \dfrac{v_r t}{AY}$', FG),
@@ -1428,14 +1429,14 @@ def refraction_contexts(fig, s, ph):
     label(ax, 1.5, 2.2, 'looks here', size=18, color=SOFT); label(ax, 1.5, 0.7, 'really here', size=18, color=SOFT)
     r = _panel(fig, 0.51, 0.45, 0.44, 0.36, 'Mirage over cold water')
     ax = wax(fig, r, (0, 10), (0, 6))
-    xx = np.linspace(1, 9, 100); ax.plot(xx, 0.6 + 3.2 * np.sin(np.pi * (xx - 1) / 8) ** 0.8, color=YELLOW, lw=3)
-    ax.plot([1, 9], [4.6, 0.6], color=SOFT, lw=2, ls='--'); ax.scatter([1], [0.6], s=120, color=PINK, zorder=5)
-    label(ax, 2.2, 4.9, 'seen here', size=18, color=SOFT); label(ax, 9, 1.4, 'eye', size=18, color=SOFT)
+    xx = np.linspace(1, 9, 100); ax.plot(xx, 0.6 + 0.18 * (xx - 1) * (9 - xx), color=YELLOW, lw=3)
+    ax.plot([5.8, 9], [5.2, 0.6], color=SOFT, lw=2, ls='--'); ax.scatter([1], [0.6], s=120, color=PINK, zorder=5)
+    label(ax, 5.8, 5.55, 'seen up here', size=18, color=SOFT); label(ax, 9.3, 1.3, 'eye', size=18, color=SOFT); label(ax, 0.55, 1.15, 'ship', size=18, color=SOFT)
     ax.add_patch(Rectangle((0, 0), 10, 0.5, fc='#173a5c', ec='none'))
     if s == 0:
         return
     r = _panel(fig, 0.05, 0.08, 0.44, 0.34, 'Rainbow droplet')
-    ax = wax(fig, r, (-5, 5), (-3.2, 3.2))
+    ax = wax(fig, r, (-5, 5), (-3.2, 3.2)); ax.set_aspect('equal')
     ax.add_patch(Circle((0, 0), 2.7, fc='#173a5c', ec=SOFT, lw=2))
     th = np.radians(40); P0 = (-2.7 * np.cos(th), 2.7 * np.sin(th)); Pb = (2.7 * np.cos(np.radians(10)), 2.7 * np.sin(np.radians(10))); P2 = (-2.7 * np.cos(np.radians(50)), -2.7 * np.sin(np.radians(50)))
     ax.plot([-5, P0[0]], [P0[1], P0[1]], color=FG, lw=3)
@@ -1476,7 +1477,7 @@ def super_mixed(fig, s, ph):
         ax = wax(fig, [0.05, 0.60 - i * 0.21, 0.56, 0.19], (0, 20), (-1.7, 1.7))
         ax.axhline(0, color=GRID, lw=1.2); ax.plot(x, yy, color=c, lw=3.2)
         T(fig, 0.63, 0.72 - i * 0.21, nm, size=22, color=c)
-    card(fig, 0.63, 0.13, 0.32, 0.20, 'Not a taller copy', 'the sum keeps both wiggles,\nand changes as the waves\nmove at different speeds', tcol=PINK, size=20)
+    card(fig, 0.63, 0.06, 0.32, 0.205, 'Not a taller copy', 'the sum keeps both wiggles,\nand changes as the waves\nmove at different speeds', tcol=PINK, size=20)
 
 
 def pipe_id(fig, s, ph):
@@ -1484,8 +1485,10 @@ def pipe_id(fig, s, ph):
     header(fig, 'Open or closed? Read the resonances')
     chip(fig, 'Element 3 · data')
     card(fig, 0.05, 0.50, 0.43, 0.30, 'Pipe X: 240, 320, 400 Hz', 'spacing 80 Hz, so f₁ = 80 Hz\n240 = 3f₁, 320 = 4f₁, 400 = 5f₁\nan even harmonic → OPEN', tcol=C1, size=24)
-    card(fig, 0.52, 0.50, 0.43, 0.30, 'Pipe Y: 150, 250, 350 Hz', 'spacing 100 Hz = 2f₁, so f₁ = 50 Hz\n150 = 3f₁, 250 = 5f₁, 350 = 7f₁\nodd harmonics only → CLOSED', tcol=C2, size=24)
     T(fig, 0.06, 0.42, r'open:  $l = \dfrac{\lambda}{2} = \dfrac{344}{2\times80} = 2.15\ \mathrm{m}$', size=27)
+    if s == 0:
+        return
+    card(fig, 0.52, 0.50, 0.43, 0.30, 'Pipe Y: 150, 250, 350 Hz', 'spacing 100 Hz = 2f₁, so f₁ = 50 Hz\n150 = 3f₁, 250 = 5f₁, 350 = 7f₁\nodd harmonics only → CLOSED', tcol=C2, size=24)
     T(fig, 0.53, 0.42, r'closed:  $l = \dfrac{\lambda}{4} = \dfrac{344}{4\times50} = 1.72\ \mathrm{m}$', size=27)
     card(fig, 0.05, 0.08, 0.90, 0.20, 'Justify with the ends',
          'A closed pipe needs a node at the closed end and an antinode at the open end, so only odd numbers of\nquarter wavelengths fit. That is why it has no even harmonics.', tcol=PINK, size=23)
@@ -1551,12 +1554,12 @@ def coherence(fig, s, ph):
     ax = wax(fig, [0.04, 0.40, 0.92, 0.40], (0, 24), (-3, 3))
     ax.scatter([1], [0], s=500, color=YELLOW, zorder=5); label(ax, 1, -1.1, 'ordinary\nlamp', size=18, color=SOFT)
     for x0, gaps in [(6, [0]), (12, [-1.1, 1.1])]:
-        edges = [-3] + [g + d for g in gaps for d in (-0.2, 0.2)] + [3]
+        edges = [-2.2] + [g + d for g in gaps for d in (-0.2, 0.2)] + [3]
         for a, b in zip(edges[0::2], edges[1::2]): ax.plot([x0, x0], [a, b], color=SOFT, lw=6)
     for r in (1.4, 2.6, 3.8): ax.add_patch(Arc((6, 0), 2 * r, 2 * r, theta1=-50, theta2=50, color=C1, lw=2))
     for y0 in (-1.1, 1.1):
         for r in (1.4, 2.6, 3.8, 5.0): ax.add_patch(Arc((12, y0), 2 * r, 2 * r, theta1=-40, theta2=40, color=GREEN, lw=2))
-    label(ax, 6, -2.65, 'single slit\n(pinhole)', size=18, color=C1, va='top'); label(ax, 12, -2.65, 'double slit', size=18, color=GREEN, va='top')
+    label(ax, 6, -2.4, 'single slit\n(pinhole)', size=18, color=C1, va='top'); label(ax, 12, -2.4, 'double slit', size=18, color=GREEN, va='top')
     label(ax, 20.5, 2.2, 'or a laser: already coherent', size=20, color=YELLOW)
     ax.add_patch(Rectangle((18, -0.5), 4.8, 1.0, fc=PANEL2, ec=SOFT)); label(ax, 20.4, 0, 'laser', size=18, color=SOFT)
     for i, (nm, b, c) in enumerate([('Single slit', 'diffracts light so one wavefront\nreaches both slits. It does not\nselect a colour.', C1),
@@ -1567,15 +1570,15 @@ def coherence(fig, s, ph):
 
 def antinodal_lines(fig, s, ph):
     C1, C2 = C()
-    header(fig, 'Counting antinodal lines')
+    header(fig, 'Steering a beam' if s else 'Counting antinodal lines')
     ax = wax(fig, [0.04, 0.12, 0.48, 0.68], (-6, 6), (-1, 8))
     S1, S2 = (-1, 0), (1, 0)
     ax.scatter(*zip(S1, S2), s=180, color=YELLOW, zorder=5)
     if s == 0:
         for sth, c in [(0, GREEN), (0.444, C1), (-0.444, C1), (0.889, C2), (-0.889, C2)]:
             ax.plot([0, 8.5 * sth], [0, 8.5 * np.sqrt(1 - sth ** 2)], color=c, lw=3)
-        label(ax, 0.1, 7.6, 'n = 0', size=20, color=GREEN, ha='left')
-        for sg in (1, -1): label(ax, sg * 3.2, 7.4, 'n = 1', size=20, color=C1); label(ax, sg * 5.3, 4.6, 'n = 2', size=20, color=C2)
+        label(ax, 0.15, 7.7, 'n = 0', size=20, color=GREEN, ha='left')
+        for sg in (1, -1): label(ax, sg * 2.5, 7.5, 'n = 1', size=20, color=C1); label(ax, sg * 5.3, 4.6, 'n = 2', size=20, color=C2)
         label(ax, 0, -0.65, 'd = 0.90 m,  λ = 0.40 m', size=20, color=YELLOW)
         chip(fig, 'Element 2 · problems')
         bullets(fig, ['Largest path difference = d', 'nλ ≤ d, so n ≤ 0.90 / 0.40 = 2.25', 'n can be 0, ±1 or ±2'], 3, 0.56, 0.76, size=26, dim=False)
@@ -1648,11 +1651,9 @@ def diffraction_uses(fig, s, ph):
         for yy in (5.2, 6.2, 7.2): ax.plot([0, 12], [yy, yy], color=C1, lw=2.2)
         for r in (0.8, 1.8, 2.8, 3.8):
             ax.add_patch(Arc((6, 4), 2 * r, 2 * r, theta1=180, theta2=360, color=GREEN, lw=2.2))
-            ax.plot([6 + r, 12], [4 - r + r, 4 - r + r], alpha=0)
-        for yy, x0 in [(3.2, 6.8), (2.2, 7.8), (1.2, 8.8), (0.2, 9.8)]: ax.plot([x0, 12], [4 - (yy - 3.2 + 0.8) + 0, 4 - (yy - 3.2 + 0.8)], color=GREEN, lw=2.2, alpha=0)
         ax.add_patch(Polygon([(0, 3.9), (5.9, 3.9), (2.4, 0), (0, 0)], fc='#0a0f18', ec='none', alpha=0.7))
         label(ax, 1.4, 1.5, 'shadow\narea', size=21, color=SOFT)
-        bullets(fig, ['Waves bend around the end of the wall', 'Keep λ the same', 'Show the calm shadow area that remains', 'Gap or object similar to λ:\ndiffraction is most obvious'], 4, 0.61, 0.76, size=24, dim=False)
+        bullets(fig, ['Waves bend around the end of the wall', 'Keep λ the same', 'Show the calm shadow area\nthat remains', 'Gap or object similar to λ:\ndiffraction is most obvious'], 4, 0.61, 0.76, size=24, dim=False)
         return
     if s == 1:
         header(fig, 'Diffraction and communication')
