@@ -481,6 +481,7 @@ def xray_spectrum(fig, s, ph):
     ax = gax(fig, [0.07, 0.15, 0.50, 0.63], (0, 150), (0, 2.1), 'wavelength (pm)', 'intensity', ticks=False)
     ax.set_xticks([0, 50, 100, 150])
     l = np.linspace(5, 150, 2000)
+    ax.text(148, 2.0, 'illustrative shapes, not measured data', color=MUT, fontsize=17, ha='right', va='top')
     ax.plot(l, _xs(l, 35), color=C1, lw=3.5)
     if s == 0:
         ax.annotate('sharp cut-off: λmin', (35.5, 0.02), (6, 0.85), color=YELLOW, fontsize=18, arrowprops=dict(arrowstyle='-|>', color=YELLOW, lw=2))
@@ -502,10 +503,11 @@ def xray_spectrum(fig, s, ph):
     if s == 3:
         l2 = l
         ax.plot(l2, _xs(l2, 50), color=GREEN, lw=3)
-        bullets(fig, ['Higher VOLTAGE', 'More energetic electrons:\nλmin moves to shorter wavelengths', 'The whole curve grows too',
-                      'Lines stay at the same wavelengths:\nthey belong to the target'], 4, 0.60, 0.76, size=24, dim=False)
-        T(fig, 0.60, 0.33, 'green = larger voltage', size=22, color=GREEN)
-        T(fig, 0.60, 0.26, 'Below the energy needed to eject an\ninner electron, the lines don’t appear.', size=21, color=SOFT)
+        bullets(fig, ['Higher VOLTAGE', 'More energetic electrons:\nλmin moves to shorter wavelengths', 'More energy per electron: the whole\ncurve grows too',
+                      'Lines stay at the same wavelengths,\nbut get taller'], 4, 0.60, 0.77, size=22, gap=0.014, dim=False)
+        ax.text(148, 1.84, 'green = larger voltage', color=GREEN, fontsize=19, ha='right', va='top')
+        T(fig, 0.60, 0.445, 'Too low to eject an inner electron: no lines.', size=20, color=SOFT)
+        card(fig, 0.60, 0.13, 0.36, 0.27, 'Marking note', 'The 2023 marking guide says intensity\ndoesn’t rise unless the current does.\nPhysically it does. Give both effects,\neach with a reason.', tcol=PINK, size=20)
 
 
 def we_xray(fig, s, ph):
@@ -540,6 +542,7 @@ def xray_sketch(fig, s, ph):
     ax2.set_xticks([0, 40, 80, 120])
     l = np.linspace(5, 120, 2000)
     ax2.plot(l, _xs(l, 35), color=C1, lw=3.5)
+    ax2.text(118, 2.0, 'made-up target, illustrative shape', color=MUT, fontsize=17, ha='right', va='top')
     ax2.text(36, 0.1, '35.5', color=YELLOW, fontsize=18, ha='right')
     for w_, c_, ha_, dx in [(63.7, YELLOW, 'right', -1.5), (72.6, PINK, 'left', 1.5)]:
         ax2.text(w_ + dx, float(_xs(np.array([w_]), 35)[0]) + 0.02, f'{w_}', color=c_, fontsize=18, ha=ha_)
@@ -581,7 +584,7 @@ def laser_force(fig, s, ph):
         T(fig, 0.06, 0.33, r'absorbed: $F = \dfrac{\Delta p}{\Delta t} = (1.34\times10^{16})(1.25\times10^{-27}) = 1.67\times10^{-11}\ \mathrm{N}$', size=26, color=GREEN)
     if s >= 2:
         T(fig, 0.06, 0.22, r'reflected: $\Delta p$ doubles, since $p$ reverses, so $F = 3.3\times10^{-11}\ \mathrm{N}$', size=26, color=YELLOW)
-        T(fig, 0.06, 0.13, 'Tiny, but with no air drag it can steadily change a spacecraft’s momentum over months. (This is a solar sail.)', size=22, color=SOFT)
+        T(fig, 0.06, 0.13, 'Tiny, but with no air drag it can change a spacecraft’s momentum over months. (Beyond the course: a solar sail.)', size=22, color=SOFT)
 
 
 def compton(fig, s, ph):
@@ -771,6 +774,7 @@ def levels(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Energy-level diagrams')
     ax = _levels(fig, [0.05, 0.10, 0.45, 0.70])
+    T(fig, 0.05, 0.095, 'a made-up atom, for illustration', size=18, color=MUT)
     bullets(fig, ['Horizontal lines = allowed energies', 'Exam diagrams often set ground state = 0 eV,\nor measure downward as negatives', 'Only the differences matter'], 3, 0.54, 0.77, size=23, dim=False)
     if s >= 1:
         chip(fig, 'Element 2 · problems')
@@ -811,6 +815,7 @@ def excitation(fig, s, ph):
     header(fig, 'Exciting an atom: photons vs electrons')
     chip(fig, 'Element 4 · predictions')
     ax = _levels(fig, [0.04, 0.10, 0.40, 0.70])
+    T(fig, 0.05, 0.095, 'a made-up atom, for illustration', size=18, color=MUT)
     if s == 0:
         arrow(ax, (3, 0.03), (3, 2.4), color=GREEN); label(ax, 3.2, 1.2, '2.4 eV photon\nabsorbed', size=16, color=GREEN, ha='left')
         ax.plot([7, 7], [0, 3.0], color=PINK, lw=3, ls=':'); label(ax, 7.2, 1.6, '3.0 eV photon\npasses through', size=16, color=PINK, ha='left')
@@ -1106,7 +1111,7 @@ def binding(fig, s, ph):
     label(ax, 9.5, 3.9, 'nucleus:\nless mass', size=19, color=FG)
     bullets(fig, ['Mass defect: mass of parts − mass of the whole', 'Binding energy: energy to separate it completely', 'It is NOT energy stored in the nucleus'], 3, 0.05, 0.40, size=23, gap=0.012, dim=False)
     chip(fig, 'Element 2 · problems')
-    card(fig, 0.53, 0.60, 0.42, 0.20, 'Example', 'Nickel-62 atom (Z = 28) has a mass of\n61.928345 u. Find its binding energy per nucleon.', tcol=C2, size=20)
+    card(fig, 0.53, 0.60, 0.42, 0.20, 'Example', 'Nickel-62 atom (Z = 28) has a mass of\n61.928345 u. Find its binding energy per nucleon.\n(Mass: reference data, not from TASC.)', tcol=C2, size=20)
     if s >= 1:
         _lines(fig, 0.54, 0.555, [('parts:  28(1.007276 + 0.000549) + 34(1.008665)', FG), ('          = 62.513710 u', FG),
                                   ('Δm = 62.513710 − 61.928345 = 0.585365 u', GREEN)], size=21, gap=0.05)
@@ -1126,6 +1131,7 @@ def be_curve(fig, s, ph):
     ax = gax(fig, [0.07, 0.15, 0.53, 0.63], (0, 250), (0, 10.5), 'mass number A', 'BE per nucleon (MeV)')
     A, B = zip(*BE_DATA)
     ax.plot(A, B, color=C1, lw=3.5)
+    ax.text(245, 0.35, 'approximate reference values, not from TASC', color=MUT, fontsize=17, ha='right')
     ax.scatter([56], [8.79], s=130, color=YELLOW, zorder=5); ax.text(56, 9.25, 'iron-56 region: most stable', color=YELLOW, fontsize=18, ha='left')
     for (a_, b_, n) in [(4, 7.07, 'He-4'), (235, 7.59, 'U-235')]:
         ax.scatter([a_], [b_], s=80, color=FG, zorder=5); ax.text(a_ + (6 if a_ < 100 else -2), b_ - 0.65, n, color=FG, fontsize=17, ha='left' if a_ < 100 else 'center')
@@ -1143,15 +1149,16 @@ def reaction_energy(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Energy from a mass difference')
     chip(fig, 'Element 2 · problems')
+    T(fig, 0.60, 0.785, 'Masses: reference data, not from TASC', size=18, color=MUT)
     T(fig, 0.06, 0.78, r'Fusion:  $^{2}_{1}\mathrm{H} + ^{3}_{1}\mathrm{H}\ \to\ ^{4}_{2}\mathrm{He} + ^{1}_{0}n$', size=28, color=C2)
     _lines(fig, 0.06, 0.70, [('before: 2.013553 + 3.015501 = 5.029054 u   (nuclear masses)', FG),
                              ('after:  4.001506 + 1.008665 = 5.010171 u', FG),
                              ('Δm = 0.018883 u    E = 0.018883 × 931 = 17.6 MeV released', GREEN)], size=24, gap=0.06)
     if s >= 1:
         T(fig, 0.06, 0.50, r'Fission:  $^{235}_{92}\mathrm{U} + ^{1}_{0}n\ \to\ ^{141}_{56}\mathrm{Ba} + ^{92}_{36}\mathrm{Kr} + 3\,^{1}_{0}n$', size=28, color=C2)
-        _lines(fig, 0.06, 0.42, [('236.052595 u → 235.866562 u   (atomic masses; electrons cancel)', FG), ('Δm = 0.186033 u    E = 173 MeV released, per fission', GREEN)], size=24, gap=0.06)
+        _lines(fig, 0.06, 0.42, [('236.052593 u → 235.866572 u   (atomic masses; electrons cancel)', FG), ('Δm = 0.186021 u    E = 173 MeV released, per fission', GREEN)], size=24, gap=0.06)
     if s >= 2:
-        card(fig, 0.05, 0.07, 0.90, 0.24, 'The sign tells you the direction', 'Products lighter: energy released.  Products HEAVIER: energy must be supplied, e.g. a photon or a fast particle’s kinetic energy.\nReleased energy leaves as gamma photons or the products’ kinetic energy. Include every particle: a beta’s 0.000549 u counts,\nwhile a neutrino’s mass is ignored. Only subtract the masses you are given, and read how they are described.', tcol=PINK, size=20)
+        card(fig, 0.05, 0.07, 0.90, 0.24, 'The sign tells you the direction', 'Products lighter: energy released.  Products HEAVIER: energy must be supplied, e.g. a photon or a fast particle’s kinetic energy.\nEnergy leaves as gamma photons or kinetic energy. Ignore a neutrino’s mass.\nTASC beta minus: treat given masses as nuclear and subtract the electron’s 0.000549 u. Told “atomic masses”? It cancels.', tcol=PINK, size=20)
 
 
 def stars(fig, s, ph):
@@ -1242,7 +1249,7 @@ def strong_force(fig, s, ph):
     r = np.linspace(0.6, 6, 400); ax.plot(r, 0.9 / r ** 1.0, color=PINK, lw=3)
     st = 2.5 * np.exp(-(r - 1.0) ** 2 / 0.3) * (-1) * (r > 0.8) + 2.5 * (r <= 0.8) * (0.8 - r) / 0.2
     ax.plot(r, np.clip(st, -2.4, 2.4), color=GREEN, lw=3.5)
-    ax.text(3.2, 0.5, 'electric', color=PINK, fontsize=19); ax.text(1.65, -1.75, 'strong force', color=GREEN, fontsize=19)
+    ax.text(5.9, 2.25, 'illustrative shape', color=MUT, fontsize=17, ha='right', va='top'); ax.text(3.2, 0.5, 'electric', color=PINK, fontsize=19); ax.text(1.65, -1.75, 'strong force', color=GREEN, fontsize=19)
     if s >= 1:
         bullets(fig, ['Strong nuclear force: an attraction,\nstronger than the electric repulsion', 'Very short range: about the size of a nucleus', 'Acts only on protons and neutrons, not electrons'], 3, 0.06, 0.30, size=22, gap=0.012, dim=False)
 

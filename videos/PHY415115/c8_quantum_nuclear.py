@@ -343,10 +343,10 @@ CHECKS = [
     ('DT after', lambda: 4.001506 + 1.008665, 5.010171, 1e-7),
     ('DT defect', lambda: 5.029054 - 5.010171, 0.018883, 1e-4),
     ('DT energy', lambda: 0.018883 * 931, 17.6, 0.002),
-    ('fission before', lambda: 235.043930 + _mn, 236.052595, 1e-7),
-    ('fission after', lambda: 140.914411 + 91.926156 + 3 * _mn, 235.866562, 1e-7),
-    ('fission defect', lambda: 236.052595 - 235.866562, 0.186033, 1e-4),
-    ('fission energy', lambda: 0.186033 * 931, 173, 0.002),
+    ('fission before', lambda: 235.043928 + _mn, 236.052593, 1e-7),
+    ('fission after', lambda: 140.914404 + 91.926173 + 3 * _mn, 235.866572, 1e-7),
+    ('fission defect', lambda: 236.052593 - 235.866572, 0.186021, 1e-4),
+    ('fission energy', lambda: 0.186021 * 931, 173, 0.002),
     ('4p defect', lambda: 4 * _mp - 4.001506 - 2 * _mel, 0.0265, 0.001),
     ('4p energy', lambda: 0.0265 * 931, 24.7, 0.002),
     ('sun power', lambda: _sun, 3.9e26, 0.02),
@@ -574,8 +574,9 @@ Scene('xray_spectrum', P1, 'The X-ray spectrum', V.xray_spectrum, [
       refs=['ar21q21', 'ex21q21', 'ex22q24'], covers=['X4', 'X3'], elements=[3, 4], exam=['X21-21', 'X22-24'],
       problem='What happens to an X-ray spectrum when the tube current is increased?'),
     S("Increase the voltage, and each electron has more energy. So the cut off moves to a shorter wavelength, and the whole "
-      "curve grows as well. The spikes don't move, as they belong to the target. But if the voltage is too low to eject an "
-      "inner electron, those lines don't appear at all.",
+      "curve grows as well, because each electron brings more energy. The spikes don't move, as they belong to the target, though they do get taller. And if the voltage is too low "
+      "to eject an inner electron, those lines don't appear at all. A note on marking: the 2023 marking guide says intensity doesn't rise unless the current changes, but physically it does. "
+      "So give both effects, each with a reason: the cut off moves to a shorter wavelength, and the intensity rises.",
       refs=['ar22q24', 'ex22q24', 'ex23q23', 'ar23q23', 'ex18q23'], covers=['X1', 'X3'], elements=[3, 4], exam=['X22-24', 'X23-23', 'X18-23'],
       problem='What happens to an X-ray spectrum when the tube voltage is increased?'),
 ]),
@@ -827,7 +828,7 @@ Scene('particles', P3, 'Neutrons, positrons and neutrinos', V.particles, [
       refs=['content', 'ar21q20', 'ex21q20'], covers=['N5'], elements=[1], exam=['X21-20']),
     S("When a positron meets an electron, they annihilate, and produce two gamma photons. Their mass becomes energy. Each photon has at least "
       "the mass energy of one electron: zero point zero zero zero five four nine atomic mass units, times nine hundred and thirty one. "
-      "That's zero point five one one mega electron volts. That's the basis of P E T scans.",
+      "That's zero point five one one mega electron volts. As an aside beyond the course, that's the basis of P E T scans.",
       refs=['ex20q22', 'ar20q22'], covers=['N5', 'M1'], elements=[2], exam=['X20-22'],
       problem='A positron and an electron annihilate, producing two identical photons. What is the minimum energy of each?'),
 ]),
@@ -1002,14 +1003,15 @@ Scene('reaction_energy', P4, 'Energy from a mass difference', V.reaction_energy,
       refs=['content'], covers=['M3', 'M1'], elements=[2], exam=['X18-22'],
       problem='Deuterium (2.013553 u) and tritium (3.015501 u) fuse into helium-4 (4.001506 u) and a neutron (1.008665 u). How much energy is released?'),
     S("Fission works the same way. Uranium two three five plus a neutron splits into barium, krypton and three neutrons. The total "
-      "falls by zero point one eight six zero three three u, which releases one hundred and seventy three mega electron volts. Notice that this is ten "
+      "falls by zero point one eight six zero two one u, which releases one hundred and seventy three mega electron volts. Notice that this is ten "
       "times the fusion figure per reaction, but fusion gives more per nucleon.",
       refs=['content'], covers=['M3', 'M5'], elements=[2],
-      problem='The fission of U-235 + n → Ba-141 + Kr-92 + 3n has a mass drop of 0.186033 u. How much energy is released?'),
+      problem='The fission of U-235 + n → Ba-141 + Kr-92 + 3n has a mass drop of 0.186021 u. How much energy is released?'),
     S("Then check the sign. If the products are lighter, energy is released, as gamma photons or kinetic energy. If the products are "
       "heavier, energy must be supplied. For instance, a gamma photon needs a minimum energy to knock a neutron out of a nucleus. "
-      "Students often claim energy is released when the mass shows otherwise. Count every particle, including a beta particle's mass, as "
-      "leaving out the electron cost marks in one report. And don't work out separate mass defects if the question just needs a simple total.",
+      "Students often claim energy is released when the mass shows otherwise. Count every particle. In TASC beta minus questions, treat the given masses as nuclear "
+      "masses, and subtract the electron's zero point zero zero zero five four nine u. The 2023 report names leaving it out as a common mistake. The exception is if the question explicitly says "
+      "atomic masses: then the electron's mass cancels. And don't work out separate mass defects if a simple total will do.",
       refs=['ex20q22', 'ar20q22', 'ex23q20', 'ar23q20', 'ar22q19', 'ex25q19', 'ar25q19', 'ex19q20', 'ex21q20', 'ar21q20'], covers=['M3'], elements=[2, 4],
       exam=['X20-22', 'X23-20', 'X22-19', 'X25-19', 'X19-20', 'X21-20']),
 ]),
@@ -1095,7 +1097,7 @@ Scene('contexts', P5, 'Contexts named in the course', V.contexts, [
       "the elements heavier than helium. The Big Bang theory has evidence from cosmic background radiation, the abundance of light "
       "elements, and the red shift of galaxies.",
       refs=['appendix'], covers=['K2', 'K8', 'K3', 'K11'], elements=[4]),
-    S("Special relativity grew from the work of Michelson, Lorentz, Poincare and Einstein. Ring laser gyroscopes navigate using tiny "
+    S("Special relativity grew from the work of Michelson, Lorentz, Einstein and others. Ring laser gyroscopes navigate using tiny "
       "timing differences between light travelling both ways around a ring. And the Higgs boson, predicted in the nineteen sixties, helps "
       "to explain why particles have mass. A particle consistent with it was observed at the Large Hadron Collider.",
       refs=['appendix'], covers=['K6', 'K7', 'K9'], elements=[4]),

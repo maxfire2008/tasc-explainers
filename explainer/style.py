@@ -87,6 +87,14 @@ PRONUNCIATIONS = [
     (r'\bPHY415115\b', 'P H Y four one five, one one five'),
     (r'\bTASC\b', 'task'),
     (r'\bTIR\b', 'total internal reflection'),
+    (r'\bSchrodinger\b', 'Shrerdinger'),
+    (r'\bWien\b', 'Veen'),
+    (r'\bBroglie\b', 'Broy'),
+    (r'(?i)becquerel', 'beckerel'),
+    (r'\bfemtometres\b', 'femto metres'),
+    (r'\bgluon', 'gloo on'), (r'\bGluon', 'Gloo on'),
+    (r'\bGeiger\b', 'Guy gur'),
+    (r'\bMichelson\b', 'Mikelson'),
 ]
 
 # --------------------------------------------------------------------------- thumbnail (YouTube: 16:9, under 2 MB)
