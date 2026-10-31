@@ -150,13 +150,21 @@ def check(v, allow_missing_sources=False, copyright_scan=True):
             W(f'{where}: narration contains symbols {"".join(bad)}; write them as spoken words')
         if st.anim and abs(st.anim * FPS - round(st.anim * FPS)) > 1e-6:
             W(f'{where}: anim period {st.anim}s is not a whole number of frames')
+        if '\n' in st.problem:
+            E(f'{where}: Step.problem must be a single line')
         if copyright_scan and corpus.table:
             cited = {corpus.key(v.refs[r].file) for r in info['refs'] if r in v.refs}
             for lvl, msg in corpus.check_text(where + ' narration', st.text, cited, v.allowed_overlaps):
                 (E if lvl == 'ERROR' else W)(msg)
+            for lvl, msg in corpus.check_text(where + ' problem', st.problem, cited, v.allowed_overlaps):
+                (E if lvl == 'ERROR' else W)(msg)
             for lvl, msg in corpus.check_text(where + ' on-screen', '\n'.join(info['texts']), cited,
                                               v.allowed_overlaps):
                 (E if lvl == 'ERROR' else W)(msg)
+    if not any(st.problem for _, _, st in v.all_steps()):
+        W('no Step.problem set: tag the step where each problem explanation starts')
+    if not v.thumbnail:
+        W('Video.thumbnail is not set: add a thumbnail based on the title card')
     for k in v.syllabus:
         if k not in cov['syllabus']: E(f'syllabus point {k} is not covered: "{v.syllabus[k][0]}"')
     for k in v.elements:
@@ -207,6 +215,30 @@ def preview(v, only=None):
             sheet.paste(im, (x, y)); dr.text((x + 5, y + 340), nm, fill='yellow')
         sheet.save(os.path.join(d, f'_sheet{k // 9:02d}.jpg'), quality=88)
     print(f'{len(names)} frames + contact sheets in {d}')
+
+
+# ----------------------------------------------------------------------------- thumbnail
+def make_thumbnail(v):
+    """Draw Video.thumbnail on the slide canvas and save <id>_thumbnail.png at YouTube's size."""
+    if not v.thumbnail:
+        print('no thumbnail: Video.thumbnail is not set')
+        return None
+    from PIL import Image
+    import matplotlib.pyplot as plt
+    setup(v)
+    fig = L.new_fig()
+    v.thumbnail(fig)
+    fig.text(0.97, 0.035, S.FOOTER_AI, color=L.SOFT, fontsize=26, va='center', ha='right', style='italic')
+    rgb = L.to_rgb(fig)
+    plt.close(fig)
+    size = (S.THUMBNAIL['width'], S.THUMBNAIL['height'])
+    path = os.path.join(out_dir(v), f'{v.id}_thumbnail.png')
+    Image.fromarray(rgb).resize(size, Image.LANCZOS).save(path, optimize=True)
+    n = os.path.getsize(path)
+    if n > S.THUMBNAIL['max_bytes']:
+        print(f'WARNING: thumbnail is {n // 1024} KB, over the limit of {S.THUMBNAIL["max_bytes"] // 1024} KB')
+    print(f'thumbnail: {path} ({n // 1024} KB)')
+    return path
 
 
 # ----------------------------------------------------------------------------- tts + timeline
@@ -311,14 +343,18 @@ def write_docs(v, tl):
     for it in tl:
         tr.append(f'**{fmt_time(it["start"])}** ({it["scene"].id}[{it["i"]}]) {it["text"]}\n')
     open(os.path.join(od, 'transcript.md'), 'w').write('\n'.join(tr))
+    # problems: one "time question" per line, to help learners find each explanation
+    problems = [f"{fmt_time(it['start'])} {it['step'].problem.strip()}" for it in tl if it['step'].problem.strip()]
+    open(os.path.join(od, 'problems.txt'), 'w').write('\n'.join(problems) + '\n')
     # description
     desc = [v.description.strip(), '', 'AI generated content: may contain errors.', '', 'Chapters', *lines, '',
+            *(['Problems solved in this video', *problems, ''] if problems else []),
             'References (numbers match the slide footers)', *ref_txt]
     open(os.path.join(od, 'description.txt'), 'w').write('\n'.join(desc).strip() + '\n')
     # subtitles
     subtitles.write_all([dict(audio_start=it['audio_start'], audio_dur=it['audio_dur'], text=it['text']) for it in tl],
                         os.path.join(od, v.id), S.theme(v.course, v.module), v.keywords)
-    print('wrote timestamps.txt, references.md, coverage.md, transcript.md, description.txt, subtitles in', od)
+    print('wrote timestamps.txt, problems.txt, references.md, coverage.md, transcript.md, description.txt, subtitles in', od)
 
 
 def credit_lines(v):
@@ -357,8 +393,11 @@ def _clip_key(v, sc, it, offset, N):
 
 
 def render(v, force=False, burn_subs=False):
+    """Narration (cached), video, then every timed document, including problems.txt, and the thumbnail."""
     import soundfile as sf
     from PIL import Image
+    make_tts(v)
+    make_thumbnail(v)
     analyse(v); setup(v)
     v.credit_lines = credit_lines(v)
     tl = timeline(v)
@@ -435,6 +474,7 @@ def docs_only(v):
     """Timestamps/refs/coverage/subtitles from cached narration audio, without rendering video."""
     analyse(v)
     write_docs(v, timeline(v))
+    make_thumbnail(v)
 
 
 def list_sources(course, refresh=False):

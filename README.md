@@ -3,7 +3,7 @@
 Generates narrated, animated revision videos (a rough goal of 15–45 min) for TASC course modules, with a consistent house style,
 on-slide references, information-sheet callouts, YouTube chapters, styled subtitles and coverage checking.
 
-Agents: read **CLAUDE.md** first. Agents prepare everything up to `docs`; the operator runs the final render.
+Agents: read **CLAUDE.md** first. Agents prepare everything up to the thumbnail; the operator's render generates the narration, video and timed documents.
 
 ```bash
 uv sync                                                   # also needs ffmpeg (+libass for burnt-in subs) and the Inter font
@@ -12,8 +12,7 @@ bash scripts/get_models.sh                                # Kokoro TTS model (~3
 uv run python -m explainer sources PHY415115                     # downloads + caches them
 uv run python -m explainer check   videos/PHY415115/c7_wave_motion.py
 uv run python -m explainer preview videos/PHY415115/c7_wave_motion.py
-uv run python -m explainer tts     videos/PHY415115/c7_wave_motion.py
-uv run python -m explainer docs    videos/PHY415115/c7_wave_motion.py
+uv run python -m explainer thumbnail videos/PHY415115/c7_wave_motion.py
 uv run python -m explainer render  videos/PHY415115/c7_wave_motion.py --burn-subs   # operator only
 ```
 

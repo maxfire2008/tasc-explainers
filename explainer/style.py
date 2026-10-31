@@ -88,6 +88,9 @@ PRONUNCIATIONS = [
     (r'\bTIR\b', 'total internal reflection'),
 ]
 
+# --------------------------------------------------------------------------- thumbnail (YouTube: 16:9, under 2 MB)
+THUMBNAIL = dict(width=1280, height=720, max_bytes=2 * 1024 * 1024)
+
 # --------------------------------------------------------------------------- timing (seconds)
 LEAD_FIRST = 0.7     # silence before the first step of a scene
 LEAD = 0.3           # silence before other steps

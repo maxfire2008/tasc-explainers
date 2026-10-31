@@ -4,9 +4,8 @@ functions into a sibling <module>_visuals.py, as in videos/PHY415115/), then fil
 This file runs as-is so you can see the moving parts:
     uv run python -m explainer check   template/video_template.py --allow-missing-sources
     uv run python -m explainer preview template/video_template.py
-    uv run python -m explainer tts     template/video_template.py
-    uv run python -m explainer docs    template/video_template.py
-    uv run python -m explainer render  template/video_template.py    # operator only
+    uv run python -m explainer thumbnail template/video_template.py
+    uv run python -m explainer render  template/video_template.py    # operator only: narration, video, docs
 
 Rules that the checker enforces (see CLAUDE.md for the reasons):
   * every syllabus dot point, every element and every past-exam topic is covered by some Step
@@ -36,6 +35,14 @@ P1 = 'Part 1 · Describing waves'            # part label shown above slide titl
 def title_card(fig, s, ph):
     fig.text(0.5, 0.60, 'Criterion 0: Example module', ha='center', va='center', color=L.A1(), fontsize=60, weight='bold')
     fig.text(0.5, 0.48, 'Revision for class tests and the exam', ha='center', va='center', color=L.SOFT, fontsize=26)
+
+
+def thumbnail(fig):
+    # Same look as the title card, with fewer and larger words so it reads at small sizes.
+    fig.text(0.5, 0.80, 'CRITERION 0', ha='center', va='center', color=L.A1(), fontsize=64, weight='bold')
+    fig.text(0.5, 0.56, 'Example module', ha='center', va='center', color=L.FG, fontsize=120, weight='bold')
+    ax = wax(fig, [0, 0.07, 1, 0.28], (0, 10), (-1.6, 1.6))
+    ax.plot(np.linspace(0, 10, 600), np.sin(TAU * np.linspace(0, 10, 600) / 5), color=L.A1(), lw=10)
 
 
 def wave_speed(fig, s, ph):
@@ -89,7 +96,8 @@ SCENES = [
     ]),
     Scene('example', P1, 'Worked example', example, [
         Step("Here's a question for element two. A wave has a frequency of fifty hertz and a wavelength of zero point four "
-             "metres. What is its speed?", covers=['T1'], elements=[2], exam=['X24-1'], refs=['ex24q1']),
+             "metres. What is its speed?", covers=['T1'], elements=[2], exam=['X24-1'], refs=['ex24q1'],
+             problem='A wave has a frequency of 50 Hz and a wavelength of 0.40 m. What is its speed?'),
         Step("v equals f lambda, so fifty times zero point four, which is twenty metres per second. Rearranged as f equals v "
              "over lambda, it isn't on the sheet in that form, so practise rearranging.", covers=['T1'], elements=[2],
              refs=['ar24q1']),
@@ -102,5 +110,6 @@ VIDEO = Video(
     refs=REFS, syllabus=SYLLABUS, elements=ELEMENTS, exam_topics=EXAM_TOPICS, scenes=SCENES,
     info_sheet=InfoSheet(ref='info', section='Waves'), checks=CHECKS,
     keywords=['wavelength', 'frequency', 'wave speed'],
+    thumbnail=thumbnail,
     description='Template description: one or two sentences for YouTube.',
 )

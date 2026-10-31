@@ -3,9 +3,8 @@
 Worked example of a full video spec.  Build with:
     uv run python -m explainer check   videos/PHY415115/c7_wave_motion.py
     uv run python -m explainer preview videos/PHY415115/c7_wave_motion.py
-    uv run python -m explainer tts     videos/PHY415115/c7_wave_motion.py
-    uv run python -m explainer docs    videos/PHY415115/c7_wave_motion.py
-    uv run python -m explainer render  videos/PHY415115/c7_wave_motion.py    # operator only
+    uv run python -m explainer thumbnail videos/PHY415115/c7_wave_motion.py
+    uv run python -m explainer render  videos/PHY415115/c7_wave_motion.py    # operator only: narration, video, docs
 """
 import math
 
@@ -321,14 +320,16 @@ Scene('graphs', P1, 'Displacement–distance vs displacement–time graphs', V.g
       covers=['W6'], elements=[3], exam=['X23-15', 'X25-15']),
     S("Here's an example for element three. A buoy bobs up and down on the sea. Its displacement time graph shows an "
       "amplitude of zero point four metres, and a period of four seconds. A snapshot of the sea surface shows crests "
-      "eighteen metres apart.", covers=['W6'], elements=[3]),
+      "eighteen metres apart.", covers=['W6'], elements=[3],
+      problem="A buoy's displacement-time graph has a period of 4.0 s, and crests on the sea surface are 18 m apart. What are the frequency and the wave speed?"),
     S("So the frequency is one over four, which is zero point two five hertz. And the wave speed is lambda f: zero point "
       "two five times eighteen, which is four point five metres per second. Notice that we needed both graphs: one for the "
       "period, and one for the wavelength.", covers=['W6'], elements=[2, 3]),
     S("You might also be asked for the velocity of the particle itself, at some moment. That's the gradient of the "
       "displacement time graph. Draw a tangent, pick two well separated points on it, and calculate rise over run. Here "
       "it's about zero point four four metres per second. Show the tangent and your points clearly, and include units.",
-      covers=['W6'], elements=[3], exam=['X23-15'], refs=['ar23q15']),
+      covers=['W6'], elements=[3], exam=['X23-15'], refs=['ar23q15'],
+      problem='How do you find the velocity of a buoy at t = 4.5 s from its displacement-time graph, if its amplitude is 0.40 m and its period is 4.0 s?'),
 ]),
 Scene('direction', P1, 'Which way is the wave travelling?', V.direction, [
     S("A common question: which way is the wave travelling? A snapshot on its own can't tell you, because a wave moving "
@@ -336,7 +337,8 @@ Scene('direction', P1, 'Which way is the wave travelling?', V.direction, [
       "example from its displacement time graph.", covers=['W6'], elements=[3], exam=['X25-15'], refs=['ex25q15']),
     S("Here's a reliable trick. Imagine shifting the snapshot a tiny distance in one direction, say to the right. Then see "
       "where point P must go to sit on the shifted curve. For this snapshot, shifting right would make P move down.",
-      covers=['W6'], elements=[3]),
+      covers=['W6'], elements=[3],
+      problem='Given a snapshot of a wave and the displacement-time graph of one point, which way is the wave travelling?'),
     S("Now check P's displacement time graph. Just after time zero, P moves down. That matches the right shift, so the "
       "wave is travelling to the right. If P had moved up instead, the wave would be travelling to the left. Always say "
       "which graph features you used, because that's the analysis that element three rewards.",
@@ -346,15 +348,18 @@ Scene('particles', P1, 'Particle motion on a travelling wave', V.particle_motion
     S("Now zoom in on the particles of a travelling wave. Use the same shifting trick to find which way each one moves. "
       "With this wave moving right, Q and S, at the crest and trough, are momentarily at rest. The particles at the rest "
       "position, P, R and U, are moving fastest, some up and some down, depending on the slope.",
-      refs=['ex22q13', 'ar22q13'], covers=['W3', 'W6'], elements=[1, 3], exam=['X22-13']),
+      refs=['ex22q13', 'ar22q13'], covers=['W3', 'W6'], elements=[1, 3], exam=['X22-13'],
+      problem='On a snapshot of a wave travelling right, which way is each marked particle moving, and which is moving fastest?'),
     S("Acceleration is the opposite. It's greatest at the crest and trough, where the displacement and the restoring force "
       "are largest, and it points towards the rest position. At the rest position it's zero. Examiners see students treat "
       "this as a standing wave. In a travelling wave, every particle reaches full amplitude.",
-      refs=['ar22q13'], covers=['W3'], elements=[1, 4], exam=['X22-13']),
+      refs=['ar22q13'], covers=['W3'], elements=[1, 4], exam=['X22-13'],
+      problem='Which particles on a travelling wave have the greatest acceleration, and in which direction?'),
     S("Sometimes you get two graphs, from recorders at different places. Here, B is twelve metres east of A, and B copies A "
       "two seconds later. So the wave travels from A to B, which is east, at twelve over two, or six metres per second. The "
       "period is eight seconds, so lambda is forty eight metres. Start from the separation and the lag.",
-      refs=['ex25q15', 'ar25q15'], covers=['W6'], elements=[2, 3], exam=['X25-15']),
+      refs=['ex25q15', 'ar25q15'], covers=['W6'], elements=[2, 3], exam=['X25-15'],
+      problem='Recorder B is 12 m east of recorder A and copies its motion 2.0 s later, with a period of 8.0 s. Which way does the wave travel, and what are its speed and wavelength?'),
 ]),
 Scene('pulses', P2, 'Pulses at fixed and free ends, and between strings', V.pulses, [
     S("Part two. What happens when a wave reaches a boundary? Start with a pulse on a string tied to a wall. This is a "
@@ -388,7 +393,8 @@ Scene('string_speed', P2, 'Wave speed on a stretched string', V.string_speed, [
     S("Example, for element two. A string is one point five metres long, has a mass of twelve grams, and is under a "
       "tension of eighty newtons. First, convert: twelve grams is zero point zero one two kilograms. So mu is zero point "
       "zero one two divided by one point five, which is zero point zero zero eight kilograms per metre. We're using the "
-      "information sheet formula next.", covers=['W16'], elements=[2]),
+      "information sheet formula next.", covers=['W16'], elements=[2],
+      problem='A string 1.5 m long with a mass of 12 g is under a tension of 80 N. What is the wave speed?'),
     S("v equals the square root of eighty over zero point zero zero eight, from the information sheet. That's the square "
       "root of ten thousand, which is one hundred metres per second.", covers=['W16'], elements=[2]),
     S("In a lab, the tension often comes from a hanging mass, as on a sonometer. The tension equals m g, the weight of the "
@@ -449,7 +455,8 @@ Scene('tir', P2, 'Critical angle and total internal reflection', V.extend(V.tir,
 Scene('we_refraction', P2, 'Worked example: glass to water', V.we_refraction, [
     S("Let's do a worked example for element two. Light travelling through glass, with n equals one point five two, meets "
       "a boundary with water, n equals one point three three, at an angle of incidence of fifty five degrees. Does it "
-      "escape into the water?", covers=['W9', 'W11'], elements=[2]),
+      "escape into the water?", covers=['W9', 'W11'], elements=[2],
+      problem='Light in glass (n = 1.52) meets water (n = 1.33) at an angle of incidence of 55°. Does it escape, and at what angle?'),
     S("First, find the critical angle. Sine theta c equals one point three three over one point five two, which is zero "
       "point eight seven five. So the critical angle is sixty one point zero degrees.", covers=['W11'], elements=[2]),
     S("Fifty five degrees is below the critical angle, so the light does refract into the water. Snell's law, from the "
@@ -465,7 +472,8 @@ Scene('we_refraction', P2, 'Worked example: glass to water', V.we_refraction, [
 Scene('two_surfaces', P2, 'Refraction at two surfaces', V.extend(V.two_surfaces, 3, V.parallel_layers), [
     S("Many questions send light through two surfaces, like a block or a prism. Here, light in air hits the top of a glass "
       "block, n equals one point five zero, at forty degrees. Snell's law gives a refracted angle of twenty five point four "
-      "degrees inside the glass.", covers=['W9'], elements=[2], exam=['X24-15', 'X23-17'], refs=['ex24q15', 'ex23q17']),
+      "degrees inside the glass.", covers=['W9'], elements=[2], exam=['X24-15', 'X23-17'], refs=['ex24q15', 'ex23q17'],
+      problem='Light in air hits the top of a glass block (n = 1.50) at 40°. Does it escape through the side face?'),
     S("The ray now hits the side face. Because the side is at right angles to the top, the normals are at right angles "
       "too, so the new angle of incidence is ninety degrees minus twenty five point four, which is sixty four point six "
       "degrees. Missing this ninety minus theta step is a common way to lose a mark.", refs=['ar24q15'], covers=['W9'],
@@ -477,17 +485,20 @@ Scene('two_surfaces', P2, 'Refraction at two surfaces', V.extend(V.two_surfaces,
     S("Here's a useful shortcut for flat, parallel layers, such as light going from air through a thin glass wall into "
       "water. Write Snell's law at each boundary, and the middle layer's term cancels. So n sine theta is the same in "
       "every layer, and the glass doesn't change the final angle. It only shifts the ray sideways a little.",
-      refs=['ex24q15', 'ar24q15'], covers=['W9'], elements=[2, 4], exam=['X24-15']),
+      refs=['ex24q15', 'ar24q15'], covers=['W9'], elements=[2, 4], exam=['X24-15'],
+      problem='Light passes from air through a thin, flat glass wall into water. Does the glass change the final angle?'),
 ]),
 Scene('fibre', P2, 'Worked example: an optical fibre', V.fibre_example, [
     S("An element two example using several of these ideas. A fibre has a core with n equals one point four six, and a "
       "cladding with n equals one point four four. The speed in the core is c over n, about two point zero five times ten "
       "to the eight metres per second. So a signal takes nineteen point five milliseconds to travel four thousand kilometres.",
-      refs=['ex18q15'], covers=['W10c', 'W11'], elements=[2], exam=['X18-15']),
+      refs=['ex18q15'], covers=['W10c', 'W11'], elements=[2], exam=['X18-15'],
+      problem='How long does a signal take to travel 4000 km along a fibre with a core of n = 1.46?'),
     S("The critical angle is the inverse sine of one point four four over one point four six, which is eighty point five "
       "degrees. The largest entry angle then uses that ninety minus theta step again. Inside the fibre, the ray makes nine "
       "point five degrees with the axis. Snell's law at the entry face gives thirteen point nine degrees in air.",
-      refs=['ar18q15'], covers=['W11'], elements=[2], exam=['X18-15']),
+      refs=['ar18q15'], covers=['W11'], elements=[2], exam=['X18-15'],
+      problem='A fibre has a core of n = 1.46 and a cladding of n = 1.44. What are the critical angle and the entry angle in air that just gives it?'),
 ]),
 Scene('dispersion', P2, 'Dispersion in a prism', V.dispersion, [
     S("One more refraction idea: dispersion. In glass, the refractive index is slightly higher for blue light than for red "
@@ -525,7 +536,8 @@ Scene('seismic', P2, 'Seismic waves inside the Earth', V.extend(V.seismic, 4, V.
       "layer at forty degrees. Sine forty over sine theta r equals fourteen eighty over fifteen ten, so theta r is forty one "
       "point zero degrees. Going from slow to fast also has a critical angle, here seventy eight point six degrees. A slow "
       "layer between faster ones can trap sound, so it travels a very long way.",
-      refs=['ex20q13', 'ar20q13'], covers=['W9', 'W10', 'W11'], elements=[2, 4], exam=['X20-13']),
+      refs=['ex20q13', 'ar20q13'], covers=['W9', 'W10', 'W11'], elements=[2, 4], exam=['X20-13'],
+      problem='Sound in water at 1480 m/s meets a layer at 1510 m/s at 40°. What are the angle of refraction and the critical angle?'),
 ]),
 Scene('quakes', P2, 'Monitoring earthquakes and tsunamis', V.quakes, [
     S("The course also asks you to apply waves to monitoring earthquakes and tsunamis. P waves are faster, so they reach a "
@@ -534,7 +546,8 @@ Scene('quakes', P2, 'Monitoring earthquakes and tsunamis', V.quakes, [
     S("Here's an element two problem. P waves travel at eight point zero kilometres per second and S waves at four point "
       "five. The S waves arrive twenty seconds after the P waves. The S wave travel time minus the P wave travel time is "
       "twenty seconds, so the distance is twenty divided by one over four point five minus one over eight. That's about two "
-      "hundred and six kilometres.", covers=['A1'], elements=[2]),
+      "hundred and six kilometres.", covers=['A1'], elements=[2],
+      problem='P waves travel at 8.0 km/s and S waves at 4.5 km/s, and the S waves arrive 20 s later. How far away is the earthquake?'),
     S("Tsunamis are ocean waves with very long wavelengths. In deep ocean they travel fast with a small amplitude. Near the "
       "coast the water gets shallower, so they slow down. The frequency stays the same, so by v equals lambda f the "
       "wavelength shortens, the energy bunches up, and the amplitude grows. That's why a tsunami that's barely noticeable "
@@ -568,12 +581,14 @@ Scene('beats', P3, 'Beats', V.beats, [
     S("Example, for element three. A four hundred and forty hertz tuning fork is sounded together with a note of unknown "
       "frequency. To reduce reading error, measure across several beats. Here, four beats take one second, so the beat "
       "frequency is four hertz. If the time axis is in milliseconds, remember to convert to seconds.", refs=['ar24q18'],
-      covers=['W13'], elements=[3], exam=['X24-18']),
+      covers=['W13'], elements=[3], exam=['X24-18'],
+      problem='A 440 Hz tuning fork and an unknown note give four beats per second. What is the unknown frequency?'),
     S("So the unknown frequency is either four hundred and forty four, or four hundred and thirty six hertz. One "
       "measurement can't tell you which. Here's how to decide. Stick a little blu tack on the unknown fork, which makes it "
       "vibrate more slowly. If the beats get faster, its frequency has moved further away from four forty, so it must have "
       "started below: four hundred and thirty six hertz. That's the kind of reasoned prediction element four rewards.",
-      covers=['W13'], elements=[4], exam=['X24-18', 'X25-13', 'X23-13']),
+      covers=['W13'], elements=[4], exam=['X24-18', 'X25-13', 'X23-13'],
+      problem='How can you tell whether an unknown fork is 436 Hz or 444 Hz, using a 440 Hz fork?'),
 ]),
 Scene('standing', P3, 'Standing waves', V.standing, [
     S("A standing wave forms when two identical waves travel in opposite directions and superpose. Usually, that's a wave "
@@ -607,7 +622,8 @@ Scene('we_string', P3, 'Worked example: a guitar string', V.we_string, [
     S("Worked example, covering elements two and four. A guitar string is sixty five centimetres long, and its fundamental "
       "frequency is one hundred and ninety six hertz. Its linear mass density is one point two grams per metre. Find the "
       "wave speed, and the tension.", covers=['W15', 'W16'], elements=[2], exam=['X23-13', 'X25-13'],
-      refs=['ex23q13', 'ex25q13']),
+      refs=['ex23q13', 'ex25q13'],
+      problem='A guitar string 65 cm long has a fundamental of 196 Hz and a linear density of 1.2 g/m. What are the wave speed and the tension?'),
     S("The fundamental wavelength is two L, which is one point three zero metres. So, using v equals lambda f, v is one "
       "ninety six times one point three zero, which is about two hundred and fifty five metres per second.",
       covers=['W15'], elements=[2]),
@@ -618,13 +634,15 @@ Scene('we_string', P3, 'Worked example: a guitar string', V.we_string, [
       "point zero four, which is about one point zero two. The new frequency is about two hundred hertz. Played alongside a "
       "one ninety six hertz tuning fork, you'd hear roughly four beats per second. Using a ratio like this is quicker, and "
       "avoids rounding errors. In reverse, a string that warms up and slackens goes flat, so its frequency is the note "
-      "minus the beat frequency.", covers=['W16', 'W13'], elements=[4], exam=['X23-13', 'X18-14'], refs=['ar18q14']),
+      "minus the beat frequency.", covers=['W16', 'W13'], elements=[4], exam=['X23-13', 'X18-14'], refs=['ar18q14'],
+      problem="If that guitar string's tension rises by 4%, what are its new frequency and the beat frequency with a 196 Hz fork?"),
 ]),
 Scene('linearise', P3, 'Straightening a graph to find mu', V.linearise, [
     S("Element three often asks you to generate new data. A wire zero point six metres long is tested at its fundamental, "
       "with tensions of twenty, forty and eighty newtons. The frequencies are eighty three point three, one hundred and "
       "seventeen point nine, and one hundred and sixty six point seven hertz. Plotted directly, that's a curve.",
-      covers=['W16'], elements=[3], exam=['X20-15']),
+      covers=['W16'], elements=[3], exam=['X20-15'],
+      problem='A 0.60 m wire has fundamental frequencies of 83.3, 117.9 and 166.7 Hz at tensions of 20, 40 and 80 N. What is its linear density?'),
     S("A curve is hard to use, so we straighten it. Combine f equals v over two L with the string speed formula. Squaring "
       "gives f squared equals T, over four L squared mu. So a graph of f squared against T should be a straight line "
       "through the origin. You could also plot f against root T.",
@@ -653,22 +671,26 @@ Scene('pipes', P3, 'Pipes: open, closed and end correction', V.extend(V.pipes, 6
       "is four L, which is zero point eight metres. The speed of sound in air, three hundred and forty four metres per "
       "second, is on your information sheet. So f one is three forty four over zero point eight, which is four hundred and "
       "thirty hertz. The first overtone is the third harmonic, at twelve hundred and ninety hertz. If we open up the closed "
-      "end, the fundamental doubles, to eight hundred and sixty hertz.", covers=['W15d', 'W15'], elements=[2]),
+      "end, the fundamental doubles, to eight hundred and sixty hertz.", covers=['W15d', 'W15'], elements=[2],
+      problem='A pipe 20 cm long is closed at one end. What are its fundamental and first overtone, and its fundamental if opened?'),
     S("A real world prediction. Your ear canal is roughly a pipe about two and a half centimetres long, closed at the "
       "eardrum. Its fundamental is about three hundred and forty four over zero point one, or roughly three thousand four "
       "hundred hertz. Resonance boosts sounds near that frequency, which is why our ears are especially sensitive around "
       "three to four kilohertz. The first overtone, the third harmonic, is near ten kilohertz, which gives a second "
       "sensitive range. Mention both for a full answer. A shorter canal, like a child's, resonates at a higher frequency.",
-      covers=['W15', 'W14'], elements=[4], exam=['X25-17'], refs=['ex25q17', 'ar25q17']),
+      covers=['W15', 'W14'], elements=[4], exam=['X25-17'], refs=['ex25q17', 'ar25q17'],
+      problem='Modelling a 2.5 cm ear canal as a closed pipe, which frequencies should the ear be most sensitive to?'),
     S("For element three, you may have to work out the pipe type from its resonances. Find the spacing between them. Pipe X "
       "resonates at two forty, three twenty and four hundred hertz. The spacing is eighty, so f one is eighty hertz, and "
       "these are harmonics three, four and five. An even harmonic means it's open, so its length is two point one five metres.",
-      refs=['ar20q16'], covers=['W15', 'W15d'], elements=[3], exam=['X20-16', 'X21-14']),
+      refs=['ar20q16'], covers=['W15', 'W15d'], elements=[3], exam=['X20-16', 'X21-14'],
+      problem='A pipe resonates at 240, 320 and 400 Hz. Is it open or closed, and how long is it?'),
     S("Pipe Y resonates at one fifty, two fifty and three fifty hertz. The spacing is one hundred hertz, which is twice f "
       "one, so f one is fifty hertz. These are harmonics three, five and seven, so it's closed, and its length is one point "
       "seven two metres. To justify this, refer to the ends: a node at the closed end and an antinode at the open end let "
       "only odd numbers of quarter wavelengths fit. Just saying odd harmonics only earns part marks.",
-      refs=['ar21q14'], covers=['W15b'], elements=[1, 3], exam=['X21-14', 'X20-16']),
+      refs=['ar21q14'], covers=['W15b'], elements=[1, 3], exam=['X21-14', 'X20-16'],
+      problem='A pipe resonates at 150, 250 and 350 Hz. Is it open or closed, and how long is it?'),
 ]),
 Scene('standing_contexts', P3, 'Standing waves in unfamiliar contexts', V.standing_contexts, [
     S("The same rules apply elsewhere. Around a wine glass rim, a whole number of wavelengths must fit the circumference. In "
@@ -725,7 +747,8 @@ Scene('two_source', P4, 'Two-source interference and path difference', V.two_sou
       "three forty four over six eight six, which is about zero point five zero metres. You stand five metres from speaker "
       "A, and six point two five metres from speaker B. The path difference is one point two five metres, which is two and "
       "a half wavelengths. So you're at a quiet spot. Step to where the path difference is one point five metres, three "
-      "whole wavelengths, and it's loud again.", covers=['W17'], elements=[2]),
+      "whole wavelengths, and it's loud again.", covers=['W17'], elements=[2],
+      problem='Two speakers in phase at 686 Hz are 5.00 m and 6.25 m from you. Is your position loud or quiet?'),
 ]),
 Scene('coherence', P4, 'Getting coherent sources', V.coherence, [
     S("How do we get coherent light? Light from an ordinary lamp first goes through a narrow slit or pinhole, which acts as "
@@ -738,7 +761,8 @@ Scene('antinodal', P4, 'Counting antinodal lines and steering a beam', V.antinod
     S("How many antinodal lines are there? The largest possible path difference is the source separation, d. So with d equal "
       "to zero point nine metres and lambda equal to zero point four metres, n can be at most two point two five. That means "
       "n is zero, plus or minus one, or plus or minus two: five antinodal lines. Draw a sketch to check.",
-      refs=['ar18q17'], covers=['W17', 'W17c'], elements=[2], exam=['X18-17']),
+      refs=['ar18q17'], covers=['W17', 'W17c'], elements=[2], exam=['X18-17'],
+      problem='Two in-phase sources are 0.90 m apart with a wavelength of 0.40 m. How many antinodal lines are there?'),
     S("Radar can steer its beam this way. Delay one source, and the waves are equal in phase away from the centre line. If "
       "one wave has a head start of some distance, sine theta equals that distance over d. Adding more sources makes the "
       "beam narrower and stronger.", refs=['ex18q17'], covers=['W17c'], elements=[4], exam=['X18-17']),
@@ -774,7 +798,8 @@ Scene('youngs', P4, "Young's double slit and fringe width", V.extend(V.youngs, 5
       "slits zero point two five millimetres apart, with a screen two metres away. Using the information sheet formula, w "
       "equals five hundred and thirty two times ten to the minus nine, times two, divided by zero point two five times ten "
       "to the minus three. That's about four point three millimetres. Switch to a red laser, with its longer wavelength, "
-      "and the fringes spread further apart.", covers=['W17'], elements=[2], exam=['X25-14']),
+      "and the fringes spread further apart.", covers=['W17'], elements=[2], exam=['X25-14'],
+      problem='Light of wavelength 532 nm passes through slits 0.25 mm apart onto a screen 2.0 m away. What is the band width?'),
     S("Where are the fringes? The central bright fringe has zero path difference. The n th bright fringe is n band "
       "widths from the centre, where the path difference is n wavelengths. The dark fringes sit halfway between, where the "
       "path difference is a whole number minus a half, times lambda.", covers=['W17'], elements=[1, 3],
@@ -788,7 +813,8 @@ Scene('youngs', P4, "Young's double slit and fringe width", V.extend(V.youngs, 5
       "metres away, loud spots are one point one metres apart. So lambda is w d over x, which is zero point two seven five "
       "metres, and the frequency is about twelve hundred and fifty hertz. Speakers moved closer give a bigger band width. "
       "With two separate generators, you'd likely hear beats instead of a steady pattern.",
-      refs=['ex22q17', 'ar22q17', 'ar24q14', 'ar21q16'], covers=['W17', 'W17d'], elements=[2, 4], exam=['X22-17', 'X21-16']),
+      refs=['ex22q17', 'ar22q17', 'ar24q14', 'ar21q16'], covers=['W17', 'W17d'], elements=[2, 4], exam=['X22-17', 'X21-16'],
+      problem='Speakers 2.0 m apart give loud spots 1.1 m apart at a distance of 8.0 m. What is the frequency of the sound?'),
 ]),
 Scene('diffraction', P4, 'Diffraction', V.diffraction, [
     S("Diffraction is the spreading of a wave as it passes through a gap, or around an obstacle. In this course, it's "
@@ -818,11 +844,13 @@ Scene('diffraction_uses', P4, 'Diffraction: walls, phones and microscopes', V.di
       "metre, so it bends around buildings. At twenty eight gigahertz, the wavelength is about eleven millimetres, so there's "
       "little diffraction, and shadows form behind buildings. That means many small transmitters. Very long radio waves bend "
       "around the Earth's curve, and the ionosphere can reflect them too.",
-      refs=['content', 'ar20q14', 'ex18q18', 'ar18q18'], covers=['W18c'], elements=[1, 4], exam=['X20-14', 'X18-18']),
+      refs=['content', 'ar20q14', 'ex18q18', 'ar18q18'], covers=['W18c'], elements=[1, 4], exam=['X20-14', 'X18-18'],
+      problem='What are the wavelengths of 900 MHz and 28 GHz phone signals, and how do they affect coverage?'),
     S("It also limits microscopes. Diffraction blurs detail about the size of the wavelength. The E M spectrum on your "
       "information sheet shows that visible light runs from about four hundred to seven hundred nanometres, so a one hundred "
       "nanometre virus can't be resolved. A shorter wavelength can do better, such as X rays or an electron beam.",
-      refs=['content', 'info', 'ex22q18'], covers=['W18d'], elements=[1, 4], exam=['X22-18']),
+      refs=['content', 'info', 'ex22q18'], covers=['W18d'], elements=[1, 4], exam=['X22-18'],
+      problem="Why can't a visible-light microscope resolve a 100 nm virus?"),
 ]),
 Scene('polar_string', P4, 'Polarisation with a string', V.polar_string, [
     S("Polarisation starts with mechanical waves. Shake a string in all directions and pass it through a vertical slit. Only "
@@ -846,7 +874,8 @@ Scene('polarisation', P4, 'Polarisation', V.polarisation, [
       "But put a third filter between them at forty five degrees, and some light gets through. The middle filter passes A "
       "cos forty five, about zero point seven one A, now polarised at forty five degrees. The last filter is forty five "
       "degrees from that, so it passes zero point seven one of that again. That's half the original amplitude, and a "
-      "quarter of the intensity.", refs=['ar23q14'], covers=['W19'], elements=[2, 4], exam=['X23-14']),
+      "quarter of the intensity.", refs=['ar23q14'], covers=['W19'], elements=[2, 4], exam=['X23-14'],
+      problem='Three polarising filters are set at 0°, 45° and 90°. What fraction of the amplitude and intensity gets through?'),
     S("Light reflected off water or a road is partly polarised, mostly horizontally. Polarising sunglasses have vertical "
       "transmission axes, so they block much of that glare. Tilt your head ninety degrees, and the glare comes back.",
       covers=['W19c', 'W19d', 'W19'], elements=[4], exam=['X25-16'], refs=['ex25q16']),
@@ -863,7 +892,8 @@ Scene('polar_partial', P4, 'Partial polarisation', V.polar_partial, [
     S("Reflected light is polarised parallel to the surface that reflected it. Water is horizontal, so vertical axis "
       "sunglasses block the glare. A shop window is vertical, so its reflection is vertically polarised, and the sunglasses "
       "let it through. For full marks, state all three: the reflection's direction, the lens axis, and the result.",
-      refs=['ar25q16', 'ar21q15'], covers=['W19d', 'W19e'], elements=[4], exam=['X25-16', 'X21-15']),
+      refs=['ar25q16', 'ar21q15'], covers=['W19d', 'W19e'], elements=[4], exam=['X25-16', 'X21-15'],
+      problem='Do polarising sunglasses reduce reflections from water and from a shop window?'),
     S("Now look at light scattered through ninety degrees, through a rotating polarising filter. Lined up with the scattered "
       "light's polarisation, it's brightest. Rotate ninety degrees, and it's darkest. Rotate a hundred and eighty degrees, "
       "and it's back to the start. Describe what happens along the way, not just at the end.",
@@ -928,6 +958,7 @@ VIDEO = Video(
     refs=REFS, syllabus=SYLLABUS, elements=ELEMENTS, exam_topics=EXAM_TOPICS, scenes=SCENES,
     info_sheet=InfoSheet(ref='info', section='Oscillations, Waves'),
     checks=CHECKS,
+    thumbnail=V.thumbnail,
     allowed_overlaps=['identify and apply general principles of wave motion'],
     keywords=['band width', 'antinodal', 'monochromatic', 'partial polarisation', 'wavelength', 'frequency', 'amplitude', 'period', 'wave speed', 'transverse', 'longitudinal',
               'superposition', 'constructive', 'destructive', 'standing wave', 'node', 'antinode', 'harmonic',

@@ -8,8 +8,9 @@ both in full before starting a new video.
 Audience: students revising for **class tests and other internal assessment, and for the external exam**. Mention the
 exam where relevant, but never present the video as being only for the exam.
 
-**Agents do everything except render the video.** That means sources, spec, visuals, `check`, `preview`, `tts`, `docs`,
-review and commits. **Never run `render` or `all`.** The operator runs the render as the final step (section 12).
+**Agents do everything except generate narration and render the video.** That means sources, spec, visuals, `check`,
+`preview`, `thumbnail`, review and commits. **Never run `tts`, `docs`, `render` or `all`:** speech synthesis is too heavy for the
+development machine. The operator's `render` is the final step (section 12) and produces the narration, video and timed documents.
 
 **Aim for consistency.** Following this file on the same module should give essentially the same video, and on a different
 module or course a video with the same structure, feel and rigour. So follow the defaults in section 3 and the
@@ -47,15 +48,16 @@ bash scripts/get_models.sh                                              # Kokoro
 uv run python -m explainer sources PHY415115                            # download + list source NAMEs
 uv run python -m explainer check   videos/PHY415115/c7_wave_motion.py   # must report 0 errors
 uv run python -m explainer preview videos/PHY415115/c7_wave_motion.py   # frames + contact sheets in out/<id>/preview/
-uv run python -m explainer tts     videos/PHY415115/c7_wave_motion.py   # narration audio (cached)
-uv run python -m explainer docs    videos/PHY415115/c7_wave_motion.py   # all docs + subtitles (needs tts)
+uv run python -m explainer thumbnail videos/PHY415115/c7_wave_motion.py # YouTube thumbnail in out/<id>/
 ```
 
-Operator only, because they make the video:
+Operator only, not on the development machine:
 
 ```
-uv run python -m explainer render  videos/PHY415115/c7_wave_motion.py   # [--burn-subs] [--force]
-uv run python -m explainer all     videos/PHY415115/c7_wave_motion.py   # check -> tts -> render
+uv run python -m explainer render  videos/PHY415115/c7_wave_motion.py   # narration (cached), video, all docs, problem timestamps [--burn-subs] [--force]
+uv run python -m explainer tts     videos/PHY415115/c7_wave_motion.py   # narration audio only
+uv run python -m explainer docs    videos/PHY415115/c7_wave_motion.py   # docs + subtitles from existing narration
+uv run python -m explainer all     videos/PHY415115/c7_wave_motion.py   # check -> render
 ```
 
 Setup notes:
@@ -165,6 +167,8 @@ colours to `style.COURSE_ACCENTS` and `style.MODULE_ACCENTS` if they're new.
    Put every number you say or show into `CHECKS` (`(label, lambda: computed, expected, rel_tol)`), computed from the inputs
    rather than typed in. Well-known real-world facts are fine as contexts, but pick your own numbers.
 
+   Add `problem='...'` to the step where each solved problem starts (section 9).
+
 5. **Write the spec**: refs, coverage, scenes, steps. One step = one narration chunk = one build state of a slide,
    10–30 s each. Tag every step with `refs`, `covers`, `elements`, `exam` as appropriate. Only tag what the step really
    teaches: `coverage.md` trusts these tags.
@@ -186,12 +190,13 @@ colours to `style.COURSE_ACCENTS` and `style.MODULE_ACCENTS` if they're new.
    changed scenes with `--only scene_id ...`, and look again. Partial previews overwrite the low-numbered sheets, so run one
    full preview at the end. Moving a label can push it off the slide with no error, so confirm it's still there.
 
-10. `tts`, then `docs` (not `render`). `tts` is slow: a test took about 2.5 minutes per minute of narration on a many-core
-    machine, so a long video can take hours. Run it in the background and check on it. It caches each step, so re-running
-    it resumes and only redoes changed text. Listen to a sample for mispronounced terms and fix them in `style.PRONUNCIATIONS`. Review
-    `transcript.md`, `coverage.md` (no "NOT COVERED"), `references.md`, `timestamps.txt`, `description.txt` and the subtitles.
+10. **Make the thumbnail.** Write a `thumbnail(fig)` draw function in the visuals file, pass it as `Video(thumbnail=...)`, run
+    the `thumbnail` command, and open the PNG. See section 7 for what it should look like.
 
-11. **Commit and hand over** (section 12).
+11. Review the `check` output and narration text as your final proofread. Fix likely mispronunciations in
+    `style.PRONUNCIATIONS` in advance. The operator's render generates the narration and all timed documents.
+
+12. **Commit and hand over** (section 12).
 
 ---
 
@@ -305,6 +310,11 @@ The narration is read by a TTS model, so write what should be *heard*:
   must complete a whole number of cycles as `ph` goes 0→1 (use `TAU * n * ph` with integer `n`). Keep periods short
   (1–6 s) because each frame costs ~0.1–0.3 s. Phase continues across consecutive animated steps of a scene.
 * Every animated or dense slide: check it in preview.
+* **Thumbnail:** base it on the title card, with the same dark background, accent colours and signature graphic. It has to
+  read at phone size, so use only the criterion number, a short topic name of one to three words (not the full criterion
+  title) and the course, in very large type: about 150 pt for the topic and at least 58 pt for the rest. Share the graphic with the
+  title card through a helper (`_title_waves` in `c7_visuals.py`) and choose a graphic that suits the subject. The
+  engine adds the AI notice and saves a 1280×720 PNG. Don't add question text or anything from exam papers.
 * Reusable patterns in `c7_visuals.py` (copy them into a new visuals file; keep draw functions per scene):
   * `extend(base, n, *extras)` adds steps after a finished scene without rewriting its `if s == …` logic.
   * `title_card` and `overview` split one draw function between the `title` and `intro` scenes; `summary` does the same for tips.
@@ -329,7 +339,7 @@ The narration is read by a TTS model, so write what should be *heard*:
 
 ## 9. Outputs (out/<video id>/)
 
-`docs` produces everything below except the two mp4 files, which only the operator's `render` makes.
+The operator's `render` produces everything below. `docs` produces all but the mp4 files from existing narration. Agents make only the thumbnail.
 
 | file | use |
 |---|---|
@@ -337,11 +347,27 @@ The narration is read by a TTS model, so write what should be *heard*:
 | `<id>_subtitled.mp4` | optional burnt-in styled subtitles (`--burn-subs`, needs ffmpeg with libass) |
 | `<id>.srv3` | **styled YouTube subtitles** (colours, background, highlighted key terms). YouTube Studio → Subtitles → Upload file → *With timing* |
 | `<id>.srt`, `<id>.vtt` | plain subtitles for other platforms |
+| `<id>_thumbnail.png` | YouTube thumbnail (1280×720, under 2 MB). YouTube Studio → Details → Thumbnail |
+| `problems.txt` | One line per solved problem: start time, then the question. Also added to `description.txt` |
 | `timestamps.txt` | YouTube chapters (first is 0:00, each ≥ 10 s). Paste into the description |
 | `description.txt` | ready-to-paste YouTube description: intro, AI notice, chapters, numbered references |
 | `references.md` | full numbered reference list with attribution, licence, page and where each is shown |
 | `coverage.md` | syllabus / element / exam-topic → timestamps (review for gaps; it reflects step tags, not teaching quality) |
 | `transcript.md` | timestamped narration for proofreading |
+
+**Problem index.** Learners use this to find the explanation of a problem, so it's built from `Step.problem`:
+
+```
+0:32 What is the top speed of a 2 kg ball dropped from 10 m?
+1:22 Calculate the distance travelled by an ice skater travelling at 2.0 m/s for 3.5 seconds.
+```
+
+Tag **every** problem the video works through: every worked example, plus qualitative problems such as a reasoned prediction.
+Don't tag plain teaching. Tag only the step where the explanation starts; for a problem with separate later parts, tag each part
+that a learner might look for on its own. Each must be one self-contained line that makes sense without the slide: give
+the numbers and ask the question. Use digits and symbols, as written questions do. Questions must be your own original ones,
+never text from a paper. Times come from the narration audio, so never type them yourself: the operator's `render` writes
+`problems.txt` and adds the list to `description.txt`.
 
 Highlighted subtitle terms come from `Video.keywords` (course accent), plus built-in patterns: "information sheet",
 "Element N", exam/test words (module accent) and warnings (pink). Patterns are in `subtitles.BASE_PATTERNS`.
@@ -386,7 +412,9 @@ Highlighted subtitle terms come from `Video.keywords` (course accent), plus buil
 - [ ] Information-sheet formulas use `sheet_eq` with the sheet's notation, and the narration names the sheet section
 - [ ] Narration addresses tests *and* the exam; elements referred to by number
 - [ ] Full preview reviewed: no overlaps or clipping, and diagrams are correct
-- [ ] `tts` and `docs` run; `coverage.md` has no gaps; transcript, subtitles, timestamps, references and description reviewed
+- [ ] Every solved problem has a `Step.problem`
+- [ ] Thumbnail made from the title card's look, and viewed to confirm it's legible when small
+- [ ] Narration proofread in the spec; `tts`, `docs` and `render` **not** run
 - [ ] Duration close to the 15–45 min goal (not a hard limit)
 - [ ] Committed on a branch. **Not rendered**: that's the operator's step
 
@@ -395,10 +423,10 @@ Highlighted subtitle terms come from `Video.keywords` (course accent), plus buil
 ## 12. Handing over
 
 Stop before rendering. In your final report, give:
-* the video's spec path and id, and any module mapping you assumed;
-* the `check` result and the duration, from the narration audio if `tts` ran, otherwise marked as an estimate;
-* anything you couldn't do or verify (e.g. a source that wouldn't download, or `tts` not run because the model wasn't available);
+* the video's spec path and id, the thumbnail path, and any module mapping you assumed;
+* the `check` result and the estimated duration, marked as an estimate;
+* anything you couldn't do or verify (e.g. a source that wouldn't download);
 * the command for the operator: `uv run python -m explainer render videos/<COURSE>/<spec>.py`, and whether it needs `--force`.
 
-After rendering, the operator watches a few minutes at several points and publishes the mp4 with the docs. If they report
+After rendering, the operator checks `coverage.md`, `problems.txt` and the other timed documents, watches a few minutes at several points and publishes the mp4 with the docs. If they report
 a problem, fix the spec and hand back the same way.

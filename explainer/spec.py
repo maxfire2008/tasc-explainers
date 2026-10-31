@@ -27,6 +27,7 @@ class Step:
     exam: list = field(default_factory=list)        # keys of Video.exam_topics addressed here
     anim: Optional[float] = None                    # loop period in seconds -> animated step; None = still
     min_dur: float = 0.0                            # minimum on-screen time (s)
+    problem: str = ''                               # the question whose explanation starts at this step (for problems.txt)
 
 
 @dataclass
@@ -62,6 +63,7 @@ class Video:
     allowed_overlaps: list = field(default_factory=list)  # phrases the copyright checker ignores
     description: str = ''         # YouTube description intro (timestamps + refs are appended)
     keywords: list = field(default_factory=list)  # key terms highlighted in styled subtitles
+    thumbnail: Optional[Callable] = None  # draw(fig): YouTube thumbnail, based on the title card
 
     @property
     def course_label(self):

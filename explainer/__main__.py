@@ -4,9 +4,10 @@ commands
   sources  download/cache every URL in content.csv and list source NAMES  (--refresh to re-download)
   check    validate coverage, references, copyright overlap, info-sheet mentions, numeric checks
   preview  draw one frame per step + contact sheets into out/<id>/preview/   (--only scene_id ...)
+  thumbnail  draw the YouTube thumbnail into out/<id>/
   tts      synthesise narration (cached)
   docs     timestamps, references, coverage, transcript, description, subtitles (needs tts)
-  render   full video + all docs + subtitles  (--force re-renders cached clips, --burn-subs)
+  render   narration (cached) + full video + all docs, problem timestamps, subtitles + thumbnail  (--force re-renders cached clips, --burn-subs)
   all      check (must pass) -> tts -> render
 """
 import argparse
@@ -18,7 +19,7 @@ from .spec import load
 
 def main():
     ap = argparse.ArgumentParser(prog='python -m explainer')
-    ap.add_argument('command', choices=['sources', 'check', 'preview', 'tts', 'docs', 'render', 'all'])
+    ap.add_argument('command', choices=['sources', 'check', 'preview', 'thumbnail', 'tts', 'docs', 'render', 'all'])
     ap.add_argument('spec', help='spec file (or, for `sources`, a spec file or a course code)')
     ap.add_argument('--refresh', action='store_true', help='sources: re-download even if cached')
     ap.add_argument('--only', nargs='*', help='preview: only these scene ids')
@@ -38,6 +39,8 @@ def main():
         sys.exit(1 if errs else 0)
     if a.command == 'preview':
         P.preview(v, a.only)
+    elif a.command == 'thumbnail':
+        P.make_thumbnail(v)
     elif a.command == 'tts':
         P.make_tts(v)
     elif a.command == 'docs':
@@ -48,7 +51,6 @@ def main():
         errs, _ = P.check(v, a.allow_missing_sources, not a.no_copyright_scan)
         if errs:
             sys.exit('check failed: fix the errors above before rendering')
-        P.make_tts(v)
         P.render(v, a.force, a.burn_subs)
 
 

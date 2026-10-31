@@ -20,6 +20,23 @@ def C():
 
 
 # ============================================================================ overview
+def _title_waves(fig, rect, ph, scale=1):
+    C1, C2 = C()
+    ax = wax(fig, rect, (0, 10), (-1.6, 1.6))
+    x = np.linspace(0, 10, 900)
+    for c, a, k, n, lw in [(C1, 1.0, TAU / 5, 1, 4), (PINK, 0.55, TAU / 2.5, 2, 3), (C2, 0.3, TAU / 1.25, 4, 2.5)]:
+        ax.plot(x, a * np.sin(k * x - TAU * n * ph), color=c, lw=lw * scale, alpha=0.9)
+
+
+def thumbnail(fig):
+    """The title card's look, with fewer and larger words so it reads at small sizes."""
+    C1, C2 = C()
+    fig.text(0.5, 0.86, 'CRITERION 7', ha='center', va='center', color=C1, fontsize=64, weight='bold')
+    fig.text(0.5, 0.63, 'Wave motion', ha='center', va='center', color=FG, fontsize=150, weight='bold')
+    fig.text(0.5, 0.43, 'TASC Physics revision', ha='center', va='center', color=SOFT, fontsize=58)
+    _title_waves(fig, [0, 0.07, 1, 0.28], 0.15, scale=2.5)
+
+
 def title_card(fig, s, ph):
     intro(fig, 0, ph)
 
@@ -36,10 +53,7 @@ def intro(fig, s, ph):
                  color=FG, fontsize=66, weight='bold', linespacing=1.15)
         fig.text(0.5, 0.445, 'TASC Physics  PHY415115   ·   revision for class tests and the exam', ha='center',
                  color=SOFT, fontsize=26)
-        ax = wax(fig, [0, 0.06, 1, 0.28], (0, 10), (-1.6, 1.6))
-        x = np.linspace(0, 10, 900)
-        for c, a, k, n, lw in [(C1, 1.0, TAU / 5, 1, 4), (PINK, 0.55, TAU / 2.5, 2, 3), (C2, 0.3, TAU / 1.25, 4, 2.5)]:
-            ax.plot(x, a * np.sin(k * x - TAU * n * ph), color=c, lw=lw, alpha=0.9)
+        _title_waves(fig, [0, 0.06, 1, 0.28], ph)
         return
     if s == 1:
         header(fig, 'How Criterion 7 is assessed')
