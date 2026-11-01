@@ -66,13 +66,27 @@ def _title_art(fig, rect, ph, scale=1):
         ax.plot(x, a * env * np.sin(TAU * m * (x / 10 - ph)), color=c, lw=lw * scale, alpha=0.95)
 
 
-def thumbnail(fig):
-    """The title card's look, with fewer and larger words so it reads at small sizes."""
+def _thumb_atom(fig, rect):
+    """A large atom, so the thumbnail can't be mistaken for Criterion 7's waves."""
     C1, C2 = C()
-    fig.text(0.5, 0.86, 'CRITERION 8', ha='center', va='center', color=C1, fontsize=64, weight='bold')
-    fig.text(0.5, 0.63, 'Quantum & nuclear', ha='center', va='center', color=FG, fontsize=130, weight='bold')
-    fig.text(0.5, 0.43, 'TASC Physics revision', ha='center', va='center', color=SOFT, fontsize=58)
-    _title_art(fig, [0, 0.07, 1, 0.28], 0.15, scale=2.5)
+    ax = wax(fig, rect, (-1.1, 1.1), (-1.1, 1.1))
+    ax.set_aspect('equal')
+    for ang, t_ in [(0, 0.6), (60, 3.5), (120, 5.2)]:
+        ax.add_patch(Ellipse((0, 0), 2.0, 0.72, angle=ang, fill=False, ec=C1, lw=6))
+        r = np.radians(ang); ex, ey = np.cos(t_), 0.36 * np.sin(t_)
+        ax.scatter([ex * np.cos(r) - ey * np.sin(r)], [ex * np.sin(r) + ey * np.cos(r)], s=1500, color=YELLOW, edgecolor=BG, linewidth=4, zorder=5)
+    for x, y, c in [(-0.13, 0.11, PINK), (0.13, 0.13, C1), (0, -0.14, PINK), (-0.17, -0.1, C1), (0.17, -0.09, PINK), (0, 0.02, C1)]:
+        ax.scatter([x], [y], s=2600, color=c, edgecolor=BG, linewidth=4, zorder=6)
+
+
+def thumbnail(fig):
+    """The title card's colours, with fewer and larger words so it reads at small sizes."""
+    C1, C2 = C()
+    fig.text(0.04, 0.87, 'CRITERION 8', ha='left', va='center', color=C1, fontsize=64, weight='bold')
+    fig.text(0.04, 0.65, 'Quantum', ha='left', va='center', color=FG, fontsize=150, weight='bold')
+    fig.text(0.04, 0.42, '& nuclear', ha='left', va='center', color=FG, fontsize=150, weight='bold')
+    fig.text(0.04, 0.22, 'TASC Physics revision', ha='left', va='center', color=SOFT, fontsize=58)
+    _thumb_atom(fig, [0.57, 0.19, 0.42, 0.7467])
 
 
 def title_card(fig, s, ph):
