@@ -34,6 +34,9 @@ ENCODERS = {  # name -> ffmpeg options for about the same quality; the hardware 
     'hevc_qsv': ['-preset', 'veryfast', '-global_quality', _CRF, '-tag:v', 'hvc1'],
     'h264_amf': ['-quality', 'quality', '-rc', 'cqp', '-qp_i', _CRF, '-qp_p', _CRF],
     'hevc_amf': ['-quality', 'quality', '-rc', 'cqp', '-qp_i', _CRF, '-qp_p', _CRF, '-tag:v', 'hvc1'],
+    # Windows Media Foundation: hardware only, as its software encoder is worse than libx264. quality is 0-100, not crf.
+    'h264_mf': ['-hw_encoding', '1', '-rate_control', 'quality', '-quality', '75'],
+    'hevc_mf': ['-hw_encoding', '1', '-rate_control', 'quality', '-quality', '75', '-tag:v', 'hvc1'],
 }
 NUMWORDS = {w: i for i, w in enumerate('zero one two three four five six seven eight nine ten eleven twelve'.split())}
 
@@ -449,7 +452,8 @@ def render(v, force=False, burn_subs=False):
     tl = timeline(v)
     cd = out_dir(v, 'clips')
     codec = _codec_args()
-    enc = codec + ['-pix_fmt', 'yuv420p', '-r', str(FPS), '-g', str(S.VIDEO['gop']), '-video_track_timescale', '15360']
+    pix_fmt = 'nv12' if ENCODER.endswith(('_mf', '_qsv')) else 'yuv420p'  # hardware encoders may only take nv12
+    enc = codec + ['-pix_fmt', pix_fmt, '-r', str(FPS), '-g', str(S.VIDEO['gop']), '-video_track_timescale', '15360']
     W, H = S.VIDEO['width'] * L.ctx['scale'], S.VIDEO['height'] * L.ctx['scale']
     counter, prev_scene, clips = 0, None, []
     for n, it in enumerate(tl):
