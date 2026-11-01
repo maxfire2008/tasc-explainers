@@ -56,24 +56,14 @@ def _sf(fig, x, y, s):
 
 
 # ============================================================================ overview
-def _title_art(fig, rect, ph, scale=1):
-    """Wave packets: a photon is both a wave and a particle."""
-    C1, C2 = C()
-    ax = wax(fig, rect, (0, 10), (-1.5, 1.5))
-    x = np.linspace(0, 10, 1400)
-    for c, a, off, m, lw in [(C1, 1.25, 0.0, 22, 4), (PINK, 0.8, 0.36, 36, 3), (C2, 0.5, 0.68, 58, 2.5)]:
-        env = np.exp(7 * (np.cos(TAU * (x / 10 - ph - off)) - 1))
-        ax.plot(x, a * env * np.sin(TAU * m * (x / 10 - ph)), color=c, lw=lw * scale, alpha=0.95)
-
-
-def _thumb_atom(fig, rect):
-    """A large atom, so the thumbnail can't be mistaken for Criterion 7's waves."""
+def _title_atom(fig, rect, ph=0):
+    """The title card and thumbnail graphic: a large atom, so they can't be mistaken for Criterion 7's waves."""
     C1, C2 = C()
     ax = wax(fig, rect, (-1.1, 1.1), (-1.1, 1.1))
     ax.set_aspect('equal')
     for ang, t_ in [(0, 0.6), (60, 3.5), (120, 5.2)]:
         ax.add_patch(Ellipse((0, 0), 2.0, 0.72, angle=ang, fill=False, ec=C1, lw=6))
-        r = np.radians(ang); ex, ey = np.cos(t_), 0.36 * np.sin(t_)
+        r = np.radians(ang); ex, ey = np.cos(t_ + TAU * ph), 0.36 * np.sin(t_ + TAU * ph)
         ax.scatter([ex * np.cos(r) - ey * np.sin(r)], [ex * np.sin(r) + ey * np.cos(r)], s=1500, color=YELLOW, edgecolor=BG, linewidth=4, zorder=5)
     for x, y, c in [(-0.13, 0.11, PINK), (0.13, 0.13, C1), (0, -0.14, PINK), (-0.17, -0.1, C1), (0.17, -0.09, PINK), (0, 0.02, C1)]:
         ax.scatter([x], [y], s=2600, color=c, edgecolor=BG, linewidth=4, zorder=6)
@@ -86,7 +76,7 @@ def thumbnail(fig):
     fig.text(0.04, 0.65, 'Quantum', ha='left', va='center', color=FG, fontsize=150, weight='bold')
     fig.text(0.04, 0.42, '& nuclear', ha='left', va='center', color=FG, fontsize=150, weight='bold')
     fig.text(0.04, 0.22, 'TASC Physics revision', ha='left', va='center', color=SOFT, fontsize=58)
-    _thumb_atom(fig, [0.57, 0.19, 0.42, 0.7467])
+    _title_atom(fig, [0.57, 0.19, 0.42, 0.7467])
 
 
 def title_card(fig, s, ph):
@@ -100,12 +90,12 @@ def overview(fig, s, ph):
 def intro(fig, s, ph):
     C1, C2 = C()
     if s == 0:
-        fig.text(0.5, 0.76, 'CRITERION 8', ha='center', color=C1, fontsize=30, weight='bold')
-        fig.text(0.5, 0.60, 'Wave-particle nature of light,\natomic and nuclear physics', ha='center', va='center',
-                 color=FG, fontsize=62, weight='bold', linespacing=1.15)
-        fig.text(0.5, 0.445, 'TASC Physics  PHY415115   ·   revision for class tests and the exam', ha='center',
-                 color=SOFT, fontsize=26)
-        _title_art(fig, [0, 0.06, 1, 0.28], ph)
+        fig.text(0.04, 0.76, 'CRITERION 8', ha='left', va='center', color=C1, fontsize=40, weight='bold')
+        fig.text(0.04, 0.53, 'Wave-particle nature\nof light, atomic and\nnuclear physics', ha='left', va='center',
+                 color=FG, fontsize=58, weight='bold', linespacing=1.15)
+        fig.text(0.04, 0.27, 'TASC Physics  PHY415115\nRevision for class tests and the exam', ha='left', va='center',
+                 color=SOFT, fontsize=26, linespacing=1.4)
+        _title_atom(fig, [0.57, 0.14, 0.42, 0.7467], ph)
         return
     if s == 1:
         header(fig, 'How Criterion 8 is assessed')
