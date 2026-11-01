@@ -61,6 +61,9 @@ uv run python -m explainer docs    videos/PHY415115/c7_wave_motion.py   # docs +
 uv run python -m explainer all     videos/PHY415115/c7_wave_motion.py   # check -> render
 ```
 
+The operator can pick the ffmpeg program and video encoder with `FFMPEG` and `ENCODER` at the top of `explainer/pipeline.py`, or per
+machine, e.g. in WSL: `EXPLAINER_FFMPEG=ffmpeg.exe EXPLAINER_ENCODER=h264_nvenc uv run python -m explainer render ...`.
+
 Setup notes:
 * Install uv if it's missing: `curl -LsSf https://astral.sh/uv/install.sh | sh`. Add a dependency with `uv add <package>`
   and commit `pyproject.toml` and `uv.lock` together. For a one-off tool, use `uv run --with <package> ...`.
@@ -435,7 +438,7 @@ Highlighted subtitle terms come from `Video.keywords` (course accent), plus buil
 * `preview` draws animated steps at phase 0.3, so check that mid-animation frames look right too.
 * Kokoro sometimes mispronounces jargon. Fix it with `style.PRONUNCIATIONS`, then re-run `tts` (only changed steps
   regenerate).
-* All clips must share encoder settings (they do via `style.VIDEO`) because they are joined with `-c copy`.
+* All clips must share encoder settings (they do via `style.VIDEO` and `pipeline.ENCODERS`, and a non-default encoder is in the clip cache key) because they are joined with `-c copy`.
 * A scene drawn through `extend()` hashes `extend`'s source, not the base function's. If that video was already rendered,
   tell the operator to use `render --force` after those draw functions change.
 * The copyright checker reads on-screen text too, so a run of graph tick labels can falsely match a paper's numbers. Set

@@ -5,9 +5,11 @@ import json
 import math
 import os
 import re
+import shutil
 import subprocess
 import sys
 import warnings
+from functools import lru_cache
 
 import numpy as np
 
@@ -17,6 +19,22 @@ from .spec import load
 warnings.filterwarnings('ignore')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FPS = S.VIDEO['fps']
+
+# ffmpeg program and video encoder for `render`. Set them here, or per machine with the environment variables.
+# Use FFMPEG='ffmpeg.exe' in WSL to run the Windows ffmpeg, which can reach the GPU; paths are converted with wslpath.
+FFMPEG = os.environ.get('EXPLAINER_FFMPEG', 'ffmpeg')
+ENCODER = os.environ.get('EXPLAINER_ENCODER', 'libx264')
+_CRF = str(S.VIDEO['crf'])
+ENCODERS = {  # name -> ffmpeg options for about the same quality; the hardware ones give larger files
+    'libx264': ['-preset', S.VIDEO['preset'], '-crf', _CRF],
+    'libx265': ['-preset', S.VIDEO['preset'], '-crf', _CRF, '-tag:v', 'hvc1'],
+    'h264_nvenc': ['-preset', 'p5', '-rc', 'vbr', '-cq', _CRF, '-b:v', '0'],
+    'hevc_nvenc': ['-preset', 'p5', '-rc', 'vbr', '-cq', _CRF, '-b:v', '0', '-tag:v', 'hvc1'],
+    'h264_qsv': ['-preset', 'veryfast', '-global_quality', _CRF],
+    'hevc_qsv': ['-preset', 'veryfast', '-global_quality', _CRF, '-tag:v', 'hvc1'],
+    'h264_amf': ['-quality', 'quality', '-rc', 'cqp', '-qp_i', _CRF, '-qp_p', _CRF],
+    'hevc_amf': ['-quality', 'quality', '-rc', 'cqp', '-qp_i', _CRF, '-qp_p', _CRF, '-tag:v', 'hvc1'],
+}
 NUMWORDS = {w: i for i, w in enumerate('zero one two three four five six seven eight nine ten eleven twelve'.split())}
 
 
@@ -24,6 +42,31 @@ def out_dir(v, *p):
     d = os.path.join(ROOT, 'out', v.id, *p)
     os.makedirs(d if not os.path.splitext(d)[1] else os.path.dirname(d), exist_ok=True)
     return d
+
+
+# ----------------------------------------------------------------------------- ffmpeg
+def _codec_args():
+    if ENCODER not in ENCODERS:
+        raise SystemExit(f'unknown encoder {ENCODER!r}: use one of {", ".join(ENCODERS)}')
+    return ['-c:v', ENCODER] + ENCODERS[ENCODER]
+
+
+@lru_cache(maxsize=None)
+def _wsl_dir(d):
+    return subprocess.run(['wslpath', '-m', d], check=True, capture_output=True, text=True).stdout.strip()
+
+
+def _ff_path(p):
+    """A path as FFMPEG needs it: ffmpeg.exe under WSL takes Windows paths. p's folder must exist, its file need not."""
+    if not FFMPEG.lower().endswith('.exe') or not shutil.which('wslpath'):
+        return p
+    d, name = os.path.split(p)
+    return _wsl_dir(d) + '/' + name
+
+
+def _filter_path(p):
+    """A path as a filter option, where the colon in C:/... would otherwise end the value."""
+    return "'" + _ff_path(p).replace(':', r'\:') + "'"
 
 
 # ----------------------------------------------------------------------------- drawing
@@ -388,7 +431,9 @@ def _clip_key(v, sc, it, offset, N):
     blob = json.dumps([src, it['i'], it['nfr'], it['step'].anim, offset % N if N else 0,
                        str(S.theme(v.course, v.module)), ref_numbers(v, sc, it['i']), v.course_label,
                        repr(getattr(v, 'credit_lines', '')) if sc.id == builtin.CREDITS_ID else '',
-                       open(S.__file__).read(), open(L.__file__).read()])
+                       open(S.__file__).read(), open(L.__file__).read()]
+                      # clips are joined with -c copy, so they must not mix encoders; libx264 keeps existing caches valid
+                      + ([] if ENCODER == 'libx264' else [_codec_args()]))
     return hashlib.sha1(blob.encode()).hexdigest()[:16]
 
 
@@ -403,8 +448,8 @@ def render(v, force=False, burn_subs=False):
     v.credit_lines = credit_lines(v)
     tl = timeline(v)
     cd = out_dir(v, 'clips')
-    enc = ['-c:v', 'libx264', '-preset', S.VIDEO['preset'], '-crf', str(S.VIDEO['crf']), '-pix_fmt', 'yuv420p',
-           '-r', str(FPS), '-g', str(S.VIDEO['gop']), '-video_track_timescale', '15360']
+    codec = _codec_args()
+    enc = codec + ['-pix_fmt', 'yuv420p', '-r', str(FPS), '-g', str(S.VIDEO['gop']), '-video_track_timescale', '15360']
     W, H = S.VIDEO['width'] * L.ctx['scale'], S.VIDEO['height'] * L.ctx['scale']
     counter, prev_scene, clips = 0, None, []
     for n, it in enumerate(tl):
@@ -421,13 +466,13 @@ def render(v, force=False, burn_subs=False):
         if not N:
             png = os.path.join(cd, '_still.png')
             Image.fromarray(draw(v, sc, i, 0.0, refs)[0]).save(png)
-            r = subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', png, '-vf',
-                                f'format=yuv420p,loop=-1:1,trim=end_frame={it["nfr"]}'] + enc + [tmp])
+            r = subprocess.run([FFMPEG, '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', _ff_path(png), '-vf',
+                                f'format=yuv420p,loop=-1:1,trim=end_frame={it["nfr"]}'] + enc + [_ff_path(tmp)])
             rc = r.returncode
         else:
             frames = [draw(v, sc, i, j / N, refs)[0] for j in range(N)]
-            p = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s',
-                                  f'{W}x{H}', '-r', str(FPS), '-i', '-'] + enc + [tmp], stdin=subprocess.PIPE)
+            p = subprocess.Popen([FFMPEG, '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s',
+                                  f'{W}x{H}', '-r', str(FPS), '-i', '-'] + enc + [_ff_path(tmp)], stdin=subprocess.PIPE)
             for f in range(it['nfr']):
                 p.stdin.write(frames[(counter + f) % N].tobytes())
             p.stdin.close(); rc = p.wait()
@@ -450,20 +495,20 @@ def render(v, force=False, burn_subs=False):
     od = out_dir(v)
     wav = os.path.join(od, 'narration.wav'); sf.write(wav, audio, sr)
     lst = os.path.join(od, 'concat.txt')
-    open(lst, 'w').write(''.join(f"file '{c}'\n" for c in clips))
+    open(lst, 'w').write(''.join(f"file '{_ff_path(c)}'\n" for c in clips))
     vid = os.path.join(od, 'video_only.mp4')
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', vid],
-                   check=True)
+    subprocess.run([FFMPEG, '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', _ff_path(lst), '-c', 'copy',
+                    _ff_path(vid)], check=True)
     final = os.path.join(od, v.id + '.mp4'); tmp = final[:-4] + '.tmp.mp4'
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', vid, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v',
+    subprocess.run([FFMPEG, '-y', '-loglevel', 'error', '-i', _ff_path(vid), '-i', _ff_path(wav), '-map', '0:v', '-map', '1:a', '-c:v',
                     'copy', '-c:a', 'aac', '-b:a', S.VIDEO['audio_bitrate'], '-movflags', '+faststart', '-shortest',
-                    tmp], check=True)
+                    _ff_path(tmp)], check=True)
     os.replace(tmp, final)
     write_docs(v, tl)
     if burn_subs:
         ass = os.path.join(od, v.id + '.ass'); bs = os.path.join(od, v.id + '_subtitled.mp4')
-        r = subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', final, '-vf', f'ass={ass}', '-c:a', 'copy']
-                           + enc[:6] + [bs + '.tmp.mp4'])
+        r = subprocess.run([FFMPEG, '-y', '-loglevel', 'error', '-i', _ff_path(final), '-vf', f'ass={_filter_path(ass)}',
+                            '-c:a', 'copy'] + codec + [_ff_path(bs + '.tmp.mp4')])
         if r.returncode == 0:
             os.replace(bs + '.tmp.mp4', bs); print('burnt-in subtitles:', bs)
         else:
