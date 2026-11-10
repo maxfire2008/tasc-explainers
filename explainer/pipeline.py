@@ -478,11 +478,16 @@ def render(v, force=False, burn_subs=False):
                                 f'format=yuv420p,loop=-1:1,trim=end_frame={it["nfr"]}'] + enc + [_ff_path(tmp)])
             rc = r.returncode
         else:
-            frames = [draw(v, sc, i, j / N, refs)[0] for j in range(N)]
+            import io
+            frames = []                      # one loop of PNG-compressed frames, so a long loop does not exhaust memory
+            for j in range(N):
+                buf = io.BytesIO()
+                Image.fromarray(draw(v, sc, i, j / N, refs)[0]).save(buf, 'PNG', compress_level=1)
+                frames.append(buf.getvalue())
             p = subprocess.Popen([FFMPEG, '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s',
                                   f'{W}x{H}', '-r', str(FPS), '-i', '-'] + enc + [_ff_path(tmp)], stdin=subprocess.PIPE)
             for f in range(it['nfr']):
-                p.stdin.write(frames[(counter + f) % N].tobytes())
+                p.stdin.write(np.asarray(Image.open(io.BytesIO(frames[(counter + f) % N])).convert('RGB')).tobytes())
             p.stdin.close(); rc = p.wait()
         if rc != 0:
             raise SystemExit(f'ffmpeg failed on {sc.id}[{i}]')
