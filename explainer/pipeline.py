@@ -446,7 +446,7 @@ def render(v, force=False, burn_subs=False):
     from PIL import Image
     make_tts(v)
     make_thumbnail(v)
-    L.ctx['scale'] = S.VIDEO['render_scale']
+    L.ctx['scale'] = v.render_scale or S.VIDEO['render_scale']
     analyse(v); setup(v)
     v.credit_lines = credit_lines(v)
     tl = timeline(v)

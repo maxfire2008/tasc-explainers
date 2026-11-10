@@ -64,6 +64,7 @@ class Video:
     description: str = ''         # YouTube description intro (timestamps + refs are appended)
     keywords: list = field(default_factory=list)  # key terms highlighted in styled subtitles
     thumbnail: Optional[Callable] = None  # draw(fig): YouTube thumbnail, based on the title card
+    render_scale: Optional[int] = None    # overrides style.VIDEO['render_scale'] for this video (1 -> 1920x1080)
 
     @property
     def course_label(self):

@@ -214,3 +214,56 @@ def texts(fig):
         if s and t.get_visible():
             out.append(s)
     return out
+
+
+# ----------------------------------------------------------------------------- media and quotations (English videos)
+_IMG = {}
+
+
+def still(fig, path, rect, caption='', credit='', ec=None, lw=3):
+    """A freeze frame / page image from `path` inside rect = [x, y, w, h] (figure fractions), with an optional caption
+    below and a small muted source line.  The image keeps its own aspect ratio, centred in the rect.
+    Missing files draw a labelled placeholder instead of crashing, so previews work before frames are extracted."""
+    from PIL import Image
+    import os
+    x, y, w, h = rect
+    ax = fig.add_axes(rect)
+    ax.axis('off')
+    if path not in _IMG:
+        _IMG[path] = np.asarray(Image.open(path).convert('RGB')) if os.path.exists(path) else None
+    im = _IMG[path]
+    if im is None:
+        ax.set_facecolor(PANEL); ax.patch.set_alpha(1)
+        ax.text(0.5, 0.5, 'missing frame\n' + os.path.basename(path), ha='center', va='center', color=PINK, fontsize=16,
+                transform=ax.transAxes)
+    else:
+        ax.imshow(im, aspect='equal')
+        ax.set_anchor('C')
+        for sp in ax.spines.values():
+            sp.set_visible(True); sp.set_color(ec or A2()); sp.set_linewidth(lw)
+    if caption:
+        fig.text(x + w / 2, y - 0.012, caption, color=SOFT, fontsize=18, ha='center', va='top', linespacing=1.25)
+    if credit:
+        fig.text(x + w - 0.004, y + 0.008, credit, color=MUT, fontsize=13, ha='right', va='bottom', alpha=0.9)
+    return ax
+
+
+def quote(fig, x, y, w, text, who='', size=30, color=None, bar=None):
+    """A pull-quote: coloured bar at the left, italic text (wrap with \\n yourself), attribution under it in muted text.
+    (x, y) = top-left.  Returns the y under the attribution."""
+    lines = text.count('\n') + 1
+    h = frac(size) * lines
+    fig.add_artist(plt.Rectangle((x, y - h - (frac(18) if who else 0) - 0.004), 0.006, h + (frac(18) if who else 0) + 0.004,
+                                 transform=fig.transFigure, fc=bar or A2(), ec='none'))
+    fig.text(x + 0.018, y, text, color=color or FG, fontsize=size, style='italic', va='top', linespacing=1.3)
+    y -= h + 0.006
+    if who:
+        fig.text(x + 0.018, y, who, color=MUT, fontsize=18, va='top')
+        y -= frac(18)
+    return y - 0.012
+
+
+def tag(fig, x, y, s, color=None, size=18):
+    """Small coloured label (not a chip: place it anywhere), e.g. a code or convention name."""
+    fig.text(x, y, s, fontsize=size, color=BG, ha='left', va='center', weight='bold',
+             bbox=dict(boxstyle='round,pad=0.3', fc=color or A1(), ec='none'))
