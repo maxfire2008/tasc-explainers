@@ -412,10 +412,14 @@ def credit_lines(v):
             files.append(f)
     att = [corpus.table[f][1] for f in files if f in corpus.table and corpus.table[f][0] == 'attribution'
            and corpus.table[f][1]]
-    other = [f for f in files if corpus.table.get(f, ('',))[0] in ('quotes', 'copyrighted')]
+    other = [f for f in files if corpus.table.get(f, ('',))[0] == 'copyrighted']
+    quoted = [corpus.table[f][1] or f for f in files if corpus.table.get(f, ('',))[0] == 'quotes']
     import textwrap
     lines = [('Course content adapted from (used under a ' + S.ATTRIBUTION_LICENCE + '):', L.SOFT, 22)]
     lines += [(textwrap.fill(a, 95), L.FG, 22) for a in dict.fromkeys(att)] or [('(see references.md)', L.FG, 22)]
+    if quoted:
+        lines += [('Short quotations and freeze frames, shown for study and criticism:', L.SOFT, 22)]
+        lines += [(textwrap.fill(q, 120), L.FG, 17) for q in quoted]
     if other:
         lines += [('Referenced, not reproduced:', L.SOFT, 22), (textwrap.fill(' · '.join(other), 120), L.FG, 19)]
     lines += [('', L.FG, 8), ('Example questions are original. Full numbered references and updated versions: see the description.',
