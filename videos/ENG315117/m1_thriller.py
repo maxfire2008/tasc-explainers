@@ -66,6 +66,10 @@ EXAM_TOPICS = {
     'X5': ('Extended analytical essay in the third person, about sixty minutes, assessed also for Criterion 6', 'ext'),
 }
 CHECKS = []
+ENG_CREDITS = ('Course content in this video is adapted from material published by {holder}, used under a Creative Commons Attribution 4.0 '
+               'International licence. Short quotations and freeze frames from the study texts are shown for study and criticism, and belong to '
+               'their creators. The practice questions are original. The full reference list is in the description, along with a link to any '
+               'updated version of this video.')
 
 # --------------------------------------------------------------------------- slides
 TITLE = VIS.title_card
@@ -454,7 +458,7 @@ VIDEO = Video(
     id='ENG315117_M1_thriller', course=COURSE, course_name='English', module=MODULE,
     module_name='Module 1: Genre Study (Thriller)', title='ENG315117 English: Module 1, Thriller codes, conventions and themes',
     refs=REFS, syllabus=SYLLABUS, elements=ELEMENTS, exam_topics=EXAM_TOPICS, scenes=SCENES,
-    info_sheet=None, checks=CHECKS, render_scale=1,
+    info_sheet=None, checks=CHECKS, render_scale=1, credits_narration=ENG_CREDITS,
     keywords=['codes and conventions', 'genre', 'thriller', 'subvert', 'metalanguage', 'suspense', 'juxtaposition'],
     thumbnail=VIS.thumbnail,
     description='Revision for TASC English Level 3 Module 1: the thriller genre. Codes, conventions, themes and essay technique, '

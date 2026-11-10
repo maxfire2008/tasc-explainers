@@ -62,6 +62,10 @@ EXAM_TOPICS = {
     'X4': ('Extended analytical essay in the first or third person, about sixty minutes, assessed also for Criteria 4 and 6', 'ext'),
 }
 CHECKS = []
+ENG_CREDITS = ('Course content in this video is adapted from material published by {holder}, used under a Creative Commons Attribution 4.0 '
+               'International licence. Short quotations and freeze frames from the study texts are shown for study and criticism, and belong to '
+               'their creators. The practice questions are original. The full reference list is in the description, along with a link to any '
+               'updated version of this video.')
 
 INTRO = Slide('bullets', title='How this module is assessed', chip='Module 3 · Criterion 3', size=31, items=[
     'Internal: a seminar presentation on TWO perspectives, and a written interpretation supported by close analysis',
@@ -437,7 +441,7 @@ VIDEO = Video(
     id='ENG315117_M3_secret_river', course=COURSE, course_name='English', module=MODULE,
     module_name='Module 3: Close Text Study (The Secret River)', title='ENG315117 English: Module 3, The Secret River and perspectives',
     refs=REFS, syllabus=SYLLABUS, elements=ELEMENTS, exam_topics=EXAM_TOPICS, scenes=SCENES,
-    info_sheet=None, checks=CHECKS, render_scale=1,
+    info_sheet=None, checks=CHECKS, render_scale=1, credits_narration=ENG_CREDITS,
     keywords=['perspective', 'point of view', 'interpretation', 'context', 'juxtaposition', 'dramatic irony', 'stagecraft'],
     thumbnail=VIS.thumbnail,
     description='Revision for TASC English Level 3 Module 3: close text study. Perspectives, context, language and staging in Andrew Bovell\'s '

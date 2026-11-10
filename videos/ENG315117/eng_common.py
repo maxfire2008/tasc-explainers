@@ -141,7 +141,7 @@ class Slide:
             wq = 0.58
             quote(fig, 0.05, ytop, wq, fit(qt, wq - 0.03, size), who, size=size, color=L.FG if bright else L.SOFT)
             tag(fig, 0.68, ytop - 0.02, tg, color=L.A2() if bright else L.MUT, size=19)
-            fig.text(0.68, ytop - 0.065, fit(com, 0.27, 24), color=L.SOFT if bright else L.MUT, fontsize=24, va='top',
+            fig.text(0.68, ytop - 0.065, fit(com, 0.29, 22), color=L.SOFT if bright else L.MUT, fontsize=22, va='top',
                      linespacing=1.3)
 
     # ------------------------------------------------------------------ grid
