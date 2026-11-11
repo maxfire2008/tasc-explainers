@@ -24,15 +24,18 @@ STILLS = {
     'nx_title': ('nx', '00:00:40'), 'nx_mistaken': ('nx', '00:10:57'), 'nx_drive': ('nx', '00:17:30'),
     'nx_dining': ('nx', '00:48:40'), 'nx_field': ('nx', '01:10:50'), 'nx_plane': ('nx', '01:12:30'),
     'nx_corn': ('nx', '01:13:40'), 'nx_match': ('nx', '02:05:30'), 'nx_climb': ('nx', '02:15:00'),
-    'nx_tunnel': ('nx', '02:16:15'),
+    'nx_tunnel': ('nx', '02:16:15'), 'nx_taxi': ('nx', '00:03:30'), 'nx_un': ('nx', '00:37:10'),
+    'nx_auction': ('nx', '01:27:55'), 'nx_wives': ('nx', '02:11:45'),
     'rp_title': ('rp', '00:00:50'), 'rp_tom': ('rp', '00:09:30'), 'rp_chet': ('rp', '00:19:00'),
     'rp_dickie': ('rp', '00:30:00'), 'rp_beach': ('rp', '00:52:40'), 'rp_blood': ('rp', '00:57:40'),
     'rp_type': ('rp', '01:00:00'), 'rp_fake': ('rp', '02:11:15'), 'rp_cabin': ('rp', '02:12:40'),
-    'rp_dark': ('rp', '02:13:20'),
+    'rp_dark': ('rp', '02:13:20'), 'rp_herbert': ('rp', '00:17:05'), 'rp_sun': ('rp', '00:39:50'),
+    'rp_basement': ('rp', '01:45:50'), 'rp_boat': ('rp', '00:55:50'),
     'sh_norton': ('sh', '00:13:20'), 'sh_cinema': ('sh', '00:42:08'), 'sh_sampler': ('sh', '00:51:30'),
     'sh_brooks': ('sh', '01:00:30'), 'sh_mozart': ('sh', '01:07:50'), 'sh_hope': ('sh', '01:12:40'),
     'sh_wall': ('sh', '01:46:00'), 'sh_poster': ('sh', '01:53:40'), 'sh_letter': ('sh', '02:15:40'),
-    'sh_beach': ('sh', '02:17:50'), 'sh_ocean': ('sh', '02:18:20'),
+    'sh_beach': ('sh', '02:17:50'), 'sh_ocean': ('sh', '02:18:20'), 'sh_trial': ('sh', '00:04:30'),
+    'sh_rock': ('sh', '00:25:50'), 'sh_tunnel': ('sh', '01:59:20'), 'sh_music': ('sh', '01:11:40'),
 }
 # name -> (film, start timestamp, seconds).  Short clips are stored as numbered frames at CLIP_FPS and looped in the video.
 CLIPS = {

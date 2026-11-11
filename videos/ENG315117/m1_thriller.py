@@ -123,7 +123,7 @@ NX_CONTEXT = Slide('media', title='North by Northwest (1959): context', chip='El
 NX_IDENTITY = Slide('media', title='North by Northwest: identity as the engine', chip='Element 3 · codes and conventions',
                     img=['nx_mistaken'], cap=['Roger Thornhill is mistaken for a man who does not exist'], credit=['North by Northwest, 1959'],
                     quote=[('“My name is Thornhill. Roger Thornhill. It’s never been anything else.”', 'Roger Thornhill'),
-                           ('“There’s only the expedient exaggeration.”', 'Roger Thornhill, on advertising'),
+                           ('“With such expert play-acting, you make this very room a theater.”', 'Vandamm'),
                            ('“How can he get mistaken for George Kaplan when he doesn’t even exist?”', 'An intelligence officer')],
                     bullets=['Dialogue: a man loses control of his own name',
                              'Irony: an advertising man who trades in image is trapped by one',
@@ -140,9 +140,9 @@ NX_FIELD = Slide('media', title='North by Northwest: the crop duster', chip='Ele
                           'Convention subverted: danger arrives in broad daylight'])
 
 NX_END = Slide('media', title='North by Northwest: climax and resolution', chip='Elements 2 and 3',
-               img=['nx_climb', 'nx_tunnel'],
-               cap=['A chase across a national monument', 'The final cut: a train enters a tunnel'], credit=['North by Northwest, 1959'],
-               quote=[None, ('“Come along, Mrs. Thornhill.”', 'Roger Thornhill')],
+               img=['nx_climb', 'nx_wives', 'nx_tunnel'],
+               cap=['A chase across a national monument', 'Humour while hanging from a cliff', 'The final cut: a train enters a tunnel'], credit=['North by Northwest, 1959'],
+               quote=[None, ('“My wives divorced me… I think they said I led too dull a life.”', 'Roger Thornhill'), ('“Come along, Mrs. Thornhill.”', 'Roger Thornhill')],
                bullets=['Set piece in an iconic location: spectacle and peril together',
                         'Order is restored: the hero is cleared and the couple united',
                         'Tone stays witty and romantic: a thriller that plays with its own conventions'])
@@ -315,8 +315,8 @@ SCENES = [
     Scene('nx_identity', P2, 'Identity as the engine', NX_IDENTITY, [
         Step("The film's engine is mistaken identity. Roger Thornhill says, my name is Thornhill, Roger Thornhill, it's never been anything else. "
              "But he has lost control of his own name. This is dialogue doing thematic work.", refs=['nxnw'], covers=['S1', 'S7', 'S10'], elements=[3]),
-        Step("There is irony. Thornhill is an advertising man, and he says, there's only the expedient exaggeration. A man who trades in image is "
-             "trapped by an image someone else has made.", refs=['nxnw'], covers=['S7', 'S3'], elements=[3]),
+        Step("There is irony. Vandamm tells him, with such expert play-acting, you make this very room a theater. Thornhill is an advertising man, and a man who "
+             "trades in image is trapped by an image someone else has made.", refs=['nxnw'], covers=['S7', 'S3'], elements=[3]),
         Step("The other side is that the agency invented George Kaplan. One officer asks, how can he get mistaken for George Kaplan when he doesn't "
              "even exist? So identity is a performance others can write for you. That is a theme you can compare across all three texts.",
              refs=['nxnw'], covers=['S3', 'S10'], elements=[1, 3]),
@@ -332,6 +332,8 @@ SCENES = [
     Scene('nx_end', P2, 'Climax and resolution', NX_END, [
         Step("The climax takes place on Mount Rushmore, an iconic national monument, which mixes spectacle with peril.",
              refs=['nxnw'], covers=['S4', 'S9'], elements=[3]),
+        Step("Even at the cliff edge, the tone is playful. Thornhill jokes, my wives divorced me, I think they said I led too dull a life. Humour in peril is a "
+             "convention Hitchcock extends, so suspense and comedy sit together.", refs=['nxnw'], covers=['S5', 'S8'], elements=[2, 3]),
         Step("The film ends with order restored: the hero is cleared and the couple united. At the cliff edge he says, come along, Mrs. Thornhill, and "
              "the final cut shows a train entering a tunnel. The tone stays witty and romantic, so this is a thriller that plays with its own conventions.",
              refs=['nxnw'], covers=['S5', 'S8', 'S2'], elements=[2, 3]),
@@ -453,6 +455,323 @@ SCENES = [
         Step("Good luck with your class tests, your oral and your essays, and with Section A of the exam.", refs=['ext']),
     ]),
 ]
+
+# =========================================================================== key scenes, quotes and requirements (added)
+def K(text, refs, covers=(), elements=(), **kw):
+    return Step(text, refs=list(refs), covers=list(covers), elements=list(elements), **kw)
+
+
+REQS = Slide('grid', title='What you must be able to discuss', chip='Requirements · Module 1', cols=3, per=1, size=26, ch_max=0.5, items=[
+    ('CODES AND CONVENTIONS', 'Element 3 · Section A', 'Name codes and conventions, show them in a scene or quotation, and explain how they invite a response and shape meaning.'),
+    ('GENRE AND CONTEXT', 'Elements 1 and 2', 'Compare the distinctive features of the thriller across your texts, and link each text to its time, place and audience.'),
+    ('THEMES', 'Criterion 2 · themes in genre', 'Say how each text represents identity, truth and guilt, and community and place, and compare them.'),
+])
+
+REQ_HOW = Slide('bullets', title='How the scene guides work', chip='Requirements · Module 1', size=32, items=[
+    'Each key scene shows: what happens, the freeze frame, the quotation',
+    'CODE or CONVENTION: the technique, and how it shapes response',
+    'THEME: the idea the scene carries, ready to compare across texts',
+    'CONTEXT: the time, place or audience that explains the choice',
+    'Each text ends with a quote bank to learn',
+])
+
+NX_TAXI = Slide('media', title='Key scene: the advertising man', chip='Element 3 · codes and conventions',
+                img=['nx_taxi'], cap=['Thornhill dictates to his secretary in a taxi'], credit=['North by Northwest, 1959'],
+                quote=[('“In the world of advertising, there’s no such thing as a lie.”', 'Roger Thornhill'),
+                       ('“There’s only the expedient exaggeration.”', 'Roger Thornhill')],
+                bullets=['Opening scene: a busy modern city and a man who sells images',
+                         'Quick, witty dialogue sets the light tone of the whole film',
+                         'Theme planted early: identity is something you can shape'],
+                tagline=['CODE: dialogue · THEME: image', 'CODE: dialogue · THEME: image'])
+
+NX_UN = Slide('media', title='Key scene: the wrong man at the United Nations', chip='Elements 2 and 3',
+              img=['nx_un'], cap=['At the United Nations, just before the killing'], credit=['North by Northwest, 1959'],
+              quote=[('“Listen to me. I had nothing to do with this.”', 'Roger Thornhill'), ('“Listen to me. I had nothing to do with this.”', 'Roger Thornhill')],
+              bullets=['A public place, a crowd, and a killing in front of everyone',
+                       'Thornhill picks up the knife, so he looks guilty',
+                       'Convention: the innocent hero is framed and must run'],
+              tagline=['CONVENTION: wrong man · THEME: guilt', 'CONVENTION: wrong man · THEME: guilt'])
+
+NX_DECOY = Slide('media', title='Key scene: the agency’s decoy', chip='Element 1 · text, genre, context',
+                 quote=[('“Our non-existent decoy, George Kaplan… has fortuitously become a live decoy.”', 'An intelligence officer'),
+                        ('“We do nothing.”', 'An intelligence officer')],
+                 bullets=['The agency invented Kaplan to distract the enemy',
+                          'Then it chooses to leave Thornhill in danger',
+                          'Context: Cold War secrecy, where ordinary people are tools'],
+                 tagline=['CONTEXT: Cold War · THEME: power', 'CONTEXT: Cold War · THEME: power'])
+
+NX_DINING = Slide('media', title='Key scene: the train and Eve Kendall', chip='Elements 2 and 3',
+                  img=['nx_dining'], cap=['Thornhill in the dining car'], credit=['North by Northwest, 1959'],
+                  quote=[('“I never discuss love on an empty stomach.”', 'Eve Kendall')],
+                  bullets=['Dialogue as flirtation: sharp and playful, in a dangerous situation',
+                           'Convention: the glamorous woman whose loyalties are unclear',
+                           'Theme: trust and performance, since she plays a role too'],
+                  tagline=['CONVENTION: ambiguous ally · THEME: trust'])
+
+NX_AUCTION = Slide('media', title='Key scene: the auction', chip='Elements 2 and 3',
+                   img=['nx_auction'], cap=['The villain at the auction'], credit=['North by Northwest, 1959'],
+                   quote=[('“I didn’t realize you were an art collector. I thought you just collected corpses.”', 'Roger Thornhill')],
+                   bullets=['Setting: a polite, wealthy room where nothing can be done openly',
+                            'Tone: witty insults under threat',
+                            'Theme: power and class, as the villain is cultured and rich'],
+                   tagline=['CODE: tone and wit · THEME: power'])
+
+NX_BANK = Slide('grid', title='Quote bank: North by Northwest', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+    ('IDENTITY', '“My name is Thornhill. Roger Thornhill. It’s never been anything else.”', 'Thornhill at the Plaza: a name that others rewrite.'),
+    ('IMAGE', '“There’s only the expedient exaggeration.”', 'Advertising logic, ironically turned on the hero.'),
+    ('DECEPTION', '“Our non-existent decoy, George Kaplan…”', 'The agency invents a person, then risks a real one.'),
+    ('SETTING', '“That plane’s dusting crops where there ain’t no crops.”', 'Danger in daylight: a subverted convention.'),
+    ('WIT AND POWER', '“I thought you just collected corpses.”', 'Humour under threat at the auction.'),
+    ('RESOLUTION', '“Come along, Mrs. Thornhill.”', 'Order restored with a romantic, playful close.'),
+])
+
+RP_TALENT = Slide('media', title='Key scene: Tom names his talents', chip='Elements 2 and 3',
+                  img=['rp_herbert'], cap=['Tom with Dickie in Italy'], credit=['The Talented Mr Ripley, 1999'],
+                  quote=[('“Forging signatures, telling lies, impersonating practically anybody.”', 'Tom Ripley, listing his talents')],
+                  bullets=['Dialogue: a joke that is also a confession',
+                           'Foreshadowing: the whole plot is built from these skills',
+                           'Theme: identity as performance'],
+                  tagline=['CODE: foreshadowing · THEME: identity'])
+
+RP_SUN = Slide('media', title='Key scene: the sun and the cold', chip='Elements 2 and 3',
+               img=['rp_sun', 'rp_sun'], cap=['Marge in the Italian sun', 'Tom describes what Dickie does'], credit=['The Talented Mr Ripley, 1999'],
+               quote=[('“It’s like the sun shines on you, and it’s glorious.”', 'Tom Ripley, about Dickie'),
+                      ('“And then he forgets you and it’s very, very cold.”', 'Tom Ripley, about Dickie')],
+               bullets=['Imagery: sun and cold show how Dickie’s attention feels',
+                        'It explains Tom’s longing and his later anger',
+                        'Theme: envy, class and belonging'],
+               tagline=['CODE: imagery · THEME: envy', 'CODE: imagery · THEME: envy'])
+
+RP_BOAT = Slide('media', title='Key scene: the boat', chip='Elements 2 and 3',
+                img=['rp_boat'], cap=['Dickie and Tom, moments before the killing'], credit=['The Talented Mr Ripley, 1999'],
+                quote=[('“The funny thing is, I’m not pretending to be somebody else, and you are.”', 'Dickie')],
+                bullets=['Dickie mocks Tom’s pretending, which is the wound that triggers the killing',
+                         'A calm sea becomes a trap: violence arrives suddenly',
+                         'Convention: a turning point in the middle of the story'],
+                tagline=['CODE: setting and sudden violence · THEME: class'])
+
+RP_BASEMENT = Slide('media', title='Key scene: the room in the basement', chip='Elements 2 and 3',
+                    img=['rp_basement'], cap=['Tom talks about how to live with the past'], credit=['The Talented Mr Ripley, 1999'],
+                    quote=[('“…take the past and put it in a room in the basement, and lock the door…”', 'Tom Ripley')],
+                    bullets=['Motif: the basement stands for hidden guilt',
+                             'Language: a domestic image for a troubled mind',
+                             'It returns in the final scene, which closes the pattern'],
+                    tagline=['CODE: motif · THEME: guilt'])
+
+RP_END = Slide('media', title='Key scene: the closing cabin', chip='Elements 2 and 3',
+               img=['rp_cabin', 'rp_dark'], cap=['The final cabin scene', 'Tom’s face in shadow'], credit=['The Talented Mr Ripley, 1999'],
+               quote=[('“I’m gonna be stuck in the basement, aren’t I?”', 'Tom Ripley'),
+                      ('“Tom is talented. Tom is tender. Tom is beautiful.”', 'Closing scenes')],
+               bullets=['Light and framing: enclosed rooms and shadow',
+                        'A list of good qualities sits beside a murderer',
+                        'The ending denies justice, which challenges the genre’s moral order'],
+               tagline=['CODE: framing · THEME: guilt', 'CODE: irony · THEME: truth'])
+
+RP_BANK = Slide('grid', title='Quote bank: The Talented Mr Ripley', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+    ('TALENT', '“Forging signatures, telling lies, impersonating practically anybody.”', 'Tom’s skills, and the engine of the plot.'),
+    ('ENVY', '“It’s like the sun shines on you, and it’s glorious.”', 'How Dickie’s attention feels, and why Tom wants it.'),
+    ('MOTIVE', '“…better to be a fake somebody than a real nobody.”', 'The line that explains Tom’s choices.'),
+    ('CLASS', '“The funny thing is, I’m not pretending to be somebody else, and you are.”', 'Dickie’s cruel remark before the killing.'),
+    ('GUILT', '“…put it in a room in the basement, and lock the door.”', 'Concealment as a motif.'),
+    ('ENDING', '“I’m gonna be stuck in the basement, aren’t I?”', 'The last scene’s answer: confinement without justice.'),
+])
+
+DRY_PROLOGUE = Slide('quotes', title='Key scene: the prologue', chip='Element 3 · codes and conventions', rows=3, size=26, items=[
+    ('“It wasn’t as though the farm hadn’t seen death before, and the blowflies didn’t discriminate.”', 'The Dry, prologue', 'TONE',
+     'Matter-of-fact violence, which is chilling.'),
+    ('“Just one human heart beat within a kilometre radius of the farm.”', 'The Dry, prologue', 'FOCALISATION',
+     'A cold, camera-like view: only one person is alive.'),
+    ('“So nothing reacted when deep inside the house, the baby started crying.”', 'The Dry, prologue', 'HOOK',
+     'The last line withholds the detail we most want.'),
+])
+
+DRY_RETURN = Slide('quotes', title='Key scene: the funeral and the return', chip='Elements 2 and 3', rows=3, size=26, items=[
+    ('“The funeral, the wake, one night and he was gone. Eighteen hours, he calculated. No more.”', 'The Dry, chapter one', 'CLOCK',
+     'The outsider who does not want to be there, with a limit set.'),
+    ('“Still the same, were the words that sprang to mind. Three coffins said differently.”', 'The Dry, chapter one', 'JUXTAPOSITION',
+     'Appearance set against fact, a core thriller tension.'),
+    ('“Aaron Falk, don’t you bloody dare leave.”', 'The Dry, chapter two', 'PAST AS PRESSURE',
+     'Old bonds pull him back into the town.'),
+])
+
+DRY_TOWN = Slide('quotes', title='Key scene: the town, the drought and the fire', chip='Elements 2 and 3', rows=3, size=26, items=[
+    ('“The drought. It’s going to kill this town.”', 'Whitlam, the school principal', 'SETTING AS THREAT',
+     'Said as a worry about money, which hides a darker meaning.'),
+    ('“Two years without decent rainfall and now doused in alcohol. They were standing on a matchbox.”', 'The Dry, the fire', 'CLIMAX IMAGERY',
+     'Drought becomes a physical danger in the final chase.'),
+    ('“If my dad finds out, he will kill me.”', 'Ellie Deacon’s diary', 'REVELATION',
+     'A teenage voice from the past shows who the danger was.'),
+])
+
+DRY_END = Slide('quotes', title='Key scene: the ending', chip='Elements 2 and 3', rows=3, size=26, items=[
+    ('“Twenty years was twenty years, but some things shouldn’t be swept away.”', 'The Dry, final chapters', 'MEMORY',
+     'Remembering Ellie is a moral act, so the ending is about justice for the past.'),
+    ('“Its secrets and lies and fear.”', 'The Dry, final chapters', 'COMMUNITY',
+     'The town’s real enemy was what it hid.'),
+    ('“See you in another twenty years.”', 'Gretchen to Falk', 'TONE',
+     'Wary and unsentimental, so no easy reconciliation.'),
+])
+
+DRY_BANK = Slide('grid', title='Quote bank: The Dry', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+    ('SETTING', '“‘It’ll break,’ the farmers said as the months ticked over into a second year.”', 'Drought as pressure and prayer.'),
+    ('HOOK', '“Luke lied. You lied. Be at the funeral.”', 'The letter that links two time frames.'),
+    ('JUXTAPOSITION', '“Three coffins said differently.”', 'What looks the same is not.'),
+    ('THREAT', '“They were standing on a matchbox.”', 'Drought and fire in the climax.'),
+    ('TRUTH', '“If my dad finds out, he will kill me.”', 'Ellie’s voice reveals the real danger.'),
+    ('MEMORY', '“…some things shouldn’t be swept away.”', 'The moral of the ending.'),
+])
+
+QUOTE_THEMES = Slide('table', title='Quote bank: themes across the texts', chip='Criterion 2 · themes in genre',
+                     head=['', 'North by Northwest', 'Mr Ripley', 'The Dry'], size=23, label_w=0.14, rows=[
+    ('Identity', '“My name is Thornhill. Roger Thornhill.”', '“…a fake somebody than a real nobody.”', '“Luke lied. You lied.”'),
+    ('Truth and guilt', '“I had nothing to do with this.”', '“…put it in a room in the basement…”', '“Three coffins said differently.”'),
+    ('Community', '“…a live decoy.”', '“…the sun shines on you…”', '“Its secrets and lies and fear.”'),
+    ('Place', '“…dusting crops where there ain’t no crops.”', '“…stuck in the basement…”', '“The river was still gone.”'),
+])
+
+NEW = {
+    'reqs': Scene('reqs', P1, 'What you must discuss', REQS, [
+        K("What do you need to be able to talk about? Three things. First, codes and conventions: name them, show them in a scene or a quotation, and explain how they "
+          "invite a response and shape meaning. That is element three, and the heart of Section A.", ['standards', 'ext'], ['S2', 'S4'], [3], exam=['X3']),
+        K("Second, genre and context. Compare the distinctive features of the thriller across your texts, and link each text to its time, place and audience. "
+          "Those are elements one and two.", ['standards'], ['S6', 'S10'], [1, 2], exam=['X2']),
+        K("Third, themes. Say how each text represents identity, truth and guilt, and community and place, and compare them. Criterion two covers this in "
+          "its three genre elements.", ['crit2'], ['S3', 'S10'], [1, 2, 3]),
+    ]),
+    'req_how': Scene('req_how', P1, 'How the scene guides work', REQ_HOW, [
+        K("From here, each text gets key scene guides. Each one shows what happens, a freeze frame, and a quotation. Then it names the code or convention, the "
+          "theme, and the context. Each text ends with a quote bank, so you can learn the lines that matter most.", ['course', 'ext'], ['S1', 'S12'], [1, 2, 3], exam=['X1']),
+    ]),
+    'nx_taxi': Scene('nx_taxi', P2, 'Key scene: the advertising man', NX_TAXI, [
+        K("Key scene one is the opening in New York. Roger Thornhill dictates to his secretary in a taxi and says, in the world of advertising, there's no "
+          "such thing as a lie. The busy city and the grey suit introduce a man who sells images.", ['nxnw'], ['S1', 'S7'], [3]),
+        K("He adds, there's only the expedient exaggeration. The code is witty dialogue, which sets the light tone that Hitchcock later plays against danger. "
+          "The theme is planted early: identity is something you can shape.", ['nxnw'], ['S3', 'S7'], [3]),
+    ]),
+    'nx_un': Scene('nx_un', P2, 'Key scene: the wrong man', NX_UN, [
+        K("Key scene: the United Nations. Thornhill is looking for a man called Townsend, who is killed in front of everyone. Thornhill picks up the knife, and "
+          "cries, listen to me, I had nothing to do with this. A public place, a crowd, and he looks guilty.", ['nxnw'], ['S2', 'S4'], [2, 3]),
+        K("The convention is the wrong man: an innocent hero framed and forced to run. For an A, say how this invites sympathy, and how the theme "
+          "of guilt and appearance is built.", ['nxnw'], ['S2', 'S3'], [2, 3]),
+    ]),
+    'nx_decoy': Scene('nx_decoy', P2, 'Key scene: the decoy', NX_DECOY, [
+        K("Key scene: the agency. An officer calls George Kaplan, our non-existent decoy, who has fortuitously become a live decoy. Then the answer to the "
+          "danger is, we do nothing. Context matters here: Cold War secrecy treats ordinary people as tools. Theme: power.", ['nxnw'], ['S3', 'S6'], [1]),
+    ]),
+    'nx_dining': Scene('nx_dining', P2, 'Key scene: the train', NX_DINING, [
+        K("Key scene: the train. Eve Kendall says, I never discuss love on an empty stomach. The dialogue is flirtatious and playful, while the situation is "
+          "dangerous. Eve is the glamorous woman whose loyalties are unclear, a thriller convention, and she plays a role too. Theme: trust.", ['nxnw'], ['S2', 'S4'], [2, 3]),
+    ]),
+    'nx_auction': Scene('nx_auction', P2, 'Key scene: the auction', NX_AUCTION, [
+        K("Key scene: the auction. Thornhill tells the villain, I didn't realize you were an art collector, I thought you just collected corpses. The room "
+          "is polite and wealthy, so insults come as wit. Tone and wit are codes of this film, and the theme is power and class.", ['nxnw'], ['S1', 'S4'], [2, 3]),
+    ]),
+    'nx_bank': Scene('nx_bank', P2, 'Quote bank: North by Northwest', NX_BANK, [
+        K("Here is the quote bank for North by Northwest. For identity, my name is Thornhill, Roger Thornhill, it's never been anything else. For image, "
+          "there's only the expedient exaggeration.", ['nxnw'], ['S3', 'S7'], [1, 3], exam=['X1']),
+        K("For deception, our non-existent decoy, George Kaplan. For setting and a subverted convention, that plane's dusting crops where there ain't no crops.",
+          ['nxnw'], ['S5', 'S7'], [2, 3]),
+        K("For wit and power, I thought you just collected corpses. And for resolution, come along, Mrs. Thornhill. Learn each line with the code, "
+          "theme or convention it proves.", ['nxnw'], ['S8', 'S11'], [2, 3]),
+    ]),
+    'rp_talent': Scene('rp_talent', P3, 'Key scene: the talents', RP_TALENT, [
+        K("Key scene: Tom names his talents. He answers, forging signatures, telling lies, impersonating practically anybody. It is a joke that is also a "
+          "confession. The code is foreshadowing, because the whole plot is built from these skills. The theme is identity as performance.", ['ripley'], ['S1', 'S3'], [3]),
+    ]),
+    'rp_sun': Scene('rp_sun', P3, 'Key scene: the sun and the cold', RP_SUN, [
+        K("Key scene: Tom tells Marge about Dickie. He says, it's like the sun shines on you, and it's glorious.", ['ripley'], ['S1', 'S7'], [3]),
+        K("Then, and then he forgets you and it's very, very cold. The imagery of sun and cold shows how Dickie's attention feels, and explains Tom's longing. "
+          "Theme: envy, class and belonging.", ['ripley'], ['S3', 'S7'], [2, 3]),
+    ]),
+    'rp_boat': Scene('rp_boat', P3, 'Key scene: the boat', RP_BOAT, [
+        K("Key scene: the boat. Dickie mocks Tom's pretending: the funny thing is, I'm not pretending to be somebody else, and you are. That wound triggers the "
+          "killing. A calm sea becomes a trap, and violence arrives suddenly at the turning point. Theme: class.", ['ripley'], ['S2', 'S4'], [2, 3]),
+    ]),
+    'rp_basement': Scene('rp_basement', P3, 'Key scene: the room in the basement', RP_BASEMENT, [
+        K("Key scene: the basement. Tom talks about how to live with the past: take it and put it in a room in the basement, and lock the door. The "
+          "motif of the basement stands for hidden guilt. It returns in the final scene, which closes the pattern.", ['ripley'], ['S1', 'S7'], [3]),
+    ]),
+    'rp_end': Scene('rp_end', P3, 'Key scene: the ending', RP_END, [
+        K("Key scene: the closing cabin. Tom says, I'm gonna be stuck in the basement, aren't I? Light and framing give enclosed rooms and shadow.",
+          ['ripley'], ['S5', 'S8'], [2, 3]),
+        K("A list says Tom is talented, Tom is tender, Tom is beautiful, which sits beside a murderer. That is irony. The ending denies justice, so it "
+          "challenges the genre's moral order.", ['ripley'], ['S5', 'S8'], [2, 3]),
+    ]),
+    'rp_bank': Scene('rp_bank', P3, 'Quote bank: Ripley', RP_BANK, [
+        K("Quote bank for Ripley. Talent: forging signatures, telling lies, impersonating practically anybody. Envy: it's like the sun shines on you, "
+          "and it's glorious.", ['ripley'], ['S3', 'S7'], [1, 3], exam=['X1']),
+        K("Motive: better to be a fake somebody than a real nobody. Class: the funny thing is, I'm not pretending to be somebody else, and you are.",
+          ['ripley'], ['S3', 'S10'], [2, 3]),
+        K("Guilt: put it in a room in the basement, and lock the door. And the ending: I'm gonna be stuck in the basement, aren't I?",
+          ['ripley'], ['S5', 'S8'], [2, 3]),
+    ]),
+    'dry_prologue': Scene('dry_prologue', P4, 'Key scene: the prologue', DRY_PROLOGUE, [
+        K("Key scene: the prologue. It begins, it wasn't as though the farm hadn't seen death before, and the blowflies didn't discriminate. The tone is matter-of-fact, "
+          "which makes the violence chilling.", ['dry'], ['S1', 'S7'], [3]),
+        K("Then, just one human heart beat within a kilometre radius of the farm. The view is cold and almost camera-like: only one person is alive. "
+          "The point of view is a code you can name.", ['dry'], ['S1', 'S4'], [3]),
+        K("The prologue ends, so nothing reacted when deep inside the house, the baby started crying. The last line is a hook, because it withholds the "
+          "detail we most want.", ['dry'], ['S7', 'S8'], [3]),
+    ]),
+    'dry_return': Scene('dry_return', P4, 'Key scene: the funeral', DRY_RETURN, [
+        K("Key scene: the funeral. Falk limits his own time: the funeral, the wake, one night and he was gone, eighteen hours, he calculated, no more. This is the "
+          "outsider who does not want to be there, with a clock.", ['dry'], ['S2', 'S8'], [2, 3]),
+        K("Then, still the same, were the words that sprang to mind, three coffins said differently. Juxtaposition sets appearance against fact, a core "
+          "thriller tension.", ['dry'], ['S7', 'S11'], [3]),
+        K("In chapter two, a voice says, Aaron Falk, don't you bloody dare leave. Old bonds pull him back, so the past is a pressure on the present.",
+          ['dry'], ['S3', 'S10'], [1, 2]),
+    ]),
+    'dry_town': Scene('dry_town', P4, 'Key scene: the town and the fire', DRY_TOWN, [
+        K("Key scene: the town. The school principal says, the drought, it's going to kill this town. It sounds like a worry about money, but it hides a darker "
+          "meaning. Setting works as a threat.", ['dry'], ['S4', 'S7'], [2, 3]),
+        K("In the climax, two years without decent rainfall and now doused in alcohol: they were standing on a matchbox. Drought becomes a physical danger in "
+          "the final chase.", ['dry'], ['S4', 'S8'], [3]),
+        K("And the reveal comes from a teenage voice from the past, in a diary: if my dad finds out, he will kill me. It shows who the danger really was, "
+          "and it is why the ending feels earned.", ['dry'], ['S8', 'S10'], [2, 3]),
+    ]),
+    'dry_end': Scene('dry_end', P4, 'Key scene: the ending', DRY_END, [
+        K("Key scene: the ending. Falk thinks, twenty years was twenty years, but some things shouldn't be swept away. Remembering Ellie is a moral act. "
+          "The theme is memory.", ['dry'], ['S3', 'S8'], [1, 3]),
+        K("The town's real enemy was its secrets and lies and fear. That is the theme of community, and it links back to the funeral and the first letter.",
+          ['dry'], ['S3', 'S10'], [1]),
+        K("The tone stays wary. Gretchen says, see you in another twenty years. There is no easy reconciliation, so the genre's neat endings are extended.",
+          ['dry'], ['S5', 'S8'], [2, 3]),
+    ]),
+    'dry_bank': Scene('dry_bank', P4, 'Quote bank: The Dry', DRY_BANK, [
+        K("Quote bank for The Dry. Setting: it'll break, the farmers said as the months ticked over into a second year. Hook: Luke lied, you lied, be at the funeral.",
+          ['dry'], ['S7', 'S8'], [1, 3], exam=['X1']),
+        K("Juxtaposition: three coffins said differently. Threat: they were standing on a matchbox.", ['dry'], ['S4', 'S7'], [2, 3]),
+        K("Truth: if my dad finds out, he will kill me. And memory: some things shouldn't be swept away.", ['dry'], ['S3', 'S8'], [1, 3]),
+    ]),
+    'quote_themes': Scene('quote_themes', P5, 'Quote bank: themes', QUOTE_THEMES, [
+        K("Here are the theme quotes side by side. Identity: my name is Thornhill; better to be a fake somebody than a real nobody; Luke lied, you lied.",
+          ['nxnw', 'ripley', 'dry'], ['S3', 'S10'], [1], exam=['X2']),
+        K("Truth and guilt: I had nothing to do with this; put it in a room in the basement; three coffins said differently.",
+          ['nxnw', 'ripley', 'dry'], ['S3', 'S10'], [1]),
+        K("Community: a live decoy; the sun shines on you; its secrets and lies and fear.", ['nxnw', 'ripley', 'dry'], ['S3', 'S10'], [1]),
+        K("Place: dusting crops where there ain't no crops; stuck in the basement; the river was still gone. Use any of these as evidence, and always say which "
+          "code, convention or theme it proves.", ['nxnw', 'ripley', 'dry'], ['S3', 'S10', 'S12'], [1, 3]),
+    ]),
+}
+
+
+def _after(anchor, *new):
+    i = [s.id for s in SCENES].index(anchor) + 1
+    SCENES[i:i] = list(new)
+
+
+_after('intro', NEW['reqs'], NEW['req_how'])
+_after('nx_context', NEW['nx_taxi'])
+_after('nx_identity', NEW['nx_un'], NEW['nx_decoy'], NEW['nx_dining'])
+_after('nx_field', NEW['nx_auction'])
+_after('nx_end', NEW['nx_bank'])
+_after('rp_context', NEW['rp_talent'])
+_after('rp_identity', NEW['rp_sun'], NEW['rp_boat'])
+_after('rp_setting', NEW['rp_basement'], NEW['rp_end'], NEW['rp_bank'])
+_after('dry_context', NEW['dry_prologue'], NEW['dry_return'])
+_after('dry_quotes', NEW['dry_town'])
+_after('dry_twist', NEW['dry_end'], NEW['dry_bank'])
+_after('themes', NEW['quote_themes'])
 
 VIDEO = Video(
     id='ENG315117_M1_thriller', course=COURSE, course_name='English', module=MODULE,
