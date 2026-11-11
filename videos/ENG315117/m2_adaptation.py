@@ -421,7 +421,7 @@ ESCAPE = Slide('media', title='Key scene: the escape and the aftermath', chip='E
                         'Meaning: escape becomes a visual, emotional climax'],
                tagline=['TRANSFORMATION: told versus shown', 'REPRESENTATION: the bird as symbol'])
 
-BANK_SHARED = Slide('grid', title='Quote bank: lines in both texts', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+BANK_SHARED = Slide('grid', title='Quote bank: lines in both texts', chip='Learn these', cols=2, per=2, size=19, ch_max=0.3, items=[
     ('VOICE', '“I’m the guy who can get it for you.”', 'Red’s opening claim, used to introduce his role.'),
     ('HOPE', '“…hope is a good thing, Red, maybe the best of things, and no good thing ever dies.”', 'Andy’s letter.'),
     ('CHOICE', '“Get busy living or get busy dying.”', 'The turning point of the story.'),
@@ -430,7 +430,7 @@ BANK_SHARED = Slide('grid', title='Quote bank: lines in both texts', chip='Learn
     ('PLACE', '“Zihuatanejo.”', 'A name that becomes a promise.'),
 ])
 
-BANK_NOVELLA = Slide('grid', title='Quote bank: the novella', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+BANK_NOVELLA = Slide('grid', title='Quote bank: the novella', chip='Learn these', cols=2, per=2, size=19, ch_max=0.3, items=[
     ('VOICE', '“There’s a guy like me in every state and federal prison in America…”', 'Red’s opening: confession and a trade.'),
     ('INSTITUTION', '“Because you do get institutionalized.”', 'The theme stated plainly.'),
     ('BROOKS', '“He was crying when he left. Shawshank was his world.”', 'Brooks reported in brief.'),
@@ -439,7 +439,7 @@ BANK_NOVELLA = Slide('grid', title='Quote bank: the novella', chip='Learn these'
     ('WISDOM', '“Some have got it, Sam. And some don’t, and never will.”', 'Red’s verdict on Norton.'),
 ])
 
-BANK_FILM = Slide('grid', title='Quote bank: the film', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+BANK_FILM = Slide('grid', title='Quote bank: the film', chip='Learn these', cols=2, per=2, size=19, ch_max=0.3, items=[
     ('HOPE', '“Hope is a dangerous thing. Hope can drive a man insane.”', 'Red’s warning, which the film answers.'),
     ('INSTITUTION', '“These walls are funny. First you hate ’em…”', 'How a prison becomes a habit.'),
     ('MUSIC', '“That’s the beauty of music. They can’t get that from you.”', 'Andy, on what cannot be taken.'),

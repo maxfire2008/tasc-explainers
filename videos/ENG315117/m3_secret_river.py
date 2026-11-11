@@ -510,7 +510,7 @@ SC_PARDON = Slide('quotes', title='Key scene: the pardon replayed', chip='Elemen
      'The scene links Thornhill’s own fear of power to his choice to use it.'),
 ])
 
-BANK_CHARS = Slide('grid', title='Quote bank: Thornhill, Sal and the Dharug', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+BANK_CHARS = Slide('grid', title='Quote bank: Thornhill, Sal and the Dharug', chip='Learn these', cols=2, per=2, size=19, ch_max=0.3, items=[
     ('THORNHILL', '“This is my place now. You got all the rest.”', 'His claim to country that is already someone’s.'),
     ('THORNHILL', '“We had to go. Wasn’t our choice. Now it’s them that has to.”', 'The justification of dispossession.'),
     ('SAL', '“They was here… Like you and me was in London.”', 'Empathy by comparison.'),
@@ -519,7 +519,7 @@ BANK_CHARS = Slide('grid', title='Quote bank: Thornhill, Sal and the Dharug', ch
     ('DHARUG', '“This me… My place.”', 'Ngalamalum’s final refusal.'),
 ])
 
-BANK_OTHERS = Slide('grid', title='Quote bank: settlers and the narrator', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+BANK_OTHERS = Slide('grid', title='Quote bank: settlers and the narrator', chip='Learn these', cols=2, per=2, size=19, ch_max=0.3, items=[
     ('SMASHER', '“Tell your husband to keep a whip at hand.”', 'Violence offered as common sense.'),
     ('DAN', '“Get rid of ’em and Sal will stay, Will.”', 'Fear of loss turned into pressure.'),
     ('MRS HERRING', '“Best get what’s left.”', 'Looking away, to keep the peace.'),
