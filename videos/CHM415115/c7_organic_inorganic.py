@@ -688,9 +688,10 @@ Scene('rx_alkane_alkene', P5, 'Alkanes, alkenes and halogens', Slide('table', ti
     S("Hydrocarbons burn. With excess oxygen, the products are carbon dioxide and water. With insufficient oxygen, incomplete "
       "combustion produces carbon monoxide, or soot, which is carbon, as well as water. Balance the equation, and include states.",
       refs=['content'], covers=['O20'], elements=[3]),
-    S("In a 2024 question, propene reacted with one molecule of chlorine. The printed question said propane, which was an error. "
-      "Propene adds Cl two across the double bond, to give 1,2-dichloropropane. The report removed that part and marked "
-      "the rest by error carried forward. If a question seems inconsistent, state your assumption and carry on.",
+    S("In a 2024 question, the printed text asked for chloropropane from propene with one molecule of chlorine. But chlorine adds across "
+      "the double bond of propene to give dichloropropane, and the report said propane was meant, which would give two chloropropane "
+      "isomers by substitution. That part was removed, and later parts were marked with error carried forward. If a question "
+      "seems inconsistent, state your assumption and carry on.",
       refs=['ar24g', 'ar24q13', 'ex24q13'], covers=['O21', 'O18'], elements=[3], exam=['X24-13']),
 ]),
 Scene('rx_halide', P5, 'Alkyl halides and alcohols', Slide('table', title='Alkyl halides and alcohols', chip='Element 3 · equations',

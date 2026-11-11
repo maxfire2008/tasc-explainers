@@ -810,6 +810,10 @@ Scene('colour_eq', P3, 'A colour-change equilibrium', Slide('worked', title='Wor
       "A good answer discusses the shift. Finally, K stays the same, because the temperature did not change.",
       refs=['ar25q9', 'ex25q9'], covers=['Q9', 'Q15', 'Q13'], elements=[4], exam=['X25-9'],
       problem='The Fe³⁺ + SCN⁻ ⇌ FeSCN²⁺ mixture is diluted with water. What happens to the position of equilibrium and to K?'),
+    S("A related exam system was chlorine water: chlorine reacting with water to make hydrogen ions, chloride ions and hypochlorous "
+      "acid, in an equilibrium. At a low pH there are many hydrogen ions, so Le Chatelier's principle shifts the equilibrium left, and "
+      "chlorine is the most abundant of the chlorine species. Write the equation with an equilibrium arrow, and do not confuse "
+      "the chlorine molecule with chloride ions.", refs=['ex21q10', 'ar21q10'], covers=['Q9', 'Q8'], elements=[4, 1], exam=['X21-10']),
     S("Contexts using equilibrium include wine making. Sulfur dioxide is added to wine to bind acetaldehyde, a reversible "
       "reaction, so the winemaker uses equilibrium ideas to control the chemical balance of acidity, alcohol, sugar and colour.",
       refs=['appendix'], covers=['A3'], elements=[1]),
