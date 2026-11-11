@@ -391,7 +391,7 @@ def _title_art(fig, rect, ph=0):
 def thumbnail(fig):
     C1, C2 = C()
     fig.text(0.04, 0.87, 'CRITERION 6', ha='left', va='center', color=C1, fontsize=64, weight='bold')
-    fig.text(0.04, 0.65, 'Energy,', ha='left', va='center', color=FG, fontsize=130, weight='bold')
-    fig.text(0.04, 0.44, 'rates &', ha='left', va='center', color=FG, fontsize=130, weight='bold')
-    fig.text(0.04, 0.23, 'equilibrium', ha='left', va='center', color=FG, fontsize=110, weight='bold')
-    _title_art(fig, [0.60, 0.17, 0.38, 0.76])
+    fig.text(0.04, 0.65, 'Energy,', ha='left', va='center', color=FG, fontsize=120, weight='bold')
+    fig.text(0.04, 0.44, 'rates &', ha='left', va='center', color=FG, fontsize=120, weight='bold')
+    fig.text(0.04, 0.23, 'equilibrium', ha='left', va='center', color=FG, fontsize=96, weight='bold')
+    _title_art(fig, [0.66, 0.30, 0.32, 0.60])

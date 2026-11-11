@@ -500,7 +500,7 @@ Scene('rate_def', P2, 'What is a reaction rate?', V.rate_graph, [
       "some thought the magnesium was in solution.", refs=['ar23q6', 'ar24q8', 'ex22q10', 'ar22q10'], covers=['K1', 'Q1'], elements=[3, 4], exam=['X23-6', 'X24-8', 'X22-10']),
 ]),
 Scene('we_rate', P2, 'Worked example: average and instantaneous rates', Slide('worked', title='Worked example 7: rates from a graph', chip='Element 5 · calculations',
-    q='In an investigation, 95.8 mL of gas is collected in the first 40 s, and the tangent at 20 s passes through (0 s, 23 mL) and (50 s, 131 mL). The molar volume of the gas is 24.5 L mol⁻¹ (SLC). Find the average rate for the first 40 s and the instantaneous rate at 20 s, in mol s⁻¹.',
+    q='In an investigation, 95.8 mL of gas is collected in the first 40 s, and the tangent at 20 s passes through (0 s, 23 mL) and (50 s, 131 mL). Use Vm = 24.5 L mol⁻¹ (SLC). Find the average rate for the first 40 s and the instantaneous rate at 20 s, in mol s⁻¹.',
     rows=[dict(s=0, t='n(gas) = V / Vm = 0.0958 L / 24.5 L mol⁻¹ = 3.909 × 10⁻³ mol', col='#eef2f8'),
           dict(s=0, t='Average rate = Δn / t = 3.909 × 10⁻³ / 40 = 9.77 × 10⁻⁵ mol s⁻¹', col='#9bde7e'),
           dict(s=0, sf='= 9.77 × 10⁻⁵ mol s⁻¹ (3 s.f.)', t='', gap=0),

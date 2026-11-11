@@ -55,7 +55,7 @@ def mol(ax, nodes, x0=0.0, y0=0.0, dx=1.0, fs=17, col=None, name=None, name_y=-1
                 order = 2 if sub.startswith('=') else 1
                 t = sub.lstrip('=')
                 seg(x, y0 + sgn * 0.17, x, y0 + sgn * 0.78, order, horizontal=False)
-                lab(x, y0 + sgn * 0.95, ch(t))
+                lab(x, y0 + sgn * 0.95, ch('`' + t + '`'))
         if i < n - 1:
             seg(x + 0.15, y0, xs[i + 1] - 0.15, y0, nd.get('bond', 1), horizontal=True)
     left = nodes[0].get('left', 'H')
@@ -63,11 +63,11 @@ def mol(ax, nodes, x0=0.0, y0=0.0, dx=1.0, fs=17, col=None, name=None, name_y=-1
     if left:
         order = 2 if left.startswith('=') else 1
         seg(xs[0] - 0.8, y0, xs[0] - 0.15, y0, order)
-        lab(xs[0] - 0.95, y0, ch(left.lstrip('=')))
+        lab(xs[0] - 0.95, y0, ch('`' + left.lstrip('=') + '`'))
     if right:
         order = 2 if right.startswith('=') else 1
         seg(xs[-1] + 0.15, y0, xs[-1] + 0.8, y0, order)
-        lab(xs[-1] + 0.95, y0, ch(right.lstrip('=')))
+        lab(xs[-1] + 0.95, y0, ch('`' + right.lstrip('=') + '`'))
     if name:
         ax.text((xs[0] + xs[-1]) / 2, y0 + name_y, name, color=YELLOW, fontsize=fs + 2, ha='center', va='center', weight='bold')
     return xs[-1] + 1.0
@@ -299,7 +299,7 @@ def anomaly_graph(fig, s, ph):
     ax2 = gax(fig, [0.55, 0.15, 0.40, 0.60], (-0.5, 6.5), (60, 200), 'Period 3 element', 'Atomic radius (pm)')
     ax2.set_xticks(range(7)); ax2.set_xticklabels(el)
     ax2.plot(range(7), rad, color=PINK, lw=3, marker='o', ms=11)
-    T(fig, 0.07, 0.10, 'Reference data, not from TASC. First ionisation energy rises overall, with dips at Al and S', size=16, color=MUT)
+    T(fig, 0.07, 0.075, 'Reference data, not from TASC. First ionisation energy rises overall, with dips at Al and S', size=16, color=MUT)
     if s >= 2:
         T(fig, 0.55, 0.80, 'Radius falls steadily: protons rise, shielding is constant', size=19, color=GREEN)
 
@@ -364,7 +364,7 @@ def ladder(fig, s, ph):
              'Sulfur, 16 electrons: 1s² 2s² 2p⁶ 3s² 3p⁴. In a p sub-shell, electrons go into separate orbitals first, then pair up',
              'Iron-like d-block atoms: 4s fills first (2 electrons), then 3d. Cobalt, 27 electrons: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁷ 4s². In the ION the 4s electrons are lost first']
     side_notes(fig, notes, s, x=0.58, w=0.37, size=21)
-    T(fig, 0.58, 0.20, 'Use s, p, d notation in full: shorthand such as [Ar] is only accepted when the question allows it', size=17, color=MUT)
+    T(fig, 0.58, 0.20, fit('Use s, p, d notation in full: shorthand such as [Ar] is only accepted when the question allows it', 0.37, 17), size=17, color=MUT)
 
 
 def bohr_scene(fig, s, ph):

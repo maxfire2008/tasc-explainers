@@ -104,6 +104,9 @@ PRONUNCIATIONS = [
     (r'\bGeiger\b', 'Guy gur'),
     (r'\bMichelson\b', 'Mikelson'),
     (r'\bMeissner\b', 'Mysener'),
+    # CHM415115 Chemistry
+    (r"Le Chatelier", 'Luh Shatelyay'),
+    (r'\btitre\b', 'tighter'), (r'\btitres\b', 'tighters'), (r'\bTitre\b', 'Tighter'),
     # ENG315117 English
     (r'\bENG315117\b', 'E N G three one five, one one seven'),
     (r'\bDharug\b', 'Dah rook'),

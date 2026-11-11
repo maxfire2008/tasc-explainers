@@ -431,7 +431,7 @@ Scene('trends', P2, 'Periodic trends', V.trend_scene, [
       refs=['info_pt', 'ar22q13', 'ar22g', 'ex22q13'], covers=['P10', 'P8', 'P12'], elements=[5], exam=['X22-13']),
     S("Reactivity follows. Metals lose electrons, so across a period they get less reactive as the electrons are held more "
       "tightly, while non-metals, which gain electrons, get more reactive. Down a group, metals get more reactive, and "
-      "non-metals less. Aluminium is the least reactive of the period 3 metals, because it has the highest nuclear charge of them and has to lose three "
+      "non-metals less. Among the period 3 metals, aluminium reacts least readily, because it has the highest nuclear charge of them and has to lose three "
       "electrons. Chlorine is the most electronegative, with the highest nuclear charge in period 3 and the strongest attraction for extra electrons.",
       refs=['content', 'ex21q17', 'ar21q17'], covers=['P11', 'P12', 'P9'], elements=[5], exam=['X21-17']),
 ]),
@@ -852,13 +852,13 @@ Scene('we_spectra', P6, 'Worked example: combining evidence', Slide('worked', ti
           dict(s=3, t='Name the bond, give the wavenumbers, then say why the alternatives fail.', col='#f15bb5', size=23)]), [
     S("Worked example four. An unknown has the formula C three H six O two. The mass spectrum shows a molecular ion at seventy "
       "four, which matches the molar mass, seventy four point oh eight. So the formula is confirmed as the molecular formula.",
-      refs=['info_ar', 'content'], covers=['S1', 'S4'], elements=[2], problem='An unknown C₃H₆O₂ has IR bands at 3300–2500 (very broad) and 1710 cm⁻¹ and M⁺ at m/z 74. Identify it.'),
+      refs=['info_ar', 'content', 'ar25q14'], covers=['S1', 'S4'], elements=[2], problem='An unknown C₃H₆O₂ has IR bands at 3300–2500 (very broad) and 1710 cm⁻¹ and M⁺ at m/z 74. Identify it.'),
     S("The IR spectrum shows a very broad absorption from thirty three hundred to twenty five hundred, the O H of a "
       "carboxylic acid, and a strong peak at seventeen ten, a carbonyl. Together, they indicate a carboxylic acid group.",
-      refs=['info_rx', 'ar23q16'], covers=['S2', 'S4'], elements=[2], exam=['X23-16']),
+      refs=['info_rx', 'ar23q16', 'ar25q14'], covers=['S2', 'S4'], elements=[2], exam=['X23-16']),
     S("The compound is propanoic acid. The esters methyl ethanoate and ethyl methanoate have the same formula and a carbonyl, but "
       "no broad O H band, so they are ruled out. Many students in 2024 ignored the hydroxyl band, because it did not match their "
-      "drawn isomers.", refs=['ar24q14', 'ex24q14'], covers=['S2', 'S4', 'O23'], elements=[2, 1], exam=['X24-14']),
+      "drawn isomers.", refs=['ar24q14', 'ex24q14', 'ar25q14'], covers=['S2', 'S4', 'O23'], elements=[2, 1], exam=['X24-14']),
     S("The method: work out the formula with the mass spectrum, identify groups with the infrared, and check each alternative. "
       "Always quote wavenumbers. This shows that structures often need more than one technique.", refs=['content', 'ar25q14'], covers=['S4', 'S2', 'S1'], elements=[2], exam=['X25-14']),
 ]),

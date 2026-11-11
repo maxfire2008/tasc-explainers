@@ -201,7 +201,7 @@ def _title_art(fig, rect, ph=0):
 def thumbnail(fig):
     C1, C2 = C()
     fig.text(0.04, 0.87, 'CRITERION 8', ha='left', va='center', color=C1, fontsize=64, weight='bold')
-    fig.text(0.04, 0.65, 'Chemical', ha='left', va='center', color=FG, fontsize=130, weight='bold')
-    fig.text(0.04, 0.44, 'calcul-', ha='left', va='center', color=FG, fontsize=130, weight='bold')
-    fig.text(0.04, 0.23, 'ations', ha='left', va='center', color=FG, fontsize=130, weight='bold')
+    fig.text(0.04, 0.65, 'Mole', ha='left', va='center', color=FG, fontsize=150, weight='bold')
+    fig.text(0.04, 0.44, 'maths', ha='left', va='center', color=FG, fontsize=150, weight='bold')
+    fig.text(0.04, 0.23, 'TASC Chemistry revision', ha='left', va='center', color=SOFT, fontsize=58)
     _title_art(fig, [0.60, 0.17, 0.38, 0.78])
