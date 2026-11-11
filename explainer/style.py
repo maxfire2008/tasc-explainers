@@ -40,6 +40,7 @@ COURSE_ACCENTS = {
     'MTS415118': '#5eead4',   # Maths Specialised: teal
     'MTM415118': '#60a5fa',   # Maths Methods: blue
     'BIO415115': '#c4b5fd',   # Biology: lavender
+    'ENG315117': '#a5b4fc',   # English: indigo
 }
 _COURSE_FALLBACK = ['#4cc9f0', '#a78bfa', '#5eead4', '#60a5fa', '#c4b5fd', '#7dd3fc']
 
@@ -49,6 +50,9 @@ MODULE_ACCENTS = {
     ('PHY415115', 'C6'): '#c084fc',   # Electricity & magnetism: purple
     ('PHY415115', 'C7'): '#f9a03f',   # Wave motion: orange
     ('PHY415115', 'C8'): '#f472b6',   # Light, atomic & nuclear: magenta
+    ('ENG315117', 'M1'): '#f87171',   # Genre study (thriller): red
+    ('ENG315117', 'M2'): '#c084fc',   # Adaptation study: purple
+    ('ENG315117', 'M3'): '#fb923c',   # Close text study: amber
 }
 _MODULE_FALLBACK = ['#f9a03f', '#fb7185', '#c084fc', '#f472b6', '#fdba74', '#e879f9']
 
@@ -96,6 +100,13 @@ PRONUNCIATIONS = [
     (r'\bGeiger\b', 'Guy gur'),
     (r'\bMichelson\b', 'Mikelson'),
     (r'\bMeissner\b', 'Mysener'),
+    # ENG315117 English
+    (r'\bENG315117\b', 'E N G three one five, one one seven'),
+    (r'\bDharug\b', 'Dah rook'),
+    (r'\bNgalamalum\b', 'Nalamalum'),
+    (r'\bBuryia\b', 'Boor ree ya'),
+    (r'\bKiewarra\b', 'Kee warra'),
+    (r'(?i)mise-en-sc[eè]ne', 'meez on sen'),
 ]
 
 # --------------------------------------------------------------------------- thumbnail (YouTube: 16:9, under 2 MB)

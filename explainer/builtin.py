@@ -35,4 +35,4 @@ def wrap(video):
                                      [Step(S.DISCLAIMER_NARRATION, min_dur=S.MIN_CHAPTER)]))
     if CREDITS_ID not in ids:
         video.scenes.append(Scene(CREDITS_ID, '', 'Credits and references', _make_credits(video),
-                                  [Step(S.CREDITS_NARRATION.format(holder=S.COPYRIGHT_HOLDER), min_dur=S.MIN_CHAPTER)]))
+                                  [Step((getattr(video, 'credits_narration', None) or S.CREDITS_NARRATION).format(holder=S.COPYRIGHT_HOLDER), min_dur=S.MIN_CHAPTER)]))

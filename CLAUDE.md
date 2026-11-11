@@ -491,3 +491,15 @@ Stop before rendering. In your final report, give:
 
 After rendering, the operator checks `coverage.md`, `problems.txt` and the other timed documents, watches a few minutes at several points and publishes the mp4 with the docs. If they report
 a problem, fix the spec and hand back the same way.
+
+---
+
+## 13. English (ENG315117) videos
+
+The three English videos (`videos/ENG315117/m1_thriller.py`, `m2_adaptation.py`, `m3_secret_river.py`) follow sections 3 to 12 with these differences:
+
+* **No formulas, no information sheet, no past papers.** `Video.info_sheet=None`. `EXAM_TOPICS` come from the external assessment specifications (question type and focus of each section), because no past papers or reports were supplied. Say so in the handover.
+* **Slides are data-driven.** `eng_common.py` defines `Slide(kind, **config)` (kinds: `media`, `quotes`, `grid`, `table`, `bullets`, `model`, `tips`). A `Slide` has a deterministic `repr`, so the clip cache key follows its content. Use it instead of closures for any shared slide factory.
+* **Quotations and freeze frames.** Study texts are listed in `content.csv` as `file://` URLs with licence `quotes` (so quotes over 20 words fail `check`). Put the extracted text in `sources/ENG315117/cache/` under the source NAME (epub text for books, the subtitle track for films). Freeze frames and short clips are cut by `videos/ENG315117/frames.py` from films in `~/Downloads` (or `ENG_FILM_DIR`) into `sources/ENG315117/cache/frames/` (git-ignored; never commit stills). Quotes must be exact: check every one against the source text, and attribute the right speaker.
+* **1080p.** `Video(render_scale=1)` renders at 1920x1080. `Video(credits_narration=...)` replaces the credits narration when there are no exam papers to mention.
+* **Thematic focus per module:** Module 1 codes and conventions (Criterion 1), Module 2 themes and transformation of meaning (Criterion 2), Module 3 perspectives and interpretation (Criterion 3).

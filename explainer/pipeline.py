@@ -412,10 +412,14 @@ def credit_lines(v):
             files.append(f)
     att = [corpus.table[f][1] for f in files if f in corpus.table and corpus.table[f][0] == 'attribution'
            and corpus.table[f][1]]
-    other = [f for f in files if corpus.table.get(f, ('',))[0] in ('quotes', 'copyrighted')]
+    other = [f for f in files if corpus.table.get(f, ('',))[0] == 'copyrighted']
+    quoted = [corpus.table[f][1] or f for f in files if corpus.table.get(f, ('',))[0] == 'quotes']
     import textwrap
     lines = [('Course content adapted from (used under a ' + S.ATTRIBUTION_LICENCE + '):', L.SOFT, 22)]
     lines += [(textwrap.fill(a, 95), L.FG, 22) for a in dict.fromkeys(att)] or [('(see references.md)', L.FG, 22)]
+    if quoted:
+        lines += [('Short quotations and freeze frames, shown for study and criticism:', L.SOFT, 22)]
+        lines += [(textwrap.fill(q, 120), L.FG, 17) for q in quoted]
     if other:
         lines += [('Referenced, not reproduced:', L.SOFT, 22), (textwrap.fill(' · '.join(other), 120), L.FG, 19)]
     lines += [('', L.FG, 8), ('Example questions are original. Full numbered references and updated versions: see the description.',
@@ -446,7 +450,7 @@ def render(v, force=False, burn_subs=False):
     from PIL import Image
     make_tts(v)
     make_thumbnail(v)
-    L.ctx['scale'] = S.VIDEO['render_scale']
+    L.ctx['scale'] = v.render_scale or S.VIDEO['render_scale']
     analyse(v); setup(v)
     v.credit_lines = credit_lines(v)
     tl = timeline(v)
@@ -474,11 +478,16 @@ def render(v, force=False, burn_subs=False):
                                 f'format=yuv420p,loop=-1:1,trim=end_frame={it["nfr"]}'] + enc + [_ff_path(tmp)])
             rc = r.returncode
         else:
-            frames = [draw(v, sc, i, j / N, refs)[0] for j in range(N)]
+            import io
+            frames = []                      # one loop of PNG-compressed frames, so a long loop does not exhaust memory
+            for j in range(N):
+                buf = io.BytesIO()
+                Image.fromarray(draw(v, sc, i, j / N, refs)[0]).save(buf, 'PNG', compress_level=1)
+                frames.append(buf.getvalue())
             p = subprocess.Popen([FFMPEG, '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s',
                                   f'{W}x{H}', '-r', str(FPS), '-i', '-'] + enc + [_ff_path(tmp)], stdin=subprocess.PIPE)
             for f in range(it['nfr']):
-                p.stdin.write(frames[(counter + f) % N].tobytes())
+                p.stdin.write(np.asarray(Image.open(io.BytesIO(frames[(counter + f) % N])).convert('RGB')).tobytes())
             p.stdin.close(); rc = p.wait()
         if rc != 0:
             raise SystemExit(f'ffmpeg failed on {sc.id}[{i}]')
