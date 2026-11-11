@@ -437,6 +437,175 @@ SCENES = [
     ]),
 ]
 
+# =========================================================================== key scenes, quotes and requirements (added)
+def K(text, refs, covers=(), elements=(), **kw):
+    return Step(text, refs=list(refs), covers=list(covers), elements=list(elements), **kw)
+
+
+REQS = Slide('grid', title='What you must be able to discuss', chip='Requirements · Module 3', cols=2, per=1, size=26, ch_max=0.36, items=[
+    ('CONTEXT', 'Element 1', 'Explain how the play relates to the time it is set, the time it was made, and how audiences receive it.'),
+    ('PERSPECTIVES', 'Element 2', 'Analyse different perspectives, attitudes and values: settlers, Sal, the Dharug people, and the narrator.'),
+    ('CONSTRUCTION', 'Element 3', 'Show how perspective is built through voice, language, staging, juxtaposition and structure.'),
+    ('INTERPRETATION', 'Element 4', 'Develop and justify your own reading, using close analysis and other readings.'),
+])
+
+REQ_HOW = Slide('bullets', title='How the scene guides work', chip='Requirements · Module 3', size=32, items=[
+    'Each key scene gives quotations from the script, with the speaker',
+    'It names the PERSPECTIVE, the CONSTRUCTION and the CONTEXT',
+    'It says how the scene supports a reading you could argue',
+    'Two quote banks follow, grouped by perspective',
+])
+
+SC_PROLOGUE = Slide('quotes', title='Key scene: the prologue', chip='Elements 1 and 3', rows=3, size=28, items=[
+    ('“Let us begin with the sound of water as it laps against the riverbank…”', 'Opening stage direction', 'MODE',
+     'The play begins with sound, not people, which makes the place the first voice.'),
+    ('“This way and back. This way and back.”', 'Dhirrumbin, the river', 'POINT OF VIEW',
+     'A watching voice that has seen the boats, and knows what they mean.'),
+    ('“Then let them… Let them see me. I’ll tell them my name is William Thornhill.”', 'Thornhill', 'CHARACTER',
+     'A man who wants to be seen as someone, at last.'),
+])
+
+SC_ARRIVAL = Slide('quotes', title='Key scene: arrival on the river', chip='Elements 2 and 3', rows=3, size=28, items=[
+    ('“I don’t need no path made. I’m not Lady bloody Muck.”', 'Sal, stepping into mud', 'VOICE AND CLASS',
+     'Dialect and humour show who Sal is, and her practical strength.'),
+    ('“I don’t care what I’ll be. I’ll be home.”', 'Sal', 'VALUES',
+     'Her aim is home, not wealth.'),
+    ('“A different life is what I’m after.”', 'Thornhill', 'MOTIVE',
+     'Two aims, one family: the difference matters later.'),
+])
+
+SC_BLACKWOOD = Slide('quotes', title='Key scene: Blackwood, a different path', chip='Elements 2 and 3', rows=3, size=28, items=[
+    ('“…plant your backside somewhere and leave it there long enough and it’s yours.”', 'Thornhill, quoting Blackwood', 'SETTLER IDEA',
+     'Possession by staying put, which ignores those already there.'),
+    ('“They give you a fright, Will?”', 'Blackwood', 'QUESTION AS PERSPECTIVE',
+     'He treats the Dharug as people who can frighten, not as thieves.'),
+    ('“It was a matter of give a little, take a little, and of knowing your place.”', 'Bovell, on Blackwood, in the introduction', 'CONTEXT',
+     'The playwright names the alternative that history did not choose.'),
+])
+
+SC_CORN = Slide('quotes', title='Key scene: the corn', chip='Elements 2 and 3', rows=3, size=28, items=[
+    ('“They’d a taken the lot. Six months’ work.”', 'Thornhill', 'SETTLER PERSPECTIVE',
+     'Loss is measured as labour and money.'),
+    ('“I heard you the first time, Will.”', 'Sal', 'SUBTEXT',
+     'Her short reply carries her disagreement and distance.'),
+    ('“By morning Sal had become a woman turned to wood.”', 'Dhirrumbin', 'IMAGERY',
+     'The narrator shows what Sal cannot say.'),
+])
+
+SC_CAMP = Slide('quotes', title='Key scene: Sal at the deserted camp', chip='Elements 2 and 3', rows=3, size=28, items=[
+    ('“They are here. Out there. This very minute. They ain’t going nowhere.”', 'Sal', 'EMPATHY',
+     'She understands that the Dharug have not left, and cannot.'),
+    ('“Even got a broom to keep it clean, Will.”', 'Sal', 'DOMESTIC DETAIL',
+     'A broom links two homes, and two women.'),
+    ('“We had to go. Wasn’t our choice. Now it’s them that has to.”', 'Thornhill', 'JUSTIFICATION',
+     'He sees his own loss as the reason for another’s.'),
+])
+
+SC_PARDON = Slide('quotes', title='Key scene: the pardon replayed', chip='Elements 2 and 3', rows=3, size=28, items=[
+    ('“THAT’S MY NAME!”', 'Thornhill, in the inn', 'MEMORY AND VOICE',
+     'The shout returns him to the cell and to being judged.'),
+    ('“You’re to live, you miserable sod. Life, man. It’s yours. Take it.”', 'The turnkey', 'POWER',
+     'Mercy comes as an order, from someone above him.'),
+    ('“Get them before they get us.”', 'Smasher', 'FEAR',
+     'The scene links Thornhill’s own fear of power to his choice to use it.'),
+])
+
+BANK_CHARS = Slide('grid', title='Quote bank: Thornhill, Sal and the Dharug', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+    ('THORNHILL', '“This is my place now. You got all the rest.”', 'His claim to country that is already someone’s.'),
+    ('THORNHILL', '“We had to go. Wasn’t our choice. Now it’s them that has to.”', 'The justification of dispossession.'),
+    ('SAL', '“They was here… Like you and me was in London.”', 'Empathy by comparison.'),
+    ('SAL', '“I don’t care what I’ll be. I’ll be home.”', 'Belonging over wealth.'),
+    ('DHARUG', '“This is our place. Our country.”', 'Yalamundi, in translation.'),
+    ('DHARUG', '“This me… My place.”', 'Ngalamalum’s final refusal.'),
+])
+
+BANK_OTHERS = Slide('grid', title='Quote bank: settlers and the narrator', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+    ('SMASHER', '“Tell your husband to keep a whip at hand.”', 'Violence offered as common sense.'),
+    ('DAN', '“Get rid of ’em and Sal will stay, Will.”', 'Fear of loss turned into pressure.'),
+    ('MRS HERRING', '“Best get what’s left.”', 'Looking away, to keep the peace.'),
+    ('DHIRRUMBIN', '“It’s like a knot in old rope. Hard as a fist.”', 'The decision presented as final.'),
+    ('DHIRRUMBIN', '“Thornhill sat at the door, the gun loaded. Ready to kill a man.”', 'The narrator’s verdict on the man.'),
+    ('DHIRRUMBIN', '“He knew he would never share with Sal the picture of this boy.”', 'Concealment and guilt.'),
+])
+
+NEW = {
+    'reqs': Scene('reqs', P1, 'What you must discuss', REQS, [
+        K("What do you need to be able to talk about? Four things, one for each element. Element one: context. Explain how the play relates to the time it is set, "
+          "the time it was made, and how audiences receive it.", ['standards', 'ext'], ['P2', 'P3'], [1], exam=['X1']),
+        K("Element two: perspectives, attitudes and values. Analyse the settlers, Sal, the Dharug people and the narrator.", ['standards'], ['P8'], [2]),
+        K("Element three: construction. Show how perspective is built through voice, language, staging, juxtaposition and structure.", ['standards', 'ext5'], ['P5', 'P7'], [3], exam=['X2']),
+        K("Element four: interpretation. Develop and justify your own reading, using close analysis and other readings.", ['standards', 'ext5'], ['P6'], [4], exam=['X3']),
+    ]),
+    'req_how': Scene('req_how', P1, 'How the scene guides work', REQ_HOW, [
+        K("From here, there are key scene guides. Each gives quotations from the script, with the speaker, and names the perspective, the construction and "
+          "the context. It also says how the scene supports a reading you could argue. Two quote banks follow, grouped by perspective, for you to learn.",
+          ['course', 'ext'], ['P11', 'P1'], [1, 2, 3, 4], exam=['X1']),
+    ]),
+    'sc_prologue': Scene('sc_prologue', P2, 'Key scene: the prologue', SC_PROLOGUE, [
+        K("Key scene: the prologue. The stage direction begins, let us begin with the sound of water as it laps against the riverbank. The play opens with sound, not "
+          "people, so the place is the first voice.", ['river'], ['P7', 'P1'], [3]),
+        K("The narrator, Dhirrumbin, says, this way and back, this way and back, about the boats. It is a watching voice that knows what the boats mean. "
+          "That is point of view.", ['river'], ['P5'], [3]),
+        K("Then Thornhill says, then let them see me, I'll tell them my name is William Thornhill. A man who wants, at last, to be seen as someone. His "
+          "desire to be someone is the engine of the story.", ['river'], ['P4', 'P8'], [2]),
+    ]),
+    'sc_arrival': Scene('sc_arrival', P2, 'Key scene: arrival', SC_ARRIVAL, [
+        K("Key scene: arrival on the river. Sal steps into the mud and says, I don't need no path made, I'm not Lady bloody Muck. Dialect and humour show who "
+          "she is, and her practical strength.", ['river'], ['P4', 'P5'], [2, 3]),
+        K("She says, I don't care what I'll be, I'll be home. Thornhill says, a different life is what I'm after. Two aims in one family, and the difference "
+          "matters later.", ['river'], ['P8'], [2]),
+    ]),
+    'sc_blackwood': Scene('sc_blackwood', P2, 'Key scene: Blackwood', SC_BLACKWOOD, [
+        K("Key scene: Blackwood. Thornhill repeats a settler idea, plant your backside somewhere and leave it there long enough and it's yours. Possession by staying "
+          "put, which ignores those already there.", ['river'], ['P8', 'P2'], [1, 2]),
+        K("Blackwood asks, they give you a fright, Will? He treats the Dharug as people who can frighten, not as thieves. And Bovell writes that Blackwood "
+          "understood give a little, take a little, and knowing your place. That is the alternative that history did not choose.", ['river'], ['P3', 'P8'], [1, 2]),
+    ]),
+    'sc_corn': Scene('sc_corn', P2, 'Key scene: the corn', SC_CORN, [
+        K("Key scene: the corn. After the confrontation, Thornhill says, they'd a taken the lot, six months' work. Loss is measured as labour and money.",
+          ['river'], ['P8'], [2]),
+        K("Sal replies, I heard you the first time, Will. Her short sentence carries disagreement and distance. And the narrator says, by morning Sal had "
+          "become a woman turned to wood. Imagery shows what she cannot say.", ['river'], ['P4', 'P5', 'P9'], [2, 3]),
+    ]),
+    'sc_camp': Scene('sc_camp', P2, 'Key scene: the deserted camp', SC_CAMP, [
+        K("Key scene: the deserted camp. Sal says, they are here, out there, this very minute, they ain't going nowhere. She understands the Dharug have not left, "
+          "and cannot. She notices the broom: even got a broom to keep it clean, Will. A domestic detail links two homes.", ['river'], ['P8', 'P9'], [2, 3]),
+        K("Thornhill answers, we had to go, wasn't our choice, now it's them that has to. He sees his own loss as the reason for another's. That "
+          "is justification, and it is the perspective an essay must analyse, not endorse.", ['river'], ['P8', 'P6'], [2, 4]),
+    ]),
+    'sc_pardon': Scene('sc_pardon', P4, 'Key scene: the pardon replayed', SC_PARDON, [
+        K("Key scene: the inn. Thornhill shouts, that's my name, and hears a turnkey say, you're to live, you miserable sod, life man, it's yours, take it. "
+          "Mercy comes as an order, and the memory of being judged is the pressure behind his choice.", ['river'], ['P4', 'P5'], [2, 3]),
+        K("Smasher says, get them before they get us. The scene links Thornhill's own fear of power to his choice to use it. Use it to support a reading of "
+          "Thornhill as shaped by the system that once condemned him.", ['river'], ['P6', 'P8'], [2, 4], exam=['X3']),
+    ]),
+    'bank_chars': Scene('bank_chars', P4, 'Quote bank: the main characters', BANK_CHARS, [
+        K("Quote bank, part one. Thornhill: this is my place now, you got all the rest; and we had to go, wasn't our choice, now it's them that has to.",
+          ['river'], ['P8', 'P11'], [2], exam=['X1']),
+        K("Sal: they was here, like you and me was in London; and I don't care what I'll be, I'll be home.", ['river'], ['P8', 'P11'], [2]),
+        K("The Dharug: this is our place, our country; and this me, my place. Use pairs like these to show perspectives that clash.", ['river'], ['P8', 'P11'], [2, 3]),
+    ]),
+    'bank_others': Scene('bank_others', P4, 'Quote bank: settlers and narrator', BANK_OTHERS, [
+        K("Quote bank, part two. Smasher: tell your husband to keep a whip at hand. Dan: get rid of them and Sal will stay. Mrs Herring: best get what's left.",
+          ['river'], ['P8', 'P11'], [2]),
+        K("The narrator: it's like a knot in old rope, hard as a fist; Thornhill sat at the door, the gun loaded, ready to kill a man; and he knew he would never share "
+          "with Sal the picture of this boy.", ['river'], ['P5', 'P11'], [2, 3]),
+        K("Learn each quote with the speaker, the technique, and the perspective it shows. That is what turns a quotation into analysis.",
+          ['river', 'standards'], ['P10', 'P11'], [3, 4], exam=['X3']),
+    ]),
+}
+
+
+def _after(anchor, *new):
+    i = [s.id for s in SCENES].index(anchor) + 1
+    SCENES[i:i] = list(new)
+
+
+_after('intro', NEW['reqs'], NEW['req_how'])
+_after('settlers', NEW['sc_prologue'], NEW['sc_arrival'], NEW['sc_blackwood'], NEW['sc_corn'], NEW['sc_camp'])
+_after('empathy', NEW['sc_pardon'])
+_after('ending', NEW['bank_chars'], NEW['bank_others'])
+
 VIDEO = Video(
     id='ENG315117_M3_secret_river', course=COURSE, course_name='English', module=MODULE,
     module_name='Module 3: Close Text Study (The Secret River)', title='ENG315117 English: Module 3, The Secret River and perspectives',

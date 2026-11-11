@@ -145,7 +145,7 @@ NORTON = Slide('media', title='The warden: villain by design', chip='Elements 2 
 
 MOZART = Slide('media', title='A scene only film can give', chip='Elements 2 and 4',
                img=['sh_mozart'], cap=['Andy plays opera over the prison speakers'], credit=['The Shawshank Redemption, 1994'],
-               quote=[('“…made those walls dissolve away.”', 'Red, in the film')],
+               quote=[('“…made those walls dissolve away.”', 'Red, in the film'), ('“That’s the beauty of music. They can’t get that from you.”', 'Andy, in the film')],
                bullets=['Music and image replace Red’s written reflection',
                         'Sound is a film code: the music reaches every prisoner at once',
                         'The film’s voiceover still explains it, so word and sound work together'])
@@ -294,6 +294,8 @@ SCENES = [
              refs=['shaw'], covers=['A3', 'A1'], elements=[2, 4]),
         Step("Music reaches every prisoner at once, and the image shows faces looking up. The voiceover explains it, so word and sound work "
              "together. The novella has no matching scene, so this is meaning created by the medium.", refs=['shaw', 'king'], covers=['A3', 'A10', 'A11'], elements=[2, 4], exam=['X2']),
+        Step("Later, Andy defends it: that's the beauty of music, they can't get that from you. The theme is what cannot be taken from a person, and it "
+             "is carried by sound, which a novella can only describe.", refs=['shaw'], covers=['A2', 'A3'], elements=[1, 2, 4]),
     ]),
     Scene('poster', P4, 'The poster and the title', TITLE_POSTER, [
         Step("In the novella, the poster is part of the title and a key to the escape. Both texts use a run of posters to mark the years, but the film "
@@ -358,6 +360,182 @@ SCENES = [
         Step("Good luck with your class tests, your comparative response and your multimodal piece, and with Section B of the exam.", refs=['ext']),
     ]),
 ]
+
+# =========================================================================== key scenes, quotes and requirements (added)
+def K(text, refs, covers=(), elements=(), **kw):
+    return Step(text, refs=list(refs), covers=list(covers), elements=list(elements), **kw)
+
+
+REQS = Slide('grid', title='What you must be able to discuss', chip='Requirements · Module 2', cols=2, per=1, size=26, ch_max=0.36, items=[
+    ('THEMES AND IDEAS', 'Element 1', 'Know the main themes of both texts: hope, institutionalisation, friendship, justice and redemption.'),
+    ('REPRESENTATION', 'Element 2', 'Explain how those themes are built through voice, characters, language and, in the film, image and sound.'),
+    ('COMPARISON', 'Element 3', 'Compare how the novella and the film represent the same idea in different ways.'),
+    ('TRANSFORMATION', 'Element 4', 'Explain and evaluate how meaning changes when the novella becomes a film.'),
+])
+
+REQ_HOW = Slide('bullets', title='How the scene guides work', chip='Requirements · Module 2', size=32, items=[
+    'Each key scene shows what happens in the film and the novella',
+    'It gives a freeze frame and a quotation from each text where they differ',
+    'It names the THEME, the REPRESENTATION and the TRANSFORMATION',
+    'Three quote banks follow: shared lines, novella lines, film lines',
+])
+
+TRIAL = Slide('media', title='Key scene: the trial and the narrator', chip='Elements 1 and 2',
+              img=['sh_trial', 'sh_trial'], cap=['Andy at his trial, in the film (the line is also in the novella)', 'The film opens on the trial; the novella opens on Red'], credit=['The Shawshank Redemption, 1994'],
+              quote=[('“Since I am innocent of this crime, sir, I find it decidedly inconvenient that the gun was never found.”', 'Andy Dufresne, in both texts'),
+                     ('“I’m the guy who can get it for you.”', 'Red, in both texts')],
+              bullets=['Film: opens on the trial, so we start with the question of guilt',
+                       'Novella: opens with Red, so we start with his voice and trade',
+                       'Theme: justice and innocence, and who gets to tell the story'],
+              tagline=['TRANSFORMATION: where it begins', 'REPRESENTATION: the narrator'])
+
+ROCK = Slide('media', title='Key scene: the rock hammer', chip='Elements 2 and 3',
+             img=['sh_rock', 'sh_rock'], cap=['Red and Andy in the yard', 'The request is almost word for word in both texts'], credit=['The Shawshank Redemption, 1994'],
+             quote=[('“Everybody in here’s innocent. Didn’t you know that?”', 'Red, in the film'),
+                    ('“I wonder if you could get me a rock hammer.”', 'Andy, in the novella')],
+             bullets=['Friendship begins as a trade: Red can get things',
+                      'The film adds humour and warmth with performance',
+                      'Faithful lines can still change tone, because an actor delivers them'],
+             tagline=['THEME: friendship · TRANSFORMATION: performance', 'COMPARISON: kept almost word for word'])
+
+TOMMY = Slide('quotes', title='Key scene: Tommy', chip='Elements 3 and 4', rows=2, size=28, items=[
+    ('“Tommy Williams is no longer an inmate of this facility.”', 'The warden, in the novella', 'NOVELLA',
+     'Tommy is transferred, so the system quietly protects itself.'),
+    ('“Tommy had himself a young wife and a new baby girl.”', 'Red, in the film', 'FILM',
+     'The film builds sympathy, then Tommy is killed, which makes the corruption violent.'),
+])
+
+NORTON_END = Slide('quotes', title='Key scene: the warden’s end', chip='Elements 3 and 4', rows=2, size=28, items=[
+    ('“He was a broken man, it gives me great pleasure to report.”', 'Red, in the novella', 'NOVELLA',
+     'Norton resigns. Justice is private and quiet.'),
+    ('“Not long after the Warden deprived us of his company…”', 'Red, in the film', 'FILM',
+     'Norton ends his own life as the law closes in, so the film gives a dramatic reckoning.'),
+])
+
+ESCAPE = Slide('media', title='Key scene: the escape and the aftermath', chip='Elements 3 and 4',
+               img=['sh_tunnel', 'sh_tunnel'], cap=['Andy in the tunnel behind the poster', 'The film shows the escape the novella only reports'], credit=['The Shawshank Redemption, 1994'],
+               quote=[('“In fact, I don’t think Andy Dufresne even exists anymore.”', 'Red, in the novella'),
+                      ('“Some birds aren’t meant to be caged. Their feathers are just too bright.”', 'Red, in the film')],
+               bullets=['Novella: Red reports the escape and reflects on it',
+                        'Film: we see the tunnel, and Red’s voiceover turns it into an image of freedom',
+                        'Meaning: escape becomes a visual, emotional climax'],
+               tagline=['TRANSFORMATION: told versus shown', 'REPRESENTATION: the bird as symbol'])
+
+BANK_SHARED = Slide('grid', title='Quote bank: lines in both texts', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+    ('VOICE', '“I’m the guy who can get it for you.”', 'Red’s opening claim, used to introduce his role.'),
+    ('HOPE', '“…hope is a good thing, Red, maybe the best of things, and no good thing ever dies.”', 'Andy’s letter.'),
+    ('CHOICE', '“Get busy living or get busy dying.”', 'The turning point of the story.'),
+    ('FREEDOM', '“I hope the Pacific is as blue as it has been in my dreams.”', 'The shared ending line.'),
+    ('MEMORY', '“They say it has no memory.”', 'Zihuatanejo, the place to forget the past.'),
+    ('PLACE', '“Zihuatanejo.”', 'A name that becomes a promise.'),
+])
+
+BANK_NOVELLA = Slide('grid', title='Quote bank: the novella', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+    ('VOICE', '“There’s a guy like me in every state and federal prison in America…”', 'Red’s opening: confession and a trade.'),
+    ('INSTITUTION', '“Because you do get institutionalized.”', 'The theme stated plainly.'),
+    ('BROOKS', '“He was crying when he left. Shawshank was his world.”', 'Brooks reported in brief.'),
+    ('JUSTICE', '“He was a broken man, it gives me great pleasure to report.”', 'Norton’s quiet end.'),
+    ('ESCAPE', '“In fact, I don’t think Andy Dufresne even exists anymore.”', 'Red’s reflection on Andy.'),
+    ('WISDOM', '“Some have got it, Sam. And some don’t, and never will.”', 'Red’s verdict on Norton.'),
+])
+
+BANK_FILM = Slide('grid', title='Quote bank: the film', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+    ('HOPE', '“Hope is a dangerous thing. Hope can drive a man insane.”', 'Red’s warning, which the film answers.'),
+    ('INSTITUTION', '“These walls are funny. First you hate ’em…”', 'How a prison becomes a habit.'),
+    ('MUSIC', '“That’s the beauty of music. They can’t get that from you.”', 'Andy, on what cannot be taken.'),
+    ('HYPOCRISY', '“Salvation lies within.”', 'Norton’s motto, which the film ironises.'),
+    ('INNOCENCE', '“Everybody in here’s innocent. Didn’t you know that?”', 'Red’s wry first impression.'),
+    ('FREEDOM', '“Some birds aren’t meant to be caged.”', 'The symbol for Andy’s escape.'),
+])
+
+BANK_THEMES = Slide('table', title='Quote bank: themes, novella against film', chip='Elements 1 to 3',
+                    head=['', 'Novella (1982)', 'Film (1994)'], size=23, label_w=0.17, rows=[
+    ('Hope', '“…hope is a good thing, Red, maybe the best of things…”', '“Hope is a dangerous thing. Hope can drive a man insane.”'),
+    ('Institution', '“Because you do get institutionalized.”', '“These walls are funny. First you hate ’em…”'),
+    ('Justice', '“He was a broken man, it gives me great pleasure to report.”', '“Salvation lies within.”'),
+    ('Freedom', '“I hope the Pacific is as blue as it has been in my dreams.”', '“Some birds aren’t meant to be caged.”'),
+])
+
+NEW = {
+    'reqs': Scene('reqs', P1, 'What you must discuss', REQS, [
+        K("What do you need to be able to talk about? Four things, one for each element. Element one: the themes of both texts, hope, institutionalisation, friendship, "
+          "justice and redemption.", ['standards', 'ext'], ['A2'], [1], exam=['X1']),
+        K("Element two: how those themes are represented, through voice, characters and language, and, in the film, image and sound.",
+          ['standards'], ['A1', 'A3'], [2]),
+        K("Element three: how the novella and the film represent the same idea in different ways. This is comparison.",
+          ['standards'], ['A9'], [3]),
+        K("And element four: how meaning changes when the novella becomes a film. This is the heart of Section B, so be ready with examples.",
+          ['standards', 'ext'], ['A10'], [4], exam=['X2']),
+    ]),
+    'req_how': Scene('req_how', P1, 'How the scene guides work', REQ_HOW, [
+        K("The next sections walk through key scenes. Each one shows what happens in the film and the novella, with a freeze frame and a quotation from each text where "
+          "they differ. Each names the theme, the representation and the transformation. Then three quote banks follow: lines shared by both texts, lines from "
+          "the novella, and lines from the film.", ['course', 'ext'], ['A11', 'A12'], [1, 2, 3, 4], exam=['X1']),
+    ]),
+    'trial': Scene('trial', P4, 'Key scene: the trial', TRIAL, [
+        K("Key scene: how each text begins. The film opens at Andy's trial, where he says, as he does in the novella too, since I am innocent of this crime, sir, I find it decidedly inconvenient "
+          "that the gun was never found. So we start with the question of guilt.", ['shaw', 'king'], ['A1', 'A10'], [1, 4]),
+        K("The novella opens differently, with Red's voice: I'm the guy who can get it for you. A different start asks us to watch a trade and a narrator. Theme: "
+          "justice and innocence, and who gets to tell the story.", ['king', 'shaw'], ['A1', 'A9'], [2, 3, 4]),
+    ]),
+    'rock': Scene('rock', P4, 'Key scene: the rock hammer', ROCK, [
+        K("Key scene: the rock hammer. In the film, Red says, everybody in here's innocent, didn't you know that? Then Andy asks for a rock hammer. "
+          "In the novella he says almost the same thing: I wonder if you could get me a rock hammer.", ['shaw', 'king'], ['A9', 'A11'], [2, 3]),
+        K("Friendship begins as a trade. The film adds humour and warmth through performance. So even faithful lines can change tone, because an actor delivers "
+          "them. That is a precise example for element four.", ['shaw', 'king'], ['A3', 'A10'], [3, 4]),
+    ]),
+    'tommy': Scene('tommy', P4, 'Key scene: Tommy', TOMMY, [
+        K("Key scene: Tommy. In the novella, the warden says, Tommy Williams is no longer an inmate of this facility. He is transferred, and the system "
+          "quietly protects itself. In the film, Red tells us, Tommy had himself a young wife and a new baby girl, which builds sympathy before Tommy is killed. "
+          "The corruption becomes violent.", ['king', 'shaw'], ['A4', 'A6', 'A10'], [3, 4], exam=['X3']),
+    ]),
+    'norton_end': Scene('norton_end', P4, 'Key scene: the warden’s end', NORTON_END, [
+        K("Key scene: the warden's end. In the novella, Red says, he was a broken man, it gives me great pleasure to report, and Norton resigns. In the film, Red says, not "
+          "long after the Warden deprived us of his company, and Norton ends his own life as the law closes in. The film gives a dramatic reckoning, and the novella "
+          "a private, quiet one.", ['king', 'shaw'], ['A6', 'A10'], [3, 4]),
+    ]),
+    'escape': Scene('escape', P4, 'Key scene: the escape', ESCAPE, [
+        K("Key scene: the escape. In the novella, Red reports it and reflects: in fact, I don't think Andy Dufresne even exists anymore. The telling is "
+          "distant and thoughtful.", ['king'], ['A1', 'A9'], [2, 3]),
+        K("In the film, we see the tunnel, and Red's voiceover turns it into an image: some birds aren't meant to be caged, their feathers are just too bright. "
+          "The escape becomes a visual and emotional climax. Told versus shown is a useful phrase for element four.", ['shaw'], ['A3', 'A10'], [2, 4], exam=['X2']),
+    ]),
+    'bank_shared': Scene('bank_shared', P4, 'Quote bank: shared lines', BANK_SHARED, [
+        K("Quote bank, part one: lines in both texts. Voice: I'm the guy who can get it for you. Hope: hope is a good thing, Red, maybe the best of things, and no good "
+          "thing ever dies.", ['king', 'shaw'], ['A9', 'A11'], [1, 3], exam=['X1']),
+        K("Choice: get busy living or get busy dying. Freedom: I hope the Pacific is as blue as it has been in my dreams.", ['king', 'shaw'], ['A9', 'A11'], [1, 3]),
+        K("Memory: they say it has no memory. And the place name, Zihuatanejo, a name that becomes a promise.", ['king', 'shaw'], ['A2', 'A5'], [1, 2]),
+    ]),
+    'bank_novella': Scene('bank_novella', P4, 'Quote bank: the novella', BANK_NOVELLA, [
+        K("Quote bank, part two: the novella. Voice: there's a guy like me in every state and federal prison in America. Institution: because you do get "
+          "institutionalized. Brooks: he was crying when he left, Shawshank was his world.", ['king'], ['A1', 'A5'], [1, 2]),
+        K("Justice: he was a broken man, it gives me great pleasure to report. Escape: in fact, I don't think Andy Dufresne even exists anymore. And Red's verdict: some have "
+          "got it, Sam, and some don't, and never will.", ['king'], ['A1', 'A5'], [1, 2]),
+    ]),
+    'bank_film': Scene('bank_film', P4, 'Quote bank: the film', BANK_FILM, [
+        K("Quote bank, part three: the film. Hope: hope is a dangerous thing, hope can drive a man insane. Institution: these walls are funny, first you hate them.",
+          ['shaw'], ['A2', 'A3'], [1, 2]),
+        K("Music: that's the beauty of music, they can't get that from you. Hypocrisy: salvation lies within. Innocence: everybody in here's innocent, didn't you know that? "
+          "And freedom: some birds aren't meant to be caged.", ['shaw'], ['A2', 'A3'], [1, 2]),
+    ]),
+    'bank_themes': Scene('bank_themes', P5, 'Quote bank: themes', BANK_THEMES, [
+        K("Here are the themes, novella against film. Hope: hope is a good thing, against hope is a dangerous thing. Institution: because you do get institutionalized, "
+          "against these walls are funny.", ['king', 'shaw'], ['A2', 'A9'], [1, 3], exam=['X2']),
+        K("Justice: he was a broken man, against salvation lies within. And freedom: I hope the Pacific is as blue as it has been in my dreams, against some birds aren't "
+          "meant to be caged. In an essay, put a pair like this in one paragraph, then say what the change of medium does to the meaning.", ['king', 'shaw'], ['A9', 'A10'], [3, 4]),
+    ]),
+}
+
+
+def _after(anchor, *new):
+    i = [s.id for s in SCENES].index(anchor) + 1
+    SCENES[i:i] = list(new)
+
+
+_after('intro', NEW['reqs'], NEW['req_how'])
+_after('table2', NEW['trial'], NEW['rock'], NEW['tommy'], NEW['norton_end'])
+_after('ending', NEW['escape'], NEW['bank_shared'], NEW['bank_novella'], NEW['bank_film'])
+_after('responses', NEW['bank_themes'])
 
 VIDEO = Video(
     id='ENG315117_M2_adaptation', course=COURSE, course_name='English', module=MODULE,
