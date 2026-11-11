@@ -956,6 +956,7 @@ def we_compass(fig, s, ph):
     chip(fig, 'Element 2 · problems')
     ax = wax(fig, [0.03, 0.12, 0.45, 0.66], (-1.2, 2.0), (-1.0, 2.6)); ax.set_aspect('equal')
     ax.text(-1.1, 2.4, 'top view  (N ↑, E →)', color=MUT, fontsize=17)
+    _note(fig, 0.03, 0.10, 'field and dip values are illustrative, not measured data', 17)
     _wire(ax, 0, 1.6, True, r=0.13, label_=None); ax.text(0.25, 1.6, 'wire, current up\n(out of the page)', color=SOFT, fontsize=17, va='center')
     ax.annotate('', xy=(0, 0.1), xytext=(0, 1.45), arrowprops=dict(arrowstyle='<->', color=MUT, lw=1.5)); ax.text(-0.1, 0.8, '0.25 m', color=MUT, fontsize=16, ha='right')
     ax.scatter([0], [0], s=160, color=YELLOW, zorder=8, edgecolor=BG); ax.text(0.12, -0.18, 'compass', color=YELLOW, fontsize=18)
@@ -1575,7 +1576,7 @@ def ind_contexts(fig, s, ph):
         ax.add_patch(Polygon([[-1.5, sg * 0.05], [-1.7, sg * 0.5], [-1.9, sg * 0.5], [-1.75, sg * 0.05]], fc=SOFT, ec=BG, zorder=3))
     ax.text(-0.4, 1.7, '−', color=C1, fontsize=30, ha='center', weight='bold'); ax.text(-0.4, -1.7, '+', color=PINK, fontsize=30, ha='center', weight='bold', va='top')
     arrow(ax, (1.4, 0), (2.7, 0), color=GREEN, lw=4, ms=22); ax.text(2.0, 0.2, 'east', color=GREEN, fontsize=18, ha='center')
-    ax.text(-2.8, 1.6, 'N ↑', color=SOFT, fontsize=18); ax.text(-1.6, 0.2, 'top view', color=MUT, fontsize=15)
+    ax.text(-2.8, 1.6, 'N ↑', color=SOFT, fontsize=18); ax.text(-2.8, 1.2, 'top view', color=MUT, fontsize=15)
     T(fig, 0.56, 0.76, r'$emf = v\,\ell\,B\sin(\mathrm{dip})$', size=24)
     T(fig, 0.56, 0.66, r'$= 250\times40.0\times6.2\times10^{-5}\times\sin72^\circ = 0.5897\ \mathrm{V}$', size=19); _sf(fig, 0.56, 0.60, '= 0.59 V (2 s.f.)')
     bullets(fig, ['Only the vertical part of the field counts', 'Flying east: the right wing is positive', 'No steady current for the electronics:\nthey move with the plane, so the same\nPD appears across them all'], 3, 0.56, 0.50, size=20, gap=0.015)
@@ -1651,7 +1652,7 @@ def summary_panel(fig, ph):
               ('right hand rule', GREEN), ('vector diagrams', GREEN), ('field sketches', GREEN), ('give directions', GREEN)]
     x, y = 0.06, 0.75
     for t, c in chips_:
-        w = len(t) * 0.0083 + 0.016
+        w = len(t) * 0.0092 + 0.016
         if x + w > 0.95:
             x = 0.06; y -= 0.10
         chip(fig, t, color=c, size=24, x=x, y=y, ha='left')
