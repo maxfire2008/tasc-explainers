@@ -8,7 +8,7 @@ from explainer.layout import (header, T, bullets, box, card, eq, chip, wax, gax,
 from explainer.spec import import_sibling
 
 _CC = import_sibling(__file__, 'chm_common.py')
-Slide, Seq, C, ch, fit = _CC.Slide, _CC.Seq, _CC.C, _CC.ch, _CC.fit
+Slide, Seq, Phased, C, ch, fit = _CC.Slide, _CC.Seq, _CC.Phased, _CC.C, _CC.ch, _CC.fit
 
 
 # ============================================================================ energy profile
@@ -144,10 +144,10 @@ def distribution(fig, s, ph):
         hi = mbd(E, 1.6)
         ax.plot(E, hi, color=PINK, lw=4)
         ax.fill_between(E, 0, hi, where=E >= Ea, color=PINK, alpha=0.4)
-        ax.text(3.0, 0.20, 'higher T', color=PINK, fontsize=19, weight='bold')
+        ax.text(4.0, 0.20, 'higher T', color=PINK, fontsize=19, weight='bold')
     if s >= 2:
         ax.axvline(2.3, color=GREEN, lw=2.5, ls='--')
-        ax.text(2.35, 0.57, 'Ea with a catalyst', color=GREEN, fontsize=19, weight='bold')
+        ax.text(2.25, 0.45, 'Ea with a\ncatalyst', color=GREEN, fontsize=18, weight='bold', ha='right')
         ax.fill_between(E, 0, low, where=E >= 2.3, color=GREEN, alpha=0.25)
     notes = ['Molecules have a spread of kinetic energies, not one value. Only those with energy at least Ea (shaded) can react',
              'Raising T: the peak lowers and moves right, the area under the curve stays the same, and a much larger share of molecules is above Ea. So a small rise in T gives a large rise in rate',
@@ -296,12 +296,12 @@ def calorimeter(fig, s, ph):
     ax.add_patch(Rectangle((22, 28), 36, 30, fc='#2a5f8f', ec=FG, lw=3, alpha=0.9))
     ax.text(40, 43, 'water\nm, ΔT', color=FG, fontsize=18, ha='center', va='center', weight='bold')
     ax.plot([48, 48], [30, 72], color=FG, lw=3); ax.add_patch(Circle((48, 29), 2.2, fc=PINK, ec='none'))
-    ax.text(56, 70, 'thermometer', color=SOFT, fontsize=16)
+    ax.text(56, 70, 'thermometer', color=SOFT, fontsize=19)
     ax.add_patch(Rectangle((30, 6), 20, 10, fc='#a05f35', ec=FG, lw=2)); ax.text(40, 11, 'fuel', color=FG, fontsize=16, ha='center', va='center')
     for k in range(3):
         xs = 40 + 2 * (k - 1)
         ax.add_patch(Polygon([[xs - 2.5, 16], [xs + 2.5, 16], [xs + 0.3 * (k - 1), 26]], fc=YELLOW if k == 1 else '#fb923c', ec='none', alpha=0.95))
-    ax.text(70, 12, 'Losses: heat to air,\nincomplete burning', color=PINK, fontsize=16, va='center')
+    ax.text(66, 12, 'Losses: heat to air,\nincomplete burning', color=PINK, fontsize=19, va='center')
     items = ['Heat gained by the water: E = mcΔT. Use the mass of WATER, not the fuel',
              'Moles of fuel: n = m / M. Then ΔH = −E / n in kJ mol⁻¹ (a temperature RISE means an exothermic reaction: negative ΔH)',
              'Convert J to kJ. ΔT in °C equals ΔT in K: do not add 273 to a difference',

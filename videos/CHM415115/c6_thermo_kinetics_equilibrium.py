@@ -14,7 +14,7 @@ COURSE, MODULE = 'CHM415115', 'C6'
 L.use(style.theme(COURSE, MODULE))
 V = import_sibling(__file__, 'c6_visuals.py')
 _CC = import_sibling(__file__, 'chm_common.py')
-Slide, Seq, ch = _CC.Slide, _CC.Seq, _CC.ch
+Slide, Seq, Phased, ch = _CC.Slide, _CC.Seq, _CC.Phased, _CC.ch
 
 P0 = 'Criterion 6 · Overview'
 P1 = 'Part 1 · Thermochemistry'
@@ -357,7 +357,7 @@ Scene('thermo_eq', P1, 'Thermochemical equations and heat from a mass', Slide('w
       "ratio in the equation: if the equation was written with two methane, delta H would double.",
       refs=['info'], covers=['T6', 'T5'], elements=[5]),
 ]),
-Scene('calorimetry', P1, 'Calorimetry: E = mcΔT', Seq(V.calorimeter), [
+Scene('calorimetry', P1, 'Calorimetry: E = mcΔT', V.calorimeter, [
     S("Calorimetry measures heat by the temperature change of water. The heat gained by the water is E equals m c delta T, "
       "which is on your information sheet, in the chemical information section. Use the mass of the water, the specific "
       "heat of water, four point one eight four joules per gram per kelvin, and the temperature change.",
@@ -395,7 +395,7 @@ Scene('we_calorimetry', P1, 'Worked example: a fuel in a calorimeter', Slide('wo
       "calculation as well. Follow the path: energy, then moles, then delta H, then sign.", refs=['ex22q8', 'ar22q8'], covers=['T10', 'T6'], elements=[5], exam=['X22-8']),
 ]),
 Scene('we_calibration', P1, 'Calibrating a calorimeter', Slide('worked', title='Worked example 3: calibration factor', chip='Element 5 · calculations',
-    q='A bomb calorimeter is calibrated with an electric heater: 12.0 V, 3.00 A for 150 s raises the temperature by 1.50 K. Then 1.50 g of glucose is burned and the temperature rises by 6.50 K. Find the calibration factor and the heat of combustion of glucose in kJ g⁻¹ and kJ mol⁻¹.',
+    q='A bomb calorimeter is calibrated with an electric heater: 12.0 V, 3.00 A for 150 s raises the temperature by 1.50 K. Then 1.50 g of glucose is burned and the temperature rises by 6.50 K. Find the calibration factor and the heat of combustion of glucose in kJ g⁻¹ and kJ mol⁻¹.', size=23,
     rows=[dict(s=0, t='Electrical energy  E = VIt = 12.0 × 3.00 × 150 = 5400 J', col='#ffd166'),
           dict(s=0, t='Cf = VIt / ΔT = 5400 / 1.50 = 3600 J K⁻¹', col='#ffd166'),
           dict(s=0, sf='= 3.60 × 10³ J K⁻¹ (3 s.f.)', t='', gap=0),
@@ -521,7 +521,7 @@ Scene('we_rate', P2, 'Worked example: average and instantaneous rates', Slide('w
       "That fall is explained by collision theory: fewer reactant particles mean fewer collisions.",
       refs=['ar23q6', 'ar24q8'], covers=['K4', 'K1'], elements=[3], exam=['X23-6', 'X24-8']),
 ]),
-Scene('collision', P2, 'Collision theory', Slide('cards', title='Collision theory: what changes the rate', chip='Element 3 · rates and catalysis', cols=2, counts=[1, 2, 3, 4, 5], h=0.29, size=20, cards=[
+Scene('collision', P2, 'Collision theory', Slide('cards', title='Collision theory: what changes the rate', chip='Element 3 · rates and catalysis', cols=1, counts=[1, 2, 3, 4, 5], h=0.125, size=20, bump=0, cards=[
     ('Concentration or pressure', 'More particles per volume: more frequent collisions, so more effective collisions per second.', '#fb923c'),
     ('Surface area', 'Smaller pieces expose more particles to the other reactant: more collisions per second.', '#a78bfa'),
     ('Temperature', 'Faster particles: more frequent AND higher-energy collisions, so a larger proportion exceed Ea.', '#f15bb5'),
@@ -574,7 +574,7 @@ Scene('catalyst', P2, 'Catalysts and enzymes', V.pe_cat, [
       "consumed and is a substance that provides a lower energy pathway. Light supplies energy. Also, do not say a catalyst "
       "provides a surface: that is only true for heterogeneous catalysts.", refs=['ex21q6', 'ar21q6'], covers=['K8'], elements=[3, 1], exam=['X21-6']),
 ]),
-Scene('autocatalysis', P2, 'Enzymes and autocatalysis', Slide('cards', title='Catalysts in action', chip='Context · enzymes', cols=2, counts=[1, 2, 3], h=0.40, size=22, cards=[
+Scene('autocatalysis', P2, 'Enzymes and autocatalysis', Slide('cards', title='Catalysts in action', chip='Context · enzymes', cols=1, counts=[1, 2, 3], h=0.20, size=20, bump=0, cards=[
     ('Enzymes', 'Biological catalysts: protein molecules that lower the activation energy of one particular reaction, in digestion and respiration. Pasteur’s work on fermentation was the start; the molecular structure explains their action.', '#9bde7e'),
     ('Autocatalysis', 'A product that is also a catalyst. Rate: slow at first (little catalyst), then fast (catalyst builds up), then slow again as reactants run out. A graph of reactant against time is an S shape.', '#38bdf8'),
     ('Collision theory’s history', 'Trautz (1916) and Lewis (1918) developed collision theory independently. Chemical engineers use it to design safe, efficient processes.', '#a78bfa')]), [
@@ -637,10 +637,10 @@ Scene('drivers', P3, 'Why there is an equilibrium', Slide('table', title='The tw
       "high temperature or low pressure favours the entropy driven reaction, and low temperature or high pressure favours the other.",
       refs=['ex24q9', 'ar24q9'], covers=['Q3', 'Q9'], elements=[4], exam=['X24-9']),
 ]),
-Scene('kc', P3, 'The equilibrium constant', Slide('eqs', title='The equilibrium constant, K', chip='Element 5 · calculations', counts=[1, 2, 3], gap=0.22, size=34, nx=0.56, y=0.72, section='Chemical Equilibrium Formulae', items=[
+Scene('kc', P3, 'The equilibrium constant', Slide('eqs', title='The equilibrium constant, K', chip='Element 5 · calculations', counts=[1, 2, 3], gap=0.22, size=30, nx=0.58, y=0.72, section='Chemical Equilibrium Formulae', items=[
     ('sheet', '$K_c = \\dfrac{[R]^z[S]^w}{[P]^x[Q]^y}$', 'for xP + yQ ⇌ zR + wS: concentrations in mol L⁻¹, raised to the coefficients'),
     ('eq', '$CaCO_3(s) \\rightleftharpoons CaO(s) + CO_2(g)$     $K_c = [CO_2]$', 'Solids and pure liquids are left out: their concentration is constant'),
-    ('eq', 'K large → mostly products;  K small → mostly reactants', 'K changes only with TEMPERATURE')]), [
+    ('eq', 'K large → mostly products', 'K small → mostly reactants. K changes only with TEMPERATURE')]), [
     S("The equilibrium constant, K c, is written from the coefficients. Your information sheet gives it, in the chemical "
       "equilibrium formulae section: products' concentrations raised to their coefficients, over the reactants' concentrations "
       "raised to theirs. Start with K c equals, use square brackets, and do not turn the fraction upside down.",
@@ -701,7 +701,7 @@ Scene('quotient', P3, 'The reaction quotient, Q', Slide('table', title='Q compar
       "but it changes K. Very few students got all six boxes right.",
       refs=['ex23q10', 'ar23q10'], covers=['Q15', 'Q9', 'Q13'], elements=[4], exam=['X23-10']),
 ]),
-Scene('lechatelier', P3, "Le Chatelier's Principle", Slide('table', title="Le Chatelier's Principle: effects on 2SO₂ + O₂ ⇌ 2SO₃  (ΔH < 0)", chip='Element 4 · equilibrium',
+Scene('lechatelier', P3, "Le Chatelier's Principle", Slide('table', title="Le Chatelier: 2SO₂ + O₂ ⇌ 2SO₃ (ΔH < 0)", chip='Element 4 · equilibrium',
     head=['Change', 'Shift', 'Explanation (rates)', 'K'], widths=[0.20, 0.13, 0.43, 0.14], size=20, counts=[1, 2, 3, 4, 5, 6], rows=[
         ['Add O₂', 'Right', 'Forward rate rises first; reverse catches up, using up O₂', 'same'],
         ['Remove SO₃', 'Right', 'Reverse rate falls; forward is faster until balanced', 'same'],
@@ -771,11 +771,11 @@ Scene('reverse_ea', P3, 'Reversibility and activation energy', V.pe_reverse, [
       "Le Chatelier together. That is the sort of connection A standard answers make.", refs=['standards'], covers=['Q7', 'K10'], elements=[4, 3, 2]),
 ]),
 Scene('industry', P3, 'Compromise conditions in industry', Slide('table', title='Rate against yield: choosing conditions', chip='Element 4 · equilibrium',
-    head=['Condition', 'Best for yield (exothermic, fewer gas moles)', 'Best for rate', 'Industry'], widths=[0.17, 0.30, 0.24, 0.20], size=20, counts=[1, 2, 3, 4], rows=[
+    head=['Condition', 'Best for yield*', 'Best for rate', 'Industry'], widths=[0.17, 0.30, 0.24, 0.20], size=20, counts=[1, 2, 3, 4], rows=[
         ['Temperature', 'LOW', 'HIGH', 'Moderate: a compromise'],
         ['Pressure', 'HIGH', 'HIGH', 'High, limited by cost and safety'],
         ['Catalyst', 'No effect on yield', 'Raises rate', 'Always used'],
-        ['Remove product', 'Raises yield', '–', 'If it can be done continuously']]), [
+        ['Remove product', 'Raises yield', '–', 'If it can be done continuously']], note='* for an exothermic reaction that makes fewer moles of gas (SO₃, NH₃, methanol)'), [
     S("Industrial processes balance rate and yield. Methanol, ammonia and sulfur trioxide are all exothermic and produce fewer moles "
       "of gas. A low temperature gives a higher yield, but is too slow. A high temperature gives a fast rate, but a "
       "low yield. So industry uses a moderate temperature. Just writing the word compromise, without naming temperature, scored nothing.",
@@ -846,9 +846,9 @@ Scene('bl_acids', P4, 'Acids, bases and conjugate pairs', Slide('cards', title='
     S("In the ammonia equation, water donates a proton to ammonia, so water is the acid and ammonia is the base. "
       "Justify with the definition: Brønsted Lowry acids donate protons.", refs=['ex21q8', 'ar21q8'], covers=['B5', 'B1'], elements=[1], exam=['X21-8']),
 ]),
-Scene('ka', P4, 'Strength, Ka and Kw', Seq(V.acid_particles, Slide('eqs', title='Ka, Kw and pH', chip='Element 5 · pH and acids', counts=[1, 2], gap=0.19, size=32, nx=0.58, y=0.72, section='Chemical Equilibrium Formulae', items=[
+Scene('ka', P4, 'Strength, Ka and Kw', Phased((3, V.acid_particles), (1, Slide('eqs', title='Ka, Kw and pH', chip='Element 5 · pH and acids', counts=[2], gap=0.19, size=32, nx=0.58, y=0.72, section='Chemical Equilibrium Formulae', items=[
     ('sheet', '$K_w = [H^+][OH^-] = 1.00\\times10^{-14}\\ \\mathrm{mol^2\\,L^{-2}}$ at 25 °C', ''),
-    ('sheet', '$pH = -\\log[H^+]$        $[H^+] = 10^{-pH}$', 'on the sheet: [H⁺] means [H₃O⁺]')])), [
+    ('sheet', '$pH = -\\log[H^+]$        $[H^+] = 10^{-pH}$', 'on the sheet: [H⁺] means [H₃O⁺]')]))), [
     S("Strength is about how far an acid ionises, not how concentrated it is. A strong acid ionises completely in water. "
       "A weak acid ionises only slightly, so most molecules stay as they were. Strong acids such as hydrochloric acid are fully "
       "ionised, so a Ka for them is not usually given.", refs=['content', 'ex21q10', 'ar21q10'], covers=['B2', 'B3'], elements=[1], exam=['X21-10']),
@@ -868,7 +868,7 @@ Scene('we_ph', P4, 'Worked examples: pH', Slide('worked', title='Worked example 
     q='Find the pH of: (a) 0.0250 mol L⁻¹ HNO₃; (b) 0.100 mol L⁻¹ ethanoic acid (Ka = 1.74 × 10⁻⁵, reference data, not from TASC); (c) 0.0100 mol L⁻¹ Ba(OH)₂; (d) concentrated HCl, 36.0% by mass, density 1.18 g mL⁻¹. Use Kw = 1.00 × 10⁻¹⁴.',
     size=23,
     rows=[dict(s=0, t='(a) Strong, monoprotic: [H⁺] = 0.0250.   pH = −log(0.0250) = 1.602', col='#ffd166'),
-          dict(s=0, sf='= 1.60 (3 s.f.: 3 digits after the point is too many; use 2 decimal places)', t='', gap=0),
+          dict(s=0, sf='= 1.60 (2 d.p., as the concentration has 3 s.f.)', t='', gap=0),
           dict(s=1, t='(b) Weak: Ka = x² / 0.100  (x small),  x = √(1.74×10⁻⁵ × 0.100) = 1.319×10⁻³', col='#ffd166'),
           dict(s=1, t='pH = −log(1.319×10⁻³) = 2.88.   Check: x / 0.100 = 1.3% < 5%, so the approximation holds', col='#9bde7e'),
           dict(s=2, t='(c) [OH⁻] = 2 × 0.0100 = 0.0200.   [H⁺] = Kw / [OH⁻] = 1.00×10⁻¹⁴ / 0.0200 = 5.00×10⁻¹³', col='#ffd166'),

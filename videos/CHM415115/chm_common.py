@@ -206,7 +206,7 @@ class Slide:
         cards = c['cards']                      # (title, body, colour)
         n = _n(c, s, len(cards))
         cols = c.get('cols', 2)
-        size = c.get('size', 22) + 4
+        size = c.get('size', 22) + c.get('bump', 4)
         gx = 0.02
         w = (0.90 - gx * (cols - 1)) / cols
         rows = (len(cards) + cols - 1) // cols
@@ -358,3 +358,21 @@ def path_dots(ax, pts, ph, n=6, color=YELLOW, size=90, label=None):
         f = (d - cum[i]) / seg[i]
         p = pts[i] + f * (pts[i + 1] - pts[i])
         ax.scatter([p[0]], [p[1]], s=size, color=color, edgecolor=BG, linewidth=1.5, zorder=8)
+
+
+class Phased:
+    """One scene whose steps are routed to different draw functions: parts = [(n_steps, draw), ...].
+    Each draw is called with the step index local to its part."""
+    def __init__(self, *parts):
+        self.parts = parts
+
+    def __repr__(self):
+        return f'Phased({self.parts!r})'
+
+    def __call__(self, fig, s, ph):
+        for n, fn in self.parts:
+            if s < n:
+                return fn(fig, s, ph)
+            s -= n
+        n, fn = self.parts[-1]
+        return fn(fig, n - 1, ph)
