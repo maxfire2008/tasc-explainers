@@ -516,7 +516,7 @@ NX_AUCTION = Slide('media', title='Key scene: the auction', chip='Elements 2 and
                             'Theme: power and class, as the villain is cultured and rich'],
                    tagline=['CODE: tone and wit · THEME: power'])
 
-NX_BANK = Slide('grid', title='Quote bank: North by Northwest', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+NX_BANK = Slide('grid', title='Quote bank: North by Northwest', chip='Learn these', cols=2, per=2, size=19, ch_max=0.3, items=[
     ('IDENTITY', '“My name is Thornhill. Roger Thornhill. It’s never been anything else.”', 'Thornhill at the Plaza: a name that others rewrite.'),
     ('IMAGE', '“There’s only the expedient exaggeration.”', 'Advertising logic, ironically turned on the hero.'),
     ('DECEPTION', '“Our non-existent decoy, George Kaplan…”', 'The agency invents a person, then risks a real one.'),
@@ -567,7 +567,7 @@ RP_END = Slide('media', title='Key scene: the closing cabin', chip='Elements 2 a
                         'The ending denies justice, which challenges the genre’s moral order'],
                tagline=['CODE: framing · THEME: guilt', 'CODE: irony · THEME: truth'])
 
-RP_BANK = Slide('grid', title='Quote bank: The Talented Mr Ripley', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+RP_BANK = Slide('grid', title='Quote bank: The Talented Mr Ripley', chip='Learn these', cols=2, per=2, size=19, ch_max=0.3, items=[
     ('TALENT', '“Forging signatures, telling lies, impersonating practically anybody.”', 'Tom’s skills, and the engine of the plot.'),
     ('ENVY', '“It’s like the sun shines on you, and it’s glorious.”', 'How Dickie’s attention feels, and why Tom wants it.'),
     ('MOTIVE', '“…better to be a fake somebody than a real nobody.”', 'The line that explains Tom’s choices.'),
@@ -612,7 +612,7 @@ DRY_END = Slide('quotes', title='Key scene: the ending', chip='Elements 2 and 3'
      'Wary and unsentimental, so no easy reconciliation.'),
 ])
 
-DRY_BANK = Slide('grid', title='Quote bank: The Dry', chip='Learn these', cols=2, per=2, size=24, ch_max=0.3, items=[
+DRY_BANK = Slide('grid', title='Quote bank: The Dry', chip='Learn these', cols=2, per=2, size=19, ch_max=0.3, items=[
     ('SETTING', '“‘It’ll break,’ the farmers said as the months ticked over into a second year.”', 'Drought as pressure and prayer.'),
     ('HOOK', '“Luke lied. You lied. Be at the funeral.”', 'The letter that links two time frames.'),
     ('JUXTAPOSITION', '“Three coffins said differently.”', 'What looks the same is not.'),
