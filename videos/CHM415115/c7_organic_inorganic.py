@@ -389,7 +389,8 @@ Scene('config', P2, 'Electron configurations', V.ladder, [
       refs=['ar22g', 'ex22q11', 'ex23q11', 'ar23q11'], covers=['P5'], elements=[4], exam=['X22-11', 'X23-11']),
     S("For d block atoms, four s fills before three d. Cobalt has twenty seven electrons: three p six, three d seven, four s two. "
       "In a positive ion, the four s electrons are lost first, so nickel two plus is three d eight. Copper is an exception, "
-      "three d ten four s one. The course only asks for simple ions, but a report accepted both orders of writing three d and four s.",
+      "three d ten four s one. The course only asks for simple ions, but a report accepted both orders of writing three d and four s. "
+      "For copper two plus, the correct answer is three d nine. One report also gave marks for three d eight four s one, because the course doesn't require transition metal ions, but don't rely on that: write three d nine.",
       refs=['ex22q11', 'ar22q11', 'ex23q11', 'ar23q11', 'ex25q15', 'ar25q15'], covers=['P5'], elements=[4], exam=['X22-11', 'X23-11', 'X25-15']),
 ]),
 Scene('ions', P2, 'Ions and isoelectronic species', Slide('table', title='Ion charges from the periodic table', chip='Element 4 · predictions',

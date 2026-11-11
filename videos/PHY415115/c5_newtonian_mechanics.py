@@ -636,13 +636,15 @@ Scene('we_drone', P4, 'Worked example: a hovering drone', V.we_drone, [
 # ------------------------------------------------------------------- part 5: circular motion
 Scene('circ', P5, 'Circular motion', V.circ, [
     S("Part five. An object moving in a circle at constant speed is accelerating, because its velocity keeps changing direction. "
-      "The velocity is along the tangent, with size the circumference over the period: v equals two pi r over T. That one isn't "
-      "on the sheet. The change in velocity points to the centre: for a small angle, delta v is v times delta theta, and the "
+      "The velocity is along the tangent, with size the circumference over the period: v equals two pi r over T. You don't "
+      "need to memorise that: the next step derives it from the sheet. The change in velocity points to the centre: for a small angle, delta v is v times delta theta, and the "
       "angle swept each second is v over r, so the acceleration is v squared over r.",
       refs=['content'], covers=['C1', 'C2'], elements=[1], anim=4),
     S("The centripetal formulas are on your information sheet, in the motion, momentum and force section. The acceleration is v "
       "squared over r, which equals four pi squared r over T squared. The force is m v squared over r, which equals four pi "
-      "squared m r over T squared. Centripetal means pointing to the centre. It isn't a new kind of force: it's the net force "
+      "squared m r over T squared. Centripetal means pointing to the centre. Now use the first form to get the speed formula. "
+      "Set v squared over r equal to four pi squared r over T squared. Multiply both sides by r, so v squared equals four pi squared r squared over T squared. "
+      "Take the root, and v equals two pi r over T. So the speed formula comes straight from the sheet. It isn't a new kind of force: it's the net force "
       "toward the centre, supplied by tension, gravity, friction or a component of another force.",
       refs=['content', 'info'], covers=['C2', 'C3', 'N6'], elements=[1, 2]),
     S("Tips. Given the period, use the four pi squared r over T squared form directly: the long way through v costs time and "
@@ -880,7 +882,9 @@ Scene('kepler', P7, 'Orbits and Kepler’s third law', V.kepler, [
       "centre of the central body, M is that body's mass, and T is in seconds.",
       refs=['content', 'info', 'ar24q3', 'ex24q3'], covers=['G9', 'G11', 'C2'], elements=[1, 2], exam=['X24-3']),
     S("The ratio form: for bodies orbiting the same central mass, T squared over r cubed is constant. So T one over T two, squared, "
-      "equals r one over r two, cubed. This one isn't on the sheet, so learn it. You don't need G or M, so it's ideal when you're "
+      "equals r one over r two, cubed. This one isn't printed on the sheet, but you can derive it from the sheet's Kepler formula. "
+      "For the same central mass, four pi squared over G M is a fixed number, so T squared over r cubed is the same for every orbit. Write it for two orbits and divide. "
+      "You don't need G or M, so it's ideal when you're "
       "given one orbit and asked for another. Reports say the usual mistake is failing to square the periods or cube the radii.",
       refs=['content', 'ar20q5', 'ex20q5', 'ar22q4', 'ex22q4', 'ar23q6', 'ex23q6'], covers=['G10'], elements=[1, 2], exam=['X20-5', 'X22-4', 'X23-6']),
     S("A geosynchronous satellite has an orbital period equal to Earth's rotation, twenty four hours. If it orbits above the equator in "

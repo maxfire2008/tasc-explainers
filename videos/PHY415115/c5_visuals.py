@@ -1136,16 +1136,17 @@ def circ(fig, s, ph):
         ax.scatter([0], [0], s=60, color=FG)
     if s == 0:
         chip(fig, 'Element 1 · principles')
-        learn_eq(fig, 0.54, 0.72, r'$v = \dfrac{2\pi r}{T}$', size=34)
-        T(fig, 0.54, 0.52, 'circumference ÷ period.\nVelocity is along the tangent.\nIt changes direction, so there is acceleration.', size=21, color=SOFT)
+        eq(fig, 0.54, 0.72, r'$v = \dfrac{2\pi r}{T}$', size=34)
+        T(fig, 0.54, 0.52, 'circumference ÷ period (derived on the next slide).\nVelocity is along the tangent.\nIt changes direction, so there is acceleration.', size=21, color=SOFT)
         ax2 = wax(fig, [0.60, 0.08, 0.34, 0.34], (-0.2, 2.2), (-0.2, 1.4)); ax2.set_aspect('equal')
         _vec(ax2, (0, 0), (1.6, 0.25), color=C1, text='v₁', tp=(0.8, -0.18), size=16)
         _vec(ax2, (0, 0), (1.5, 0.7), color=C1, text='v₂', tp=(0.5, 0.55), size=16, lw=2.0)
         _vec(ax2, (1.6, 0.25), (1.5, 0.7), color=PINK, text='Δv', tp=(1.85, 0.5), size=16, lw=3)
         T(fig, 0.54, 0.40, 'Small Δθ:  Δv ≈ vΔθ,  and Δθ/Δt = v/r\nso  a = v²/r, towards the centre', size=19, color=YELLOW)
     elif s == 1:
-        meq(fig, 0.54, 0.72, r'$a_c = \dfrac{v^2}{r} = \dfrac{4\pi^2 r}{T^2}$', size=30)
-        meq(fig, 0.54, 0.42, r'$F_c = \dfrac{mv^2}{r} = \dfrac{4\pi^2 mr}{T^2}$', size=30)
+        meq(fig, 0.54, 0.76, r'$a_c = \dfrac{v^2}{r} = \dfrac{4\pi^2 r}{T^2}$', size=30)
+        meq(fig, 0.54, 0.50, r'$F_c = \dfrac{mv^2}{r} = \dfrac{4\pi^2 mr}{T^2}$', size=30)
+        T(fig, 0.54, 0.31, 'Derive the speed formula from the sheet:\nv²/r = 4π²r/T²  →  v² = 4π²r²/T²  →  v = 2πr/T', size=21, color=GREEN)
         T(fig, 0.54, 0.16, 'F_c is the NET force to the centre (tension, gravity,\nfriction, a component…): not a new kind of force.', size=19, color=YELLOW)
         chip(fig, 'Element 1 · principles')
     else:
@@ -1614,8 +1615,8 @@ def kepler(fig, s, ph):
         ax.plot([0, sx], [0, sy], color=YELLOW, lw=1.5, ls=':'); label(ax, sx * 0.3 + 0.35, sy * 0.3 - 0.3, 'r', size=18, color=YELLOW)
     elif s == 1:
         chip(fig, 'Element 2 · problems')
-        learn_eq(fig, 0.06, 0.72, r'$\left(\dfrac{T_1}{T_2}\right)^2 = \left(\dfrac{r_1}{r_2}\right)^3$', size=36)
-        bullets(fig, ['T²/r³ is constant for bodies orbiting the same mass', 'No G or M needed: given one orbit, find another', 'Square the periods, cube the radii',
+        eq(fig, 0.06, 0.72, r'$\left(\dfrac{T_1}{T_2}\right)^2 = \left(\dfrac{r_1}{r_2}\right)^3$', size=36)
+        bullets(fig, ['Derived from the sheet formula: T²/r³ = 4π²/GM,\nthe same for bodies orbiting the same mass', 'No G or M needed: given one orbit, find another', 'Square the periods, cube the radii',
                       'Only for orbits around the SAME body'], 4, 0.06, 0.46, size=22, dim=False)
         ax = gax(fig, [0.62, 0.20, 0.32, 0.50], (0, 5), (0, 130), 'r³', 'T²', ticks=False)
         rr = np.linspace(0, 5, 50); ax.plot(rr, 25 * rr, color=C1, lw=4)

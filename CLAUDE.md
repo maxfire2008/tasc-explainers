@@ -306,7 +306,7 @@ asked or what a report said: check the source. Keep to the course's depth, so qu
 changes and diagrams match the narration (e.g. reflected pulses not bigger than the incident pulse; rays bending the
 right way).
 
-**Conflicting sources.** The course document and the information sheet are definitive: if either one defines something, that settles it, whatever a report says. If they differ, the sheet wins when it actually specifies the thing. For symbols and notation, use the sheet, then exam questions: reports are usually less careful, so a report using a different letter isn't a conflict. Reports,
+**Conflicting sources.** The course document and the information sheet are definitive: if either one defines something, that settles it, whatever a report says. If they differ, the sheet wins when it actually specifies the thing. For symbols and notation, rank the sources: the information sheet first, then exam questions, then the course document, then the assessment reports. Reports are usually less careful, so a report using a different letter isn't a conflict. If a formula can be derived from something on the sheet (e.g. v = 2πr/T from a = 4π²r/T², or Kepler's ratio form from T² = 4π²r³/GM), teach the derivation rather than saying "learn it"; if it can't, tell students to memorise it; if that's unclear, leave the issue open. Reports,
 marking guides and outside physics rank below them, and they do sometimes disagree. When they do:
 1. Read the actual page images of every report involved, then check the physics online with reputable sources. Cite what you find in your report to the operator.
 2. Don't resolve it silently, and don't drop the topic. If the physics is clear and a student can safely state it with a reason, teach the physics and add a short

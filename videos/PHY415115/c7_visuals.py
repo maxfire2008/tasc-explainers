@@ -7,6 +7,7 @@ Animations must loop seamlessly: anything periodic must complete a whole number 
 cycles as ph goes 0 -> 1.
 Colours: C1 = course accent, C2 = module accent (from the theme), PINK/GREEN/YELLOW are semantic.
 """
+import math
 import numpy as np
 from matplotlib.patches import Circle, Rectangle, Polygon, FancyArrowPatch, Arc
 
@@ -1695,6 +1696,45 @@ def bragg(fig, s, ph):
     ax.plot([1.5, 4.1, 6.7], [6.2, 4.2, 6.2], color=C1, lw=3.5); ax.plot([1.5, 4.9, 8.3], [4.8, 2.2, 4.8], color=GREEN, lw=3.5)
     bullets(fig, ['Lower ray travels further:\ntwo extra lengths of d sin θ', r'path difference $= 2d\sin\theta$',
                   'Bright when that equals nλ', 'θ here is measured from the\nlayer, not from the normal'], 4, 0.58, 0.76, size=25, dim=False)
+
+
+def youngs_derive(fig, s, ph):
+    """Where w = lambda x / d comes from: PD = d sin(theta), then the small-angle step."""
+    C1, C2 = C()
+    header(fig, 'Where the band width formula comes from')
+    chip(fig, 'Element 1 · principles')
+    ax = wax(fig, [0.03, 0.14, 0.46, 0.66], (-1.2, 9.5), (-3.2, 4.0))
+    ax.set_aspect('equal')
+    d, th = 2.0, math.radians(28)
+    y1, y2 = d / 2, -d / 2
+    L_ = 7.5
+    for y0 in (y1, y2):
+        ax.scatter([0], [y0], s=140, color=YELLOW, zorder=6)
+        ax.plot([0, L_ * math.cos(th)], [y0, y0 + L_ * math.sin(th)], color=GREEN, lw=2)
+    # perpendicular from the upper slit to the lower ray: the extra path is PD
+    ux, uy = math.cos(th), math.sin(th)
+    s_ = (0 * ux + (y1 - y2) * uy)
+    fx, fy = s_ * ux, y2 + s_ * uy
+    ax.plot([0, fx], [y1, fy], color=PINK, lw=2.5, ls='--')
+    ax.plot([fx, 0], [fy, y2], color=PINK, lw=4)
+    darrow(ax, (-0.55, y2), (-0.55, y1), color=YELLOW, ms=12); label(ax, -0.9, 0, 'd', size=22, color=YELLOW)
+    label(ax, fx + 0.45, (fy + y2) / 2 + 0.1, 'PD', size=22, color=PINK)
+    ax.add_patch(Arc((0, y1), 1.6, 1.6, theta1=-90 + 0, theta2=-90 + 28, color=C2, lw=2.5))
+    label(ax, 0.95, y1 - 0.9, 'θ', size=20, color=C2)
+    T(fig, 0.03, 0.12, 'Slits far from the screen: the two rays are almost parallel.', size=17, color=MUT)
+    bullets(fig, ['Right-angled triangle: hypotenuse d, angle θ', 'so  PD = d sin θ   (not on the sheet: learn it)'], 2, 0.53, 0.78, size=23, gap=0.01, dim=False)
+    if s >= 1:
+        eq(fig, 0.53, 0.58, r'bright fringe $n$:  $d\,\sin\theta = n\lambda$', size=28)
+        T(fig, 0.53, 0.47, 'Small angle:  sin θ ≈ tan θ = y / x\n(y = distance of the fringe from the centre)', size=22, color=SOFT)
+        eq(fig, 0.53, 0.30, r'$\dfrac{d\,y}{x} = n\lambda \ \Rightarrow\ y = \dfrac{n\lambda x}{d}$', size=28)
+    if s >= 2:
+        T(fig, 0.53, 0.155, 'Neighbouring fringes differ by one λ of path:  w = λx / d', size=22, color=GREEN)
+        T(fig, 0.53, 0.10, 'Limits: θ small (y ≪ x) and x ≫ d', size=21, color=PINK)
+
+
+def youngs_derive_a(fig, s, ph): youngs_derive(fig, 0, ph)
+def youngs_derive_b(fig, s, ph): youngs_derive(fig, 1, ph)
+def youngs_derive_c(fig, s, ph): youngs_derive(fig, 2, ph)
 
 
 def youngs_sound(fig, s, ph):

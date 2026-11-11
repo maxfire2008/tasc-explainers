@@ -482,13 +482,19 @@ def xray_tube(fig, s, ph):
 
 
 def _xs(l, V_kV, cur=1.0, lines=True):
-    """Illustrative tube spectrum: l in pm, V in kV."""
-    lmin = 1242.0 / V_kV
-    y = np.where(l > lmin, cur * (l / lmin - 1) / l ** 2 * 1800, 0.0)
-    y = y * (1 - np.exp(-((l / 60) ** -3)))
+    """Illustrative tube spectrum: l in pm, V in kV.  The line TOPS depend on the current only
+    (not the voltage): at other voltages the line height is set so the peak tops stay level."""
+    def cont(lam, V):
+        lm = 1242.0 / V
+        c = np.where(lam > lm, cur * (lam / lm - 1) / lam ** 2 * 1800, 0.0)
+        return c * (1 - np.exp(-((lam / 60) ** -3)))
+    y = cont(l, V_kV)
     if lines and V_kV > 20:
-        s = cur * (V_kV / 20 - 1) ** 1.2
-        y = y + s * 0.85 * np.exp(-((l - 72.6) / 1.1) ** 2) + s * 0.4 * np.exp(-((l - 63.7) / 1.1) ** 2)
+        s = cur * 0.708
+        for pos, k in ((72.6, 0.85), (63.7, 0.4)):
+            top = float(cont(np.array([pos]), 35.0)[0]) + s * k
+            amp = top - float(cont(np.array([pos]), V_kV)[0])
+            y = y + amp * np.exp(-((l - pos) / 1.1) ** 2)
     return y
 
 

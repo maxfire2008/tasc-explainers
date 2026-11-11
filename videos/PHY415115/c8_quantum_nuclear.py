@@ -619,7 +619,7 @@ Scene('xray_spectrum', P1, 'The X-ray spectrum', V.xray_spectrum, [
       problem='What happens to an X-ray spectrum when the tube current is increased?'),
     S("Increase the voltage, and each electron has more energy. So the minimum wavelength falls: the cut off moves to a shorter wavelength. That's the most important point. "
       "The intensity rises too, because each electron brings more energy, although voltage only has some effect, and the tube current is the main control of intensity. "
-      "The spikes stay at the same wavelengths, because they depend on the target metal, not on the voltage. Always say that. You can add that they get taller, but that alone doesn't answer the question. "
+      "The spikes stay at the same wavelengths, because they depend on the target metal, not on the voltage. Always say that. Don't describe the spikes as getting taller with voltage: in this course they only get taller when the current is raised. "
       "And if the voltage is too low to eject an inner electron, those lines don't appear at all. A note on marking: the 2022 report says intensity rises, but the 2023 marking guide says it doesn't unless the current changes. "
       "So write that the minimum wavelength falls and the intensity rises, and say that current is the main control of intensity.",
       refs=['ar22q24', 'ex22q24', 'ex23q23', 'ar23q23', 'ex18q23'], covers=['X1', 'X3'], elements=[3, 4], exam=['X22-24', 'X23-23', 'X18-23'],

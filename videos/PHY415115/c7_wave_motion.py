@@ -834,7 +834,7 @@ Scene('radar', P4, 'Two paths: radio waves and aircraft', V.extend(V.radar, 3, V
       "difference equals a whole number of wavelengths, you see a bright spot.",
       refs=['ex19q18', 'ar19q18'], covers=['W17c'], elements=[1, 4], exam=['X19-18']),
 ]),
-Scene('youngs', P4, "Young's double slit and fringe width", V.extend(V.youngs, 5, V.youngs_sound), [
+Scene('youngs', P4, "Young's double slit and fringe width", V.extend(V.youngs, 5, V.youngs_derive_a, V.youngs_derive_b, V.youngs_derive_c, V.youngs_sound), [
     S("Young's double slit experiment shows light interfering. Light passes through two narrow slits, a distance d apart, "
       "onto a screen a distance x away. You see evenly spaced bright and dark fringes.", refs=['content', 'ex25q14'],
       covers=['W17'], elements=[1], exam=['X25-14']),
@@ -858,6 +858,17 @@ Scene('youngs', P4, "Young's double slit and fringe width", V.extend(V.youngs, 5
       "metres, so it's fine. If you're asked about the limitations of this formula, that's the answer, and vague "
       "references to other factors don't earn marks.", refs=['ar24q14'], covers=['W17'], elements=[2],
       exam=['X24-14']),
+    S("Where does the formula come from? Take a point on the screen far away, so the two rays from the slits are almost parallel. "
+      "The extra distance the lower ray travels is the path difference. In the right angled triangle, the hypotenuse is the slit "
+      "separation d, so the path difference equals d sine theta. This one isn't on the information sheet, so learn it.",
+      refs=['content', 'ar23q16', 'ar24q14', 'ar21q16'], covers=['W17', 'W17c', 'W17d'], elements=[1], exam=['X23-16', 'X24-14', 'X21-16']),
+    S("A bright fringe needs a path difference of n lambda, so d sine theta equals n lambda. For a small angle, sine theta is "
+      "nearly the same as tan theta, which is y over x, where y is how far the fringe is from the centre. So d y over x equals "
+      "n lambda, and y equals n lambda x over d.", refs=['ar24q14', 'ar23q16'], covers=['W17', 'W17d'], elements=[1], exam=['X24-14', 'X23-16']),
+    S("Neighbouring fringes have n values one apart, so they are one lambda x over d apart. That is the band width. The same working "
+      "shows the limits: the angle must be small, and the screen must be much further away than the slit separation. "
+      "Tip: if you are asked why the formula is limited, or to explain where it comes from, use this reasoning. The course only gives you "
+      "the result, but the reports credit students who show they understand it.", refs=['ar24q14', 'ar21q16'], covers=['W17', 'W17d'], elements=[1, 4], exam=['X24-14', 'X21-16']),
     S("The band width formula works for sound too. Two speakers two metres apart are driven by one signal generator. Eight "
       "metres away, loud spots are one point one metres apart. So lambda is w d over x, which is zero point two seven five "
       "metres, and the frequency is about twelve hundred and fifty hertz. Speakers moved closer give a bigger band width. "
