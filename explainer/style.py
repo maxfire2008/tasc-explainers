@@ -95,6 +95,7 @@ PRONUNCIATIONS = [
     (r'\bgluon', 'gloo on'), (r'\bGluon', 'Gloo on'),
     (r'\bGeiger\b', 'Guy gur'),
     (r'\bMichelson\b', 'Mikelson'),
+    (r'\bMeissner\b', 'Mysener'),
 ]
 
 # --------------------------------------------------------------------------- thumbnail (YouTube: 16:9, under 2 MB)
