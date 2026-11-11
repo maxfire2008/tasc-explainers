@@ -11,6 +11,16 @@ _CC = import_sibling(__file__, 'chm_common.py')
 Slide, Seq, C, ch, fit, sf, extend, sheet, sheet_tag, path_dots, lines = (
     _CC.Slide, _CC.Seq, _CC.C, _CC.ch, _CC.fit, _CC.sf, _CC.extend, _CC.sheet, _CC.sheet_tag, _CC.path_dots, _CC.lines)
 
+
+
+def side_notes(fig, notes, s, x=0.66, w=0.30, size=21, y=0.78, per=1, last_bright=True):
+    """Build-up notes in a right-hand column, wrapped to fit.  `per` notes are added per step."""
+    n = min(len(notes), (s + 1) * per)
+    for i in range(n):
+        t = fit(ch(notes[i]), w, size)
+        T(fig, x, y, t, size=size, color=FG if (i == n - 1 or not last_bright) else SOFT)
+        y -= frac(size) * (t.count('\n') + 1) + 0.03
+
 # ============================================================================ the reusable cell diagram
 ELEC = '#aab6c8'
 LIQ = '#1b3a5c'
@@ -210,12 +220,12 @@ def ecs(fig, s, ph):
     C1, C2 = C()
     header(fig, 'The electrochemical series')
     chip(fig, 'Element 3 · series and data')
-    T(fig, 0.05, 0.77, 'Reduction half-equation', size=19, color=MUT)
-    T(fig, 0.555, 0.77, 'E° (V)', size=19, color=MUT, ha='right')
+    T(fig, 0.05, 0.805, 'Reduction half-equation', size=19, color=MUT)
+    T(fig, 0.555, 0.805, 'E° (V)', size=19, color=MUT, ha='right')
     hl = {0: (), 1: (4, 6, 9), 2: (4, 6, 9)}[min(s, 2)]
-    _ecs_rows(fig, 0.06, 0.73, ECS, hl=hl, size=20, dy=0.046)
+    _ecs_rows(fig, 0.06, 0.755, ECS, hl=hl, size=20, dy=0.046)
     sheet_tag(fig, 0.05, 0.115, 'Standard reduction potentials')
-    T(fig, 0.60, 0.77, 'an excerpt: the sheet has more rows', size=17, color=MUT)
+    T(fig, 0.60, 0.805, 'an excerpt: the sheet has more rows', size=17, color=MUT)
     ax = wax(fig, [0.60, 0.12, 0.35, 0.62], (0, 100), (0, 100))
     ax.annotate('', (10, 8), (10, 92), arrowprops=dict(arrowstyle='-|>', color=C1, lw=4))
     ax.text(14, 90, 'stronger oxidisers\n(species on the left\nof the arrow)', color=C1, fontsize=17, va='top')
@@ -248,7 +258,7 @@ def she(fig, s, ph):
              'Zn²⁺|Zn reads −0.76 V (Zn pushes electrons to H⁺).\nCu²⁺|Cu reads +0.34 V (Cu²⁺ takes them from H₂)',
              'Line up all the values: the electrochemical series']
     n = {0: 1, 1: 2, 2: 4}.get(s, 4)
-    bullets(fig, [ch(i) for i in items], n, 0.57, 0.78, size=21, gap=0.02)
+    side_notes(fig, items, n - 1, x=0.57, w=0.38, size=21, last_bright=True)
 
 
 def variations(fig, s, ph):
@@ -288,7 +298,7 @@ def galvanic(fig, s, ph):
              'Anions move towards the anode,\ncations towards the cathode, through\nthe salt bridge. This keeps each half-cell\nelectrically neutral and completes the circuit.',
              ch('E°cell = 0.34 − (−0.76) = 1.10 V\nA spontaneous redox reaction\nmakes the electrical energy.')]
     if s >= 1 and notes[min(s, 4)]:
-        card(fig, 0.68, 0.30, 0.28, 0.40, 'Reading the diagram', notes[min(s, 4)], tcol=C2, size=19)
+        card(fig, 0.68, 0.30, 0.28, 0.42, 'Reading the diagram', fit(notes[min(s, 4)], 0.25, 20), tcol=C2, size=20)
 
 
 def lead_acid(fig, s, ph):
@@ -309,7 +319,7 @@ def lead_acid(fig, s, ph):
              'Cathode and anode still obey the same rules:\nanode −, oxidation; cathode +, reduction',
              'Draw only species that are really present:\nHSO₄⁻ and H⁺, not Pb²⁺ or O²⁻']
     n = {0: 2, 1: 4}.get(s, 4)
-    bullets(fig, [ch(i) for i in items], n, 0.64, 0.78, size=19, gap=0.02)
+    side_notes(fig, items, n - 1, x=0.64, w=0.31, size=20)
 
 
 def inert_cell(fig, s, ph):
@@ -318,7 +328,7 @@ def inert_cell(fig, s, ph):
     chip(fig, 'Element 4 · unfamiliar cells')
     cfg = dict(mode='galvanic',
                left=dict(name='Pt', role='anode', pol='−', sol=ch('Sn^2+, Sn^4+'), ecol='#d9d9d9',
-                         ions=[('Sn²⁺', 'c', 14, 20), ('Sn⁴⁺', 'c', 34, 20), ('Cl⁻', 'a', 24, 14)],
+                         ions=[('Sn²⁺', 'c', 12, 22), ('Sn⁴⁺', 'c', 37, 15), ('Cl⁻', 'a', 12, 14)],
                          eq='Sn²⁺ → Sn⁴⁺ + 2e⁻'),
                right=dict(name='Ag(s)', role='cathode', pol='+', sol=ch('AgNO_3(aq)'), ecol='#e5e5e5',
                           ions=[('Ag⁺', 'c', 65, 20), ('NO₃⁻', 'a', 85, 14)], eq='Ag⁺ + e⁻ → Ag(s)'),
@@ -329,15 +339,7 @@ def inert_cell(fig, s, ph):
     items = ['Sn²⁺ and Sn⁴⁺ are both in solution, so there is\nno tin metal to use: a platinum rod carries the electrons',
              'Pt is inert: it does not react. It is only a conductor.',
              ch('Ag^+ is the stronger oxidiser (0.80 V), so Ag^+|Ag is\nthe cathode. Sn^2+ is oxidised at the Pt anode.')]
-    n = min(3, s + 1)
-    bullets(fig, [ch(i) for i in items], n, 0.68, 0.78, size=17, gap=0.02) if False else None
-    for i in range(n):
-        pass
-    y = 0.78
-    for i in range(n):
-        t = fit(ch(items[i]), 0.27, 19)
-        T(fig, 0.68, y, t, size=19, color=FG if i == n - 1 else SOFT)
-        y -= frac(19) * (t.count('\n') + 1) + 0.03
+    side_notes(fig, items, s, x=0.68, w=0.28, size=20)
 
 
 # ============================================================================ Part 4: electrolysis
@@ -358,11 +360,7 @@ def electrolytic(fig, s, ph):
              'So the polarity is the reverse of a galvanic cell:\nanode +, cathode −. Oxidation is still at the anode',
              'Cations go to the cathode, anions to the anode',
              ch('Minimum voltage: E°cell = (−1.09) + (−0.13)\n= −1.22 V, so the supply must exceed 1.22 V')]
-    y = 0.78
-    for i in range(min(4, s + 1)):
-        t = ch(items[i]); t = fit(t, 0.30, 18) if '\n' not in t else t
-        T(fig, 0.66, y, t, size=18, color=FG if i == min(3, s) else SOFT)
-        y -= frac(18) * (t.count('\n') + 1) + 0.025
+    side_notes(fig, items, s, x=0.66, w=0.30, size=21)
 
 
 def plating(fig, s, ph):
@@ -378,11 +376,7 @@ def plating(fig, s, ph):
     cell(fig, [0.04, 0.10, 0.60, 0.70], cfg, sets[min(s, 1)], ph)
     items = ['The object to be coated is the cathode (−)', 'The plating metal is the anode (+)',
              'The electrolyte contains ions of the plating metal', 'Anode dissolves, and the same amount deposits on the cathode:\nthe solution stays about the same']
-    y = 0.78
-    for i in range(min(4, 2 * s + 2)):
-        t = fit(ch(items[i]), 0.30, 19) if '\n' not in items[i] else ch(items[i])
-        T(fig, 0.66, y, t, size=19, color=FG if i >= 2 * s else SOFT)
-        y -= frac(19) * (t.count('\n') + 1) + 0.025
+    side_notes(fig, items, s, x=0.66, w=0.30, size=21, per=2)
 
 
 # ============================================================================ Part 5: corrosion
@@ -412,11 +406,7 @@ def rust_cell(fig, s, ph):
     notes = ['Needs iron, oxygen, water.\nWater with ions (an electrolyte)\nspeeds it up.',
              'Where O₂ is plentiful the metal is the cathode.\nWhere O₂ is scarce it is the anode.\nThis is differential aeration.',
              ch('Anode (oxidation):\nFe(s) -> Fe^2+(aq) + 2e^-\nCathode (reduction):\nO_2(g) + 2H_2O(l) + 4e^- -> 4OH^-(aq)\nThen Fe^2+ is oxidised to rust.')]
-    y = 0.78
-    for i in range(min(3, s + 1)):
-        t = ch(notes[i]); box_h = frac(21) * (t.count('\n') + 1) + 0.02
-        T(fig, 0.64, y, t, size=21, color=FG if i == min(s, 2) else SOFT)
-        y -= box_h + 0.03
+    side_notes(fig, notes, s, x=0.64, w=0.32, size=22)
 
 
 def two_metals(fig, s, ph):
@@ -430,41 +420,39 @@ def two_metals(fig, s, ph):
     if s >= 1:
         ax.text(26, 40, ch('ANODE: Fe -> Fe^2+ + 2e^-'), color=BG, fontsize=15, weight='bold', ha='center', bbox=dict(boxstyle='round,pad=0.25', fc=C2, ec='none'))
         ax.text(72, 40, ch('CATHODE: O_2 + 2H_2O + 4e^- -> 4OH^-'), color=BG, fontsize=15, weight='bold', ha='center', bbox=dict(boxstyle='round,pad=0.25', fc=GREEN, ec='none'))
-        ax.annotate('', (62, 36), (38, 36), arrowprops=dict(arrowstyle='-|>', color=YELLOW, lw=3)); ax.text(50, 47, 'e⁻', color=YELLOW, fontsize=20, ha='center') if False else None
+        ax.annotate('', (62, 36), (38, 36), arrowprops=dict(arrowstyle='-|>', color=YELLOW, lw=3)); ax.text(50, 47, 'e⁻ flow', color=YELLOW, fontsize=19, ha='center', weight='bold')
     if s >= 2:
         ax.text(26, 5, 'iron wastes away', color=PINK, fontsize=18, ha='center', weight='bold')
         ax.text(72, 5, 'copper is protected', color=GREEN, fontsize=18, ha='center', weight='bold')
     notes = ['Different metals in contact in a damp environment form a galvanic cell.',
              'The stronger reducer (more negative E°, so Fe not Cu) is oxidised: it is the anode. The other is the cathode.',
              'The contact must conduct: a layer of paper or wool between them breaks the circuit, so there is little extra corrosion.']
-    y = 0.78
-    for i in range(min(3, s + 1)):
-        t = fit(ch(notes[i]), 0.30, 19)
-        T(fig, 0.64, y, t, size=19, color=FG if i == min(s, 2) else SOFT)
-        y -= frac(19) * (t.count('\n') + 1) + 0.03
+    side_notes(fig, notes, s, x=0.64, w=0.32, size=22)
 
 
 def protect_diagram(fig, s, ph):
     C1, C2 = C()
     header(fig, 'Cathodic protection')
     chip(fig, 'Element 5 · prevention')
-    ax = wax(fig, [0.04, 0.10, 0.52, 0.42], (0, 100), (0, 40))
-    ax.add_patch(Rectangle((2, 2), 96, 18, fc='#5a4a38', ec=BG)); ax.text(8, 5, 'soil (electrolyte)', color=SOFT, fontsize=15)
-    ax.add_patch(Rectangle((14, 8), 70, 8, fc='#7f8896', ec=BG)); ax.text(49, 12, 'buried steel pipe', color=FG, fontsize=17, ha='center', va='center')
-    ax.add_patch(Rectangle((88, 6), 5, 12, fc='#d7dbe6', ec=BG))
-    ax.plot([84, 88], [12, 12], color=FG, lw=3)
-    ax.text(90.5, 21, 'Mg\nblock', color=FG, fontsize=15, ha='center')
-    ax.annotate('', (88, 24), (60, 24), arrowprops=dict(arrowstyle='-|>', color=YELLOW, lw=3)); ax.text(72, 28, 'e⁻', color=YELLOW, fontsize=18, ha='center')
-    ax.text(49, 30, 'Mg is oxidised (anode); steel receives electrons (cathode)', color=SOFT, fontsize=15, ha='center')
+    ax = wax(fig, [0.04, 0.14, 0.45, 0.60], (0, 100), (0, 60))
+    ax.text(50, 56, 'Sacrificial anode', color=C2, fontsize=24, ha='center', weight='bold')
+    ax.add_patch(Rectangle((2, 4), 96, 26, fc='#5a4a38', ec=BG)); ax.text(6, 7, 'soil (electrolyte)', color=SOFT, fontsize=17)
+    ax.add_patch(Rectangle((8, 12), 64, 11, fc='#7f8896', ec=BG)); ax.text(40, 17.5, 'buried steel pipe', color=FG, fontsize=19, ha='center', va='center')
+    ax.add_patch(Rectangle((84, 8), 8, 18, fc='#d7dbe6', ec=BG)); ax.text(88, 28.5, 'Mg block', color=FG, fontsize=17, ha='center')
+    ax.plot([72, 84], [17.5, 17.5], color=FG, lw=3)
+    ax.annotate('', (74, 40), (84, 40), arrowprops=dict(arrowstyle='<|-', color=YELLOW, lw=3)); ax.text(79, 44, 'e⁻', color=YELLOW, fontsize=20, ha='center', weight='bold')
+    ax.text(50, 49, 'Mg is oxidised (anode); the steel is the cathode', color=SOFT, fontsize=17, ha='center')
     if s >= 1:
-        ax2 = wax(fig, [0.58, 0.10, 0.38, 0.42], (0, 100), (0, 40))
-        ax2.add_patch(Rectangle((2, 2), 96, 18, fc='#5a4a38', ec=BG)); ax2.text(5, 4.5, 'soil', color=SOFT, fontsize=15)
-        ax2.add_patch(Rectangle((10, 8), 56, 8, fc='#7f8896', ec=BG)); ax2.text(38, 12, 'steel pipe', color=FG, fontsize=15, ha='center', va='center')
-        ax2.add_patch(Rectangle((82, 6), 5, 12, fc='#2f3745', ec=BG)); ax2.text(84.5, 22, 'inert\nanode', color=FG, fontsize=14, ha='center')
-        ax2.plot([66, 74], [12, 12], color=FG, lw=3); ax2.plot([74, 74], [12, 30], color=FG, lw=3); ax2.plot([74, 82], [30, 30], color=FG, lw=3); ax2.plot([82, 84.5, 84.5], [30, 30, 18], color=FG, lw=3)
-        ax2.text(60, 33, 'DC supply: − to pipe, + to anode', color=SOFT, fontsize=14, ha='center')
-        ax2.text(50, 38, 'applied EMF', color=C1, fontsize=17, ha='center', weight='bold')
-        ax.text(50, 38, 'sacrificial anode', color=C2, fontsize=17, ha='center', weight='bold')
+        ax2 = wax(fig, [0.52, 0.14, 0.45, 0.60], (0, 100), (0, 60))
+        ax2.text(50, 56, 'Applied EMF', color=C1, fontsize=24, ha='center', weight='bold')
+        ax2.add_patch(Rectangle((2, 4), 96, 26, fc='#5a4a38', ec=BG)); ax2.text(6, 7, 'soil', color=SOFT, fontsize=17)
+        ax2.add_patch(Rectangle((8, 12), 56, 11, fc='#7f8896', ec=BG)); ax2.text(36, 17.5, 'steel pipe', color=FG, fontsize=19, ha='center', va='center')
+        ax2.add_patch(Rectangle((82, 8), 8, 18, fc='#2f3745', ec=BG)); ax2.text(86, 28.5, 'inert anode', color=FG, fontsize=17, ha='center')
+        ax2.plot([64, 70], [17.5, 17.5], color=FG, lw=3); ax2.plot([70, 70], [17.5, 40], color=FG, lw=3)
+        ax2.plot([70, 86], [40, 40], color=FG, lw=3); ax2.plot([86, 86], [40, 26], color=FG, lw=3)
+        ax2.plot([76, 76], [37, 43], color=FG, lw=4); ax2.plot([80, 80], [38.5, 41.5], color=FG, lw=4)
+        ax2.text(73, 44.5, '−', color=FG, fontsize=20, ha='center', weight='bold'); ax2.text(82, 44.5, '+', color=FG, fontsize=20, ha='center', weight='bold')
+        ax2.text(50, 49, 'DC supply: − to the pipe, + to the anode', color=SOFT, fontsize=17, ha='center')
 
 
 # ============================================================================ finish

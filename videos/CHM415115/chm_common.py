@@ -206,7 +206,7 @@ class Slide:
         cards = c['cards']                      # (title, body, colour)
         n = _n(c, s, len(cards))
         cols = c.get('cols', 2)
-        size = c.get('size', 22)
+        size = c.get('size', 22) + 4
         gx = 0.02
         w = (0.90 - gx * (cols - 1)) / cols
         rows = (len(cards) + cols - 1) // cols
@@ -225,7 +225,7 @@ class Slide:
         head, rows = c['head'], c['rows']
         widths = c['widths']
         n = _n(c, s, len(rows))
-        size = c.get('size', 22)
+        size = c.get('size', 22) + 2
         x0 = 0.05
         xs = [x0]
         for w in widths:
@@ -278,7 +278,7 @@ class Slide:
         """q: question text; rows: dict(s=step, t=text, sf=rounded line, col=colour, h=extra gap)."""
         C1, C2 = C()
         q = fit(ch(c['q']), 0.86, 22)
-        qh = 0.05 + frac(26) + nl(q) * frac(22)
+        qh = 0.06 + frac(26) + nl(q) * frac(22) * 1.05
         card(fig, 0.05, 0.80 - qh, 0.90, qh, 'Question', q, tcol=C2, size=22)
         y = 0.80 - qh - 0.03
         for r in c['rows']:
@@ -287,8 +287,9 @@ class Slide:
             col = r.get('col', FG)
             t = ch(r['t'])
             size = r.get('size', c.get('size', 25))
-            T(fig, r.get('x', 0.06), y, t, size=size, color=col)
-            y -= frac(size) * nl(t) + 0.012
+            if t:
+                T(fig, r.get('x', 0.06), y, t, size=size, color=col)
+                y -= frac(size) * nl(t) + 0.012
             if r.get('sf'):
                 sf(fig, r.get('x', 0.06), y, ch(r['sf']))
                 y -= frac(21) + 0.012

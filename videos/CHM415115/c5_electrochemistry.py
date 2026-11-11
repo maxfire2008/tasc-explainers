@@ -302,7 +302,7 @@ Scene('shells', P1, 'Why atoms lose or gain electrons', V.shells, [
       elements=[1]),
 ]),
 Scene('ox_rules', P1, 'Oxidation numbers: the rules', Slide('table', title='Oxidation number rules', chip='Element 2 · half-equations',
-    head=['Rule', 'Example'], widths=[0.55, 0.35], size=24, counts=[3, 5, 7], rows=[
+    head=['Rule', 'Example'], widths=[0.55, 0.35], size=26, counts=[3, 5, 7], rows=[
         ['An uncombined element is 0', 'Zn, O₂, Cl₂: 0'],
         ['A simple ion: its charge', 'Fe³⁺: +3,  Cl⁻: −1'],
         ['Total of a species = its overall charge', 'SO₄²⁻: total −2'],
@@ -320,7 +320,7 @@ Scene('ox_rules', P1, 'Oxidation numbers: the rules', Slide('table', title='Oxid
       "to find the one unknown number.", refs=['content'], covers=['R3', 'R4'], elements=[2]),
 ]),
 Scene('ox_calc', P1, 'Calculating oxidation numbers', Slide('table', title='Working out oxidation numbers', chip='Element 2 · half-equations',
-    head=['Species', 'Working', 'Answer'], widths=[0.25, 0.45, 0.20], size=26, per=1, rows=[
+    head=['Species', 'Working', 'Answer'], widths=[0.25, 0.45, 0.20], size=28, per=1, rows=[
         ['SO₄²⁻', 'S + 4(−2) = −2, so S = +6', 'S: +6'],
         ['Cr₂O₇²⁻', '2Cr + 7(−2) = −2, so 2Cr = +12', 'Cr: +6'],
         ['KMnO₄', '(+1) + Mn + 4(−2) = 0, so Mn = +7', 'Mn: +7'],
@@ -361,7 +361,7 @@ Scene('ox_ident', P1, 'Oxidisers and reducers from oxidation numbers', Slide('wo
       "oxidation number goes up, it has been oxidised.", refs=['content'], covers=['R5', 'R7', 'R8'], elements=[1, 2]),
 ]),
 Scene('halfeq_method', P1, 'Balancing half-equations in acid', Slide('bullets', title='The half-equation method', chip='Element 2 · half-equations',
-    size=26, items=['1. Write the species that change, and balance the atom being oxidised or reduced',
+    size=28, counts=[4, 6], items=['1. Write the species that change, and balance the atom being oxidised or reduced',
                     '2. Balance oxygen by adding H₂O(l)', '3. Balance hydrogen by adding H⁺(aq)',
                     '4. Balance charge by adding electrons e⁻', '5. Multiply so the electrons match, add, and cancel',
                     'Check: atoms and charge are the same on both sides']), [
@@ -528,7 +528,7 @@ Scene('we_multi', P2, 'More than two species', Slide('worked', title='Worked exa
       "first, then the next.", refs=['info_srp'], covers=['R6', 'R14'], elements=[3, 1]),
 ]),
 Scene('we_order', P2, 'Working out the series from experiments', Slide('worked', title='Worked example 5: from experiments to the series', chip='Element 3 · series and data',
-    q='Metals X, Y and Z, each as 1 mol L⁻¹ solutions of their 2+ ions. Test 1: Z metal dissolves in a solution of Y²⁺, and Y metal forms. Test 2: a cell with X and Z has X as the anode. Test 3: only X reacts with dilute hydrochloric acid. Put the half-equations in series order, with hydrogen.',
+    q='Metals X, Y and Z, each as 1 mol L⁻¹ solutions of their 2+ ions. Test 1: Z metal dissolves in a solution of Y²⁺, and Y metal forms. Test 2: a cell with X and Z has X as the anode. Test 3: only X reacts with dilute hydrochloric acid. Put the half-equations in series order, with hydrogen.', size=22,
     rows=[dict(s=0, t='Test 3: X reacts with H⁺, so X²⁺|X is BELOW 2H⁺|H₂.   Y and Z do not: they are above.', col='#eef2f8', size=23),
           dict(s=1, t='Test 1: Z reduces Y²⁺, so Y²⁺ is the stronger oxidiser: Y²⁺|Y is above Z²⁺|Z', col='#eef2f8', size=23),
           dict(s=1, t='Test 2: the anode is the stronger reducer: X is below Z   (consistent)', col='#eef2f8', size=23),
@@ -761,7 +761,7 @@ Scene('aq_rules', P4, 'Aqueous solutions: who wins?', Slide('table', title='Pred
       "is oxidised to copper two plus, which turns the solution blue, while the cathode still reduces whatever is the "
       "strongest oxidiser.", refs=['content', 'ar23q5', 'ex23q5'], covers=['E3'], elements=[3, 4], exam=['X23-5']),
 ]),
-Scene('conc_note', P4, 'A marking note on concentration', Slide('cards', title='Chloride or water at the anode?', chip='Marking note', cols=1, h=0.58, size=24, cards=[
+Scene('conc_note', P4, 'A marking note on concentration', Slide('cards', title='Chloride or water at the anode?', chip='Marking note', cols=1, h=0.31, size=22, cards=[
     ('What the papers do', 'Concentrated NaCl (brine) with inert electrodes: chlorine at the anode (2022, 2023).\nA 0.5 mol L⁻¹ solution: oxygen (2023). In 2025 a 1.0 mol L⁻¹ solution was marked as oxygen.\nSo follow the series: only call it chlorine when the question says concentrated.', '#fb923c'),
     ('What real chemistry does', 'Oxygen is hard to make at an electrode (overpotential), so even 1 mol L⁻¹ chloride\nmostly gives chlorine in practice. The exam convention is a simplification:\nuse it, and state your reasoning from the E° values.', '#f15bb5')],
     note='Marking convention differs from industrial practice: follow the question’s wording, and give half-equations.'), [
@@ -809,7 +809,7 @@ Scene('refine_plate', P4, 'Refining and plating', V.plating, [
       "in the corrosion part why zinc protects steel even when scratched.", refs=['ar22q5', 'ex22q5'], covers=['E7b', 'K11'], elements=[4, 5], exam=['X22-5']),
 ]),
 Scene('we_faraday', P4, "Faraday's laws", Slide('worked', title='Worked example 8: how much metal?', chip='Element 2 · calculations',
-    q='A steel key is nickel plated for 45.0 minutes using a steady current of 2.50 A. The cathode half-equation is Ni²⁺ + 2e⁻ → Ni. (a) What mass of nickel is deposited? (b) How long to deposit 5.00 g, if only 92.0% of the charge deposits nickel?',
+    q='A steel key is nickel plated for 45.0 minutes using a steady current of 2.50 A. The cathode half-equation is Ni²⁺ + 2e⁻ → Ni. (a) What mass of nickel is deposited? (b) How long to deposit 5.00 g, if only 92.0% of the charge deposits nickel?', size=22,
     rows=[dict(s=0, t='n(e⁻) = It / F = 2.50 × (45.0 × 60) / 96 500 = 0.069948 mol', col='#ffd166'),
           dict(s=0, sf='= 0.0699 mol (3 s.f.)', t='n(Ni) = n(e⁻) / 2 = 0.034974 mol', col='#ffd166'),
           dict(s=1, t='m(Ni) = n × M = 0.034974 × 58.69 = 2.0527 g', col='#ffd166'),

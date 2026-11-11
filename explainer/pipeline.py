@@ -419,7 +419,7 @@ def credit_lines(v):
     lines += [(textwrap.fill(a, 95), L.FG, 22) for a in dict.fromkeys(att)] or [('(see references.md)', L.FG, 22)]
     if quoted:
         lines += [('Short quotations and freeze frames, shown for study and criticism:', L.SOFT, 22)]
-        lines += [(textwrap.fill(q, 120), L.FG, 17) for q in quoted]
+        lines += [(textwrap.fill(' · '.join(quoted), 130), L.FG, 17)]
     if other:
         lines += [('Referenced, not reproduced:', L.SOFT, 22), (textwrap.fill(' · '.join(other), 120), L.FG, 19)]
     lines += [('', L.FG, 8), ('Example questions are original. Full numbered references and updated versions: see the description.',
