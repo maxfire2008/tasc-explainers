@@ -367,7 +367,7 @@ Scene('sigfigs', P1, 'Significant figures', Slide('bullets', title='Significant 
       "significant figures in the data. Two point oh moles with three point four five six grams gives two significant figures. "
       "Where the question states a precision, such as two decimal places for a pH, follow it.",
       refs=['ar21q20', 'ar24g', 'ex21q20'], covers=['M1'], elements=[1, 2], exam=['X21-20']),
-    S("Some questions say to give the answer to the correct number of significant figures, and then it is marked. Others do "
+    S("Some questions state the precision they want, and then it is marked. Others do "
       "not, and in those, minor deviations were not penalised, although misuse was. Giving six figures, or rounding to a single digit, "
       "lost half a mark. In 2024, a vitamin concentration needed two significant figures, because the dose of twenty five micrograms has two.",
       refs=['ar22g', 'ar22q22', 'ar24q18', 'ex24q18', 'ar21q20'], covers=['M1'], elements=[2], exam=['X24-18', 'X21-20']),

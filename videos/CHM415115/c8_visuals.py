@@ -139,7 +139,7 @@ def ph_curve(fig, s, ph):
         ax.plot(va[va < 24.98], np.clip(ph_wa[va < 24.98], 2.8, 14), color=PINK, lw=3, ls='--')
         ax.plot(va[va > 25.02], ph_wa[va > 25.02], color=PINK, lw=3, ls='--')
         ax.text(26, 5.5, 'weak acid + strong base:\nequivalence above pH 7', color=PINK, fontsize=16)
-    ax.set_ylim(0, 14.5)
+    ax.set_xticks([0, 10, 20, 30, 40]); ax.set_ylim(0, 14.5)
     notes = ['Acid-base indicators are weak acids or bases, with the acid form a different colour from the base form. The colour changes over a narrow pH range',
              'Choose an indicator whose range lies on the steep part of the curve, where the pH jumps at the equivalence point. A pH meter can record the whole curve',
              'Weak acid with strong base: the equivalence point is above 7, so phenolphthalein (not methyl orange) suits. Illustrative curves, not measured data']
