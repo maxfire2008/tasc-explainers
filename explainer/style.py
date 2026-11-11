@@ -50,6 +50,10 @@ MODULE_ACCENTS = {
     ('PHY415115', 'C6'): '#c084fc',   # Electricity & magnetism: purple
     ('PHY415115', 'C7'): '#f9a03f',   # Wave motion: orange
     ('PHY415115', 'C8'): '#f472b6',   # Light, atomic & nuclear: magenta
+    ('CHM415115', 'C5'): '#38bdf8',   # Electrochemistry: sky
+    ('CHM415115', 'C6'): '#fb923c',   # Thermochemistry, kinetics, equilibrium: orange
+    ('CHM415115', 'C7'): '#2dd4bf',   # Organic and inorganic matter: teal
+    ('CHM415115', 'C8'): '#f87171',   # Quantitative problems: red
     ('ENG315117', 'M1'): '#f87171',   # Genre study (thriller): red
     ('ENG315117', 'M2'): '#c084fc',   # Adaptation study: purple
     ('ENG315117', 'M3'): '#fb923c',   # Close text study: amber
